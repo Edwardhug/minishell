@@ -1,37 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_path.c                                         :+:      :+:    :+:   */
+/*   parsing_minishell.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/14 14:41:14 by lgabet            #+#    #+#             */
-/*   Updated: 2023/06/14 15:23:27 by lgabet           ###   ########.fr       */
+/*   Created: 2023/06/14 15:50:18 by lgabet            #+#    #+#             */
+/*   Updated: 2023/06/14 16:32:33 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-char	**get_path(char **env)
+void	parsing_minishell(char **path, char *line, char **env)
 {
-	char	*path;
-	char	**splited_path;
-	int		i;
+	// char		**splited_line;
+	// t_struct	to_send;
 
-	path = NULL;
-	i = 0;
-	while (path == NULL)
-	{
-		if (ft_strncmp(env[i], "PATH=", 5) == 0)
-			path = env[i];
-		i++;
-	}
-	splited_path = ft_split(path, ':');
-	if (!splited_path)
-	{
-		ft_printf("Malloc error while splitting path\n");
-		exit(EXIT_FAILURE);
-	}
-	return (splited_path);
+	if (line[0] == '\n')
+		return ;
+	ft_printf("%s", line);
+	// splited_line = ft_split(line, ' ');
+	// if (splited[0][0] == '<' && splited[0][1] != '<')
+	// 	to_send.stdin = open(splited[1], O_RDONLY);
+	(void)path;
+	(void)env;
 }
-

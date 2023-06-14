@@ -1,37 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_path.c                                         :+:      :+:    :+:   */
+/*   free_tab.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/14 14:41:14 by lgabet            #+#    #+#             */
-/*   Updated: 2023/06/14 15:23:27 by lgabet           ###   ########.fr       */
+/*   Created: 2023/06/14 16:03:02 by lgabet            #+#    #+#             */
+/*   Updated: 2023/06/14 16:04:26 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-char	**get_path(char **env)
+void	free_tab(char **tab)
 {
-	char	*path;
-	char	**splited_path;
-	int		i;
+	int	i;
 
-	path = NULL;
 	i = 0;
-	while (path == NULL)
+	while (tab[i])
 	{
-		if (ft_strncmp(env[i], "PATH=", 5) == 0)
-			path = env[i];
+		free(tab[i]);
 		i++;
 	}
-	splited_path = ft_split(path, ':');
-	if (!splited_path)
-	{
-		ft_printf("Malloc error while splitting path\n");
-		exit(EXIT_FAILURE);
-	}
-	return (splited_path);
+	free(tab);
 }
-

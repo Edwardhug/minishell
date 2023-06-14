@@ -5,7 +5,9 @@ CC = cc
 CFLAG = -Wall -Wextra -Werror -g3
 
 SRCS =	parsing/minishell.c\
-		parsing/get_path.c
+		parsing/get_path.c\
+		parsing/parsing_minishell.c\
+		utils/free_tab.c\
 
 INCLUDE = minishell.h
 
@@ -63,6 +65,7 @@ $(OBJS)	: $(PATH_OBJS)%.o: $(PATH_SRCS)%.c $(PATH_INCLUDE)$(INCLUDE) $(LIBFT_A)
 $(PATH_OBJS) :
 				mkdir -p $(PATH_OBJS)
 				mkdir -p $(PATH_OBJS)/parsing
+				mkdir -p $(PATH_OBJS)/utils
 
 # $(PATH_OBJS_BONUS) :
 # 				mkdir -p $(PATH_OBJS_BONUS)

@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 14:27:24 by lgabet            #+#    #+#             */
-/*   Updated: 2023/06/14 14:49:16 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/06/14 16:04:36 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,18 @@
 
 # include "../Libft/all_libft.h"
 
+typedef struct s_struct
+{
+	int				stdin;
+	int 			stdout;
+	char 			*cmd;
+	char 			**flags;
+	char			*arg;
+	struct s_struct	*next;
+}			t_struct;
+
 char	**get_path(char **env);
+void	parsing_minishell(char **path, char *line, char **env);
+void	free_tab(char **tab);
 
 #endif
