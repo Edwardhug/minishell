@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 14:27:24 by lgabet            #+#    #+#             */
-/*   Updated: 2023/06/14 16:04:36 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/06/14 18:50:23 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include "../Libft/all_libft.h"
+# include <fcntl.h>
 
 typedef struct s_struct
 {
@@ -21,7 +22,7 @@ typedef struct s_struct
 	int 			stdout;
 	char 			*cmd;
 	char 			**flags;
-	char			*arg;
+	char			*target;
 	struct s_struct	*next;
 }			t_struct;
 
