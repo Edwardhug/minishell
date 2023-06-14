@@ -1,20 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/14 14:27:24 by lgabet            #+#    #+#             */
-/*   Updated: 2023/06/14 14:49:16 by lgabet           ###   ########.fr       */
+/*   Created: 2023/06/14 14:41:14 by lgabet            #+#    #+#             */
+/*   Updated: 2023/06/14 14:47:03 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../../include/minishell.h"
 
-# include "../Libft/all_libft.h"
+char	**get_path(char **env)
+{
+	char	*path;
+	char	**splited_path;
+	int		i;
 
-char	**get_path(char **env);
-
-#endif
+	path = NULL;
+	i = 0;
+	while (path == NULL)
+	{
+		if (ft_strncmp(env[i], "PATH=", 5) == 0)
+			path = env[i];
+		i++;
+	}
+	splited_path = ft_split(path, ':');
+	if (!splited_path)
+	{
+		ft_printf("Malloc error while splitting path\n");
+		exit(EXIT_FAILURE);
+	}
+	return (splited_path);
+}
