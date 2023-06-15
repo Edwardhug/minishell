@@ -6,11 +6,36 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 14:28:48 by lgabet            #+#    #+#             */
-/*   Updated: 2023/06/14 16:06:10 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/06/15 11:44:09 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+char	*remove_new_line(char *str)
+{
+	int 	i;
+	char	*to_ret;
+
+	i = 0;
+	while (str[i] && str[i] != '\n')
+		i++;
+	to_ret = malloc(sizeof(char) * (i + 1));
+	if (!to_ret)
+	{
+		free(str);
+		exit(EXIT_FAILURE);
+	}
+	i = 0;
+	while (str[i] && str[i] != '\n')
+	{
+		to_ret[i] = str[i];
+		i++;
+	}
+	to_ret[i] = 0;
+	free(str);
+	return (to_ret);
+}
 
 int main(int ac, char **av, char **env)
 {
@@ -24,6 +49,7 @@ int main(int ac, char **av, char **env)
 	{
 		ft_printf("minishell>");
 		line = get_next_line(0);
+		line = remove_new_line(line);
 		if (line == NULL)
 			break ;
 		parsing_minishell(path, line, env);
