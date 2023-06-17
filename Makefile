@@ -7,6 +7,7 @@ CFLAG = -Wall -Wextra -Werror -g3
 SRCS =	parsing/minishell.c\
 		parsing/get_path.c\
 		parsing/parsing_minishell.c\
+		parsing/ft_here_doc.c\
 		utils/free_tab.c\
 
 INCLUDE = minishell.h

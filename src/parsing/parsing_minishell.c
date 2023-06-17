@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:50:18 by lgabet            #+#    #+#             */
-/*   Updated: 2023/06/15 11:45:02 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/06/16 17:23:59 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@ void	print_node(t_struct node)
 		j++;
 	}
 	ft_printf("target = %s\n", node.target);
-	
 }
 
 void	set_up_first_node(t_struct *node)
 {
-	node->stdin = 1;
+	node->stdin = 0;
 	node->stdout = 1;
 	node->target = NULL;
-	node->flags = malloc(sizeof(char *) * (100000));
+	node->cmd = NULL;
+	node->flags = calloc(10000, sizeof(char *));
 	node->next = NULL;
 }
 
@@ -40,6 +40,12 @@ int	change_stdin(char **splited_line, t_struct *to_send, int i)
 	{
 		i++;
 		to_send->stdin = open(splited_line[1], O_RDONLY);
+	}
+	else if (splited_line[i][0] == '<' && splited_line[i][1] == '<'
+		&& ft_strlen(splited_line[i]) == 2)
+	{
+		ft_here_doc(splited_line[i + 1]);
+		i++;
 	}
 	return (i);
 }
@@ -79,6 +85,7 @@ void	parsing_minishell(char **path, char *line, char **env)
 	splited_line = ft_split(line, ' ');
 	i = change_stdin(splited_line, &to_send, i);
 	i = fill_node(splited_line, &to_send, i);
+	// ft_putstr_fd("HEEEERE\n", 2);
 	print_node(to_send);
 	(void)path;
 	(void)env;

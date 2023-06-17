@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 14:27:24 by lgabet            #+#    #+#             */
-/*   Updated: 2023/06/14 18:50:23 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/06/16 17:23:32 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include "../Libft/all_libft.h"
 # include <fcntl.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 
 typedef struct s_struct
 {
@@ -29,5 +31,6 @@ typedef struct s_struct
 char	**get_path(char **env);
 void	parsing_minishell(char **path, char *line, char **env);
 void	free_tab(char **tab);
+void	ft_here_doc(char *limiter);
 
 #endif
