@@ -8,6 +8,7 @@ SRCS =	parsing/minishell.c\
 		parsing/get_path.c\
 		parsing/parsing_minishell.c\
 		utils/free_tab.c\
+		parsing/struct_utils.c\
 
 INCLUDE = minishell.h
 
