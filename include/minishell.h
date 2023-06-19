@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 14:27:24 by lgabet            #+#    #+#             */
-/*   Updated: 2023/06/16 17:23:32 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/06/19 12:56:51 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,21 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 
+typedef enum s_enum
+{
+	CMD;
+	FLAG;
+	ARG;
+	PIPE;
+	INFILE;
+	OUTFILE;
+	FILE;
+}			t_enum;
+
 typedef struct s_struct
 {
-	int				stdin;
-	int 			stdout;
-	char 			*cmd;
-	char 			**flags;
-	char			*target;
+	char 	*str;
+	t_enum	type;
 	struct s_struct	*next;
 }			t_struct;
 
