@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:50:18 by lgabet            #+#    #+#             */
-/*   Updated: 2023/06/19 15:42:05 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/06/19 17:11:54 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void print_list(t_struct *list)
 {
 	int	i = 0;
 
-	while (list->next)
+	while (list)
 	{
 		ft_printf("node n%d\n	-str = %s\n	-type = %d\n", i, list->str, list->type);
 		i++;
@@ -32,14 +32,8 @@ void fill_node(t_struct **list_word, char *word)
 	if (!word)
 		return ;
 	tmp = *list_word;
-	while (tmp->next != NULL)
-		tmp = tmp->next;
-	if (tmp->type == REDIRECTION)
-		type = FILE;
-	if (tmp->type == ENUM_NULL)
-		type = CMD;
-	if (tmp->type == CMD)
-		type = ARG;
+	type = find_type_enum(tmp, word);		//currently working on this
+	word = remove_quotes(word);
 	add_node_back(list_word, new_node(word, type));
 }
 
@@ -106,7 +100,6 @@ void	parsing_minishell(char **path, char *line, char **env)
 		if (line[i] == ' ')
 			i++;
 	}
-	// ft_printf("YOOOOO");
 	print_list(list_word);
 	(void)path;
 	(void)env;
