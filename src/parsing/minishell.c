@@ -6,7 +6,7 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 14:28:48 by lgabet            #+#    #+#             */
-/*   Updated: 2023/06/17 11:18:56 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/06/19 14:10:36 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int	main(int ac, char **av, char **env)
 		line = remove_new_line(line);
 		if (line == NULL)
 			break ;
+		line = remove_new_line(line);
 		parsing_minishell(path, line, env);
 		free(line);
 	}

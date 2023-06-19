@@ -6,7 +6,7 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:50:18 by lgabet            #+#    #+#             */
-/*   Updated: 2023/06/17 11:19:56 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/06/19 14:10:50 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,69 +26,108 @@ void	print_node(t_struct node)
 	ft_printf("target = %s\n", node.target);
 }
 
-void	set_up_first_node(t_struct *node)
-{
-	node->stdin = 0;
-	node->stdout = 1;
-	node->target = NULL;
-	node->cmd = NULL;
-	node->flags = calloc(10000, sizeof(char *));
-	node->next = NULL;
-}
+// int	change_stdin(char **splited_line, t_struct *to_send, int i)
+// {
+// 	if (splited_line[i][0] == '<' && ft_strlen(splited_line[i]) == 1)
+// 	{
+// 		i++;
+// 		to_send->stdin = open(splited_line[1], O_RDONLY);
+// 	}
+// 	else if (splited_line[i][0] == '<' && splited_line[i][1] == '<'
+// 		&& ft_strlen(splited_line[i]) == 2)
+// 	{
+// 		ft_here_doc(splited_line[i + 1]);
+// 		i++;
+// 	}
+// 	return (i);
+// }
 
-int	change_stdin(char **splited_line, t_struct *to_send, int i)
-{
-	if (splited_line[i][0] == '<' && ft_strlen(splited_line[i]) == 1)
-	{
-		i++;
-		to_send->stdin = open(splited_line[1], O_RDONLY);
-	}
-	else if (splited_line[i][0] == '<' && splited_line[i][1] == '<'
-		&& ft_strlen(splited_line[i]) == 2)
-	{
-		ft_here_doc(splited_line[i + 1]);
-		i++;
-	}
-	return (i);
-}
+// int	fill_node(char **splited_line, t_struct *node, int i)
+// {
+// 	int	j;
 
-int	fill_node(char **splited_line, t_struct *node, int i)
+// 	j = 0;
+// 	node->cmd = splited_line[i];
+// 	i++;
+// 	while (splited_line[i])
+// 	{
+// 		if (access(splited_line[i], F_OK) != -1)
+// 		{
+// 			node->flags[j] = NULL;
+// 			node->target = splited_line[i];
+// 			return (++i);
+// 		}
+// 		node->flags[j] = splited_line[i];
+// 		i++;
+// 		j++;
+// 	}
+// 	return (i);
+// }
+
+char	*find_end_of_the_word(char *line, int *i)
 {
-	int	j;
+	int		j;
+	char	*word;
 
 	j = 0;
-	node->cmd = splited_line[i];
-	i++;
-	while (splited_line[i])
+	while (line[(*i) + j] && line[(*i) + j] != ' ')
+		j++;
+	word = calloc((j + 1), sizeof(char));
+	if (!word)
+		return (NULL);
+	j = 0;
+	while (line[(*i) + j] && line[(*i) + j] != ' ')
 	{
-		if (access(splited_line[i], F_OK) != -1)
-		{
-			node->flags[j] = NULL;
-			node->target = splited_line[i];
-			return (++i);
-		}
-		node->flags[j] = splited_line[i];
-		i++;
+		word[j] = line[(*i) + j];
 		j++;
 	}
-	return (i);
+	(*i) = (*i) + j;
+	return (word);
+}
+
+char	*find_second_quote(char *line, int *i)
+{
+	int		j;
+	char	*word;
+
+	j = 0;
+	(*i)++;
+	while (line[(*i) + j] && line[(*i) + j] != '"')
+		j++;
+	if (!line[j + (*i)])
+		return (NULL);
+	word = calloc((j + 1), sizeof(char));
+	if (!word)
+		return (NULL);
+	j = 0;
+	while (line[(*i) + j] != '"')
+	{
+		word[j] = line[(*i) + j];
+		j++;
+	}
+	(*i) = (*i) + j + 1;
+	return (word);
 }
 
 void	parsing_minishell(char **path, char *line, char **env)
 {
-	char		**splited_line;
-	int 		i;
-	t_struct	to_send;
+	// t_struct	to_send;
+	char		*word;
+	int			i;
 
+	word = NULL;
 	i = 0;
-	if (line[0] == '\n')
-		return ;
-	set_up_first_node(&to_send);
-	splited_line = ft_split(line, ' ');
-	i = change_stdin(splited_line, &to_send, i);
-	i = fill_node(splited_line, &to_send, i);
-	// ft_putstr_fd("HEEEERE\n", 2);
-	print_node(to_send);
+	while (line[i])
+	{
+		if (line[i] == '"')
+			word = find_second_quote(line, &i);
+		else
+			word = find_end_of_the_word(line, &i);
+		if (line[i] == ' ')
+			i++;
+		ft_printf("%s\n", word);
+		free(word);
+	}
 	(void)path;
 	(void)env;
 }

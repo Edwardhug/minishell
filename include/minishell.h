@@ -6,7 +6,7 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 14:27:24 by lgabet            #+#    #+#             */
-/*   Updated: 2023/06/19 13:47:08 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/06/19 14:09:53 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,17 @@
 # include <fcntl.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+
+typedef enum s_enum
+{
+	CMD,
+	FLAG,
+	ARG,
+	PIPE,
+	INFILE,
+	OUTFILE,
+	FILE,
+}			t_enum;
 
 typedef struct s_struct
 {
@@ -42,8 +53,8 @@ typedef struct s_exec
 }				t_exec;
 
 char	**get_path(char **env);
-void	parsing_minishell(char **path, char *line, char **env);
 void	free_tab(char **tab);
-void	ft_here_doc(char *limiter);
+void	parsing_minishell(char **path, char *line, char **env);
+// void	ft_here_doc(char *limiter);
 
 #endif
