@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_tab.c                                         :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/14 16:03:02 by lgabet            #+#    #+#             */
-/*   Updated: 2023/06/17 14:06:43 by jrenault         ###   ########lyon.fr   */
+/*   Created: 2023/06/18 13:47:53 by jrenault          #+#    #+#             */
+/*   Updated: 2023/06/18 14:09:59 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
-
-void	free_tab(char **tab)
-{
-	int	i;
-
-	i = 0;
-	while (tab[i])
+/*
+	void	ft_exit(t_struct *lst)
 	{
-		free(tab[i]);
-		i++;
+		On check les arguments.
+		Si il y a plus d'un argument, c'est une erreur.
+		Dans ce cas, on renvoie un message d'erreur et on continue à exécuter le shell.
+
+		On free tout, clean tout.
+		exit(?);
 	}
-	free(tab);
-}
+*/

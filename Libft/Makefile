@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+         #
+#    By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/30 11:46:37 by lgabet            #+#    #+#              #
-#    Updated: 2023/05/03 16:04:31 by lgabet           ###   ########.fr        #
+#    Updated: 2023/06/17 13:41:28 by jrenault         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 

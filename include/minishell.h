@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 14:27:24 by lgabet            #+#    #+#             */
-/*   Updated: 2023/06/16 17:23:32 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/06/19 13:47:08 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,25 @@
 typedef struct s_struct
 {
 	int				stdin;
-	int 			stdout;
-	char 			*cmd;
-	char 			**flags;
+	int				stdout;
+	char			*cmd;
+	char			**flags;
 	char			*target;
 	struct s_struct	*next;
 }			t_struct;
+
+typedef struct s_exec
+{
+	int		nb_cmds;
+	int		**pipes;
+	int		infile_fd;
+	int		outfile_fd;
+	char	*true_path;
+	char	*tmp;
+	char	**cmds;
+	char	**env;
+	char	**path;
+}				t_exec;
 
 char	**get_path(char **env);
 void	parsing_minishell(char **path, char *line, char **env);

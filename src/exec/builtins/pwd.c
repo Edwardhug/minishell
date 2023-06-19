@@ -1,26 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_tab.c                                         :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/14 16:03:02 by lgabet            #+#    #+#             */
-/*   Updated: 2023/06/17 14:06:43 by jrenault         ###   ########lyon.fr   */
+/*   Created: 2023/06/18 14:47:33 by jrenault          #+#    #+#             */
+/*   Updated: 2023/06/18 15:03:36 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
-
-void	free_tab(char **tab)
+/*
+void	ft_pwd()
 {
-	int	i;
-
-	i = 0;
-	while (tab[i])
-	{
-		free(tab[i]);
-		i++;
-	}
-	free(tab);
+	On utilise get_cwd(*buf, size_t size) pour récupérer le répertoire et on l'affiche.
+	Pas plus compliqué que ça.
 }
+*/

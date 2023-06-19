@@ -66,6 +66,7 @@ $(OBJS)	: $(PATH_OBJS)%.o: $(PATH_SRCS)%.c $(PATH_INCLUDE)$(INCLUDE) $(LIBFT_A)
 $(PATH_OBJS) :
 				mkdir -p $(PATH_OBJS)
 				mkdir -p $(PATH_OBJS)/parsing
+				mkdir -p $(PATH_OBJS)/exec
 				mkdir -p $(PATH_OBJS)/utils
 
 # $(PATH_OBJS_BONUS) :
@@ -73,6 +74,9 @@ $(PATH_OBJS) :
 
 $(LIBFT_A)	:	FORCE
 				make all -C $(PATH_LIBFT)
+
+$(PIPEX_A)	:	FORCE
+				make all -C $(PATH_PIPEX)
 
 # ----------------------------------commands---------------------------------
 

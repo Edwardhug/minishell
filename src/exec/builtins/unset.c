@@ -1,26 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_tab.c                                         :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/14 16:03:02 by lgabet            #+#    #+#             */
-/*   Updated: 2023/06/17 14:06:43 by jrenault         ###   ########lyon.fr   */
+/*   Created: 2023/06/18 15:57:15 by jrenault          #+#    #+#             */
+/*   Updated: 2023/06/18 16:00:46 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
-
-void	free_tab(char **tab)
+/*
+void	unset()
 {
-	int	i;
-
-	i = 0;
-	while (tab[i])
-	{
-		free(tab[i]);
-		i++;
-	}
-	free(tab);
+	unset supprime une variable d'environnement.
+	On vérifie qu'il y a au moins un argument.
+	Pour chaque argument donné, on cherche l'entrée correspondante.
+	Une fois l'entrée trouvée, on la supprime de la liste.
 }
+*/

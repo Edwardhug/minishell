@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_minishell.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:50:18 by lgabet            #+#    #+#             */
-/*   Updated: 2023/06/16 17:23:59 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/06/17 11:19:56 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 void	print_node(t_struct node)
 {
-	int	j = 0;
+	int	j;
+
+	j = 0;
 	ft_printf("stdin = %d\nstdout = %d\ncmd = %s\n", node.stdin, node.stdout, node.cmd);
 	while (node.flags[j])
 	{
