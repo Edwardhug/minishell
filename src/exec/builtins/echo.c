@@ -6,7 +6,7 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 13:37:12 by jrenault          #+#    #+#             */
-/*   Updated: 2023/06/18 14:08:39 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/06/19 14:28:36 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,4 @@ void	ft_echo(t_struct *lst)
 pas oublier:
 "bonjour""bonjour" renvoie: bonjourbonjour
 "bonjour" "bonjour" renvoie: bonjour bonjour
-
 */

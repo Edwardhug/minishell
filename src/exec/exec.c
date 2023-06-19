@@ -6,7 +6,7 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 12:51:14 by jrenault          #+#    #+#             */
-/*   Updated: 2023/06/19 14:05:41 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/06/19 16:56:21 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ void	execute(t_struct *lst, t_exec *exec)
 	pid_t	*pids;
 	int		i;
 
+	init_params();
+	find_all_path();
 	pids = malloc(sizeof(pid_t) * exec->nb_cmds);
 	if (!pids)
 		return ;
@@ -106,32 +108,45 @@ void	execute(t_struct *lst, t_exec *exec)
 		exec->infile_fd = exec->pipes[i - 1][0];
 		exec->outfile_fd = exec->pipes[i][1];
 		run_command(lst, exec, pids, i);
+		i++;
 	}
 }
-
 int	do_builtin(t_struct *lst)
 {
-	if (ft_strcmp(lst->cmd, "cd") == 0)
+	if (ft_strcmp(lst->str, "cd") == 0)
 		return (ft_cd(), 1);
-	else if (ft_strcmp(lst->cmd, "echo") == 0)
+	else if (ft_strcmp(lst->str, "echo") == 0)
 		return (ft_echo(), 1);
-	else if (ft_strcmp(lst->cmd, "exit") == 0)
+	else if (ft_strcmp(lst->str, "exit") == 0)
 		return (ft_exit(), 1);
-	else if (ft_strcmp(lst->cmd, "env") == 0)
+	else if (ft_strcmp(lst->str, "env") == 0)
 		return (ft_env(), 1);
-	else if (ft_strcmp(lst->cmd, "pwd") == 0)
+	else if (ft_strcmp(lst->str, "pwd") == 0)
 		return (ft_pwd(), 1);
-	else if (ft_strcmp(lst->cmd, "unset") == 0)
+	else if (ft_strcmp(lst->str, "unset") == 0)
 		return (ft_unset(), 1);
-	else if (ft_strcmp(lst->cmd, "export") == 0)
+	else if (ft_strcmp(lst->str, "export") == 0)
 		return (ft_export(), 1);
 	return (0);
 }
 
 void	exec(t_struct *lst, t_exec *exec)
 {
-	init_params();
-	find_all_path();
+	//On crée un char ** args.
+	//On compte le nbr de pipes
+	//si 0 pipe on execve juste
+	//si pipe on fork et tout le bordel.
+	//et donc la séparation de la liste en args et compagnie on va le faire dans une boucle, et on va conserver où on est dans la liste
+	//pour traiter la suite.
+	//on fait ça pour chaque pipe du coup
+
+	//normalement on est bon pour les cas normaux
 	if (do_builtin(lst) == 0)
 		execute(lst, exec);
 }
+
+//fonction qui parcourt la liste chaînée et compte le nombre de pipes, puis le met dans exec->nb_pipes
+//si le noeud est une commande, on check si builtin sinon dans execve
+//check si la suite est une option/argument pour le prendre avec
+//on fout tout dans un char **
+//on pipex le bordel
