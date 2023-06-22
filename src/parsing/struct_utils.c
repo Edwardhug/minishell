@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 14:52:22 by lgabet            #+#    #+#             */
-/*   Updated: 2023/06/19 15:32:50 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/06/22 12:26:29 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,15 @@ t_struct	*get_last_node(t_struct *lst)
 	while (lst->next)
 		lst = lst->next;
 	return (lst);
+}
+
+void	delete_node(t_struct **lst)
+{
+	t_struct	*tmp;
+
+	tmp = *lst;
+	*lst = (*lst)->next;
+	free(tmp->str);
+	tmp->str = NULL;
+	free(tmp);
 }

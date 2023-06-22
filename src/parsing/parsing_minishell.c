@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:50:18 by lgabet            #+#    #+#             */
-/*   Updated: 2023/06/19 17:11:54 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/06/22 12:38:01 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ void	parsing_minishell(char **path, char *line, char **env)
 	int			i;
 	t_struct	*list_word;
 
+	if (line[0] == 0)
+		return ;
 	list_word = new_node(NULL, ENUM_NULL);
 	i = 0;
 	while (line[i])
@@ -100,7 +102,8 @@ void	parsing_minishell(char **path, char *line, char **env)
 		if (line[i] == ' ')
 			i++;
 	}
-	print_list(list_word);
-	(void)path;
-	(void)env;
+	delete_node(&list_word);
+	// print_list(list_word);
+	exec(path, env, list_word);
+	free_list(&list_word);
 }

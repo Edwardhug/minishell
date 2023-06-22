@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 17:02:27 by lgabet            #+#    #+#             */
-/*   Updated: 2023/06/19 17:12:22 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/06/22 12:34:29 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,15 @@ char	*remove_quotes(char *str)
 	int		i;
 	int		j;
 
-	i = 0;
+	// i = 0;
 	j = 0;
-	while (str[i])
-	{
-		if (str[i] == '"')
-			i++;
-		i++;
-	}
+	// while (str[i])
+	// {
+	// 	if (str[i] == '"')
+	// 		i++;
+	// 	i++;
+	// }
+	i = ft_strlen(str);
 	ret = calloc((i + 1), sizeof(char));
 	if (!ret)
 		return (NULL);
@@ -34,9 +35,12 @@ char	*remove_quotes(char *str)
 	{
 		if (str[i] == '"')
 			i++;
-		ret[j] = str[i];
-		i++;
-		j++;
+		else
+		{
+			ret[j] = str[i];
+			i++;
+			j++;	
+		}
 	}
 	return (free(str), ret);
 }
