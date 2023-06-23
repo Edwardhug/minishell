@@ -4,6 +4,8 @@ CC = cc
 
 CFLAG = -Wall -Wextra -Werror -g3
 
+LINKFLAG = -lreadline -L/usr/include
+
 SRCS =	parsing/minishell.c\
 		parsing/get_path.c\
 		parsing/parsing_minishell.c\
@@ -47,7 +49,7 @@ PATH_LIBFT = Libft/
 all: $(NAME)
 
 $(NAME) : $(PATH_OBJS) $(OBJS) $(PATH_INCLUDE)$(INCLUDE)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT_A) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT_A) -o $(NAME) $(LINKFLAG)
 
 
 $(OBJS)	: $(PATH_OBJS)%.o: $(PATH_SRCS)%.c $(PATH_INCLUDE)$(INCLUDE) $(LIBFT_A)

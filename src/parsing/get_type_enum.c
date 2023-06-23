@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 16:15:26 by lgabet            #+#    #+#             */
-/*   Updated: 2023/06/19 17:18:21 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/06/23 15:16:03 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,13 @@ t_enum	find_type_enum(t_struct *tmp, char *word)
 		type = PIPE;
 	else if (is_a_redirection(word))
 		type = REDIRECTION;
-	else if (tmp->type == ENUM_NULL || tmp->type == FILE || tmp->type == PIPE)
+	else if (tmp->type == ENUM_NULL || tmp->type == FILES || tmp->type == PIPE)
 		type = CMD;
 	else if ((tmp->type == CMD || tmp->type == OPT) && word[0] == '-')
 		type = OPT;
 	else if (((tmp->type == CMD || tmp->type == OPT) && word[0] != '-') || tmp->type == ARG)
 		type = ARG;
 	else if (tmp->type == REDIRECTION)
-		type = FILE;
+		type = FILES;
 	return (type);
 }

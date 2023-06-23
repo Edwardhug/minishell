@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 14:27:24 by lgabet            #+#    #+#             */
-/*   Updated: 2023/06/22 12:38:22 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/06/23 15:16:15 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 # include <fcntl.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <stdio.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 typedef enum s_enum
 {
@@ -26,7 +29,7 @@ typedef enum s_enum
 	ARG,
 	PIPE,
 	REDIRECTION,
-	FILE,
+	FILES,
 }			t_enum;
 
 typedef struct s_struct
@@ -47,6 +50,6 @@ char		*remove_quotes(char *str);
 void		delete_node(t_struct **lst);
 void		free_list(t_struct **lst);
 
-void print_list(t_struct *list)
+void print_list(t_struct *list);
 
 #endif

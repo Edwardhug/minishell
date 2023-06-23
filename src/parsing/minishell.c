@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 14:28:48 by lgabet            #+#    #+#             */
-/*   Updated: 2023/06/19 13:12:08 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/06/23 15:17:32 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ int main(int ac, char **av, char **env)
 	path = get_path(env);
 	while (1)
 	{
-		ft_printf("minishell>");
-		line = get_next_line(0);
+		// ft_printf("minishell>");
+		line = readline("Minishell>");
 		if (line == NULL)	
 			break ;
 		line = remove_new_line(line);
