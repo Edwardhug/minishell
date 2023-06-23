@@ -6,7 +6,7 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 12:51:14 by jrenault          #+#    #+#             */
-/*   Updated: 2023/06/19 16:56:21 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/06/23 15:50:36 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	path_and_access(t_struct *lst, t_exec *exec, pid_t *pids)
 
 	if (!exec->path)
 	{
-		args = ft_split(lst->cmd, ' ');
+		args = ft_split(lst->str, ' ');
 		if (!args)
 		{
 			//secure
@@ -66,7 +66,7 @@ void	path_and_access(t_struct *lst, t_exec *exec, pid_t *pids)
 	i = -1;
 	while (exec->path[++i])
 	{
-		args = ft_split(lst->cmd, ' ');
+		args = ft_split(lst->str, ' ');
 		if (!args)
 		{
 			//secure
@@ -111,7 +111,7 @@ void	execute(t_struct *lst, t_exec *exec)
 		i++;
 	}
 }
-int	do_builtin(t_struct *lst)
+static int	do_builtin(t_struct *lst)
 {
 	if (ft_strcmp(lst->str, "cd") == 0)
 		return (ft_cd(), 1);
@@ -130,7 +130,7 @@ int	do_builtin(t_struct *lst)
 	return (0);
 }
 
-void	exec(t_struct *lst, t_exec *exec)
+void	exec(char **path, char **env, t_struct *lst)
 {
 	//On crée un char ** args.
 	//On compte le nbr de pipes
@@ -141,8 +141,10 @@ void	exec(t_struct *lst, t_exec *exec)
 	//on fait ça pour chaque pipe du coup
 
 	//normalement on est bon pour les cas normaux
+	t_exec	exec;
+
 	if (do_builtin(lst) == 0)
-		execute(lst, exec);
+		execute(lst, &exec);
 }
 
 //fonction qui parcourt la liste chaînée et compte le nombre de pipes, puis le met dans exec->nb_pipes

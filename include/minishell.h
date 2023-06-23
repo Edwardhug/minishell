@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/14 14:27:24 by lgabet            #+#    #+#             */
-/*   Updated: 2023/06/19 14:19:14 by jrenault         ###   ########lyon.fr   */
+/*   Created: 2023/06/23 15:33:16 by jrenault          #+#    #+#             */
+/*   Updated: 2023/06/23 15:50:24 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@
 
 typedef enum s_enum
 {
+	ENUM_NULL,
 	CMD,
-	FLAG,
+	OPT,
 	ARG,
 	PIPE,
-	INFILE,
-	OUTFILE,
+	REDIRECTION,
 	FILE,
 }			t_enum;
 
@@ -49,9 +49,21 @@ typedef struct s_exec
 	char	**path;
 }				t_exec;
 
-char	**get_path(char **env);
-void	free_tab(char **tab);
-void	parsing_minishell(char **path, char *line, char **env);
-// void	ft_here_doc(char *limiter);
+char		**get_path(char **env);
+void		free_tab(char **tab);
+void		parsing_minishell(char **path, char *line, char **env);
+t_struct	*new_node(char *content, t_enum type);
+t_struct	*get_last_node(t_struct *lst);
+void		add_node_back(t_struct **list, t_struct *new_node);
+t_enum		find_type_enum(t_struct *tmp, char *word);
+char		*remove_quotes(char *str);
+void		delete_node(t_struct **lst);
+void		free_list(t_struct **lst);
+void		print_list(t_struct *list);
+
+//exec
+void		exec(char **path, char **env, t_struct *lst);
+
+//builtins
 
 #endif
