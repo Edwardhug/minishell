@@ -6,7 +6,7 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 15:33:16 by jrenault          #+#    #+#             */
-/*   Updated: 2023/06/23 15:50:24 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/06/24 17:59:20 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_struct
 
 typedef struct s_exec
 {
+	int		nb_pipes;
 	int		nb_cmds;
 	int		**pipes;
 	int		infile_fd;
@@ -47,6 +48,8 @@ typedef struct s_exec
 	char	**cmds;
 	char	**env;
 	char	**path;
+	char	**args;
+	pid_t	*pids;
 }				t_exec;
 
 char		**get_path(char **env);
@@ -63,6 +66,10 @@ void		print_list(t_struct *list);
 
 //exec
 void		exec(char **path, char **env, t_struct *lst);
+
+//exec_utils
+int			what_exec(t_struct *lst);
+char		**take_full_cmd(t_struct *lst);
 
 //builtins
 
