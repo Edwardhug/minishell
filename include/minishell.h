@@ -6,7 +6,7 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 15:33:16 by jrenault          #+#    #+#             */
-/*   Updated: 2023/06/24 17:59:20 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/06/26 05:48:23 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,9 @@ void		exec(char **path, char **env, t_struct *lst);
 //exec_utils
 int			what_exec(t_struct *lst);
 char		**take_full_cmd(t_struct *lst);
+void		initialize_pipes(t_exec *exec);
+void		create_fork(t_exec *exec, t_struct *lst, int i);
+void	exec_simple(t_exec *exec, t_struct *lst);
 
 //builtins
 
