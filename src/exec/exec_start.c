@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 13:12:45 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/18 14:18:40 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/09/18 15:16:32 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,42 +41,38 @@ int	get_fd_in(t_struct *list_word, t_struct *temp_list, int fd_out) // fonction 
 				fd_in = open_fd_in(temp_list);					// l'entree c'est le fichier aui suit le ( < )
 		}
 		else
-			fd_in = dup(0);                                          // l'entree c'est le terminal
+			fd_in = dup(STDIN_FILENO);                                          // l'entree c'est le terminal
 	}
 	else
-		fd_in = dup(fd_out);                                         // l'infile est le stdout deja existant
+		fd_in = dup(STDIN_FILENO);                                      // l'infile est le stdout deja existant
 	return (fd_in);
 }
 
-int	get_fd_out(t_struct *list_word, t_struct *temp_list) // fonction pour savoir quel sera le fdout de la commande qui arrive
+int	is_end(t_struct *temp_list)
 {
-	int fd_out;
-
 	while (temp_list)
 	{
-		if (temp_list->type == REDIRECTION)					// verifie si le str de la node est une redirection
-			if (ft_strncmp(list_word->str, ">>", 2) == 0)	// verifie si c'est une redirection qui m'efface pas ( >> )
-				// la sortie sera le fichier qui suit la redirection sans l'effacer ( >> )
-			else
-				// la sortie sera le fichier qui suit la redirection et l'effacera ( > )
-		if (temp_list->type == PIPE)						// verifie si le str de la node est une redirection
-			// besoin de preparer l'utilisation du pipe
+		if (temp_list->type == PIPE)
+			return (0);
+		temp_list = temp_list->next;
 	}
-	// si c'est ni une redirection, ni un pipe et qu'on arrive au bout de la liste chainee, c'est que c'est la sortie standard
-	return (fd_out);
+	return (1);
 }
 
 void exec_start(char **path, char **env, t_struct *list_word)
 {
 	int 		fd_in;
-	int			fd_out;
 	t_struct	*temp_list;
 
 	temp_list = list_word;
 	while (temp_list)
 	{
 		fd_in = get_fd_in(list_word, temp_list, fd_out);
-		fd_out = get_fd_out(list_word, temp_list);
-		exec_cmd(path, env, list_word, fd_in, fd_out);
+		if (is_end)												// check si il y a d'autres cmd ou si c'est la derniere ( si il y a un pipe quoi)
+			last_exec();										// si c'est la derniere commande on fait un dernier execv
+		else
+			exec_cmd(path, env, list_word, fd_in, fd_out);		// si c'est pas la derniere on applique la cmd sur le STDIN et on change le STDOUT
+		while (temp_list->type != PIPE)
+			temp_list = temp_list->next;
 	}
 }
