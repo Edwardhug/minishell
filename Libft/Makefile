@@ -3,92 +3,51 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+         #
+#    By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/03/30 11:46:37 by lgabet            #+#    #+#              #
-#    Updated: 2023/05/03 16:04:31 by lgabet           ###   ########.fr        #
+#    Created: 2022/11/09 15:15:05 by jrenault          #+#    #+#              #
+#    Updated: 2023/06/11 23:33:52 by jrenault         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= libft.a
-CC		= gcc
-CFLAGS	= -Wall -Wextra -Werror
+.PHONY: bonus all clean fclean re
 
-SRCS	= libft/srcs/ft_isascii.c\
-libft/srcs/ft_memset.c\
-libft/srcs/ft_strnstr.c\
-libft/srcs/ft_isdigit.c\
-libft/srcs/ft_strchr.c\
-libft/srcs/ft_strrchr.c\
-libft/srcs/ft_atoi.c\
-libft/srcs/ft_isprint.c\
-libft/srcs/ft_strdup.c\
-libft/srcs/ft_tolower.c\
-libft/srcs/ft_bzero.c\
-libft/srcs/ft_memchr.c\
-libft/srcs/ft_strlcat.c\
-libft/srcs/ft_toupper.c\
-libft/srcs/ft_calloc.c\
-libft/srcs/ft_memcmp.c\
-libft/srcs/ft_strlcpy.c\
-libft/srcs/ft_isalnum.c\
-libft/srcs/ft_memcpy.c\
-libft/srcs/ft_strlen.c\
-libft/srcs/ft_isalpha.c\
-libft/srcs/ft_memmove.c\
-libft/srcs/ft_strncmp.c\
-libft/srcs/ft_substr.c\
-libft/srcs/ft_strjoin.c\
-libft/srcs/ft_strtrim.c\
-libft/srcs/ft_split.c\
-libft/srcs/ft_itoa.c\
-libft/srcs/ft_strmapi.c\
-libft/srcs/ft_striteri.c\
-libft/srcs/ft_putchar_fd.c\
-libft/srcs/ft_putstr_fd.c\
-libft/srcs/ft_putendl_fd.c\
-libft/srcs/ft_putnbr_fd.c\
-libft/srcs/ft_lstnew.c\
-libft/srcs/ft_lstadd_front.c\
-libft/srcs/ft_lstsize.c\
-libft/srcs/ft_lstlast.c\
-libft/srcs/ft_lstadd_back.c\
-libft/srcs/ft_lstdelone.c\
-libft/srcs/ft_lstclear.c\
-libft/srcs/ft_lstiter.c\
-libft/srcs/ft_lstmap.c\
-get_next_line/srcs/get_next_line.c\
-get_next_line/srcs/get_next_line_utils.c\
-printf/srcs/ft_printchar.c\
-printf/srcs/ft_printstr.c\
-printf/srcs/ft_printf.c\
-printf/srcs/ft_printaddress.c\
-printf/srcs/ft_printnbr.c\
-printf/srcs/ft_print_unsigned.c\
-printf/srcs/ft_print_hexa.c\
-printf/srcs/ft_itoa.c\
-printf/srcs/ft_unsigned_itoa.c\
-printf/srcs/ft_itoa_x.c
+NAME = libft.a
 
-HEADERS = libft/includes/libft.h\
-get_next_line/includes/get_next_line.h\
-printf/includes/ft_printf.h
-OBJS= ${SRCS:.c=.o}
+SRCS = 	free_tab_int.c ft_strlen_doublechar.c ft_swap_int.c free_tab_void.c free_tab.c ft_count.c ft_count_ul.c ft_count_unsigned.c ft_count_long.c \
+		ft_putnbr_base_ul.c ft_putunbr.c ft_strncpy.c ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c ft_itoa.c \
+		ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c ft_putchar_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_putstr_fd.c ft_split.c ft_strchr.c ft_strdup.c ft_striteri.c \
+		ft_strjoin.c ft_strlcat.c ft_strlcpy.c ft_strlen.c ft_strmapi.c ft_strncmp.c ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_substr.c ft_tolower.c ft_toupper.c ft_putnbr.c ft_putnbr_base.c ft_putstr.c ft_putchar.c ft_strcpy.c \
+		ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstadd_back.c ft_lstlast.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c \
+		get_next_line/get_next_line.c get_next_line/get_next_line_utils.c \
+		ft_printf/ft_printf.c ft_printf/ispercent_c.c ft_printf/ispercent_capx.c ft_printf/ispercent_d_i.c ft_printf/ispercent_p.c ft_printf/ispercent_s.c ft_printf/ispercent_u.c ft_printf/ispercent_x.c ft_printf/search_arg.c \
 
-all: $(NAME)
+OBJS = ${SRCS:.c=.o}
 
-%.o : %.c $(HEADERS)
-		$(CC) $(CFLAGS) -c $< -o ${<:.c=.o}
-	
-$(NAME) : $(OBJS) $(HEADERS)
-	ar -rcs $(NAME) $(OBJS) $(HEADERS)
+CC = cc
+FLAGS = -Wall -Wextra -Werror
+SANITFLAG = -Wall -Wextra -Werror -g -fsanitize=address
+HEAD = libft.h
+
+LIB = ar rc
+
+RM = rm -f
+
+%.o:		%.c ${HEAD} Makefile
+			${CC} ${FLAGS} -include${HEAD} -c $< -o $@
+
+${NAME}: 	${OBJS} Makefile
+			${LIB} ${NAME} ${OBJS}
+
+sanit:		$(OBJS) main.c
+			${CC} ${SANITFLAG} $(OBJS) main.c
+
+all:		${NAME} Makefile
 
 clean:
-	rm -f ${OBJS}
+			${RM} ${OBJS}
 
-fclean: clean
-	rm -f $(NAME)
+fclean:		clean
+			${RM} ${NAME}
 
-re: fclean all
-
-.PHONY: all re bonus clean fclean
+re:			fclean all

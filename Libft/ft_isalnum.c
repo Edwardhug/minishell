@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   t_struct_utils.c                                   :+:      :+:    :+:   */
+/*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lezard <lezard@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/18 13:20:41 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/18 17:59:18 by lezard           ###   ########lyon.fr   */
+/*   Created: 2022/11/07 14:06:34 by jrenault          #+#    #+#             */
+/*   Updated: 2022/11/12 10:44:12 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "libft.h"
 
-size_t	t_struct_strlen(t_struct *list_word)
+int	ft_isalnum(int n)
 {
-	size_t	i;
-
-	i = 0;
-	while (list_word)
-		i++;
-	return (i);
+	if ((n >= 'A' && n <= 'Z') || (n >= 'a' && n <= 'z')
+		|| (n >= '0' && n <= '9'))
+		return (1);
+	return (0);
 }

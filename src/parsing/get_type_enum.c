@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_type_enum.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: lezard <lezard@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 16:15:26 by lgabet            #+#    #+#             */
-/*   Updated: 2023/06/23 15:16:03 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/09/18 16:07:50 by lezard           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	is_a_pipe(char *str)
 
 t_enum	find_type_enum(t_struct *tmp, char *word)
 {
-	t_enum type;
+	t_enum	type;
 
 	type = ENUM_NULL;
 	while (tmp->next != NULL)

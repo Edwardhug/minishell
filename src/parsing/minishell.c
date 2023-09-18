@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: lezard <lezard@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 14:28:48 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/18 13:13:44 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/09/18 16:03:25 by lezard           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*remove_new_line(char *str)
 {
-	int 	i;
+	int		i;
 	char	*to_ret;
 
 	i = 0;
@@ -55,7 +55,7 @@ int main(int ac, char **av, char **env)
 		parsing_minishell(path, line, env);
 		free(line);
 	}
-	rl_clear_history();
+//	rl_clear_history();
 	free_tab(path);
 	(void)av;
 	return (0);

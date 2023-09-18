@@ -12,7 +12,9 @@ SRCS =	parsing/minishell.c\
 		parsing/struct_utils.c\
 		parsing/get_type_enum.c\
 		parsing/remove_things.c\
+		exec/exec_start.c\
 		utils/free_tab.c\
+		utils/t_struct_utils.c\
 
 INCLUDE = minishell.h
 
@@ -70,6 +72,7 @@ $(OBJS)	: $(PATH_OBJS)%.o: $(PATH_SRCS)%.c $(PATH_INCLUDE)$(INCLUDE) $(LIBFT_A)
 $(PATH_OBJS) :
 				mkdir -p $(PATH_OBJS)
 				mkdir -p $(PATH_OBJS)/parsing
+				mkdir -p $(PATH_OBJS)/exec
 				mkdir -p $(PATH_OBJS)/utils
 
 # $(PATH_OBJS_BONUS) :

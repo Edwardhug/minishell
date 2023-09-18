@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   t_struct_utils.c                                   :+:      :+:    :+:   */
+/*   ft_count_unsigned.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lezard <lezard@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/18 13:20:41 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/18 17:59:18 by lezard           ###   ########lyon.fr   */
+/*   Created: 2022/11/25 12:42:59 by jrenault          #+#    #+#             */
+/*   Updated: 2022/11/25 12:43:49 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "libft.h"
 
-size_t	t_struct_strlen(t_struct *list_word)
+int	ft_count_unsigned(unsigned int n)
 {
-	size_t	i;
+	int	i;
 
-	i = 0;
-	while (list_word)
+	i = 1;
+	while (n >= 10)
+	{
+		n = n / 10;
 		i++;
+	}
 	return (i);
 }

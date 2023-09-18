@@ -3,40 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   free_tab.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: lezard <lezard@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:03:02 by lgabet            #+#    #+#             */
-/*   Updated: 2023/06/22 12:27:01 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/09/18 16:13:51 by lezard           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	free_tab(char **tab)
-{
-	int	i;
+// void	free_tab(char **tab)
+// {
+// 	int	i;
 
-	i = 0;
-	while (tab[i])
-	{
-		free(tab[i]);
-		i++;
-	}
-	free(tab);
-}
+// 	i = 0;
+// 	while (tab[i])
+// 	{
+// 		free(tab[i]);
+// 		i++;
+// 	}
+// 	free(tab);
+// }
 
 void	free_list(t_struct **lst)
 {
-	t_struct	*tamp;
+	t_struct	*temp;
 
 	if (lst && *lst)
 	{
 		while (*lst)
 		{
-			tamp = *lst;
+			temp = *lst;
 			free((*lst)->str);
-			*lst = tamp->next;
-			free(tamp);
+			*lst = temp->next;
+			free(temp);
 		}
 		*lst = NULL;
 	}
