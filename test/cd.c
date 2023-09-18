@@ -10,65 +10,12 @@
 /*																			*/
 /* ************************************************************************** */
 
-#include "../../../include/minishell.h"
+#include "test.h"
 
-char	*ft_get_cmd(char **env, char **splited_cmd)
+int	ft_cd(char *path)
 {
-	int		i;
-	char	*path;
-	char	**all_path;
-
-	i = 0;
-	path = NULL;
-	while (env[i])
-	{
-		if (ft_strncmp(env[i], "PATH=", 5) == 0)
-			path = env[i];
-		i++;
-	}
-	if (!path)
-		return (ft_free_tab(splited_cmd), NULL);
-	path = path + 5;
-	if (ft_strncmp(splited_cmd[0], "./", 2) == 0)
-		path = "";
-	all_path = ft_split(path, ':');
-	if (!all_path)
-		return (NULL);
-	return (ft_get_path_cmd(all_path, splited_cmd));
-}
-
-char	*ft_get_path_cmd(char **all_path, char **splited)
-{
-	int		i;
-	char	*tmp;
-	char	*path_cmd;
-
-	i = 0;
-	if (splited[0][0] == '/')
-	{
-		path_cmd = ft_strdup(splited[0]);
-		if (access(path_cmd, F_OK | X_OK) == -1)
-			return (print_error(splited, all_path, 0), free(path_cmd), NULL);
-		return (ft_free_tab(all_path), path_cmd);
-	}
-	while (all_path[i])
-	{
-		tmp = ft_strjoin(all_path[i], "/");
-		path_cmd = ft_strjoin(tmp, splited[0]);
-		if (access(path_cmd, F_OK | X_OK) != -1)
-			return (free(tmp), path_cmd);
-		free(path_cmd);
-		free(tmp);
-		i++;
-	}
-	print_error(splited, all_path, 1);
-	return (NULL);
-}
-
-int	ft_cd(t_exec *exec)
-{
-	if (chdir(exec->true_path) == -1)
-		perror("chdir");
+	if (chdir(path) == -1)
+		return (perror("chdir"), 1);
 	return (0);
 }
 

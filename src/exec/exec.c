@@ -6,7 +6,7 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 12:51:14 by jrenault          #+#    #+#             */
-/*   Updated: 2023/06/26 05:48:20 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/09/18 14:07:54 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,27 +18,28 @@ static void	execute_command(t_exec *exec, char **args)
 	//
 }
 
-// static int	do_builtin(t_struct *lst, char **path, char **env)
-// {
-// 	(void)lst;
-// 	(void)path;
-// 	(void)env;
-// 	if (ft_strcmp(lst->str, "cd") == 0)
-// 		return (ft_cd(), 1);
-// 	else if (ft_strcmp(lst->str, "echo") == 0)
-// 		return (ft_echo(), 1);
-// 	else if (ft_strcmp(lst->str, "exit") == 0)
-// 		return (ft_exit(), 1);
-// 	else if (ft_strcmp(lst->str, "env") == 0)
-// 		return (ft_env(), 1);
-// 	else if (ft_strcmp(lst->str, "pwd") == 0)
-// 		return (ft_pwd(), 1);
-// 	else if (ft_strcmp(lst->str, "unset") == 0)
-// 		return (ft_unset(), 1);
-// 	else if (ft_strcmp(lst->str, "export") == 0)
-// 		return (ft_export(), 1);
-// 	return (0);
-// }
+static int	do_builtin(t_struct *lst, char **path, char **env)
+{
+	(void)lst;
+	(void)path;
+	(void)env;
+	return (0);
+	if (ft_strcmp(lst->str, "cd") == 0)
+		return (ft_cd(), 1);
+	else if (ft_strcmp(lst->str, "echo") == 0)
+		return (ft_echo(), 1);
+	else if (ft_strcmp(lst->str, "exit") == 0)
+		return (ft_exit(), 1);
+	else if (ft_strcmp(lst->str, "env") == 0)
+		return (ft_env(), 1);
+	else if (ft_strcmp(lst->str, "pwd") == 0)
+		return (ft_pwd(), 1);
+	else if (ft_strcmp(lst->str, "unset") == 0)
+		return (ft_unset(), 1);
+	else if (ft_strcmp(lst->str, "export") == 0)
+		return (ft_export(), 1);
+	return (0);
+}
 
 static void	access_cmd(t_exec *exec, char **args, int i)
 {
@@ -80,6 +81,7 @@ void	exec_simple(t_exec *exec, t_struct *lst)
 	i = -1;
 	while (exec->path[++i])
 	{
+//on récupère la commande en entier en prenant cmd, opt, arg
 		args = take_full_cmd(lst);
 //		if (!args)
 //			exit_failure_access(exec, args, 2);
@@ -90,29 +92,15 @@ void	exec_simple(t_exec *exec, t_struct *lst)
 		}
 		access_cmd(exec, args, i);
 	}
-//	command_not_found(exec, cmd);
 }
 
 void	exec(char **path, char **env, t_struct *lst)
 {
 	t_exec	exec;
 
-	int		i;
 	exec.env = env;
 	exec.path = path;
-	exec.nb_pipes = what_exec(lst);
-	exec.nb_cmds = exec.nb_pipes + 1;
-	
-	i = 0;
-	initialize_pipes(&exec);
-	exec.pids = malloc(sizeof(pid_t) * exec.nb_cmds);
-	while (i < exec.nb_cmds)
-	{
-		exec.infile_fd = exec.pipes[i - 1][0];
-	 	exec.outfile_fd = exec.pipes[i][1];
-		i++;
-	}
-	
+	exec.nb_cmds = what_exec(lst);
 }
 	//on compte les pipes dès le début sinon et si y'en a pas on s'en branle
 	//si y'en a et que c'est juste des commandes on fait exec sans infiles outfile
@@ -132,13 +120,6 @@ void	exec(char **path, char **env, t_struct *lst)
 	// 	i++;
 	// }
 
-	//On crée un char ** args.
-	//On compte le nbr de pipes
-	//si 0 pipe on execve juste
-	//si pipe on fork et tout le bordel.
-	//et donc la séparation de la liste en args et compagnie on va le faire dans une boucle, et on va conserver où on est dans la liste
-	//pour traiter la suite.
-	//on fait ça pour chaque pipe du coup
 
 	//normalement on est bon pour les cas normaux
 //fonction qui parcourt la liste chaînée et compte le nombre de pipes, puis le met dans exec->nb_pipes
@@ -146,3 +127,7 @@ void	exec(char **path, char **env, t_struct *lst)
 //check si la suite est une option/argument pour le prendre avec
 //on fout tout dans un char **
 //on exec le bordel
+
+/*
+
+*/
