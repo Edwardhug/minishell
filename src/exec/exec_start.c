@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_start.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lezard <lezard@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42lyon.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 18:08:24 by lezard            #+#    #+#             */
-/*   Updated: 2023/09/19 14:45:00 by lezard           ###   ########lyon.fr   */
+/*   Updated: 2023/09/19 13:59:39 by codespace        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	is_builtin(t_exec *exec, t_struct *temp_word)
 {
 	printf("on entre dans is_builtin\n");
-	if (strnstr("cd", temp_word->str, 2) == 0)
+	if (ft_strnstr("cd", temp_word->str, 2) == 0)
 	{
 		printf("on trouve cd dans les commandes");
 		return (ft_cd(exec, temp_word), 1);

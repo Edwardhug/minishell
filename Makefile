@@ -22,7 +22,7 @@ INCLUDE = minishell.h
 
 OBJS = $(SRCS:%.c=$(PATH_OBJS)%.o)
 
-LIBFT_A = Libft/libft.a
+LIBFT_A = libft/libft.a
 
 PATH_SRCS = src/
 
@@ -30,7 +30,7 @@ PATH_INCLUDE = include/
 
 PATH_OBJS = obj/
 
-PATH_LIBFT = Libft/
+PATH_LIBFT = libft/
 
 # ----------------------------------variable bonus--------------------------
 
