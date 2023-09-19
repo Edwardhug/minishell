@@ -13,6 +13,8 @@ SRCS =	parsing/minishell.c\
 		parsing/get_type_enum.c\
 		parsing/remove_things.c\
 		exec/exec_start.c\
+		exec/exec_utils.c\
+		exec/builtins/ft_cd.c\
 		utils/free_tab.c\
 		utils/t_struct_utils.c\
 
@@ -73,6 +75,7 @@ $(PATH_OBJS) :
 				mkdir -p $(PATH_OBJS)
 				mkdir -p $(PATH_OBJS)/parsing
 				mkdir -p $(PATH_OBJS)/exec
+				mkdir -p $(PATH_OBJS)/exec/builtins
 				mkdir -p $(PATH_OBJS)/utils
 
 # $(PATH_OBJS_BONUS) :

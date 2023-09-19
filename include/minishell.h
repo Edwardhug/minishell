@@ -6,7 +6,7 @@
 /*   By: lezard <lezard@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 14:27:24 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/18 18:53:51 by lezard           ###   ########lyon.fr   */
+/*   Updated: 2023/09/19 14:22:27 by lezard           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <stdio.h>
+# include <unistd.h>
+# include <string.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
@@ -41,8 +43,15 @@ typedef struct s_struct
 
 typedef struct s_exec
 {
+	int		nb_cmds;
+	int		nb_pipes;
+	int		**pipes;
+	int		fd_in;
+	int		fd_out;
 	char	**path;
 	char	**env;
+	char	*true_path;
+	char	**cmd;
 	pid_t	*pids;
 }				t_exec;
 
@@ -62,6 +71,11 @@ void		print_list(t_struct *list);
 //exec
 
 void		exec_start(char **path, char **env, t_struct *list_word);
+char		**get_cmd(t_exec *exec, t_struct *temp_word);
+
+//builtins
+
+int			ft_cd(t_exec *exec, t_struct *temp_word);
 
 // utils
 

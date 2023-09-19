@@ -6,7 +6,7 @@
 /*   By: lezard <lezard@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 13:20:41 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/18 17:59:18 by lezard           ###   ########lyon.fr   */
+/*   Updated: 2023/09/19 14:38:10 by lezard           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,15 @@
 
 size_t	t_struct_strlen(t_struct *list_word)
 {
-	size_t	i;
+	size_t		i;
+	t_struct	*tmp;
 
 	i = 0;
-	while (list_word)
+	tmp = list_word;
+	while (tmp)
+	{
+		tmp = tmp->next;
 		i++;
+	}
 	return (i);
 }
