@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 14:27:24 by lgabet            #+#    #+#             */
-/*   Updated: 2023/06/23 15:16:15 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/09/19 15:55:28 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <signal.h>
 
 typedef enum s_enum
 {
@@ -49,6 +50,9 @@ t_enum		find_type_enum(t_struct *tmp, char *word);
 char		*remove_quotes(char *str);
 void		delete_node(t_struct **lst);
 void		free_list(t_struct **lst);
+void		signal_main_loop();
+void		handle_sigtstp();
+// void		handle_sigout(char **path);
 
 void print_list(t_struct *list);
 
