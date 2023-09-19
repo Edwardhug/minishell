@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lezard <lezard@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42lyon.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 14:27:24 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/19 14:22:27 by lezard           ###   ########lyon.fr   */
+/*   Updated: 2023/09/19 14:52:49 by codespace        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,11 @@ void		print_list(t_struct *list);
 //exec
 
 void		exec_start(char **path, char **env, t_struct *list_word);
-char		**get_cmd(t_exec *exec, t_struct *temp_word);
+char		**get_cmd(t_exec *exec, t_struct *temp_list);
 
 //builtins
 
-int			ft_cd(t_exec *exec, t_struct *temp_word);
+int			ft_cd(t_exec *exec, t_struct *temp_list);
 
 // utils
 

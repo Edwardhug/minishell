@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lezard <lezard@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42lyon.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 13:01:40 by lezard            #+#    #+#             */
-/*   Updated: 2023/09/19 14:44:33 by lezard           ###   ########lyon.fr   */
+/*   Updated: 2023/09/19 15:19:14 by codespace        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,52 @@
 // 	return (0);
 // }
 
-char	**get_cmd(t_exec *exec, t_struct *temp_word)
+static int	nb_of_args(t_struct *lst)
 {
-	char	**cmd;
+	int			i;
+	t_struct	*tmp;
+
+	tmp = lst;
+	i = 0;
+	while (tmp)
+	{
+		if (tmp->type == PIPE)
+			break ;
+		else
+		{
+			tmp = tmp->next;
+			i++;
+		}
+	}
+	return (i);
+}
+
+//récupère la commande complète avec options et arguments dans un tableau
+char	**get_cmd(t_exec *exec, t_struct *temp_list)
+{
+	char		**cmd;
+	int			i;
+	int			nb_args;
+	t_struct	*tmp;
 
 	(void)exec;
-	(void)temp_word;
-	cmd = malloc(sizeof (char *) * 2);
-	//récupère la commande complète avec options et arguments
+	tmp = temp_list;
+	nb_args = nb_of_args(temp_list);
+	cmd = malloc(sizeof (char *) * (nb_args + 1));
+	i = 0;
+	printf("before while\n");
+	while (i < nb_args)
+	{
+		//problème actuel: cmd[i] reste null donc strcpy clairement ne fonctionne pas.
+		printf("i: %d\n", i);
+		printf("into while\n");
+		cmd[i] = ft_strcpy(cmd[i], tmp->str);
+		printf("cmd[i]: %s\n", cmd[i]);
+		printf("tmp->str: %s\n", tmp->str);
+		tmp = tmp->next;
+		i++;
+	}
+	printf("after while\n");
 	return (cmd);
 }
 
