@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 14:41:14 by lgabet            #+#    #+#             */
-/*   Updated: 2023/06/14 15:23:27 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/09/19 11:36:47 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,14 @@ char	**get_path(char **env)
 
 	path = NULL;
 	i = 0;
-	while (path == NULL)
+	while (env[i])
 	{
 		if (ft_strncmp(env[i], "PATH=", 5) == 0)
 			path = env[i];
 		i++;
 	}
+	if (!path)
+		return (NULL);
 	splited_path = ft_split(path, ':');
 	if (!splited_path)
 	{

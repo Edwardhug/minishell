@@ -78,15 +78,45 @@ $(PATH_OBJS) :
 $(LIBFT_A)	:	FORCE
 				make all -C $(PATH_LIBFT)
 
+
+# --------------------------------Removing readline leaks---------------------
+
+leaks            :    all
+				echo "{" > valgrind_ignore_leaks.txt
+				echo "leak readline" >> valgrind_ignore_leaks.txt
+				echo "    Memcheck:Leak" >> valgrind_ignore_leaks.txt
+				echo "    ..." >> valgrind_ignore_leaks.txt
+				echo "    fun:readline" >> valgrind_ignore_leaks.txt
+				echo "}" >> valgrind_ignore_leaks.txt
+				echo "{" >> valgrind_ignore_leaks.txt
+				echo "    leak add_history" >> valgrind_ignore_leaks.txt
+				echo "    Memcheck:Leak" >> valgrind_ignore_leaks.txt
+				echo "    ..." >> valgrind_ignore_leaks.txt
+				echo "    fun:add_history" >> valgrind_ignore_leaks.txt
+				echo "}" >> valgrind_ignore_leaks.txt
+				valgrind --suppressions=valgrind_ignore_leaks.txt --leak-check=full \
+					--show-leak-kinds=all --track-fds=yes \
+					--show-mismatched-frees=yes --read-var-info=yes \
+					-s ./${NAME}
+					#--log-file=valgrind.txt \
+
+envleaks            :    all
+				env -i valgrind --suppressions=valgrind_ignore_leaks.txt --leak-check=full \
+					--show-leak-kinds=all --track-fds=yes \
+					--show-mismatched-frees=yes --read-var-info=yes \
+					-s ./${NAME}
+
 # ----------------------------------commands---------------------------------
 
 clean:
 	rm -rf ${OBJS} $(PATH_OBJS)
+	rm -rf valgrind_ignore_leaks.txt
 	@make clean -C $(PATH_LIBFT)
 #	rm -rf ${OBJS_BONUS} $(PATH_OBJS_BONUS)
 
 fclean: clean
 	rm -rf $(NAME)
+	rm -rf valgrind_ignore_leaks.txt
 	@make fclean -C $(PATH_LIBFT)
 #	rm -rf $(NAME_BONUS)
 
