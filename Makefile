@@ -13,6 +13,7 @@ SRCS =	parsing/minishell.c\
 		parsing/get_type_enum.c\
 		parsing/remove_things.c\
 		utils/free_tab.c\
+		utils/exit_fonctions.c\
 		signals/signals.c\
 
 INCLUDE = minishell.h

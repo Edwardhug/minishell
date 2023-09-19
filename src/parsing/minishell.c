@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 14:28:48 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/19 15:55:43 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/09/19 17:14:50 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,12 @@ int main(int ac, char **av, char **env)
 		signal_main_loop();
 		line = readline("Minishell>");
 		if (line == NULL)
-			break ;
+			exit_and_write_it(path);
 		add_history(line);
 		line = remove_new_line(line);
 		parsing_minishell(path, line, env);
 		free(line);
 	}
-	rl_clear_history();
-	free_tab(path);
 	(void)av;
 	return (0);
 }
