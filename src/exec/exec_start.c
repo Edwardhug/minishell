@@ -6,22 +6,65 @@
 /*   By: codespace <codespace@student.42lyon.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 18:08:24 by lezard            #+#    #+#             */
-/*   Updated: 2023/09/19 15:04:12 by codespace        ###   ########lyon.fr   */
+/*   Updated: 2023/09/20 14:27:32 by codespace        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+void	access_cmd(t_exec *exec, int i)
+{
+	char	*tmp;
+
+	tmp = NULL;
+	if (ft_strnstr(exec->cmd[0], "/", ft_strlen(exec->cmd[0])) != NULL)
+	{
+		exec->true_path = ft_strdup(exec->cmd[0]);
+		if (!(exec->true_path))
+			perror("strdup");
+	}
+	else
+	{
+		tmp = ft_strjoin(exec->path[i], "/");
+		if (!tmp)
+			perror("malloc");
+		exec->true_path = ft_strjoin(tmp, exec->cmd[0]);
+		if (!(exec->true_path))
+			perror("malloc");
+		free(tmp);
+	}
+	if (access(exec->true_path, R_OK) != -1)
+		execute_command(exec);
+	//free tout ça
+}
+
+void	find_correct_path(t_exec *exec)
+{
+	int	i;
+	
+	i = 0;
+	if (!exec->path) //c'est si on supprime le path je crois je comprend plus mon code de pipex
+	{
+		access_cmd(exec, i);
+	}
+	while (exec->path[i]) //on cherche le bon path en les testant un à un
+	{
+		access_cmd(exec, i);
+		i++;
+	}
+	//command_not_found
+}
+
 int	is_builtin(t_exec *exec, t_struct *temp_word)
 {
-	printf("on entre dans is_builtin\n");
-	if (ft_strnstr("cd", temp_word->str, 2) == 0)
+	if (ft_strnstr(exec->cmd[0], "cd", 2) != NULL)
 	{
 		printf("on trouve cd dans les commandes\n");
 		return (ft_cd(exec, temp_word), 1);
 	}
 	return (0);
 }
+
 
 int	exec_cmd(t_exec *exec, t_struct *list_word, t_struct *temp_list)
 {
@@ -33,15 +76,13 @@ int	exec_cmd(t_exec *exec, t_struct *list_word, t_struct *temp_list)
 		return (perror("malloc"), 1);
 	if (is_builtin(exec, temp_list) == 1)
 	{
-		//le builtin a été exécuté, on quitte
+		//builtin
 		return(0);
 	}
 	else
 	{
-		//c'est une commande normale,
-		//search_path()
-		
-		//execute
+		//commande normale
+		find_correct_path(exec);
 	}
 	return (0);
 /*

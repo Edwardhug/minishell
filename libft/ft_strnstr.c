@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42lyon.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 11:33:06 by jrenault          #+#    #+#             */
-/*   Updated: 2023/05/30 14:07:51 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/09/20 13:02:22 by codespace        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 

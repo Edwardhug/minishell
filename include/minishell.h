@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42lyon.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 14:27:24 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/19 14:52:49 by codespace        ###   ########lyon.fr   */
+/*   Updated: 2023/09/20 14:13:49 by codespace        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void		print_list(t_struct *list);
 
 void		exec_start(char **path, char **env, t_struct *list_word);
 char		**get_cmd(t_exec *exec, t_struct *temp_list);
+void		execute_command(t_exec *exec);
 
 //builtins
 
