@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_minishell.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lezard <lezard@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42lyon.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:50:18 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/18 16:30:22 by lezard           ###   ########lyon.fr   */
+/*   Updated: 2023/09/20 17:36:23 by codespace        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void	parsing_minishell(char **path, char *line, char **env)
 	print_list(list_word);
 	(void)env;
 	(void)path;
-	exec_start(path, env, list_word);
+	begin_execution(path, env, list_word);
 	// (void)env;
 	// (void)path;
 	free_list(&list_word);

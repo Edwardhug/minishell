@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42lyon.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 14:27:24 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/20 14:13:49 by codespace        ###   ########lyon.fr   */
+/*   Updated: 2023/09/20 17:44:37 by codespace        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,18 @@ void		print_list(t_struct *list);
 
 //exec
 
-void		exec_start(char **path, char **env, t_struct *list_word);
+void		begin_execution(char **path, char **env, t_struct *list_word);
 char		**get_cmd(t_exec *exec, t_struct *temp_list);
+void		access_cmd(t_exec *exec, int i);
 void		execute_command(t_exec *exec);
+int			get_fd_in(t_struct *list_word, t_struct *temp_list);
+int			open_fd_in(t_struct *temp_list);
+int			is_end(t_struct *temp_list);
+void		find_correct_path(t_exec *exec);
 
 //builtins
 
-int			ft_cd(t_exec *exec, t_struct *temp_list);
+int			ft_cd(t_exec *exec);
 
 // utils
 
