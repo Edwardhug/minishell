@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 18:08:24 by lezard            #+#    #+#             */
-/*   Updated: 2023/09/21 23:54:17 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/09/22 00:05:54 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void begin_execution(char **path, char **env, t_struct *list_word)
 	temp_list = list_word;
 	while (temp_list)
 	{
+		// ft_putstr_fd(temp_list->str, 2);
 		change_stdin(list_word, temp_list);
 		t_exec_cmd(temp_list, env);
 		while (temp_list->next && temp_list->type != PIPE)

@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 18:49:06 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/21 23:59:22 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/09/22 00:07:12 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	t_exec_cmd(t_struct *temp_list, char **env)
 	else
 	{
 		close(fd[1]);
-		// dup2(fd[0], STDIN_FILENO);
+		dup2(fd[0], STDIN_FILENO);
 		close(fd[0]);
 		waitpid(0, NULL, WUNTRACED);
 	}
