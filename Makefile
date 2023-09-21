@@ -76,10 +76,7 @@ $(PATH_OBJS) :
 				mkdir -p $(PATH_OBJS)
 				mkdir -p $(PATH_OBJS)/parsing
 				mkdir -p $(PATH_OBJS)/exec
-<<<<<<< HEAD
-=======
 				mkdir -p $(PATH_OBJS)/exec/builtins
->>>>>>> 767e58c4e874045926b5242d581723fc37741883
 				mkdir -p $(PATH_OBJS)/utils
 
 # $(PATH_OBJS_BONUS) :
