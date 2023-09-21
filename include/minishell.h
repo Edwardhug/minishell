@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 14:27:24 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/21 11:04:16 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/09/21 13:09:41 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,9 @@ int			ft_cd(t_exec *exec);
 // utils
 
 size_t		t_struct_strlen(t_struct *list_word);
+
+//here doc
+
+int			here_doc(t_struct *temp_list);
 
 #endif

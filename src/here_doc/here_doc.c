@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 20:56:45 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/21 12:08:43 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/09/21 13:14:40 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,12 @@ void	ft_child_here_doc(t_struct *temp_list, int *fd)
 	char	*tmp;
 
 	close(fd[0]);
+	temp_list = temp_list->next;
 	while (1)
 	{
 		ft_printf("heredoc> ");
 		tmp = get_next_line(0);
-		if (ft_strncmp(tmp, temp_list->next, ft_strlen(temp_list->next)) == 0)		//probleme si jamais le limiter est plus long comnme dans pipex
+		if (ft_strncmp(tmp, temp_list->str, ft_strlen(temp_list->str)) == 0)		//probleme si jamais le limiter est plus long comnme dans pipex
 		{
 			free(tmp);
 			close(fd[1]);
@@ -40,10 +41,10 @@ int	here_doc(t_struct *temp_list)
 	if (!temp_list->next)						// verifie qu'il n'y a pas juste marque ( << )
 		return (ft_printf("syntax error near unexpected token `newline'\n", NULL));
 	if (pipe(fd) == -1)
-		return (NULL);
+		return (0);
 	pid = fork();
 	if (pid == -1)
-		return (NULL);
+		return (0);
 	if (pid == 0)
 		ft_child_here_doc(temp_list, fd);
 	else
@@ -53,6 +54,6 @@ int	here_doc(t_struct *temp_list)
 		close(fd[0]);
 		wait(NULL);
 	}
-	return (0);
+	return (1);
 }
 // heredoc branch
