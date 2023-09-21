@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 20:56:45 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/19 21:25:10 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/09/21 12:08:43 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,3 +55,4 @@ int	here_doc(t_struct *temp_list)
 	}
 	return (0);
 }
+// heredoc branch
