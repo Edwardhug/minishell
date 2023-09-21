@@ -11,12 +11,6 @@
 /* ************************************************************************** */
 #include "../../include/minishell.h"
 
-// int	create_pipes(void)
-// {
-// 	//crée les pipes nécessaires quand pipe il y a
-// 	return (0);
-// }
-
 //check le bon chemin à appliquer à execve
 void	find_correct_path(t_exec *exec)
 {

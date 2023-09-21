@@ -82,6 +82,10 @@ int 		change_stdin(t_struct *list_word, t_struct *temp_list);
 int			is_end(t_struct *temp_list);
 void		find_correct_path(t_exec *exec);
 void		access_cmd(t_exec *exec, int i);
+int			init_params(t_exec *exec, char **path, char **env, t_struct *list_word);
+int			doing_the_fork(t_exec *exec, t_struct *list_word, t_struct *temp_list, int i);
+int			exec_cmd(t_exec *exec, t_struct *list_word, t_struct *temp_list);
+
 
 //builtins
 

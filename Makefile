@@ -15,6 +15,7 @@ SRCS =	parsing/minishell.c\
 		exec/exec_start.c\
 		exec/exec_utils.c\
 		exec/pipe_and_fork_gestion.c\
+		exec/exec_init.c\
 		exec/builtins/ft_cd.c\
 		utils/free_tab.c\
 		utils/exit_fonctions.c\

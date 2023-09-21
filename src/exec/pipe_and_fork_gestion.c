@@ -57,3 +57,22 @@
 // 	}
 // 	return (1);
 // }
+
+int	doing_the_fork(t_exec *exec, t_struct *list_word, t_struct *temp_list, int i)
+{
+	exec->pids[i] = fork();
+	if (exec->pids[i] == -1)
+		return (perror("fork"), 1);
+	else if (exec->pids[i] == 0)
+	{
+		//dup fd
+		//close ce qui est inutile
+		exec_cmd(exec, list_word, temp_list);
+	}
+	else
+	{
+		printf("parent process\n");
+		//tout est fini donc close trucs
+	}
+	return (0);
+}

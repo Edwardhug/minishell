@@ -52,7 +52,6 @@ static int	is_builtin(t_exec *exec)
 int	exec_cmd(t_exec *exec, t_struct *list_word, t_struct *temp_list)
 {
 	(void)list_word;
-	//pipe
 	//fork
 	exec->cmd = get_cmd(exec, temp_list);
 	if (!exec->cmd)
@@ -78,30 +77,40 @@ int	exec_cmd(t_exec *exec, t_struct *list_word, t_struct *temp_list)
 */
 }
 
-//begin fork execution lezgo
-void begin_execution(char **path, char **env, t_struct *list_word)
+static void	exec_loop(t_exec *exec, t_struct *list_word)
 {
-	t_struct	*temp_list;
-	t_exec		exec;
+	int	i;
+	t_struct *temp_list;
 
-	exec.env = env;
-	exec.path = path;
+	i = 0;
 	temp_list = list_word;
 	while (temp_list)										// les forks à faire dans la boucle
 	{
 //		exec.fd_in = get_fd_in(list_word, temp_list);
-		if (is_end(temp_list))								// check si il y a d'autres cmd ou si c'est la derniere ( si il y a un pipe quoi)
-		{
-//			last_exec(&exec, list_word, temp_list);	
-			exec_cmd(&exec, list_word, temp_list);		// si c'est la derniere commande on fait un dernier execv
-			return ;
-		}
-		else
-		{
-			exec_cmd(&exec, list_word, temp_list);
-		}
+		doing_the_fork(exec, list_word, temp_list, i);
+// 		if (is_end(temp_list))								// check si il y a d'autres cmd ou si c'est la derniere ( si il y a un pipe quoi)
+// 		{
+// //			last_exec(&exec, list_word, temp_list);	
+// 			exec_cmd(&exec, list_word, temp_list);		// si c'est la derniere commande on fait un dernier execv
+// 			return ;
+// 		}
+// 		else
+// 		{
+
+//			exec_cmd(&exec, list_word, temp_list);
+//		}
 		while (temp_list->type != PIPE)
 			temp_list = temp_list->next;
 		temp_list = temp_list->next;
+		i++;
 	}
+	//wait and clean
+}
+
+void begin_execution(char **path, char **env, t_struct *list_word)
+{
+	t_exec		exec;
+
+	init_params(&exec, path, env, list_word);
+	exec_loop(&exec, list_word);
 }
