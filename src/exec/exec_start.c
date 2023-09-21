@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 18:08:24 by lezard            #+#    #+#             */
-/*   Updated: 2023/09/21 13:59:08 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/09/21 15:51:36 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	exec_cmd(t_exec *exec, t_struct *list_word, t_struct *temp_list)
 	}
 	return (0);
 /*
-	On fait un tableau de fork pour stocker les pids.
+	On fait un tableau de fork pour stocker les p ids.
 	Si on est dans le processus enfant, on regarde si builtins ou commande normale.
 	Si builtins on redirige.
 	Si commande normale on cherche le path puis access puis execve.
