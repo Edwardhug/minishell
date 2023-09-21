@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 14:28:48 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/21 21:01:28 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/09/21 21:38:59 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,9 @@ int main(int ac, char **av, char **env)
 {
 	char	**path;
 	char	*line;
+	int		fd_standart;
 
+	fd_standart = dup(STDIN_FILENO);
 	if (ac != 1)
 		return (ft_printf("No arg needed\n"), 1);
 	path = get_path(env);
@@ -50,14 +52,12 @@ int main(int ac, char **av, char **env)
 		signal_main_loop();
 		line = readline("Minishell> ");
 		if (line == NULL)
-		{
-			// ft_printf("here\n")
-			exit_and_write_it(path);
-		}
+			exit_and_write_it(path, fd_standart);
 		add_history(line);
 		line = remove_new_line(line);
 		parsing_minishell(path, line, env);
 		free(line);
+		dup2(fd_standart, STDIN_FILENO);
 	}
 	// rl_clear_history();
 	free_tab(path);
