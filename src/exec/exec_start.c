@@ -78,6 +78,7 @@ int	exec_cmd(t_exec *exec, t_struct *list_word, t_struct *temp_list)
 */
 }
 
+//begin fork execution lezgo
 void begin_execution(char **path, char **env, t_struct *list_word)
 {
 	t_struct	*temp_list;
