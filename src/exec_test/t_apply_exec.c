@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 19:34:47 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/21 23:22:06 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/09/21 23:57:57 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,8 @@ void	t_apply_exec(t_struct *temp_list, char **env)
 	if (!path_cmd)
 		exit(EXIT_FAILURE);
 	// ft_putnbr_fd(STDIN_FILENO, 2);
-	// ft_putnbr_fd(STDOUT_FILENO, 2);
 	// ft_putstr_fd(path_cmd, 2);
+	// ft_putstr_fd("here", 2);
 	execve(path_cmd, splited_cmd, env);
 	ft_putstr_fd("permission denied: ", 2);
 	ft_putstr_fd(path_cmd, 2);

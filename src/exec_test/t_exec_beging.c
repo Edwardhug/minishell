@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 18:49:06 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/21 23:46:29 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/09/21 23:59:22 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	t_open_fd_out(t_struct *temp_list)
 {
 	int	fd_out;
 
-	if (ft_strncmp(temp_list->str, ">>", 2))
+	if (!ft_strncmp(temp_list->str, ">>", 2))
 	{
 		temp_list = temp_list->next;
 		fd_out = open(temp_list->str, O_WRONLY | O_CREAT | O_APPEND, 0644);
@@ -43,7 +43,9 @@ void	t_change_stdout(t_struct *temp_list, int fd)
 	}
 	while (temp_list->next && temp_list->type != REDIRECTION
 		&& temp_list->type != PIPE)
+	{
 		temp_list = temp_list->next;
+	}
 	if (temp_list->type == REDIRECTION)
 		t_open_fd_out(temp_list);		//peut etre que des fd resterons open a cause de ca
 	else if (temp_list->type == PIPE)
