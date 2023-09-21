@@ -16,12 +16,9 @@ SRCS =	parsing/minishell.c\
 		exec/exec_utils.c\
 		exec/builtins/ft_cd.c\
 		utils/free_tab.c\
-<<<<<<< HEAD
 		utils/exit_fonctions.c\
-		signals/signals.c\
-=======
 		utils/t_struct_utils.c\
->>>>>>> origin/exec
+		signals/signals.c\
 
 INCLUDE = minishell.h
 
