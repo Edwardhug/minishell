@@ -21,6 +21,9 @@ SRCS =	parsing/minishell.c\
 		utils/t_struct_utils.c\
 		signals/signals.c\
 		here_doc/here_doc.c\
+		exec_test/t_exec_beging.c\
+		exec_test/t_apply_exec.c\
+		exec_test/t_utils.c\
 
 INCLUDE = minishell.h
 
@@ -83,6 +86,7 @@ $(PATH_OBJS) :
 				mkdir -p $(PATH_OBJS)/utils
 				mkdir -p $(PATH_OBJS)/signals
 				mkdir -p $(PATH_OBJS)/here_doc
+				mkdir -p $(PATH_OBJS)/exec_test
 
 # $(PATH_OBJS_BONUS) :
 # 				mkdir -p $(PATH_OBJS_BONUS)

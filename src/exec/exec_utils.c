@@ -6,9 +6,10 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 13:01:40 by lezard            #+#    #+#             */
-/*   Updated: 2023/09/21 11:28:58 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/09/21 19:14:07 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 // int	create_pipes(void)
@@ -52,11 +53,12 @@ static int	nb_of_args(t_struct *lst)
 {
 	int			i;
 	t_struct	*tmp;
+
 	tmp = lst;
 	i = 0;
 	while (tmp)
 	{
-		if (tmp->type == PIPE)
+		if (tmp->type == PIPE || tmp->type == REDIRECTION)
 			break ;
 		else
 		{

@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 18:08:24 by lezard            #+#    #+#             */
-/*   Updated: 2023/09/21 15:51:36 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/09/21 20:48:52 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,26 +81,31 @@ int	exec_cmd(t_exec *exec, t_struct *list_word, t_struct *temp_list)
 void begin_execution(char **path, char **env, t_struct *list_word)
 {
 	t_struct	*temp_list;
-	t_exec		exec;
+	// t_exec		exec;
 
-	exec.env = env;
-	exec.path = path;
+	// exec.env = env;
+	// exec.path = path;
+	(void)path;
 	temp_list = list_word;
 	while (temp_list)										// les forks à faire dans la boucle
 	{
 		change_stdin(list_word, temp_list);
-		if (is_end(temp_list))								// check si il y a d'autres cmd ou si c'est la derniere ( si il y a un pipe quoi)
-		{
-//			last_exec(&exec, list_word, temp_list);	
-			exec_cmd(&exec, list_word, temp_list);		// si c'est la derniere commande on fait un dernier execv
-			return ;
-		}
-		else
-		{
-			exec_cmd(&exec, list_word, temp_list);
-		}
-		while (temp_list->type != PIPE)
+		t_exec_cmd(temp_list, env);
+// 		if (is_end(temp_list))								// check si il y a d'autres cmd ou si c'est la derniere ( si il y a un pipe quoi)
+// 		{
+// //			last_exec(&exec, list_word, temp_list);			// si c'est la derniere commande on fait un dernier execv	
+// 			exec_cmd(&exec, list_word, temp_list);
+// 			return ;
+// 		}
+// 		else
+// 		{
+// 			exec_cmd(&exec, list_word, temp_list);
+// 		}
+		while (temp_list->next && temp_list->type != PIPE)
 			temp_list = temp_list->next;
-		temp_list = temp_list->next;
+		if (temp_list->type == PIPE)
+			temp_list = temp_list->next;
+		else
+			break ;
 	}
 }
