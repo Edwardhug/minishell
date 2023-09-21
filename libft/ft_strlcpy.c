@@ -1,43 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_tab.c                                         :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/14 16:03:02 by lgabet            #+#    #+#             */
-/*   Updated: 2023/06/23 15:33:50 by jrenault         ###   ########lyon.fr   */
+/*   Created: 2022/11/08 08:40:16 by jrenault          #+#    #+#             */
+/*   Updated: 2022/11/16 17:36:51 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "libft.h"
 
-// void	free_tab(char **tab)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (tab[i])
-// 	{
-// 		free(tab[i]);
-// 		i++;
-// 	}
-// 	free(tab);
-// }
-
-void	free_list(t_struct **lst)
+size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 {
-	t_struct	*temp;
+	size_t	i;
+	size_t	len;
 
-	if (lst && *lst)
+	i = 0;
+	len = ft_strlen(src);
+	if (size != 0)
 	{
-		while (*lst)
+		while (src[i] && size > 1)
 		{
-			temp = *lst;
-			free((*lst)->str);
-			*lst = temp->next;
-			free(temp);
+			dest[i] = src[i];
+			i++;
+			size--;
 		}
-		*lst = NULL;
+		dest[i] = '\0';
 	}
+	return (len);
 }

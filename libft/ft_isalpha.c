@@ -1,43 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_tab.c                                         :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/14 16:03:02 by lgabet            #+#    #+#             */
-/*   Updated: 2023/06/23 15:33:50 by jrenault         ###   ########lyon.fr   */
+/*   Created: 2022/11/09 10:14:27 by jrenault          #+#    #+#             */
+/*   Updated: 2022/11/12 10:44:17 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "libft.h"
 
-// void	free_tab(char **tab)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (tab[i])
-// 	{
-// 		free(tab[i]);
-// 		i++;
-// 	}
-// 	free(tab);
-// }
-
-void	free_list(t_struct **lst)
+int	ft_isalpha(int n)
 {
-	t_struct	*temp;
-
-	if (lst && *lst)
+	if ((n >= 65 && n <= 90) || (n >= 97 && n <= 122))
 	{
-		while (*lst)
-		{
-			temp = *lst;
-			free((*lst)->str);
-			*lst = temp->next;
-			free(temp);
-		}
-		*lst = NULL;
+		return (1);
 	}
+	else
+		return (0);
 }

@@ -1,43 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_tab.c                                         :+:      :+:    :+:   */
+/*   ispercent_s.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/14 16:03:02 by lgabet            #+#    #+#             */
-/*   Updated: 2023/06/23 15:33:50 by jrenault         ###   ########lyon.fr   */
+/*   Created: 2022/11/24 08:51:20 by jrenault          #+#    #+#             */
+/*   Updated: 2022/11/25 15:12:08 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "ft_printf.h"
 
-// void	free_tab(char **tab)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (tab[i])
-// 	{
-// 		free(tab[i]);
-// 		i++;
-// 	}
-// 	free(tab);
-// }
-
-void	free_list(t_struct **lst)
+int	ispercent_s(char *s)
 {
-	t_struct	*temp;
-
-	if (lst && *lst)
+	if (!s)
 	{
-		while (*lst)
-		{
-			temp = *lst;
-			free((*lst)->str);
-			*lst = temp->next;
-			free(temp);
-		}
-		*lst = NULL;
+		write (1, "(null)", 6);
+		return (6);
 	}
+	ft_putstr(s);
+	return (ft_strlen(s));
 }

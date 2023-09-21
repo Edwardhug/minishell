@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: lezard <lezard@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 14:52:22 by lgabet            #+#    #+#             */
-/*   Updated: 2023/06/22 12:26:29 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/09/18 16:09:04 by lezard           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_struct	*new_node(char *content, t_enum type)
 {
-	t_struct *node;
+	t_struct	*node;
 
 	node = (t_struct *)malloc(sizeof(*node));
 	if (!node)

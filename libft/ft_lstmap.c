@@ -1,43 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_tab.c                                         :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/14 16:03:02 by lgabet            #+#    #+#             */
-/*   Updated: 2023/06/23 15:33:50 by jrenault         ###   ########lyon.fr   */
+/*   Created: 2022/11/17 16:37:42 by jrenault          #+#    #+#             */
+/*   Updated: 2022/11/18 15:08:20 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "libft.h"
 
-// void	free_tab(char **tab)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (tab[i])
-// 	{
-// 		free(tab[i]);
-// 		i++;
-// 	}
-// 	free(tab);
-// }
-
-void	free_list(t_struct **lst)
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *),
+	void (*del)(void *))
 {
-	t_struct	*temp;
+	t_list	*new;
+	t_list	*node;
 
-	if (lst && *lst)
+	node = NULL;
+	if (!lst || !f || !del)
+		return (lst);
+	while (lst != NULL)
 	{
-		while (*lst)
-		{
-			temp = *lst;
-			free((*lst)->str);
-			*lst = temp->next;
-			free(temp);
-		}
-		*lst = NULL;
+		new = ft_lstnew((*f)(lst->content));
+		if (!new)
+			ft_lstclear(&node, del);
+		ft_lstadd_back(&node, new);
+		lst = lst->next;
 	}
+	return (node);
 }

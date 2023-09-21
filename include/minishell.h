@@ -13,10 +13,15 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "../Libft/all_libft.h"
+# include "../libft/libft.h"
 # include <fcntl.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <stdio.h>
+# include <unistd.h>
+# include <string.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 typedef enum s_enum
 {
@@ -26,7 +31,7 @@ typedef enum s_enum
 	ARG,
 	PIPE,
 	REDIRECTION,
-	FILE,
+	FILES,
 }			t_enum;
 
 typedef struct s_struct
@@ -39,20 +44,19 @@ typedef struct s_struct
 typedef struct s_exec
 {
 	int		nb_cmds;
+	int		nb_pipes;
 	int		**pipes;
-	int		infile_fd;
-	int		outfile_fd;
-	char	*true_path;
-	char	*tmp;
-	char	**cmds;
-	char	**env;
+	int		fd_in;
+	int		fd_out;
 	char	**path;
-	char	**args;
+	char	**env;
+	char	*true_path;
+	char	**cmd;
 	pid_t	*pids;
 }				t_exec;
 
 char		**get_path(char **env);
-void		free_tab(char **tab);
+//void		free_tab(char **tab);
 void		parsing_minishell(char **path, char *line, char **env);
 t_struct	*new_node(char *content, t_enum type);
 t_struct	*get_last_node(t_struct *lst);
@@ -71,6 +75,25 @@ int			what_exec(t_struct *lst);
 char		**take_full_cmd(t_struct *lst);
 void		exec_simple(t_exec *exec, t_struct *lst);
 
+void		print_list(t_struct *list);
+
+//exec
+
+void		begin_execution(char **path, char **env, t_struct *list_word);
+char		**get_cmd(t_exec *exec, t_struct *temp_list);
+void		access_cmd(t_exec *exec, int i);
+void		execute_command(t_exec *exec);
+int			get_fd_in(t_struct *list_word, t_struct *temp_list);
+int			open_fd_in(t_struct *temp_list);
+int			is_end(t_struct *temp_list);
+void		find_correct_path(t_exec *exec);
+
 //builtins
+
+int			ft_cd(t_exec *exec);
+
+// utils
+
+size_t		t_struct_strlen(t_struct *list_word);
 
 #endif

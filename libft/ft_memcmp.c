@@ -1,43 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_tab.c                                         :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/14 16:03:02 by lgabet            #+#    #+#             */
-/*   Updated: 2023/06/23 15:33:50 by jrenault         ###   ########lyon.fr   */
+/*   Created: 2022/11/08 11:17:50 by jrenault          #+#    #+#             */
+/*   Updated: 2022/11/16 15:06:09 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "libft.h"
 
-// void	free_tab(char **tab)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (tab[i])
-// 	{
-// 		free(tab[i]);
-// 		i++;
-// 	}
-// 	free(tab);
-// }
-
-void	free_list(t_struct **lst)
+int	ft_memcmp(const void *pointer1, const void *pointer2, size_t size)
 {
-	t_struct	*temp;
+	size_t	i;
 
-	if (lst && *lst)
-	{
-		while (*lst)
-		{
-			temp = *lst;
-			free((*lst)->str);
-			*lst = temp->next;
-			free(temp);
-		}
-		*lst = NULL;
-	}
+	i = 0;
+	if (size == 0)
+		return (0);
+	while (((unsigned char *)pointer1)[i] ==
+		((unsigned char *)pointer2)[i] && i < size - 1)
+		i++;
+	return (((unsigned char *)pointer1)[i] - ((unsigned char *)pointer2)[i]);
 }

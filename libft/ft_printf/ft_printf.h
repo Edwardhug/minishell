@@ -1,43 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_tab.c                                         :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/14 16:03:02 by lgabet            #+#    #+#             */
-/*   Updated: 2023/06/23 15:33:50 by jrenault         ###   ########lyon.fr   */
+/*   Created: 2022/11/21 15:09:57 by jrenault          #+#    #+#             */
+/*   Updated: 2023/02/16 09:58:11 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
-// void	free_tab(char **tab)
-// {
-// 	int	i;
+# include "../libft.h"
+# include <stdarg.h>
 
-// 	i = 0;
-// 	while (tab[i])
-// 	{
-// 		free(tab[i]);
-// 		i++;
-// 	}
-// 	free(tab);
-// }
+int	ft_printf(const char *str, ...);
+int	search_arg(va_list arg, char c);
+int	ispercent_c(int c);
+int	ispercent_d_i(int nb);
+int	ispercent_u(unsigned int u);
+int	ispercent_s(char *s);
+int	ispercent_x(unsigned int x);
+int	ispercent_capx(unsigned int x);
+int	ispercent_p(unsigned long p);
 
-void	free_list(t_struct **lst)
-{
-	t_struct	*temp;
-
-	if (lst && *lst)
-	{
-		while (*lst)
-		{
-			temp = *lst;
-			free((*lst)->str);
-			*lst = temp->next;
-			free(temp);
-		}
-		*lst = NULL;
-	}
-}
+#endif

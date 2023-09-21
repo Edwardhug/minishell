@@ -47,15 +47,15 @@ int	main(int ac, char **av, char **env)
 	path = get_path(env);
 	while (1)
 	{
-		ft_printf("minishell>");
-		line = get_next_line(0);
-		line = remove_new_line(line);
-		if (line == NULL)
+		line = readline("Minishell>");
+		if (line == NULL)	
 			break ;
+		add_history(line);
 		line = remove_new_line(line);
 		parsing_minishell(path, line, env);
 		free(line);
 	}
+//	rl_clear_history();
 	free_tab(path);
 	(void)av;
 	return (0);
