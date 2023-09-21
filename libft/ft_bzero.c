@@ -10,12 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "libft.h"
 
-void exit_and_write_it(char **path)
+void	*ft_bzero(void *memo, size_t n)
 {
-	ft_printf("exit\n");
-	rl_clear_history();
-	free_tab(path);
-	exit(EXIT_SUCCESS);				// verifier si c'est bien exit success
+	size_t	i;
+
+	i = 0;
+	while (i < n)
+	{
+		((char *)memo)[i] = '\0';
+		i++;
+	}
+	return (memo);
 }

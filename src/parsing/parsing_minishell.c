@@ -106,7 +106,7 @@ void	parsing_minishell(char **path, char *line, char **env)
 	print_list(list_word);
 	(void)env;
 	(void)path;
-	exec_start(path, env, list_word);
+	begin_execution(path, env, list_word);
 	// (void)env;
 	// (void)path;
 	free_list(&list_word);

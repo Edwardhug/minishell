@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_start.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42lyon.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/18 13:12:45 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/21 11:31:26 by lgabet           ###   ########.fr       */
+/*   Created: 2023/09/18 18:08:24 by lezard            #+#    #+#             */
+/*   Updated: 2023/09/20 17:46:21 by codespace        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void begin_execution(char **path, char **env, t_struct *list_word)
 	temp_list = list_word;
 	while (temp_list)										// les forks à faire dans la boucle
 	{
-		exec.fd_in = get_fd_in(list_word, temp_list);
+//		exec.fd_in = get_fd_in(list_word, temp_list);
 		if (is_end(temp_list))								// check si il y a d'autres cmd ou si c'est la derniere ( si il y a un pipe quoi)
 		{
 //			last_exec(&exec, list_word, temp_list);	

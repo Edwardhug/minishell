@@ -12,18 +12,9 @@
 
 #include "../../../include/minishell.h"
 
-int	ft_cd(t_exec *exec, t_struct *temp_list)
+int	ft_cd(t_exec *exec)
 {
-	t_struct	*tmp;
-
-	(void)exec;
-	printf("on entre dans ft_cd\n");
-	tmp = temp_list;
-	while (tmp->type != ARG) //on cherche le premier argument qui est en théorie le chemin où on veut aller.
-	{
-		tmp = tmp->next;
-	}
-	chdir(tmp->str);
+	chdir(exec->cmd[1]);
 	return (0);
 }
 /*
