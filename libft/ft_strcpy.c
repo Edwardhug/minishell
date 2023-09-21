@@ -1,38 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_path.c                                         :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/14 14:41:14 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/21 11:16:21 by jrenault         ###   ########lyon.fr   */
+/*   Created: 2023/01/12 15:19:39 by jrenault          #+#    #+#             */
+/*   Updated: 2023/01/12 15:24:12 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
-
-char	**get_path(char **env)
+char	*ft_strcpy(char *dest, const char *src)
 {
-	char	*path;
-	char	**splited_path;
-	int		i;
+	int	i;
 
-	path = NULL;
 	i = 0;
-	while (env[i])
+	if (!src || !dest)
+		return (0);
+	while (src && src[i])
 	{
-		if (ft_strncmp(env[i], "PATH=", 5) == 0)
-			path = env[i];
+		dest[i] = src[i];
 		i++;
 	}
-	if (!path)
-		return (NULL);
-	splited_path = ft_split(path, ':');
-	if (!splited_path)
-	{
-		ft_printf("Malloc error while splitting path\n");
-		exit(EXIT_FAILURE);
-	}
-	return (splited_path);
+	dest[i] = '\0';
+	return (dest);
 }

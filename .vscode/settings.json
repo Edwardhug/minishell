@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
 	"files.associations": {
 		"minishell.h": "c"
 	}
+=======
+	"42norminette.showErrors": "one"
+>>>>>>> 147a7e963cb87e4ff01181bcc932e1880df3e355
 }

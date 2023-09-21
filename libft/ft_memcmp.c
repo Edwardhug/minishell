@@ -1,38 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_path.c                                         :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/14 14:41:14 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/21 11:16:21 by jrenault         ###   ########lyon.fr   */
+/*   Created: 2022/11/08 11:17:50 by jrenault          #+#    #+#             */
+/*   Updated: 2022/11/16 15:06:09 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "libft.h"
 
-char	**get_path(char **env)
+int	ft_memcmp(const void *pointer1, const void *pointer2, size_t size)
 {
-	char	*path;
-	char	**splited_path;
-	int		i;
+	size_t	i;
 
-	path = NULL;
 	i = 0;
-	while (env[i])
-	{
-		if (ft_strncmp(env[i], "PATH=", 5) == 0)
-			path = env[i];
+	if (size == 0)
+		return (0);
+	while (((unsigned char *)pointer1)[i] ==
+		((unsigned char *)pointer2)[i] && i < size - 1)
 		i++;
-	}
-	if (!path)
-		return (NULL);
-	splited_path = ft_split(path, ':');
-	if (!splited_path)
-	{
-		ft_printf("Malloc error while splitting path\n");
-		exit(EXIT_FAILURE);
-	}
-	return (splited_path);
+	return (((unsigned char *)pointer1)[i] - ((unsigned char *)pointer2)[i]);
 }

@@ -1,38 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_path.c                                         :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/14 14:41:14 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/21 11:16:21 by jrenault         ###   ########lyon.fr   */
+/*   Created: 2022/11/08 09:43:04 by jrenault          #+#    #+#             */
+/*   Updated: 2022/11/12 10:44:59 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "libft.h"
 
-char	**get_path(char **env)
+char	*ft_strchr(const char *string, int searchedChar)
 {
-	char	*path;
-	char	**splited_path;
-	int		i;
+	int	i;
 
-	path = NULL;
 	i = 0;
-	while (env[i])
+	while (string[i])
 	{
-		if (ft_strncmp(env[i], "PATH=", 5) == 0)
-			path = env[i];
+		if (string[i] == ((char)searchedChar))
+			return (&((char *)string)[i]);
 		i++;
 	}
-	if (!path)
-		return (NULL);
-	splited_path = ft_split(path, ':');
-	if (!splited_path)
-	{
-		ft_printf("Malloc error while splitting path\n");
-		exit(EXIT_FAILURE);
-	}
-	return (splited_path);
+	if (string[i] == ((char)searchedChar))
+		return (&((char *)string)[i]);
+	return (0);
 }

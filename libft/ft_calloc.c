@@ -1,38 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_path.c                                         :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/14 14:41:14 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/21 11:16:21 by jrenault         ###   ########lyon.fr   */
+/*   Created: 2022/11/09 09:58:08 by jrenault          #+#    #+#             */
+/*   Updated: 2022/11/18 08:23:22 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "libft.h"
 
-char	**get_path(char **env)
+void	*ft_calloc(size_t count, size_t size)
 {
-	char	*path;
-	char	**splited_path;
-	int		i;
+	void	*memory_zone;
 
-	path = NULL;
-	i = 0;
-	while (env[i])
-	{
-		if (ft_strncmp(env[i], "PATH=", 5) == 0)
-			path = env[i];
-		i++;
-	}
-	if (!path)
+	if (size > 0 && count > SIZE_MAX / size)
+		return (0);
+	memory_zone = malloc(count * size);
+	if (!memory_zone)
 		return (NULL);
-	splited_path = ft_split(path, ':');
-	if (!splited_path)
-	{
-		ft_printf("Malloc error while splitting path\n");
-		exit(EXIT_FAILURE);
-	}
-	return (splited_path);
+	ft_bzero(memory_zone, (count * size));
+	return (memory_zone);
 }

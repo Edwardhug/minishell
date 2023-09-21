@@ -4,16 +4,27 @@ CC = cc
 
 CFLAG = -Wall -Wextra -Werror -g3
 
+LINKFLAG = -lreadline -L/usr/include
+
 SRCS =	parsing/minishell.c\
 		parsing/get_path.c\
 		parsing/parsing_minishell.c\
+		parsing/struct_utils.c\
+		parsing/get_type_enum.c\
+		parsing/remove_things.c\
+		exec/exec_start.c\
+		exec/exec_utils.c\
+		exec/builtins/ft_cd.c\
 		utils/free_tab.c\
+		utils/exit_fonctions.c\
+		utils/t_struct_utils.c\
+		signals/signals.c\
 
 INCLUDE = minishell.h
 
 OBJS = $(SRCS:%.c=$(PATH_OBJS)%.o)
 
-LIBFT_A = Libft/libft.a
+LIBFT_A = libft/libft.a
 
 PATH_SRCS = src/
 
@@ -21,7 +32,7 @@ PATH_INCLUDE = include/
 
 PATH_OBJS = obj/
 
-PATH_LIBFT = Libft/
+PATH_LIBFT = libft/
 
 # ----------------------------------variable bonus--------------------------
 
@@ -44,7 +55,7 @@ PATH_LIBFT = Libft/
 all: $(NAME)
 
 $(NAME) : $(PATH_OBJS) $(OBJS) $(PATH_INCLUDE)$(INCLUDE)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT_A) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT_A) -o $(NAME) $(LINKFLAG)
 
 
 $(OBJS)	: $(PATH_OBJS)%.o: $(PATH_SRCS)%.c $(PATH_INCLUDE)$(INCLUDE) $(LIBFT_A)
@@ -65,7 +76,10 @@ $(OBJS)	: $(PATH_OBJS)%.o: $(PATH_SRCS)%.c $(PATH_INCLUDE)$(INCLUDE) $(LIBFT_A)
 $(PATH_OBJS) :
 				mkdir -p $(PATH_OBJS)
 				mkdir -p $(PATH_OBJS)/parsing
+				mkdir -p $(PATH_OBJS)/exec
+				mkdir -p $(PATH_OBJS)/exec/builtins
 				mkdir -p $(PATH_OBJS)/utils
+				mkdir -p $(PATH_OBJS)/signals
 
 # $(PATH_OBJS_BONUS) :
 # 				mkdir -p $(PATH_OBJS_BONUS)
@@ -73,15 +87,45 @@ $(PATH_OBJS) :
 $(LIBFT_A)	:	FORCE
 				make all -C $(PATH_LIBFT)
 
+
+# --------------------------------Removing readline leaks---------------------
+
+leaks            :    all
+				echo "{" > valgrind_ignore_leaks.txt
+				echo "leak readline" >> valgrind_ignore_leaks.txt
+				echo "    Memcheck:Leak" >> valgrind_ignore_leaks.txt
+				echo "    ..." >> valgrind_ignore_leaks.txt
+				echo "    fun:readline" >> valgrind_ignore_leaks.txt
+				echo "}" >> valgrind_ignore_leaks.txt
+				echo "{" >> valgrind_ignore_leaks.txt
+				echo "    leak add_history" >> valgrind_ignore_leaks.txt
+				echo "    Memcheck:Leak" >> valgrind_ignore_leaks.txt
+				echo "    ..." >> valgrind_ignore_leaks.txt
+				echo "    fun:add_history" >> valgrind_ignore_leaks.txt
+				echo "}" >> valgrind_ignore_leaks.txt
+				valgrind --suppressions=valgrind_ignore_leaks.txt --leak-check=full \
+					--show-leak-kinds=all --track-fds=yes \
+					--show-mismatched-frees=yes --read-var-info=yes \
+					-s ./${NAME}
+					#--log-file=valgrind.txt \
+
+envleaks            :    all
+				env -i valgrind --suppressions=valgrind_ignore_leaks.txt --leak-check=full \
+					--show-leak-kinds=all --track-fds=yes \
+					--show-mismatched-frees=yes --read-var-info=yes \
+					-s ./${NAME}
+
 # ----------------------------------commands---------------------------------
 
 clean:
 	rm -rf ${OBJS} $(PATH_OBJS)
+	rm -rf valgrind_ignore_leaks.txt
 	@make clean -C $(PATH_LIBFT)
 #	rm -rf ${OBJS_BONUS} $(PATH_OBJS_BONUS)
 
 fclean: clean
 	rm -rf $(NAME)
+	rm -rf valgrind_ignore_leaks.txt
 	@make fclean -C $(PATH_LIBFT)
 #	rm -rf $(NAME_BONUS)
 

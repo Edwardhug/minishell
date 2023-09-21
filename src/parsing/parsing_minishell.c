@@ -6,80 +6,108 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:50:18 by lgabet            #+#    #+#             */
-/*   Updated: 2023/06/15 11:45:02 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/09/21 11:12:07 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	print_node(t_struct node)
+void print_list(t_struct *list)
 {
-	int	j = 0;
-	ft_printf("stdin = %d\nstdout = %d\ncmd = %s\n", node.stdin, node.stdout, node.cmd);
-	while (node.flags[j])
-	{
-		ft_printf("flags n°%d = %s\n", j, node.flags[j]);
-		j++;
-	}
-	ft_printf("target = %s\n", node.target);
-	
-}
+	int	i = 0;
 
-void	set_up_first_node(t_struct *node)
-{
-	node->stdin = 1;
-	node->stdout = 1;
-	node->target = NULL;
-	node->flags = malloc(sizeof(char *) * (100000));
-	node->next = NULL;
-}
-
-int	change_stdin(char **splited_line, t_struct *to_send, int i)
-{
-	if (splited_line[i][0] == '<' && ft_strlen(splited_line[i]) == 1)
+	while (list)
 	{
+		ft_printf("node n%d\n	-str = %s\n	-type = %d\n", i, list->str, list->type);
 		i++;
-		to_send->stdin = open(splited_line[1], O_RDONLY);
+		list = list->next;
 	}
-	return (i);
 }
 
-int	fill_node(char **splited_line, t_struct *node, int i)
+void fill_node(t_struct **list_word, char *word)
 {
-	int	j;
+	t_struct	*tmp;
+	t_enum		type;
+
+	if (!word)
+		return ;
+	tmp = *list_word;
+	type = find_type_enum(tmp, word);		//currently working on this
+	word = remove_quotes(word);
+	add_node_back(list_word, new_node(word, type));
+}
+
+char	*find_end_of_the_word(char *line, int *i)
+{
+	int		j;
+	char	*word;
 
 	j = 0;
-	node->cmd = splited_line[i];
-	i++;
-	while (splited_line[i])
+	while (line[(*i) + j] && line[(*i) + j] != ' ')
+		j++;
+	word = calloc((j + 1), sizeof(char));
+	if (!word)
+		return (NULL);
+	j = 0;
+	while (line[(*i) + j] && line[(*i) + j] != ' ')
 	{
-		if (access(splited_line[i], F_OK) != -1)
-		{
-			node->flags[j] = NULL;
-			node->target = splited_line[i];
-			return (++i);
-		}
-		node->flags[j] = splited_line[i];
-		i++;
+		word[j] = line[(*i) + j];
 		j++;
 	}
-	return (i);
+	(*i) = (*i) + j;
+	return (word);
+}
+
+char	*find_second_quote(char *line, int *i)
+{
+	int		j;
+	char	*word;
+
+	j = 1;
+	while (line[(*i) + j] && line[(*i) + j] != '"')
+		j++;
+	if (!line[j + (*i)])		// only one double quote
+		return ((*i)++, find_end_of_the_word(line, i));
+	word = calloc((j + 2), sizeof(char));
+	if (!word)
+		return (NULL);
+	j = 0;
+	word[j] = line[(*i) + j];
+	j++;
+	while (line[(*i) + j] != '"')
+	{
+		word[j] = line[(*i) + j];
+		j++;
+	}
+	word[j] = line[(*i) + j];
+	(*i) = (*i) + j + 1;
+	return (word);
 }
 
 void	parsing_minishell(char **path, char *line, char **env)
 {
-	char		**splited_line;
-	int 		i;
-	t_struct	to_send;
+	int			i;
+	t_struct	*list_word;
 
-	i = 0;
-	if (line[0] == '\n')
+	if (line[0] == 0)
 		return ;
-	set_up_first_node(&to_send);
-	splited_line = ft_split(line, ' ');
-	i = change_stdin(splited_line, &to_send, i);
-	i = fill_node(splited_line, &to_send, i);
-	print_node(to_send);
-	(void)path;
+	list_word = new_node(NULL, ENUM_NULL);
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == '"')
+			fill_node(&list_word, find_second_quote(line, &i));
+		else
+			fill_node(&list_word, find_end_of_the_word(line, &i));
+		if (line[i] == ' ')
+			i++;
+	}
+	delete_node(&list_word);
+	print_list(list_word);
 	(void)env;
+	(void)path;
+	exec_start(path, env, list_word);
+	// (void)env;
+	// (void)path;
+	free_list(&list_word);
 }

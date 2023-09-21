@@ -1,38 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_path.c                                         :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/14 14:41:14 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/21 11:16:21 by jrenault         ###   ########lyon.fr   */
+/*   Created: 2022/11/07 14:52:27 by jrenault          #+#    #+#             */
+/*   Updated: 2023/01/11 18:32:35 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "libft.h"
 
-char	**get_path(char **env)
+size_t	ft_strlen(const char *str)
 {
-	char	*path;
-	char	**splited_path;
-	int		i;
+	size_t	i;
 
-	path = NULL;
 	i = 0;
-	while (env[i])
-	{
-		if (ft_strncmp(env[i], "PATH=", 5) == 0)
-			path = env[i];
+	while (str && str[i])
 		i++;
-	}
-	if (!path)
-		return (NULL);
-	splited_path = ft_split(path, ':');
-	if (!splited_path)
-	{
-		ft_printf("Malloc error while splitting path\n");
-		exit(EXIT_FAILURE);
-	}
-	return (splited_path);
+	return (i);
 }

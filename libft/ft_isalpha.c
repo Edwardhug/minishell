@@ -1,38 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_path.c                                         :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/14 14:41:14 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/21 11:16:21 by jrenault         ###   ########lyon.fr   */
+/*   Created: 2022/11/09 10:14:27 by jrenault          #+#    #+#             */
+/*   Updated: 2022/11/12 10:44:17 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "libft.h"
 
-char	**get_path(char **env)
+int	ft_isalpha(int n)
 {
-	char	*path;
-	char	**splited_path;
-	int		i;
-
-	path = NULL;
-	i = 0;
-	while (env[i])
+	if ((n >= 65 && n <= 90) || (n >= 97 && n <= 122))
 	{
-		if (ft_strncmp(env[i], "PATH=", 5) == 0)
-			path = env[i];
-		i++;
+		return (1);
 	}
-	if (!path)
-		return (NULL);
-	splited_path = ft_split(path, ':');
-	if (!splited_path)
-	{
-		ft_printf("Malloc error while splitting path\n");
-		exit(EXIT_FAILURE);
-	}
-	return (splited_path);
+	else
+		return (0);
 }

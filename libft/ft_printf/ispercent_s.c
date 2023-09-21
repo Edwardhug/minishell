@@ -1,38 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_path.c                                         :+:      :+:    :+:   */
+/*   ispercent_s.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/14 14:41:14 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/21 11:16:21 by jrenault         ###   ########lyon.fr   */
+/*   Created: 2022/11/24 08:51:20 by jrenault          #+#    #+#             */
+/*   Updated: 2022/11/25 15:12:08 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "ft_printf.h"
 
-char	**get_path(char **env)
+int	ispercent_s(char *s)
 {
-	char	*path;
-	char	**splited_path;
-	int		i;
-
-	path = NULL;
-	i = 0;
-	while (env[i])
+	if (!s)
 	{
-		if (ft_strncmp(env[i], "PATH=", 5) == 0)
-			path = env[i];
-		i++;
+		write (1, "(null)", 6);
+		return (6);
 	}
-	if (!path)
-		return (NULL);
-	splited_path = ft_split(path, ':');
-	if (!splited_path)
-	{
-		ft_printf("Malloc error while splitting path\n");
-		exit(EXIT_FAILURE);
-	}
-	return (splited_path);
+	ft_putstr(s);
+	return (ft_strlen(s));
 }

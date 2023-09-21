@@ -1,38 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_path.c                                         :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/14 14:41:14 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/21 11:16:21 by jrenault         ###   ########lyon.fr   */
+/*   Created: 2022/11/14 15:03:24 by jrenault          #+#    #+#             */
+/*   Updated: 2022/11/14 16:16:15 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "libft.h"
 
-char	**get_path(char **env)
+char	*ft_strmapi(const char *s, char (*f)(unsigned int, char))
 {
-	char	*path;
-	char	**splited_path;
-	int		i;
+	size_t	i;
+	size_t	len;
+	char	*str;
 
-	path = NULL;
+	if (!s || !f)
+		return (0);
 	i = 0;
-	while (env[i])
+	len = ft_strlen(s);
+	str = (char *)malloc(sizeof(char) * (len + 1));
+	if (!str)
+		return (NULL);
+	while (i < len)
 	{
-		if (ft_strncmp(env[i], "PATH=", 5) == 0)
-			path = env[i];
+		str[i] = f(i, s[i]);
 		i++;
 	}
-	if (!path)
-		return (NULL);
-	splited_path = ft_split(path, ':');
-	if (!splited_path)
-	{
-		ft_printf("Malloc error while splitting path\n");
-		exit(EXIT_FAILURE);
-	}
-	return (splited_path);
+	str[i] = '\0';
+	return (str);
 }

@@ -1,43 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_tab.c                                         :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/14 16:03:02 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/21 11:10:50 by lgabet           ###   ########.fr       */
+/*   Created: 2022/11/08 10:26:49 by jrenault          #+#    #+#             */
+/*   Updated: 2023/09/21 11:14:38 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "libft.h"
 
-// void	free_tab(char **tab)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (tab[i])
-// 	{
-// 		free(tab[i]);
-// 		i++;
-// 	}
-// 	free(tab);
-// }
-
-void	free_list(t_struct **lst)
+char	*ft_strrchr(const char *string, int searchedChar)
 {
-	t_struct	*temp;
+	int	len;
 
-	if (lst && *lst)
+	len = ft_strlen((string));
+	while (len >= 0)
 	{
-		while (*lst)
-		{
-			temp = *lst;
-			free((*lst)->str);
-			*lst = temp->next;
-			free(temp);
-		}
-		*lst = NULL;
+		if (string[len] == ((char)searchedChar))
+			return (&((char *)string)[len]);
+		len--;
 	}
+	return (0);
 }

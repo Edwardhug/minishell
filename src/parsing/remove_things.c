@@ -1,43 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_tab.c                                         :+:      :+:    :+:   */
+/*   remove_things.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/14 16:03:02 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/21 11:10:50 by lgabet           ###   ########.fr       */
+/*   Created: 2023/06/19 17:02:27 by lgabet            #+#    #+#             */
+/*   Updated: 2023/06/22 12:34:29 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-// void	free_tab(char **tab)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (tab[i])
-// 	{
-// 		free(tab[i]);
-// 		i++;
-// 	}
-// 	free(tab);
-// }
-
-void	free_list(t_struct **lst)
+char	*remove_quotes(char *str)
 {
-	t_struct	*temp;
+	char	*ret;
+	int		i;
+	int		j;
 
-	if (lst && *lst)
+	// i = 0;
+	j = 0;
+	// while (str[i])
+	// {
+	// 	if (str[i] == '"')
+	// 		i++;
+	// 	i++;
+	// }
+	i = ft_strlen(str);
+	ret = calloc((i + 1), sizeof(char));
+	if (!ret)
+		return (NULL);
+	i = 0;
+	while (str[i])
 	{
-		while (*lst)
+		if (str[i] == '"')
+			i++;
+		else
 		{
-			temp = *lst;
-			free((*lst)->str);
-			*lst = temp->next;
-			free(temp);
+			ret[j] = str[i];
+			i++;
+			j++;	
 		}
-		*lst = NULL;
 	}
+	return (free(str), ret);
 }

@@ -1,38 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_path.c                                         :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/14 14:41:14 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/21 11:16:21 by jrenault         ###   ########lyon.fr   */
+/*   Created: 2022/11/14 16:20:56 by jrenault          #+#    #+#             */
+/*   Updated: 2022/11/17 13:29:24 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "libft.h"
 
-char	**get_path(char **env)
+void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
-	char	*path;
-	char	**splited_path;
-	int		i;
+	unsigned int	i;
+	unsigned int	len;
 
-	path = NULL;
+	if (!f || !s)
+		return ;
+	len = ft_strlen(s);
 	i = 0;
-	while (env[i])
+	while (i < len)
 	{
-		if (ft_strncmp(env[i], "PATH=", 5) == 0)
-			path = env[i];
+		(*f)(i, &s[i]);
 		i++;
 	}
-	if (!path)
-		return (NULL);
-	splited_path = ft_split(path, ':');
-	if (!splited_path)
-	{
-		ft_printf("Malloc error while splitting path\n");
-		exit(EXIT_FAILURE);
-	}
-	return (splited_path);
 }

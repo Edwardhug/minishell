@@ -1,43 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_tab.c                                         :+:      :+:    :+:   */
+/*   exit_fonctions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/14 16:03:02 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/21 11:10:50 by lgabet           ###   ########.fr       */
+/*   Created: 2023/09/19 17:13:13 by lgabet            #+#    #+#             */
+/*   Updated: 2023/09/21 11:11:35 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-// void	free_tab(char **tab)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (tab[i])
-// 	{
-// 		free(tab[i]);
-// 		i++;
-// 	}
-// 	free(tab);
-// }
-
-void	free_list(t_struct **lst)
+void exit_and_write_it(char **path)
 {
-	t_struct	*temp;
-
-	if (lst && *lst)
-	{
-		while (*lst)
-		{
-			temp = *lst;
-			free((*lst)->str);
-			*lst = temp->next;
-			free(temp);
-		}
-		*lst = NULL;
-	}
+	ft_printf("exit\n");
+	rl_clear_history();
+	free_tab(path);
+	exit(EXIT_SUCCESS);				// verifier si c'est bien exit success
 }
