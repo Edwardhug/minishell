@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   t_struct_utils.c                                   :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lezard <lezard@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/18 13:20:41 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/19 14:38:10 by lezard           ###   ########lyon.fr   */
+/*   Created: 2022/11/17 16:34:53 by jrenault          #+#    #+#             */
+/*   Updated: 2022/11/18 13:16:51 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "libft.h"
 
-size_t	t_struct_strlen(t_struct *list_word)
+void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	size_t		i;
-	t_struct	*tmp;
+	t_list	*temp;
 
-	i = 0;
-	tmp = list_word;
-	while (tmp)
+	if (lst == NULL || del == NULL)
+		return ;
+	while ((*lst) != NULL)
 	{
-		tmp = tmp->next;
-		i++;
+		temp = (*lst)->next;
+		ft_lstdelone(*lst, del);
+		*lst = temp;
 	}
-	return (i);
+	*lst = NULL;
 }

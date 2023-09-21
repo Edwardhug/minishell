@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   t_struct_utils.c                                   :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lezard <lezard@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/18 13:20:41 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/19 14:38:10 by lezard           ###   ########lyon.fr   */
+/*   Created: 2022/11/14 16:20:56 by jrenault          #+#    #+#             */
+/*   Updated: 2022/11/17 13:29:24 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "libft.h"
 
-size_t	t_struct_strlen(t_struct *list_word)
+void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
-	size_t		i;
-	t_struct	*tmp;
+	unsigned int	i;
+	unsigned int	len;
 
+	if (!f || !s)
+		return ;
+	len = ft_strlen(s);
 	i = 0;
-	tmp = list_word;
-	while (tmp)
+	while (i < len)
 	{
-		tmp = tmp->next;
+		(*f)(i, &s[i]);
 		i++;
 	}
-	return (i);
 }

@@ -12,15 +12,22 @@ SRCS =	parsing/minishell.c\
 		parsing/struct_utils.c\
 		parsing/get_type_enum.c\
 		parsing/remove_things.c\
+		exec/exec_start.c\
+		exec/exec_utils.c\
+		exec/builtins/ft_cd.c\
 		utils/free_tab.c\
+<<<<<<< HEAD
 		utils/exit_fonctions.c\
 		signals/signals.c\
+=======
+		utils/t_struct_utils.c\
+>>>>>>> origin/exec
 
 INCLUDE = minishell.h
 
 OBJS = $(SRCS:%.c=$(PATH_OBJS)%.o)
 
-LIBFT_A = Libft/libft.a
+LIBFT_A = libft/libft.a
 
 PATH_SRCS = src/
 
@@ -28,7 +35,7 @@ PATH_INCLUDE = include/
 
 PATH_OBJS = obj/
 
-PATH_LIBFT = Libft/
+PATH_LIBFT = libft/
 
 # ----------------------------------variable bonus--------------------------
 
@@ -72,6 +79,8 @@ $(OBJS)	: $(PATH_OBJS)%.o: $(PATH_SRCS)%.c $(PATH_INCLUDE)$(INCLUDE) $(LIBFT_A)
 $(PATH_OBJS) :
 				mkdir -p $(PATH_OBJS)
 				mkdir -p $(PATH_OBJS)/parsing
+				mkdir -p $(PATH_OBJS)/exec
+				mkdir -p $(PATH_OBJS)/exec/builtins
 				mkdir -p $(PATH_OBJS)/utils
 				mkdir -p $(PATH_OBJS)/signals
 

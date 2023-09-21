@@ -1,28 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   t_struct_utils.c                                   :+:      :+:    :+:   */
+/*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lezard <lezard@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/18 13:20:41 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/19 14:38:10 by lezard           ###   ########lyon.fr   */
+/*   Created: 2022/11/16 15:08:41 by jrenault          #+#    #+#             */
+/*   Updated: 2022/11/16 15:10:24 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "libft.h"
 
-size_t	t_struct_strlen(t_struct *list_word)
+int	ft_isprint(int c)
 {
-	size_t		i;
-	t_struct	*tmp;
-
-	i = 0;
-	tmp = list_word;
-	while (tmp)
-	{
-		tmp = tmp->next;
-		i++;
-	}
-	return (i);
+	if (((c >= 32 && c <= 126)))
+		return (1);
+	return (0);
 }

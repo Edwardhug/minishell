@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   t_struct_utils.c                                   :+:      :+:    :+:   */
+/*   ft_swap_int.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lezard <lezard@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/18 13:20:41 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/19 14:38:10 by lezard           ###   ########lyon.fr   */
+/*   Created: 2023/03/17 14:27:26 by lezard            #+#    #+#             */
+/*   Updated: 2023/03/17 14:27:28 by lezard           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "libft.h"
 
-size_t	t_struct_strlen(t_struct *list_word)
+void	ft_swap_int(int *a, int *b)
 {
-	size_t		i;
-	t_struct	*tmp;
+	int	c;
 
-	i = 0;
-	tmp = list_word;
-	while (tmp)
-	{
-		tmp = tmp->next;
-		i++;
-	}
-	return (i);
+	c = *a;
+	*a = *b;
+	*b = c;
 }

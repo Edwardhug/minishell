@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 14:28:48 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/19 21:28:40 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/09/21 11:05:53 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*remove_new_line(char *str)
 {
-	int 	i;
+	int		i;
 	char	*to_ret;
 
 	i = 0;
@@ -56,6 +56,8 @@ int main(int ac, char **av, char **env)
 		parsing_minishell(path, line, env);
 		free(line);
 	}
+//	rl_clear_history();
+	free_tab(path);
 	(void)av;
 	return (0);
 }

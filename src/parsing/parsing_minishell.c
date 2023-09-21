@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_minishell.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: lezard <lezard@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:50:18 by lgabet            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/09/19 11:19:37 by lgabet           ###   ########.fr       */
+=======
+/*   Updated: 2023/09/18 16:30:22 by lezard           ###   ########lyon.fr   */
+>>>>>>> origin/exec
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +108,16 @@ void	parsing_minishell(char **path, char *line, char **env)
 	}
 	delete_node(&list_word);
 	print_list(list_word);
+<<<<<<< HEAD
 	// exec_start(path, env, list_word);
 	(void)env;
 	(void)path;
+=======
+	(void)env;
+	(void)path;
+	exec_start(path, env, list_word);
+	// (void)env;
+	// (void)path;
+>>>>>>> origin/exec
 	free_list(&list_word);
 }

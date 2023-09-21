@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   t_struct_utils.c                                   :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lezard <lezard@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/18 13:20:41 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/19 14:38:10 by lezard           ###   ########lyon.fr   */
+/*   Created: 2022/11/07 16:30:43 by jrenault          #+#    #+#             */
+/*   Updated: 2022/11/16 14:51:01 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "libft.h"
 
-size_t	t_struct_strlen(t_struct *list_word)
+void	*ft_memcpy(void *dest, const void *src, size_t size)
 {
-	size_t		i;
-	t_struct	*tmp;
+	size_t	i;
 
 	i = 0;
-	tmp = list_word;
-	while (tmp)
+	if (!dest && !src)
+		return (NULL);
+	while (i < size)
 	{
-		tmp = tmp->next;
+		((char *)dest)[i] = ((char *)src)[i];
 		i++;
 	}
-	return (i);
+	return (dest);
 }

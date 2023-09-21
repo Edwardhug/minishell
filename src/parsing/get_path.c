@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: lezard <lezard@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 14:41:14 by lgabet            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/09/19 11:36:47 by lgabet           ###   ########.fr       */
+=======
+/*   Updated: 2023/09/18 16:02:58 by lezard           ###   ########lyon.fr   */
+>>>>>>> origin/exec
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +40,3 @@ char	**get_path(char **env)
 	}
 	return (splited_path);
 }
-

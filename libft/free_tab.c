@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   t_struct_utils.c                                   :+:      :+:    :+:   */
+/*   free_tab.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lezard <lezard@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/18 13:20:41 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/19 14:38:10 by lezard           ###   ########lyon.fr   */
+/*   Created: 2023/02/07 15:08:20 by jrenault          #+#    #+#             */
+/*   Updated: 2023/06/02 03:01:37 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "libft.h"
 
-size_t	t_struct_strlen(t_struct *list_word)
+void	*free_tab(char **tab)
 {
-	size_t		i;
-	t_struct	*tmp;
+	int	i;
 
 	i = 0;
-	tmp = list_word;
-	while (tmp)
+	if (!tab)
+		return (NULL);
+	while (tab[i])
 	{
-		tmp = tmp->next;
+		free(tab[i]);
 		i++;
 	}
-	return (i);
+	free(tab);
+	return (NULL);
 }

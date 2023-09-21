@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   t_struct_utils.c                                   :+:      :+:    :+:   */
+/*   ispercent_s.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lezard <lezard@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/18 13:20:41 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/19 14:38:10 by lezard           ###   ########lyon.fr   */
+/*   Created: 2022/11/24 08:51:20 by jrenault          #+#    #+#             */
+/*   Updated: 2022/11/25 15:12:08 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "ft_printf.h"
 
-size_t	t_struct_strlen(t_struct *list_word)
+int	ispercent_s(char *s)
 {
-	size_t		i;
-	t_struct	*tmp;
-
-	i = 0;
-	tmp = list_word;
-	while (tmp)
+	if (!s)
 	{
-		tmp = tmp->next;
-		i++;
+		write (1, "(null)", 6);
+		return (6);
 	}
-	return (i);
+	ft_putstr(s);
+	return (ft_strlen(s));
 }

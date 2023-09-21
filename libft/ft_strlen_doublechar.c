@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   t_struct_utils.c                                   :+:      :+:    :+:   */
+/*   ft_strlen_doublechar.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lezard <lezard@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/18 13:20:41 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/19 14:38:10 by lezard           ###   ########lyon.fr   */
+/*   Created: 2023/04/04 13:12:04 by lezard            #+#    #+#             */
+/*   Updated: 2023/04/04 13:12:39 by lezard           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "libft.h"
 
-size_t	t_struct_strlen(t_struct *list_word)
+int	ft_strlen_doublechar(char **str)
 {
-	size_t		i;
-	t_struct	*tmp;
+	int	i;
 
 	i = 0;
-	tmp = list_word;
-	while (tmp)
-	{
-		tmp = tmp->next;
+	while (str[i])
 		i++;
-	}
 	return (i);
 }

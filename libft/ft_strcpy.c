@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   t_struct_utils.c                                   :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lezard <lezard@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/18 13:20:41 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/19 14:38:10 by lezard           ###   ########lyon.fr   */
+/*   Created: 2023/01/12 15:19:39 by jrenault          #+#    #+#             */
+/*   Updated: 2023/01/12 15:24:12 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
-
-size_t	t_struct_strlen(t_struct *list_word)
+char	*ft_strcpy(char *dest, const char *src)
 {
-	size_t		i;
-	t_struct	*tmp;
+	int	i;
 
 	i = 0;
-	tmp = list_word;
-	while (tmp)
+	if (!src || !dest)
+		return (0);
+	while (src && src[i])
 	{
-		tmp = tmp->next;
+		dest[i] = src[i];
 		i++;
 	}
-	return (i);
+	dest[i] = '\0';
+	return (dest);
 }
