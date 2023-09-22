@@ -13,18 +13,16 @@ SRCS =	parsing/minishell.c\
 		parsing/get_type_enum.c\
 		parsing/remove_things.c\
 		exec/exec_start.c\
-		exec/exec_utils.c\
-		exec/pipe_and_fork_gestion.c\
+		exec/t_exec_continue.c\
+		exec/t_apply_exec.c\
+		exec/t_exec_utils.c\
+		exec/t_stdin_out_gestion.c \
 		exec/builtins/ft_cd.c\
 		utils/free_tab.c\
 		utils/exit_fonctions.c\
 		utils/t_struct_utils.c\
 		signals/signals.c\
 		here_doc/here_doc.c\
-		exec_test/t_exec_beging.c\
-		exec_test/t_apply_exec.c\
-		exec_test/t_utils.c\
-		exec_test/t_stdin_out_gestion.c \
 
 INCLUDE = minishell.h
 
