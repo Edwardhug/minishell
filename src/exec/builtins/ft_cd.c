@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42lyon.fr>    +#+  +:+       +#+        */
+/*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 15:51:21 by lezard            #+#    #+#             */
-/*   Updated: 2023/09/19 14:53:08 by codespace        ###   ########lyon.fr   */
+/*   Updated: 2023/09/22 11:34:56 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
-int	ft_cd(t_exec *exec)
+int	ft_cd(char **cmd)
 {
-	chdir(exec->cmd[1]);
+	chdir(cmd[1]);
 	return (0);
 }
 /*

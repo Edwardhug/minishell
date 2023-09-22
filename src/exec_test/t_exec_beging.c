@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 18:49:06 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/22 00:07:12 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/09/22 11:36:00 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ void	t_exec_cmd(t_struct *temp_list, char **env)
 	int		fd[2];
 	int		pid;
 
+	if (is_builtin(t_get_clean_cmd(temp_list)))
+		return ;
 	if (pipe(fd) == -1)
 		exit(EXIT_FAILURE);
 	pid = fork();
@@ -64,7 +66,6 @@ void	t_exec_cmd(t_struct *temp_list, char **env)
 	{
 		close(fd[0]);
 		t_change_stdout(temp_list, fd[1]);
-		// dup2(fd[1], STDOUT_FILENO);
 		close(fd[1]);
 		t_apply_exec(temp_list, env);
 		exit(EXIT_FAILURE);

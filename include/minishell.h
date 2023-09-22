@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 14:27:24 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/21 21:39:49 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/09/22 11:48:27 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void		access_cmd(t_exec *exec, int i);
 
 //builtins
 
-int			ft_cd(t_exec *exec);
+int			ft_cd(char **cmd);
 
 // utils
 
@@ -106,5 +106,6 @@ char	*t_get_path_cmd(char **all_path, char **splited);
 char	*t_get_cmd(char **env, char **splited_cmd);
 void	t_apply_exec(t_struct *temp_list, char **env);
 void	print_error(char **splited_cmd, char **all_path, int i);
+int	is_builtin(char	**cmd);
 
 #endif
