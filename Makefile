@@ -24,6 +24,7 @@ SRCS =	parsing/minishell.c\
 		exec_test/t_exec_beging.c\
 		exec_test/t_apply_exec.c\
 		exec_test/t_utils.c\
+		exec_test/t_stdin_out_gestion.c \
 
 INCLUDE = minishell.h
 
