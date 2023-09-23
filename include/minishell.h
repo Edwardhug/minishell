@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 14:27:24 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/22 11:48:27 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/09/23 22:41:03 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,13 +99,13 @@ int			here_doc(t_struct *temp_list);
 
 void	t_open_fd_out(t_struct *temp_list);
 void	t_change_stdout(t_struct *temp_list, int fd);
-void	t_exec_cmd(t_struct *temp_list, char **env);
-int	t_size_cmd(t_struct *temp_list);
+int	t_exec_cmd(t_struct *temp_list, char **env);
+int		t_size_cmd(t_struct *temp_list);
 char	**t_get_clean_cmd(t_struct *temp_list);
 char	*t_get_path_cmd(char **all_path, char **splited);
 char	*t_get_cmd(char **env, char **splited_cmd);
 void	t_apply_exec(t_struct *temp_list, char **env);
 void	print_error(char **splited_cmd, char **all_path, int i);
-int	is_builtin(char	**cmd);
+int		is_builtin(char	**cmd);
 
 #endif
