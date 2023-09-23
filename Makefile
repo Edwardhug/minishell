@@ -26,7 +26,6 @@ SRCS =	parsing/minishell.c\
 
 INCLUDE = minishell.h
 
-
 OBJS = $(SRCS:%.c=$(PATH_OBJS)%.o)
 
 LIBFT_A = libft/libft.a
