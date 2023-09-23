@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 14:27:24 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/23 16:04:28 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/09/23 22:41:03 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,5 @@ char	*t_get_cmd(char **env, char **splited_cmd);
 void	t_apply_exec(t_struct *temp_list, char **env);
 void	print_error(char **splited_cmd, char **all_path, int i);
 int		is_builtin(char	**cmd);
-void	exec_last_cmd(t_struct *temp_list, char **env);
 
 #endif
