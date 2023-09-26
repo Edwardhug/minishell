@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 20:56:45 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/21 23:18:23 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/09/26 09:27:08 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void	ft_child_here_doc(t_struct *temp_list, int *fd)
 	{
 		ft_printf("heredoc> ");
 		tmp = get_next_line(0);
-		if (ft_strncmp(tmp, temp_list->str, ft_strlen(temp_list->str)) == 0)		//probleme si jamais le limiter est plus long comnme dans pipex
+		if (ft_strncmp(tmp, temp_list->str, ft_strlen(temp_list->str)) == 0
+			&& tmp[ft_strlen(temp_list->str)] == '\n')
 		{
 			free(tmp);
 			close(fd[1]);
