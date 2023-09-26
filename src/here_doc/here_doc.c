@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 20:56:45 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/26 18:59:19 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/09/26 19:12:21 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int	here_doc(t_struct *temp_list)
 		close(fd[0]);
 		wait(&status);
 		signals();
+		temp_list = temp_list->next;
 		if (temp_list->next && status == EXIT_SUCCESS)
 			return(1);
 		else
