@@ -6,17 +6,11 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 14:45:53 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/26 14:26:09 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/09/26 18:51:04 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-void	handle_sigint_main_loop(int signal)
-{
-	if (signal == SIGINT)
-		ft_printf("\nMinishell>");
-}
 
 void	no_line_return(int sig)
 {

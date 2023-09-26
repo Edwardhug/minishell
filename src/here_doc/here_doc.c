@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 20:56:45 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/26 15:53:06 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/09/26 18:59:19 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,16 @@ int	here_doc(t_struct *temp_list)
 		ft_child_here_doc(temp_list, fd);
 	else
 	{
+		signal(SIGINT, SIG_IGN);
 		close(fd[1]);
 		dup2(fd[0], STDIN_FILENO);
 		close(fd[0]);
 		wait(&status);
-		if (WEXITSTATUS(status) == EXIT_SUCCESS)
-			ft_printf("LIM\n");
+		signals();
+		if (temp_list->next && status == EXIT_SUCCESS)
+			return(1);
 		else
-			ft_printf("C/\n");
+			return(0);
 	}
 	return (1);
 }
