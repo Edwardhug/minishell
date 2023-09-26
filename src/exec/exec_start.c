@@ -5,7 +5,11 @@ int	is_builtin(char	**cmd)
 	if (ft_strnstr(cmd[0], "cd", 2) != NULL)
 		return (ft_cd(cmd), 1);
 	else if (ft_strnstr(cmd[0], "pwd", 3) != NULL)
-		return (ft_pwd(void), 1);
+		return (ft_pwd(), 1);
+	else if (ft_strnstr(cmd[0], "echo", 4) != NULL)
+		return (ft_echo(cmd), 1);
+	else if (ft_strnstr(cmd[0], "exit", 4) != NULL)
+		return (ft_exit(cmd), 1);
 	return (0);
 }
 

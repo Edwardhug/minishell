@@ -23,6 +23,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
+# include <limits.h>
 
 typedef enum s_enum
 {
@@ -92,7 +93,9 @@ int			is_builtin(char	**cmd);
 //builtins
 
 int			ft_cd(char **cmd);
-int			ft_pwd(char **cmd);
+int			ft_pwd(void);
+int			ft_echo(char **cmd);
+int			ft_exit(char **cmd);
 
 // utils
 
