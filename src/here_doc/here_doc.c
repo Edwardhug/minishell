@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 20:56:45 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/26 19:12:21 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/09/26 22:49:35 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,9 @@ void	ft_child_here_doc(t_struct *temp_list, int *fd)
 	signal(SIGINT, sigint_handler_heredoc);
 	while (1)
 	{
-		ft_printf("> ");
-		tmp = get_next_line(0);
-		if (ft_strncmp(tmp, temp_list->str, ft_strlen(temp_list->str)) == 0
-			&& tmp[ft_strlen(temp_list->str)] == '\n')
+		tmp = readline("> ");
+		if ((ft_strncmp(tmp, temp_list->str, ft_strlen(temp_list->str)) == 0)
+			&& (ft_strlen(temp_list->str) == ft_strlen(tmp)))
 		{
 			free(tmp);
 			close(fd[1]);
@@ -45,6 +44,7 @@ int	here_doc(t_struct *temp_list)
 		return (ft_printf("syntax error near unexpected token `newline'\n", NULL));
 	if (pipe(fd) == -1)
 		return (0);
+	// signal(SIGQUIT, SIG_IGN);
 	pid = fork();
 	if (pid == -1)
 		return (0);
