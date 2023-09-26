@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 14:45:53 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/26 11:07:48 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/09/26 12:43:46 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,19 @@ void	handle_sigint_main_loop(int signal)
 // 	signal(SIGQUIT, SIG_IGN);			// pour ctrl backslash
 // }
 
-void	sigquit_handler_in_process(int sig)
+void	no_line_return(int sig)
 {
 	(void) sig;
-	ft_printf("yoo");
+}
+
+void	sigquit_handler_in_process(int sig)
+{
+	sig_t	old_signal;
+
+	old_signal = signal(SIGINT, no_line_return);
+	(void) sig;
+	kill(0, SIGINT);
+	signal(SIGINT, old_signal);
 }
 
 void	sigint_handler_in_process(int sig)
