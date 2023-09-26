@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 14:28:48 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/21 21:59:29 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/09/26 10:18:36 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ int main(int ac, char **av, char **env)
 	if (ac != 1)
 		return (ft_printf("No arg needed\n"), 1);
 	path = get_path(env);
+	signals();
 	while (1)
 	{
-		signal_main_loop();
 		line = readline("Minishell> ");
 		if (line == NULL)
 			exit_and_write_it(path, fd_standart);
@@ -58,6 +58,7 @@ int main(int ac, char **av, char **env)
 		parsing_minishell(path, line, env);
 		free(line);
 		dup2(fd_standart, STDIN_FILENO);
+		signal(SIGINT, sigint_handler);
 	}
 	// rl_clear_history();
 	free_tab(path);

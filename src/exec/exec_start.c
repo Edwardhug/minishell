@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 18:08:24 by lezard            #+#    #+#             */
-/*   Updated: 2023/09/23 16:11:37 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/09/26 11:07:15 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,17 @@ void	wait_all_process(int *pid, t_struct *list_word)
 {
 	int cmd_to_finish;
 	int	i;
+	sig_t	old_signal[2];
 
 	cmd_to_finish = number_of_cmd(list_word);
 	i = 0;
+	old_signal[0] = signal(SIGINT, sigint_handler_in_process);
+	old_signal[1] = signal(SIGQUIT, SIG_IGN);
 	while (i <= cmd_to_finish)
 	{
 		waitpid(pid[i], NULL, WUNTRACED);
+		signal(SIGINT, old_signal[0]);		// signal ctrl c
+		signal(SIGQUIT, old_signal[1]);		// signal ctrl backslash
 		i++;
 	}
 }
