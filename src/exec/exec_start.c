@@ -16,13 +16,12 @@ int	is_builtin(char	**cmd)
 {
 	if (ft_strnstr(cmd[0], "cd", 2) != NULL)
 	{
-		printf("on trouve cd dans les commandes\n");
 		return (ft_cd(cmd), 1);
 	}
 	return (0);
 }
 
-int have_pipe(t_struct *temp_list)
+int	have_pipe(t_struct *temp_list)
 {
 	while (temp_list->next && temp_list->type != PIPE)
 		temp_list = temp_list->next;
@@ -33,7 +32,7 @@ int have_pipe(t_struct *temp_list)
 
 int	number_of_cmd(t_struct *list_word)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	while (list_word->next)
@@ -47,7 +46,7 @@ int	number_of_cmd(t_struct *list_word)
 
 void	wait_all_process(int *pid, t_struct *list_word)
 {
-	int cmd_to_finish;
+	int	cmd_to_finish;
 	int	i;
 
 	cmd_to_finish = number_of_cmd(list_word);
@@ -59,10 +58,10 @@ void	wait_all_process(int *pid, t_struct *list_word)
 	}
 }
 
-void begin_execution(char **path, char **env, t_struct *list_word)
+void	begin_execution(char **path, char **env, t_struct *list_word)
 {
-	int	pid_tab[number_of_cmd(list_word)];
-	int	i;
+	int			pid_tab[number_of_cmd(list_word)];
+	int			i;
 	t_struct	*temp_list;
 
 		i = 0;
