@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 20:56:45 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/26 15:13:49 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/09/26 15:53:06 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	here_doc(t_struct *temp_list)
 {
 	int	fd[2];
 	int	pid;
+	int	status;
 
 	if (!temp_list->next)						// verifie qu'il n'y a pas juste marque ( << )
 		return (ft_printf("syntax error near unexpected token `newline'\n", NULL));
@@ -54,7 +55,11 @@ int	here_doc(t_struct *temp_list)
 		close(fd[1]);
 		dup2(fd[0], STDIN_FILENO);
 		close(fd[0]);
-		waitpid(0, NULL, WUNTRACED);
+		wait(&status);
+		if (WEXITSTATUS(status) == EXIT_SUCCESS)
+			ft_printf("LIM\n");
+		else
+			ft_printf("C/\n");
 	}
 	return (1);
 }
