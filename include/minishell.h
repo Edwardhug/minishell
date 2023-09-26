@@ -66,26 +66,33 @@ t_enum		find_type_enum(t_struct *tmp, char *word);
 char		*remove_quotes(char *str);
 void		delete_node(t_struct **lst);
 void		free_list(t_struct **lst);
-void		signal_main_loop();
+void		signal_main_loop(void);
 void		handle_sigint_main_loop(int signal);
-void 		exit_and_write_it(char **path, int fd_standart);
+void		exit_and_write_it(char **path, int fd_standart);
 
 void		print_list(t_struct *list);
 
 //exec
 
 void 		begin_execution(char **path, char **env, t_struct *list_word);
-char		**get_cmd(t_exec *exec, t_struct *temp_list);
-void		execute_command(t_exec *exec);
 int			open_fd_in(t_struct *temp_list);
 int 		change_stdin(t_struct *list_word, t_struct *temp_list);
-int			is_end(t_struct *temp_list);
-void		find_correct_path(t_exec *exec);
-void		access_cmd(t_exec *exec, int i);
+
+void		t_open_fd_out(t_struct *temp_list);
+void		t_change_stdout(t_struct *temp_list, int fd);
+int			t_exec_cmd(t_struct *temp_list, char **env);
+int			t_size_cmd(t_struct *temp_list);
+char		**t_get_clean_cmd(t_struct *temp_list);
+char		*t_get_path_cmd(char **all_path, char **splited);
+char		*t_get_cmd(char **env, char **splited_cmd);
+void		t_apply_exec(t_struct *temp_list, char **env);
+void		print_error(char **splited_cmd, char **all_path, int i);
+int			is_builtin(char	**cmd);
 
 //builtins
 
 int			ft_cd(char **cmd);
+int			ft_pwd(char **cmd);
 
 // utils
 
@@ -94,18 +101,5 @@ size_t		t_struct_strlen(t_struct *list_word);
 //here doc
 
 int			here_doc(t_struct *temp_list);
-
-//test exec
-
-void	t_open_fd_out(t_struct *temp_list);
-void	t_change_stdout(t_struct *temp_list, int fd);
-int	t_exec_cmd(t_struct *temp_list, char **env);
-int		t_size_cmd(t_struct *temp_list);
-char	**t_get_clean_cmd(t_struct *temp_list);
-char	*t_get_path_cmd(char **all_path, char **splited);
-char	*t_get_cmd(char **env, char **splited_cmd);
-void	t_apply_exec(t_struct *temp_list, char **env);
-void	print_error(char **splited_cmd, char **all_path, int i);
-int		is_builtin(char	**cmd);
 
 #endif

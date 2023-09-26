@@ -1,23 +1,11 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   exec_start.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/18 18:08:24 by lezard            #+#    #+#             */
-/*   Updated: 2023/09/23 16:11:37 by lgabet           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../../include/minishell.h"
 
 int	is_builtin(char	**cmd)
 {
 	if (ft_strnstr(cmd[0], "cd", 2) != NULL)
-	{
 		return (ft_cd(cmd), 1);
-	}
+	else if (ft_strnstr(cmd[0], "pwd", 3) != NULL)
+		return (ft_pwd(void), 1);
 	return (0);
 }
 
