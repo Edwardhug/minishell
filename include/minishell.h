@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 14:27:24 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/26 10:27:01 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/09/26 14:30:49 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,5 +116,6 @@ void	sigint_handler(int sig);
 void	signals(void);
 void	sigint_handler_in_process(int sig);
 void	sigquit_handler_in_process(int sig);
+void 	sigint_handler_heredoc(int sig);
 
 #endif

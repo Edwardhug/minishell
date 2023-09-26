@@ -22,6 +22,7 @@ SRCS =	parsing/minishell.c\
 		utils/exit_fonctions.c\
 		utils/t_struct_utils.c\
 		signals/signals.c\
+		signals/signals_here_doc.c\
 		here_doc/here_doc.c\
 
 INCLUDE = minishell.h

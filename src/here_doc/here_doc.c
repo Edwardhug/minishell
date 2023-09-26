@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 20:56:45 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/26 09:27:08 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/09/26 15:13:49 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@ void	ft_child_here_doc(t_struct *temp_list, int *fd)
 
 	close(fd[0]);
 	temp_list = temp_list->next;
+	signal(SIGINT, sigint_handler_heredoc);
 	while (1)
 	{
-		ft_printf("heredoc> ");
+		ft_printf("> ");
 		tmp = get_next_line(0);
 		if (ft_strncmp(tmp, temp_list->str, ft_strlen(temp_list->str)) == 0
 			&& tmp[ft_strlen(temp_list->str)] == '\n')
@@ -57,4 +58,3 @@ int	here_doc(t_struct *temp_list)
 	}
 	return (1);
 }
-// heredoc branch
