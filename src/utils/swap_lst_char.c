@@ -59,13 +59,11 @@ static int	search_equal_sign(char *str)
 t_env	*env_double_char_into_lst(char **c_env)
 {
 	int		i;
-	int		j;
 	t_env	*lst_env;
 	t_env	*new_env;
 	t_env	*tail;
 
 	i = 0;
-	j = 0;
 	lst_env = NULL;
 	tail = NULL;
 	while (c_env[i])
