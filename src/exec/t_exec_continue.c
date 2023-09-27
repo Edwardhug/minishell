@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   t_exec_continue.c                                  :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/22 11:55:30 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/23 16:04:44 by lgabet           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../../include/minishell.h"
 
 void	t_open_fd_out(t_struct *temp_list)
@@ -52,7 +40,7 @@ void	t_change_stdout(t_struct *temp_list, int fd)
 		dup2(fd, STDOUT_FILENO);
 }
 
-int	t_exec_cmd(t_struct *temp_list, char **env)
+int	t_exec_cmd(t_struct *temp_list, t_env *env)
 {
 	int		fd[2];
 	int		pid;

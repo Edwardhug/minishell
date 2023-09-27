@@ -1,20 +1,8 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_cd.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/18 15:51:21 by lezard            #+#    #+#             */
-/*   Updated: 2023/09/22 11:34:56 by lgabet           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "../../../include/minishell.h"
+#include "minishell.h"
 
 int	ft_cd(char **cmd)
 {
-	chdir(cmd[1]);
+	chdir(cmd[1]); //chdir va tout simplement rediriger vers le chemin donné en argument.
 	return (0);
 }
 /*
