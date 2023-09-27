@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 20:56:45 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/26 22:59:22 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/09/27 10:52:31 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_child_here_doc(t_struct *temp_list, int *fd)
 	{
 		tmp = readline("> ");
 		if (!tmp)
-		{
+		{ 
 			close(fd[1]);
 			exit(3);
 		}
@@ -34,6 +34,7 @@ void	ft_child_here_doc(t_struct *temp_list, int *fd)
 			close(fd[1]);
 			exit(EXIT_SUCCESS);
 		}
+		tmp = ft_strjoin(tmp, "\n");
 		ft_putstr_fd(tmp, fd[1]);
 		free(tmp);
 	}
