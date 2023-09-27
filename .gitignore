@@ -12,3 +12,5 @@
 *.dSYM/
 
 *.gch
+
+minishell_tester
