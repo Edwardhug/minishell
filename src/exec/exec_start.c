@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 18:08:24 by lezard            #+#    #+#             */
-/*   Updated: 2023/09/26 18:54:41 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/09/27 14:45:46 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	begin_execution(char **path, char **env, t_struct *list_word)
 
 		i = 0;
 		(void)path;
+		list_word = print_return_value(list_word);
 		temp_list = list_word;
 		while (temp_list)
 		{
