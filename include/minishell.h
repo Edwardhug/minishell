@@ -36,6 +36,13 @@ typedef enum s_enum
 	FILES,
 }			t_enum;
 
+typedef struct s_env
+{
+	char			*name;
+	char			*value;
+	struct s_env	*next;
+}					t_env;
+
 typedef struct s_struct
 {
 	char				*str;
@@ -75,18 +82,18 @@ void		print_list(t_struct *list);
 
 //exec
 
-void 		begin_execution(char **path, char **env, t_struct *list_word);
+void		begin_execution(char **path, t_env *env, t_struct *list_word);
 int			open_fd_in(t_struct *temp_list);
-int 		change_stdin(t_struct *list_word, t_struct *temp_list);
+int			change_stdin(t_struct *list_word, t_struct *temp_list);
 
 void		t_open_fd_out(t_struct *temp_list);
 void		t_change_stdout(t_struct *temp_list, int fd);
-int			t_exec_cmd(t_struct *temp_list, char **env);
+int			t_exec_cmd(t_struct *temp_list, t_env *env);
 int			t_size_cmd(t_struct *temp_list);
 char		**t_get_clean_cmd(t_struct *temp_list);
 char		*t_get_path_cmd(char **all_path, char **splited);
 char		*t_get_cmd(char **env, char **splited_cmd);
-void		t_apply_exec(t_struct *temp_list, char **env);
+void		t_apply_exec(t_struct *temp_list, t_env *env);
 void		print_error(char **splited_cmd, char **all_path, int i);
 int			is_builtin(char	**cmd);
 
@@ -100,6 +107,9 @@ int			ft_exit(char **cmd);
 // utils
 
 size_t		t_struct_strlen(t_struct *list_word);
+size_t		t_env_strlen(t_env *env);
+char		**env_lst_into_double_char(t_env *env);
+t_env		*env_double_char_into_lst(char **c_env);
 
 //here doc
 

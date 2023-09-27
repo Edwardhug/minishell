@@ -24,6 +24,7 @@ SRCS =	parsing/minishell.c\
 		utils/free_tab.c\
 		utils/exit_fonctions.c\
 		utils/t_struct_utils.c\
+		utils/swap_lst_char.c\
 		signals/signals.c\
 		here_doc/here_doc.c\
 

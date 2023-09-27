@@ -1,4 +1,4 @@
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 int	is_builtin(char	**cmd)
 {
@@ -50,7 +50,7 @@ void	wait_all_process(int *pid, t_struct *list_word)
 	}
 }
 
-void	begin_execution(char **path, char **env, t_struct *list_word)
+void	begin_execution(char **path, t_env *env, t_struct *list_word)
 {
 	int			pid_tab[number_of_cmd(list_word)];
 	int			i;

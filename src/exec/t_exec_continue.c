@@ -40,7 +40,7 @@ void	t_change_stdout(t_struct *temp_list, int fd)
 		dup2(fd, STDOUT_FILENO);
 }
 
-int	t_exec_cmd(t_struct *temp_list, char **env)
+int	t_exec_cmd(t_struct *temp_list, t_env *env)
 {
 	int		fd[2];
 	int		pid;

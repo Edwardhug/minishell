@@ -92,11 +92,13 @@ char	*t_get_cmd(char **env, char **splited_cmd)
 	return (t_get_path_cmd(all_path, splited_cmd));
 }
 
-void	t_apply_exec(t_struct *temp_list, char **env)
+void	t_apply_exec(t_struct *temp_list, t_env *env_lst)
 {
 	char	*path_cmd;
 	char	**splited_cmd;
+	char	**env;
 
+	env = env_lst_into_double_char(env_lst);
 	splited_cmd = t_get_clean_cmd(temp_list);
 	if (!splited_cmd)
 		return ;
