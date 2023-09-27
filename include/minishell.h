@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 14:27:24 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/23 22:41:03 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/09/26 21:40:34 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,5 +107,16 @@ char	*t_get_cmd(char **env, char **splited_cmd);
 void	t_apply_exec(t_struct *temp_list, char **env);
 void	print_error(char **splited_cmd, char **all_path, int i);
 int		is_builtin(char	**cmd);
+
+
+// signals
+
+
+void	sigint_handler(int sig);
+void	signals(void);
+void	sigint_handler_in_process(int sig);
+void	sigquit_handler_in_process(int sig);
+void 	sigint_handler_heredoc(int sig);
+void	no_line_return(int sig);
 
 #endif

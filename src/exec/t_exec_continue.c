@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 11:55:30 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/23 16:04:44 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/09/26 10:54:51 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,5 @@ int	t_exec_cmd(t_struct *temp_list, char **env)
 		dup2(fd[0], STDIN_FILENO);
 		close(fd[0]);
 		return (pid);
-		// waitpid(0, NULL, WUNTRACED);
 	}
 }
