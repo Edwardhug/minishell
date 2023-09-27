@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 20:56:45 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/27 10:52:31 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/09/27 10:58:58 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	ft_child_here_doc(t_struct *temp_list, int *fd)
 		if (!tmp)
 		{ 
 			close(fd[1]);
+			ft_printf("warning : wanted `%s'\n", temp_list->str);
+			// ft_putstr_fd("\n", 2);
 			exit(3);
 		}
 		if ((ft_strncmp(tmp, temp_list->str, ft_strlen(temp_list->str)) == 0)
