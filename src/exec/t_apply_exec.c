@@ -105,7 +105,7 @@ void	t_apply_exec(t_struct *temp_list, t_env *env_lst)
 		return ;
 	path_cmd = t_get_cmd(env, splited_cmd);
 	if (!path_cmd)
-		exit(EXIT_FAILURE);
+		exit(0);
 	execve(path_cmd, splited_cmd, env);
 	ft_putstr_fd("permission denied: ", 2);
 	ft_putstr_fd(path_cmd, 2);
