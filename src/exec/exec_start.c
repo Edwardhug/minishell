@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 18:08:24 by lezard            #+#    #+#             */
-/*   Updated: 2023/09/28 13:32:36 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/09/28 20:13:28 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ void	wait_all_process(int *pid, t_struct *list_word)
 	}
 	signal(SIGINT, old_signal[0]);		// signal ctrl c
 	signal(SIGQUIT, old_signal[1]);		// signal ctrl backslash
+	// ft_putnbr_fd(status, 2);
+	// ft_putstr_fd("\n", 2);
 	g_error_value = status;
 }
 

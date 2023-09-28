@@ -103,7 +103,10 @@ void	t_apply_exec(t_struct *temp_list, t_exec *exec)
 		return ;
 	path_cmd = t_get_cmd(exec->char_env, splited_cmd);
 	if (!path_cmd)
-		exit(0);
+	{
+		// ft_putstr_fd("pass\n", 2);
+		exit(127);
+	}
 	execve(path_cmd, splited_cmd, exec->char_env);
 	ft_putstr_fd("permission denied: ", 2);
 	ft_putstr_fd(path_cmd, 2);
