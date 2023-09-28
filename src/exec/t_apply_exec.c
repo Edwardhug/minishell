@@ -110,5 +110,5 @@ void	t_apply_exec(t_struct *temp_list, t_exec *exec)
 	ft_putstr_fd("\n", 2);
 	free_tab(splited_cmd);
 	free(path_cmd);
-	exit(EXIT_FAILURE);
+	exit(127);
 }
