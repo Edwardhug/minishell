@@ -9,7 +9,6 @@ int	ft_pwd(t_exec *exec)
 	{
 		ft_printf("%s\n", cwd); //affiche cwd
 		free(cwd);
-		exit(0);
 	}
 	else
 	{
