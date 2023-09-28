@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 14:27:24 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/27 15:14:56 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/09/28 11:28:02 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,5 +136,5 @@ void	no_line_return(int sig);
 // return value
 
 void	print_return_value(t_struct *lst);
-
+int	print_clean_return_value(char *str);
 #endif
