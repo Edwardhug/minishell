@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 14:27:24 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/28 10:46:58 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/09/28 10:58:17 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
-# include <limits.h>
+
+int	error_value;
 
 typedef enum s_enum
 {
@@ -130,5 +131,9 @@ void	sigint_handler_in_process(int sig);
 void	sigquit_handler_in_process(int sig);
 void 	sigint_handler_heredoc(int sig);
 void	no_line_return(int sig);
+
+// return value
+
+void	print_return_value(t_struct *lst);
 
 #endif
