@@ -39,11 +39,12 @@ char	**t_get_clean_cmd(t_struct *temp_list)
 	return (str);
 }
 
-char	*t_get_path_cmd(char **all_path, char **splited)
+char	*t_get_path_cmd(char **all_path, char **splited, struct stat info)
 {
 	int		i;
 	char	*tmp;
 	char	*path_cmd;
+	// struct stat info;		// pour savoir si on essaie d'applique a un directory ou pas
 
 	i = 0;
 	if (splited[0][0] == '/')
@@ -63,8 +64,19 @@ char	*t_get_path_cmd(char **all_path, char **splited)
 		free(tmp);
 		i++;
 	}
+	// ft_putstr_fd("pass\n", 2);
 	print_error(splited, all_path, 1);
-	return (NULL);
+	if (access(splited[0], X_OK) != 0)
+	{
+		 if (errno == ENOENT)
+		 	exit(127);
+		else
+			exit (126);
+	}
+	if (S_ISDIR(info.st_mode))
+		exit(128);
+	exit(127);
+	// return (NULL);
 }
 
 char	*t_get_cmd(char **env, char **splited_cmd)
@@ -72,6 +84,7 @@ char	*t_get_cmd(char **env, char **splited_cmd)
 	int		i;
 	char	*path;
 	char	**all_path;
+	struct stat info;		// pour savoir si on essaie d'applique a un directory ou pas
 
 	i = 0;
 	path = NULL;
@@ -89,7 +102,8 @@ char	*t_get_cmd(char **env, char **splited_cmd)
 	all_path = ft_split(path, ':');
 	if (!all_path)
 		return (NULL);
-	return (t_get_path_cmd(all_path, splited_cmd));
+	stat(splited_cmd[0], &info);	// pour savoir si on essaie d'applique a un directory ou pas
+	return (t_get_path_cmd(all_path, splited_cmd, info));
 }
 
 void	t_apply_exec(t_struct *temp_list, t_exec *exec)
@@ -104,7 +118,6 @@ void	t_apply_exec(t_struct *temp_list, t_exec *exec)
 	path_cmd = t_get_cmd(exec->char_env, splited_cmd);
 	if (!path_cmd)
 	{
-		// ft_putstr_fd("pass\n", 2);
 		exit(127);
 	}
 	execve(path_cmd, splited_cmd, exec->char_env);

@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/14 14:27:24 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/28 19:27:40 by lgabet           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -24,6 +13,8 @@
 # include <readline/history.h>
 # include <signal.h>
 # include <limits.h>
+# include <sys/stat.h>
+# include <errno.h>
 
 extern int	g_error_value;
 
@@ -89,7 +80,7 @@ void		t_change_stdout(t_struct *temp_list, int fd);
 int			t_exec_cmd(t_struct *temp_list, t_exec *exec);
 int			t_size_cmd(t_struct *temp_list);
 char		**t_get_clean_cmd(t_struct *temp_list);
-char		*t_get_path_cmd(char **all_path, char **splited);
+char		*t_get_path_cmd(char **all_path, char **splited, struct stat info);
 char		*t_get_cmd(char **env, char **splited_cmd);
 void		t_apply_exec(t_struct *temp_list, t_exec *exec);
 void		print_error(char **splited_cmd, char **all_path, int i);
