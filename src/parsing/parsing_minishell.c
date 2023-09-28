@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:50:18 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/28 11:30:17 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/09/28 16:51:16 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,21 @@ void fill_node(t_struct **list_word, char *word)
 {
 	t_struct	*tmp;
 	t_enum		type;
+	char	*str;
+	int		i;
 
 	if (!word)
 		return ;
-	tmp = *list_word;
-	type = find_type_enum(tmp, word);		//currently working on this
+	i = 0;
 	word = remove_quotes(word);
-	add_node_back(list_word, new_node(word, type));
+	while (word[i])
+	{
+		str = get_node(word, &i);
+		tmp = *list_word;
+		type = find_type_enum(tmp, str);		//currently working on this
+		add_node_back(list_word, new_node(str, type));
+	}
+	free(word);
 }
 
 char	*find_end_of_the_word(char *line, int *i)
@@ -105,5 +113,7 @@ void	parsing_minishell(char **path, char *line, char **env)
 	delete_node(&list_word);
 	// print_list(list_word);
 	begin_execution(path, env_double_char_into_lst(env), list_word);
+	(void)path;
+	(void)env;
 	free_list(&list_word);
 }
