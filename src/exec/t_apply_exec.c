@@ -50,7 +50,7 @@ char	*t_get_path_cmd(char **all_path, char **splited)
 	{
 		path_cmd = ft_strdup(splited[0]);
 		if (access(path_cmd, F_OK | X_OK) == -1)
-			return (print_error(splited, all_path, 0), free(path_cmd), NULL);
+			return (print_error(splited, all_path, 0), free(path_cmd),exit(127), NULL);
 		return (free_tab(all_path), path_cmd);
 	}
 	while (all_path[i])
@@ -103,7 +103,7 @@ void	t_apply_exec(t_struct *temp_list, t_exec *exec)
 		return ;
 	path_cmd = t_get_cmd(exec->char_env, splited_cmd);
 	if (!path_cmd)
-		exit(EXIT_FAILURE);
+		exit(0);
 	execve(path_cmd, splited_cmd, exec->char_env);
 	ft_putstr_fd("permission denied: ", 2);
 	ft_putstr_fd(path_cmd, 2);
