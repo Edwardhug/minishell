@@ -6,6 +6,8 @@ int	ft_echo(char **cmd)
 	int	i;
 
 	i = 1;
+	if (print_clean_return_value(cmd[1]))
+		exit(0);
 	if (ft_strnstr(cmd[1], "-n", 2) != NULL) //on regarde si on a le -n pour le saut à la ligne
 	{
 		i++;
@@ -22,5 +24,5 @@ int	ft_echo(char **cmd)
 	}
 	if (dash_n) //si on a pas de -n on va à la ligne
 		ft_printf("\n");
-	return (0);
+	exit(0);
 }

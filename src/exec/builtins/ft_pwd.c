@@ -9,12 +9,12 @@ int	ft_pwd(void)
 	{
 		ft_printf("%s\n", cwd); //affiche cwd
 		free(cwd);
-		return (0);
+		exit(0);
 	}
 	else
 	{
 		perror("getcwd");
 		free(cwd);
-		return (1);
+		exit(1);
 	}
 }

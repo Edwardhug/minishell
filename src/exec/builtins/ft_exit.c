@@ -2,16 +2,21 @@
 
 int	ft_exit(char **cmd)
 {
-	int	status;
+	// int	status;
 
-	status = 0;
+	// status = 0;
 	if (cmd[1])
 	{
 		if (cmd[2]) //si il y a plus d'un argument c'est une erreur
+		{
+			perror("exit: too many arguments");
+			exit(1);
+		}
 			return (perror("exit: too many arguments"), 1);
-		status = ft_atoi(cmd[1]);
+		// status = ft_atoi(cmd[1]);
 	}
 	//free and close everything
-	exit(status);
-	return (0);
+	// exit(status);
+	exit(0);
+	// return (0);
 }
