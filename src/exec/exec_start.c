@@ -66,7 +66,7 @@ void	wait_all_process(int *pid, t_struct *list_word)
 	}
 	signal(SIGINT, old_signal[0]);		// signal ctrl c
 	signal(SIGQUIT, old_signal[1]);		// signal ctrl backslash
-	error_value = status;
+	g_error_value = status;
 }
 
 void	begin_execution(char **path, t_env *env, t_struct *list_word)

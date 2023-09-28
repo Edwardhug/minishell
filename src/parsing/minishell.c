@@ -12,6 +12,8 @@
 
 #include "../../include/minishell.h"
 
+int	g_error_value = 0;
+
 char	*remove_new_line(char *str)
 {
 	int		i;
@@ -43,7 +45,6 @@ int main(int ac, char **av, char **env)
 	char	*line;
 	int		fd_standart;
 
-	error_value = 0;
 	fd_standart = dup(STDIN_FILENO);
 	if (ac != 1)
 		return (ft_printf("No arg needed\n"), 1);
