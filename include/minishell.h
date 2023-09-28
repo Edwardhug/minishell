@@ -50,6 +50,7 @@ typedef struct s_exec
 	t_env	*lst_env;
 }				t_exec;
 
+char    *get_node(char *word, int *i);
 char		**get_path(char **env);
 //void		free_tab(char **tab);
 void		parsing_minishell(char **path, char *line, char **env);
@@ -121,10 +122,10 @@ void	no_line_return(int sig);
 
 void	print_return_value(t_struct *lst);
 int	print_clean_return_value(char *str);
+void get_right_return_value(char **splited, struct stat info);
 
 
 
 
-char    *get_node(char *word, int *i);
 
 #endif

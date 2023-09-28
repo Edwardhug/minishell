@@ -44,7 +44,6 @@ char	*t_get_path_cmd(char **all_path, char **splited, struct stat info)
 	int		i;
 	char	*tmp;
 	char	*path_cmd;
-	// struct stat info;		// pour savoir si on essaie d'applique a un directory ou pas
 
 	i = 0;
 	if (splited[0][0] == '/')
@@ -64,19 +63,9 @@ char	*t_get_path_cmd(char **all_path, char **splited, struct stat info)
 		free(tmp);
 		i++;
 	}
-	// ft_putstr_fd("pass\n", 2);
 	print_error(splited, all_path, 1);
-	if (access(splited[0], X_OK) != 0)
-	{
-		 if (errno == ENOENT)
-		 	exit(127);
-		else
-			exit (126);
-	}
-	if (S_ISDIR(info.st_mode))
-		exit(128);
-	exit(127);
-	// return (NULL);
+	get_right_return_value(splited, info);
+	return (NULL);
 }
 
 char	*t_get_cmd(char **env, char **splited_cmd)
