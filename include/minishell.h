@@ -79,21 +79,21 @@ void		print_list(t_struct *list);
 
 void		begin_execution(char **path, char **env, t_struct *list_word);
 int			open_fd_in(t_struct *temp_list);
-int 		change_stdin(t_struct *list_word, t_struct *temp_list);
+int			change_stdin(t_struct *list_word, t_struct *temp_list);
 int			is_end(t_struct *temp_list);
 void		find_correct_path(t_exec *exec);
 void		access_cmd(t_exec *exec, int i);
 
-void	t_open_fd_out(t_struct *temp_list);
-void	t_change_stdout(t_struct *temp_list, int fd);
-int		t_exec_cmd(t_struct *temp_list, t_exec *exec);
-int		t_size_cmd(t_struct *temp_list);
-char	**t_get_clean_cmd(t_struct *temp_list);
-char	*t_get_path_cmd(char **all_path, char **splited);
-char	*t_get_cmd(char **env, char **splited_cmd);
-void	t_apply_exec(t_struct *temp_list, t_exec *exec);
-void	print_error(char **splited_cmd, char **all_path, int i);
-int		is_builtin(char	**cmd, t_exec *exec);
+void		t_open_fd_out(t_struct *temp_list);
+void		t_change_stdout(t_struct *temp_list, int fd);
+int			t_exec_cmd(t_struct *temp_list, t_exec *exec);
+int			t_size_cmd(t_struct *temp_list);
+char		**t_get_clean_cmd(t_struct *temp_list);
+char		*t_get_path_cmd(char **all_path, char **splited);
+char		*t_get_cmd(char **env, char **splited_cmd);
+void		t_apply_exec(t_struct *temp_list, t_exec *exec);
+void		print_error(char **splited_cmd, char **all_path, int i);
+int			is_builtin(char	**cmd, t_exec *exec);
 
 //builtins
 

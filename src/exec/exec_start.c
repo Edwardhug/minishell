@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 int	is_builtin(char	**cmd, t_exec *exec)
 {
@@ -56,8 +56,8 @@ int	number_of_cmd(t_struct *list_word)
 
 void	wait_all_process(int *pid, t_struct *list_word)
 {
-	int	cmd_to_finish;
-	int	i;
+	int		cmd_to_finish;
+	int		i;
 	sig_t	old_signal[2];
 	int		status;
 

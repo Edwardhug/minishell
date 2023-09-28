@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 size_t	t_struct_strlen(t_struct *list_word)
 {
@@ -41,4 +41,3 @@ size_t	t_env_strlen(t_env *env)
 	}
 	return (i);
 }
-

@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
-void exit_and_write_it(char **path, int fd_standart)
+void	exit_and_write_it(char **path, int fd_standart)
 {
 	ft_printf("exit\n");
 	rl_clear_history();

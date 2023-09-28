@@ -1,4 +1,4 @@
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 int	open_fd_in(t_struct *temp_list)									// fonction qui change de stdin pour mettre fd_in a la place
 {
