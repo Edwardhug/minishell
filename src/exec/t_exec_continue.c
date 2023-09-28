@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 11:55:30 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/26 10:54:51 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/09/28 10:44:34 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	t_change_stdout(t_struct *temp_list, int fd)
 		dup2(fd, STDOUT_FILENO);
 }
 
-int	t_exec_cmd(t_struct *temp_list, char **env)
+int	t_exec_cmd(t_struct *temp_list, t_env *env)
 {
 	int		fd[2];
 	int		pid;

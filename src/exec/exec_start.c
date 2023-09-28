@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 18:08:24 by lezard            #+#    #+#             */
-/*   Updated: 2023/09/26 18:54:41 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/09/28 10:41:42 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,13 @@
 int	is_builtin(char	**cmd)
 {
 	if (ft_strnstr(cmd[0], "cd", 2) != NULL)
-	{
 		return (ft_cd(cmd), 1);
-	}
+	else if (ft_strnstr(cmd[0], "pwd", 3) != NULL)
+		return (ft_pwd(), 1);
+	else if (ft_strnstr(cmd[0], "echo", 4) != NULL)
+		return (ft_echo(cmd), 1);
+	else if (ft_strnstr(cmd[0], "exit", 4) != NULL)
+		return (ft_exit(cmd), 1);
 	return (0);
 }
 
@@ -63,7 +67,7 @@ void	wait_all_process(int *pid, t_struct *list_word)
 	signal(SIGQUIT, old_signal[1]);		// signal ctrl backslash
 }
 
-void	begin_execution(char **path, char **env, t_struct *list_word)
+void	begin_execution(char **path, t_env *env, t_struct *list_word)
 {
 	int			pid_tab[number_of_cmd(list_word)];
 	int			i;

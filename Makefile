@@ -18,9 +18,13 @@ SRCS =	parsing/minishell.c\
 		exec/t_exec_utils.c\
 		exec/t_stdin_out_gestion.c \
 		exec/builtins/ft_cd.c\
+		exec/builtins/ft_pwd.c\
+		exec/builtins/ft_echo.c\
+		exec/builtins/ft_exit.c\
 		utils/free_tab.c\
 		utils/exit_fonctions.c\
 		utils/t_struct_utils.c\
+		utils/swap_lst_char.c\
 		signals/signals.c\
 		signals/signals_here_doc.c\
 		here_doc/here_doc.c\
