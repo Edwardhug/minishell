@@ -39,7 +39,7 @@ char	*remove_new_line(char *str)
 	return (to_ret);
 }
 
-int main(int ac, char **av, char **env)
+int	main(int ac, char **av, char **env)
 {
 	char	**path;
 	char	*line;

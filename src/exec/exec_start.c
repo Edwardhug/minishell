@@ -14,13 +14,13 @@
 
 int	is_builtin(char	**cmd)
 {
-	if (ft_strnstr(cmd[0], "cd", 2) != NULL)
+	if (ft_strcmp(cmd[0], "cd") == 0)
 		return (ft_cd(cmd), 1);
-	else if (ft_strnstr(cmd[0], "pwd", 3) != NULL)
+	else if (ft_strcmp(cmd[0], "pwd") == 0)
 		return (ft_pwd(), 1);
-	else if (ft_strnstr(cmd[0], "echo", 4) != NULL)
+	else if (ft_strcmp(cmd[0], "echo") == 0)
 		return (ft_echo(cmd), 1);
-	else if (ft_strnstr(cmd[0], "exit", 4) != NULL)
+	else if (ft_strcmp(cmd[0], "exit") == 0)
 		return (ft_exit(cmd), 1);
 	return (0);
 }

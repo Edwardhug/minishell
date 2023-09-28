@@ -91,7 +91,6 @@ $(PATH_OBJS) :
 				mkdir -p $(PATH_OBJS)/utils
 				mkdir -p $(PATH_OBJS)/signals
 				mkdir -p $(PATH_OBJS)/here_doc
-				mkdir -p $(PATH_OBJS)/exec_test
 
 # $(PATH_OBJS_BONUS) :
 # 				mkdir -p $(PATH_OBJS_BONUS)

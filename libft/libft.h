@@ -69,6 +69,7 @@ void			ft_putstr_fd(char *s, int fd);
 void			ft_putstr(char *str);
 char			**ft_split(char const *s, char c);
 char			*ft_strchr(const char	*string, int searchCh);
+int				ft_strcmp(const char *s1, const char *s2);
 char			*ft_strdup( const char *source );
 void			ft_striteri(char *s, void (*f)(unsigned int, char*));
 char			*ft_strjoin(char const *s1, char const *s2);
