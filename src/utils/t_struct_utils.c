@@ -26,3 +26,19 @@ size_t	t_struct_strlen(t_struct *list_word)
 	}
 	return (i);
 }
+
+size_t	t_env_strlen(t_env *env)
+{
+	size_t	i;
+	t_env	*tmp;
+
+	i = 0;
+	tmp = env;
+	while (tmp)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	return (i);
+}
+

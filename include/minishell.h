@@ -23,6 +23,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
+# include <limits.h>
 
 int		error_value;
 
@@ -36,6 +37,13 @@ typedef enum s_enum
 	REDIRECTION,
 	FILES,
 }			t_enum;
+
+typedef struct s_env
+{
+	char			*name;
+	char			*value;
+	struct s_env	*next;
+}					t_env;
 
 typedef struct s_struct
 {
@@ -68,17 +76,15 @@ t_enum		find_type_enum(t_struct *tmp, char *word);
 char		*remove_quotes(char *str);
 void		delete_node(t_struct **lst);
 void		free_list(t_struct **lst);
-void		signal_main_loop();
+void		signal_main_loop(void);
 void		handle_sigint_main_loop(int signal);
-void 		exit_and_write_it(char **path, int fd_standart);
+void		exit_and_write_it(char **path, int fd_standart);
 
 void		print_list(t_struct *list);
 
 //exec
 
-void 		begin_execution(char **path, char **env, t_struct *list_word);
-char		**get_cmd(t_exec *exec, t_struct *temp_list);
-void		execute_command(t_exec *exec);
+void		begin_execution(char **path, t_env *env, t_struct *list_word);
 int			open_fd_in(t_struct *temp_list);
 int 		change_stdin(t_struct *list_word, t_struct *temp_list);
 int			is_end(t_struct *temp_list);
@@ -88,10 +94,16 @@ void		access_cmd(t_exec *exec, int i);
 //builtins
 
 int			ft_cd(char **cmd);
+int			ft_pwd(void);
+int			ft_echo(char **cmd);
+int			ft_exit(char **cmd);
 
 // utils
 
 size_t		t_struct_strlen(t_struct *list_word);
+size_t		t_env_strlen(t_env *env);
+char		**env_lst_into_double_char(t_env *env);
+t_env		*env_double_char_into_lst(char **c_env);
 
 //here doc
 
@@ -101,12 +113,12 @@ int			here_doc(t_struct *temp_list);
 
 void	t_open_fd_out(t_struct *temp_list);
 void	t_change_stdout(t_struct *temp_list, int fd);
-int	t_exec_cmd(t_struct *temp_list, char **env);
+int	t_exec_cmd(t_struct *temp_list, t_env *env);
 int		t_size_cmd(t_struct *temp_list);
 char	**t_get_clean_cmd(t_struct *temp_list);
 char	*t_get_path_cmd(char **all_path, char **splited);
 char	*t_get_cmd(char **env, char **splited_cmd);
-void	t_apply_exec(t_struct *temp_list, char **env);
+void	t_apply_exec(t_struct *temp_list, t_env *env);
 void	print_error(char **splited_cmd, char **all_path, int i);
 int		is_builtin(char	**cmd);
 

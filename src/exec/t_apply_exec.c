@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   t_apply_exec.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/21 19:34:47 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/27 15:13:53 by lgabet           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../../include/minishell.h"
 
 int	t_size_cmd(t_struct *temp_list)			// compte la taille de ma commande complete
@@ -104,12 +92,14 @@ char	*t_get_cmd(char **env, char **splited_cmd)
 	return (t_get_path_cmd(all_path, splited_cmd));
 }
 
-void	t_apply_exec(t_struct *temp_list, char **env)
+void	t_apply_exec(t_struct *temp_list, t_env *env_lst)
 {
 	char	*path_cmd;
 	char	**splited_cmd;
+	char	**env;
 
 	print_return_value(temp_list);
+	env = env_lst_into_double_char(env_lst);
 	splited_cmd = t_get_clean_cmd(temp_list);
 	if (!splited_cmd)
 		return ;

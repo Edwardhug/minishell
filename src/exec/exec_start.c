@@ -15,9 +15,13 @@
 int	is_builtin(char	**cmd)
 {
 	if (ft_strnstr(cmd[0], "cd", 2) != NULL)
-	{
 		return (ft_cd(cmd), 1);
-	}
+	else if (ft_strnstr(cmd[0], "pwd", 3) != NULL)
+		return (ft_pwd(), 1);
+	else if (ft_strnstr(cmd[0], "echo", 4) != NULL)
+		return (ft_echo(cmd), 1);
+	else if (ft_strnstr(cmd[0], "exit", 4) != NULL)
+		return (ft_exit(cmd), 1);
 	return (0);
 }
 
@@ -65,7 +69,7 @@ void	wait_all_process(int *pid, t_struct *list_word)
 	error_value = status;
 }
 
-void	begin_execution(char **path, char **env, t_struct *list_word)
+void	begin_execution(char **path, t_env *env, t_struct *list_word)
 {
 	int			pid_tab[number_of_cmd(list_word)];
 	int			i;

@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   t_stdin_out_gestion.c                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/22 11:28:35 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/22 11:28:37 by lgabet           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../../include/minishell.h"
 
 int	open_fd_in(t_struct *temp_list)									// fonction qui change de stdin pour mettre fd_in a la place
