@@ -16,7 +16,7 @@ void	t_open_fd_out(t_struct *temp_list)
 {
 	int	fd_out;
 
-	if (!ft_strncmp(temp_list->str, ">>", 2))
+	if (!ft_strcmp(temp_list->str, ">>"))
 	{
 		temp_list = temp_list->next;
 		fd_out = open(temp_list->str, O_WRONLY | O_CREAT | O_APPEND, 0644);
@@ -52,28 +52,33 @@ void	t_change_stdout(t_struct *temp_list, int fd)
 		dup2(fd, STDOUT_FILENO);
 }
 
-int	t_exec_cmd(t_struct *temp_list, t_env *env)
+int	t_exec_cmd(t_struct *temp_list, t_exec *exec)
 {
 	int		fd[2];
 	int		pid;
 
-	if (pipe(fd) == -1)
-		exit(EXIT_FAILURE);
-	pid = fork();
-	if (pid == 0)
-	{
-		close(fd[0]);
-		is_builtin(t_get_clean_cmd(temp_list));
-		t_change_stdout(temp_list, fd[1]);
-		close(fd[1]);
-		t_apply_exec(temp_list, env);
-		exit(EXIT_FAILURE);
-	}
+	if (exec->nb_cmds == 1 && is_builtin(t_get_clean_cmd(temp_list), exec) == 1) //si il n'y a qu'un builtin seul, on l'exécute et c'est tout.
+		return (0);
 	else
 	{
-		close(fd[1]);
-		dup2(fd[0], STDIN_FILENO);
-		close(fd[0]);
-		return (pid);
+		if (pipe(fd) == -1)
+			exit(EXIT_FAILURE);
+		pid = fork();
+		if (pid == 0)
+		{
+			close(fd[0]);
+			is_builtin(t_get_clean_cmd(temp_list), exec);
+			t_change_stdout(temp_list, fd[1]);
+			close(fd[1]);
+			t_apply_exec(temp_list, exec);
+			exit(EXIT_FAILURE);
+		}
+		else
+		{
+			close(fd[1]);
+			dup2(fd[0], STDIN_FILENO);
+			close(fd[0]);
+			return (pid);
+		}
 	}
 }

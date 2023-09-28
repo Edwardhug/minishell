@@ -1,10 +1,11 @@
 #include "minishell.h"
 
-int	ft_exit(char **cmd)
+int	ft_exit(char **cmd, t_exec *exec)
 {
 	// int	status;
 
 	// status = 0;
+	(void)exec;
 	if (cmd[1])
 	{
 		if (cmd[2]) //si il y a plus d'un argument c'est une erreur
@@ -18,5 +19,5 @@ int	ft_exit(char **cmd)
 	//free and close everything
 	// exit(status);
 	exit(0);
-	// return (0);
+	return (0);
 }

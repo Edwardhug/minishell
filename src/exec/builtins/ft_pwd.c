@@ -1,6 +1,6 @@
 #include "../../../include/minishell.h"
 
-int	ft_pwd(void)
+int	ft_pwd(t_exec *exec)
 {
 	char	*cwd;
 	
@@ -17,4 +17,7 @@ int	ft_pwd(void)
 		free(cwd);
 		exit(1);
 	}
+	if (exec->nb_cmds > 1)
+		exit(0);
+	return (0);
 }

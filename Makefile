@@ -22,6 +22,9 @@ SRCS =	parsing/minishell.c\
 		exec/builtins/ft_pwd.c\
 		exec/builtins/ft_echo.c\
 		exec/builtins/ft_exit.c\
+		exec/builtins/ft_env.c\
+		exec/builtins/ft_unset.c\
+		exec/builtins/ft_export.c\
 		utils/free_tab.c\
 		utils/exit_fonctions.c\
 		utils/t_struct_utils.c\

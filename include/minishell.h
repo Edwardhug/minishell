@@ -55,15 +55,8 @@ typedef struct s_struct
 typedef struct s_exec
 {
 	int		nb_cmds;
-	int		nb_pipes;
-	int		**pipes;
-	int		fd_in;
-	int		fd_out;
-	char	**path;
-	char	**env;
-	char	*true_path;
-	char	**cmd;
-	pid_t	*pids;
+	char	**char_env;
+	t_env	*lst_env;
 }				t_exec;
 
 char		**get_path(char **env);
@@ -84,19 +77,33 @@ void		print_list(t_struct *list);
 
 //exec
 
-void		begin_execution(char **path, t_env *env, t_struct *list_word);
+void		begin_execution(char **path, char **env, t_struct *list_word);
 int			open_fd_in(t_struct *temp_list);
 int 		change_stdin(t_struct *list_word, t_struct *temp_list);
 int			is_end(t_struct *temp_list);
 void		find_correct_path(t_exec *exec);
 void		access_cmd(t_exec *exec, int i);
 
+void	t_open_fd_out(t_struct *temp_list);
+void	t_change_stdout(t_struct *temp_list, int fd);
+int		t_exec_cmd(t_struct *temp_list, t_exec *exec);
+int		t_size_cmd(t_struct *temp_list);
+char	**t_get_clean_cmd(t_struct *temp_list);
+char	*t_get_path_cmd(char **all_path, char **splited);
+char	*t_get_cmd(char **env, char **splited_cmd);
+void	t_apply_exec(t_struct *temp_list, t_exec *exec);
+void	print_error(char **splited_cmd, char **all_path, int i);
+int		is_builtin(char	**cmd, t_exec *exec);
+
 //builtins
 
-int			ft_cd(char **cmd);
-int			ft_pwd(void);
-int			ft_echo(char **cmd);
-int			ft_exit(char **cmd);
+int			ft_cd(char **cmd, t_exec *exec);
+int			ft_pwd(t_exec *exec);
+int			ft_echo(char **cmd, t_exec *exec);
+int			ft_exit(char **cmd, t_exec *exec);
+int			ft_unset(char **cmd, t_exec *exec);
+int			ft_export(t_exec *exec);
+int			ft_env(t_exec *exec);
 
 // utils
 
@@ -108,20 +115,6 @@ t_env		*env_double_char_into_lst(char **c_env);
 //here doc
 
 int			here_doc(t_struct *temp_list);
-
-//test exec
-
-void	t_open_fd_out(t_struct *temp_list);
-void	t_change_stdout(t_struct *temp_list, int fd);
-int	t_exec_cmd(t_struct *temp_list, t_env *env);
-int		t_size_cmd(t_struct *temp_list);
-char	**t_get_clean_cmd(t_struct *temp_list);
-char	*t_get_path_cmd(char **all_path, char **splited);
-char	*t_get_cmd(char **env, char **splited_cmd);
-void	t_apply_exec(t_struct *temp_list, t_env *env);
-void	print_error(char **splited_cmd, char **all_path, int i);
-int		is_builtin(char	**cmd);
-
 
 // signals
 

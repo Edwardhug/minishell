@@ -1,9 +1,11 @@
 #include "minishell.h"
 
-int	ft_cd(char **cmd)
+int	ft_cd(char **cmd, t_exec *exec)
 {
 	chdir(cmd[1]); //chdir va tout simplement rediriger vers le chemin donné en argument.
-	exit(0);
+	if (exec->nb_cmds > 1)
+		exit(0);
+	return (0);
 }
 /*
 getcwd
