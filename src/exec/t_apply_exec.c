@@ -50,7 +50,7 @@ char	*t_get_path_cmd(char **all_path, char **splited)
 	{
 		path_cmd = ft_strdup(splited[0]);
 		if (access(path_cmd, F_OK | X_OK) == -1)
-			return (print_error(splited, all_path, 0), free(path_cmd), NULL);
+			return (print_error(splited, all_path, 0), free(path_cmd),exit(127), NULL);
 		return (free_tab(all_path), path_cmd);
 	}
 	while (all_path[i])
