@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../../include/minishell.h"
 
 int	t_size_cmd(t_struct *temp_list)			// compte la taille de ma commande complete
 {

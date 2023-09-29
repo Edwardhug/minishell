@@ -6,11 +6,11 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 17:02:27 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/27 14:19:07 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/09/29 09:48:08 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/minishell.h"
 
 char	*remove_simple_quotes(char *str)
 {

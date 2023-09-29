@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../../include/minishell.h"
 
 void	print_error(char **splited_cmd, char **all_path, int i)
 {

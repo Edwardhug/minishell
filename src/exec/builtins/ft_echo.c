@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../../../include/minishell.h"
 
 void	show_env_var(t_exec *exec, char *arg)
 {

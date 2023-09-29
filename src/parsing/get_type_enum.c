@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_type_enum.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lezard <lezard@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 16:15:26 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/18 16:07:50 by lezard           ###   ########lyon.fr   */
+/*   Updated: 2023/09/29 09:48:08 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/minishell.h"
 
 int	is_a_redirection(char *str)
 {

@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../../include/minishell.h"
 
 char	**env_lst_into_double_char(t_env *env)
 {

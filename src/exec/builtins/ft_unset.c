@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../../../include/minishell.h"
 
 void	ft_lstdelete_node(t_exec *exec, t_env *node_to_delete)
 {

@@ -6,11 +6,11 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 17:13:13 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/21 22:55:26 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/09/29 09:48:08 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/minishell.h"
 
 void	exit_and_write_it(char **path, int fd_standart)
 {

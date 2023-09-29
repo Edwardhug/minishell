@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../../include/minishell.h"
 
 void get_right_return_value(char **splited, struct stat info)
 {
