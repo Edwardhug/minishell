@@ -64,6 +64,7 @@ void		free_list(t_struct **lst);
 void		signal_main_loop(void);
 void		handle_sigint_main_loop(int signal);
 void		exit_and_write_it(char **path, int fd_standart);
+void	clean_list(t_struct **list);
 
 void		print_list(t_struct *list);
 
