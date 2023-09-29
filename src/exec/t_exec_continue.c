@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 11:55:30 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/29 09:48:08 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/09/29 16:21:47 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	t_open_fd_out(t_struct *temp_list)
 	if (fd_out < 0)
 	{
 		perror(temp_list->str);
+		exit(1);
 	}
 	dup2(fd_out, STDOUT_FILENO);
 	// close (fd_out);
