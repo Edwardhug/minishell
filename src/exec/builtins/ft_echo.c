@@ -4,7 +4,7 @@ void	show_env_var(t_exec *exec, char *arg)
 {
 	t_env	*tmp;
 
-	tmp = exec->lst_env;
+	tmp = exec->env;
 	while (tmp)
 	{
 		if (ft_strcmp(tmp->name, arg) == 0)
@@ -20,7 +20,7 @@ int	is_env_var(t_exec *exec, char *arg)
 {
 	t_env	*tmp;
 
-	tmp = exec->lst_env;
+	tmp = exec->env;
 	while (tmp)
 	{
 		if (ft_strcmp(tmp->name, arg + 1) == 0)

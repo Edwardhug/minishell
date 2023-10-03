@@ -92,7 +92,7 @@ char	*find_second_quote(char *line, int *i)
 	return (word);
 }
 
-void	parsing_minishell(char **path, char *line, char **env)
+void	parsing_minishell(char **path, char *line, t_exec *exec)
 {
 	int			i;
 	t_struct	*list_word;
@@ -113,8 +113,7 @@ void	parsing_minishell(char **path, char *line, char **env)
 	delete_node(&list_word);
 	clean_list(&list_word);
 	//print_list(list_word);
-	begin_execution(path, env, list_word);
+	begin_execution(path, exec, list_word);
 	(void)path;
-	(void)env;
 	free_list(&list_word);
 }

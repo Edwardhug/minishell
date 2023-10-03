@@ -6,7 +6,7 @@ void	ft_lstdelete_node(t_exec *exec, t_env *node_to_delete)
 	t_env *current;
 
 	previous = NULL;
-	current = exec->lst_env;
+	current = exec->env;
 	while (current)
 	{
 		if (current == node_to_delete)
@@ -17,7 +17,7 @@ void	ft_lstdelete_node(t_exec *exec, t_env *node_to_delete)
 			}
 			else
 			{
-				exec->lst_env = current->next;
+				exec->env = current->next;
 			}
 			free(current->name);
 			free(current->value);
@@ -37,7 +37,7 @@ int	ft_unset(char **cmd, t_exec *exec)
 	i = 1;
 	while (cmd[i])
 	{
-		tmp = exec->lst_env;
+		tmp = exec->env;
 		while (tmp)
 		{
 			if (ft_strcmp(cmd[i], tmp->name) == 0)
@@ -49,7 +49,6 @@ int	ft_unset(char **cmd, t_exec *exec)
 		}
 		i++;
 	}
-	exec->char_env = env_lst_into_double_char(exec->lst_env);
 	if (exec->nb_cmds > 1)
 		exit (0);
 	return (0);

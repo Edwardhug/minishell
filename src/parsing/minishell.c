@@ -44,7 +44,9 @@ int	main(int ac, char **av, char **env)
 	char	**path;
 	char	*line;
 	int		fd_standart;
+	t_exec	exec;
 
+	exec.env = env_double_char_into_lst(env);
 	fd_standart = dup(STDIN_FILENO);
 	if (ac != 1)
 		return (ft_printf("No arg needed\n"), 1);
@@ -57,7 +59,7 @@ int	main(int ac, char **av, char **env)
 			exit_and_write_it(path, fd_standart);
 		add_history(line);
 		line = remove_new_line(line);
-		parsing_minishell(path, line, env);
+		parsing_minishell(path, line, &exec);
 		free(line);
 		dup2(fd_standart, STDIN_FILENO);
 		signal(SIGINT, sigint_handler);

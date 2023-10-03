@@ -2,12 +2,14 @@
 
 int	ft_env(t_exec *exec)
 {
-	int	i;
+	int		i;
+	char	**char_env;
 
+	char_env = env_lst_into_double_char(exec->env);
 	i = 0;
-	while (exec->char_env[i])
+	while (char_env[i])
 	{
-		ft_printf("%s\n", exec->char_env[i]);
+		ft_printf("%s\n", char_env[i]);
 		i++;
 	}
 	if (exec->nb_cmds > 1)

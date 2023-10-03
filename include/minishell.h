@@ -46,14 +46,13 @@ typedef struct s_struct
 typedef struct s_exec
 {
 	int		nb_cmds;
-	char	**char_env;
-	t_env	*lst_env;
+	t_env	*env;
 }				t_exec;
 
 char    *get_node(char *word, int *i);
 char		**get_path(char **env);
 //void		free_tab(char **tab);
-void		parsing_minishell(char **path, char *line, char **env);
+void		parsing_minishell(char **path, char *line, t_exec *exec);
 t_struct	*new_node(char *content, t_enum type);
 t_struct	*get_last_node(t_struct *lst);
 void		add_node_back(t_struct **list, t_struct *new_node);
@@ -70,7 +69,7 @@ void		print_list(t_struct *list);
 
 //exec
 
-void		begin_execution(char **path, char **env, t_struct *list_word);
+void		begin_execution(char **path, t_exec *exec, t_struct *list_word);
 int			open_fd_in(t_struct *temp_list);
 int			change_stdin(t_struct *list_word, t_struct *temp_list);
 int			is_end(t_struct *temp_list);

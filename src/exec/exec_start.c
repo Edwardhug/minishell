@@ -77,16 +77,14 @@ void	wait_all_process(int *pid, t_struct *list_word)
 	g_error_value = status;
 }
 
-void	begin_execution(char **path, char **env, t_struct *list_word)
+void	begin_execution(char **path, t_exec *exec, t_struct *list_word)
 {
 	int			*pid_tab;
 	int			i;
 	t_struct	*temp_list;
-	t_exec		exec;
-	exec.char_env = env;
-	exec.lst_env = env_double_char_into_lst(env);
-	exec.nb_cmds = number_of_cmd(list_word);
-	pid_tab = malloc(sizeof(int) * exec.nb_cmds);
+
+	exec->nb_cmds = number_of_cmd(list_word);
+	pid_tab = malloc(sizeof(int) * exec->nb_cmds);
 	i = 0;
 	(void)path;
 	temp_list = list_word;
@@ -95,7 +93,7 @@ void	begin_execution(char **path, char **env, t_struct *list_word)
 	{
 		if (!change_stdin(list_word, temp_list))
 			return ;
-		pid_tab[i] = t_exec_cmd(temp_list, &exec);
+		pid_tab[i] = t_exec_cmd(temp_list, exec);
 		while (temp_list->next && temp_list->type != PIPE)
 		{
 			temp_list = temp_list->next;

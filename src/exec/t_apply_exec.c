@@ -104,12 +104,12 @@ void	t_apply_exec(t_struct *temp_list, t_exec *exec)
 	splited_cmd = t_get_clean_cmd(temp_list);
 	if (!splited_cmd)
 		return ;
-	path_cmd = t_get_cmd(exec->char_env, splited_cmd);
+	path_cmd = t_get_cmd(env_lst_into_double_char(exec->env), splited_cmd);
 	if (!path_cmd)
 	{
 		exit(127);
 	}
-	execve(path_cmd, splited_cmd, exec->char_env);
+	execve(path_cmd, splited_cmd, env_lst_into_double_char(exec->env));
 	ft_putstr_fd("permission denied: ", 2);
 	ft_putstr_fd(path_cmd, 2);
 	ft_putstr_fd("\n", 2);
