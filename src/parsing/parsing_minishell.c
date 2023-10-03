@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:50:18 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/29 12:40:46 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/03 12:40:13 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,10 +111,9 @@ void	parsing_minishell(char **path, char *line, char **env)
 			i++;
 	}
 	delete_node(&list_word);
-	// ft_printf("pass\n");
 	clean_list(&list_word);
-	// print_list(list_word);
-	begin_execution(path, env, list_word);
+	print_list(list_word);
+	// begin_execution(path, env, list_word);
 	(void)path;
 	(void)env;
 	free_list(&list_word);

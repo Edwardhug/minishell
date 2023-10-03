@@ -6,11 +6,26 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 17:02:27 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/29 09:48:08 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/03 12:40:44 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+char	*have_dollar_sign(char *str, char *ret, int *i, int *j)
+{
+	if (str[*i] == '"' && str[(*i) - 1] == '$')
+	{
+		(*i)++;
+		while (str[*i] != '"')
+		{
+			ret[*j] = str[*i];
+			(*i)++;
+			(*j)++;
+		}
+	}
+	return (ret);
+}
 
 char	*remove_simple_quotes(char *str)
 {
@@ -18,14 +33,7 @@ char	*remove_simple_quotes(char *str)
 	int		i;
 	int		j;
 
-	// i = 0;
 	j = 0;
-	// while (str[i])
-	// {
-	// 	if (str[i] == '"')
-	// 		i++;
-	// 	i++;
-	// }
 	i = ft_strlen(str);
 	ret = calloc((i + 1), sizeof(char));
 	if (!ret)
@@ -51,14 +59,7 @@ char	*remove_quotes(char *str)
 	int		i;
 	int		j;
 
-	// i = 0;
 	j = 0;
-	// while (str[i])
-	// {
-	// 	if (str[i] == '"')
-	// 		i++;
-	// 	i++;
-	// }
 	i = ft_strlen(str);
 	ret = calloc((i + 1), sizeof(char));
 	if (!ret)
@@ -67,12 +68,15 @@ char	*remove_quotes(char *str)
 	while (str[i])
 	{
 		if (str[i] == '"')
+		{
+			ret = have_dollar_sign(str, ret, &i, &j);
 			i++;
+		}
 		else
 		{
 			ret[j] = str[i];
 			i++;
-			j++;	
+			j++;
 		}
 	}
 	return (free(str), remove_simple_quotes(ret));
