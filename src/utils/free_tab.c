@@ -41,3 +41,22 @@ void	free_list(t_struct **lst)
 		*lst = NULL;
 	}
 }
+
+void	free_env(t_env *lst)
+{
+	t_env	*temp;
+
+	if (lst && lst)
+	{
+		while (lst)
+		{
+			temp = lst;
+			free(lst->name);
+			if (lst->value)
+				free(lst->value);
+			lst = temp->next;
+			free(temp);
+		}
+		lst = NULL;
+	}
+}

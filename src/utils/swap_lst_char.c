@@ -83,5 +83,6 @@ t_env	*env_double_char_into_lst(char **c_env)
 		}
 		i++;
 	}
+//	free_env(new_env);
 	return (lst_env);
 }

@@ -47,6 +47,7 @@ typedef struct s_exec
 {
 	int		nb_cmds;
 	t_env	*env;
+	t_env	*export;
 }				t_exec;
 
 char    *get_node(char *word, int *i);
@@ -90,12 +91,12 @@ int			is_builtin(char	**cmd, t_exec *exec);
 //builtins
 
 int			ft_cd(char **cmd, t_exec *exec);
-int			ft_pwd(t_exec *exec);
 int			ft_echo(char **cmd, t_exec *exec);
-int			ft_exit(char **cmd, t_exec *exec);
-int			ft_unset(char **cmd, t_exec *exec);
-int			ft_export(t_exec *exec);
 int			ft_env(t_exec *exec);
+int			ft_exit(char **cmd, t_exec *exec);
+int			ft_export(char **cmd, t_exec *exec);
+int			ft_pwd(t_exec *exec);
+int			ft_unset(char **cmd, t_exec *exec);
 
 // utils
 
@@ -103,6 +104,8 @@ size_t		t_struct_strlen(t_struct *list_word);
 size_t		t_env_strlen(t_env *env);
 char		**env_lst_into_double_char(t_env *env);
 t_env		*env_double_char_into_lst(char **c_env);
+void		free_env(t_env *lst);
+//t_env		*ft_lstcpy(t_env *source);
 
 //here doc
 

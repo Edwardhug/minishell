@@ -23,7 +23,7 @@ int	is_builtin(char	**cmd, t_exec *exec)
 	else if (ft_strcmp(cmd[0], "exit") == 0)
 		return (ft_exit(cmd, exec), 1);
 	else if (ft_strcmp(cmd[0], "export") == 0)
-		return (ft_export(exec), 1);
+		return (ft_export(cmd, exec), 1);
 	else if (ft_strcmp(cmd[0], "unset") == 0)
 		return (ft_unset(cmd, exec), 1);
 	else if (ft_strcmp(cmd[0], "env") == 0)
