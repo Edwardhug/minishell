@@ -125,7 +125,9 @@ void	print_return_value(t_struct *lst);
 int	print_clean_return_value(char *str);
 void get_right_return_value(char **splited, struct stat info);
 
+// builtin
 
+int	is_builtin_alone(char **cmd, t_exec *exec);
 
 
 

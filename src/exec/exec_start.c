@@ -6,30 +6,30 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 18:08:24 by lezard            #+#    #+#             */
-/*   Updated: 2023/09/29 10:55:12 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/06 15:12:55 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	is_builtin(char	**cmd, t_exec *exec)
-{
-	if (ft_strcmp(cmd[0], "cd") == 0)
-		return (ft_cd(cmd, exec), 1);
-	else if (ft_strcmp(cmd[0], "pwd") == 0)
-		return (ft_pwd(exec), 1);
-	else if (ft_strcmp(cmd[0], "echo") == 0)
-		return (ft_echo(cmd, exec), 1);
-	else if (ft_strcmp(cmd[0], "exit") == 0)
-		return (ft_exit(cmd, exec), 1);
-	else if (ft_strcmp(cmd[0], "export") == 0)
-		return (ft_export(exec), 1);
-	else if (ft_strcmp(cmd[0], "unset") == 0)
-		return (ft_unset(cmd, exec), 1);
-	else if (ft_strcmp(cmd[0], "env") == 0)
-		return (ft_env(exec), 1);
-	return (0);
-}
+// int	is_builtin(char	**cmd, t_exec *exec)
+// {
+// 	if (ft_strcmp(cmd[0], "cd") == 0)
+// 		return (ft_cd(cmd, exec), 1);
+// 	else if (ft_strcmp(cmd[0], "pwd") == 0)
+// 		return (ft_pwd(exec), 1);
+// 	else if (ft_strcmp(cmd[0], "echo") == 0)
+// 		return (ft_echo(cmd, exec), 1);
+// 	else if (ft_strcmp(cmd[0], "exit") == 0)
+// 		return (ft_exit(cmd, exec), 1);
+// 	else if (ft_strcmp(cmd[0], "export") == 0)
+// 		return (ft_export(exec), 1);
+// 	else if (ft_strcmp(cmd[0], "unset") == 0)
+// 		return (ft_unset(cmd, exec), 1);
+// 	else if (ft_strcmp(cmd[0], "env") == 0)
+// 		return (ft_env(exec), 1);
+// 	return (0);
+// }
 
 int	have_pipe(t_struct *temp_list)
 {
