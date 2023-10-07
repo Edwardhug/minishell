@@ -69,42 +69,42 @@ static void	show_export(t_exec *exec)
 	-'export MYNONEXISTENTVAR=VALUE': je crée une nouvelle variable d'environnement à la fin de la liste env et dans export.
 	*/
 
-// static int	what_to_do(char **cmd, t_exec *exec)
-// {
-// 	t_env	*tmp;
-// 	t_env	*lst_args;
-// 	t_env	*args_tmp;
+static int	what_to_do(char **cmd, t_exec *exec)
+{
+	t_env	*tmp;
+	t_env	*lst_args;
+	t_env	*args_tmp;
 
-// 	lst_args = env_double_char_into_lst(cmd + 1);	//on met les args dans une liste pour comparer plus facilement.
-// 	while (lst_args)
-// 	{
-// 		tmp = exec->export;
-// 		args_tmp = lst_args;
-// 		while (tmp)
-// 		{
-// 			if (ft_strcmp(tmp->name, args_tmp->name) == 0)
-// 			{
-// 				if (args_tmp->value == NULL || args_tmp->value[0] == '\0') //variable trouvée mais pas de valeur = on fait rien
-// 					ft_printf("%s existe mais pas de value\n", args_tmp->name);
-// 				else	//variable trouvée et nouvelle valeur à mettre
-// 				{
-// 					ft_printf("%s existe et a une value\n", args_tmp->name);
-// //					change_var(args_tmp, exec);
-// 				}
-// 				break ;
-// 			}
-// 			tmp = tmp->next;
-// 		}
-// 		if (!tmp)
-// 		{
-// 			ft_printf("%s n'existe pas\n", args_tmp->name);
-// //			create_var(cmd, exec); //la variable n'a pas été trouvée donc on la crée
-// 		}
-// 		lst_args = lst_args->next;
-// 	}
-// 	//free env list
-// 	return (0);
-// }
+	lst_args = env_double_char_into_lst(cmd + 1);	//on met les args dans une liste pour comparer plus facilement.
+	while (lst_args)
+	{
+		tmp = exec->export;
+		args_tmp = lst_args;
+		while (tmp)
+		{
+			if (ft_strcmp(tmp->name, args_tmp->name) == 0)
+			{
+				if (args_tmp->value == NULL || args_tmp->value[0] == '\0') //variable trouvée mais pas de valeur = on fait rien
+					ft_printf("%s existe mais pas de value\n", args_tmp->name);
+				else	//variable trouvée et nouvelle valeur à mettre
+				{
+					ft_printf("%s existe et a une value\n", args_tmp->name);
+//					change_var(args_tmp, exec);
+				}
+				break ;
+			}
+			tmp = tmp->next;
+		}
+		if (!tmp)
+		{
+			ft_printf("%s n'existe pas\n", args_tmp->name);
+//			create_var(cmd, exec); //la variable n'a pas été trouvée donc on la crée
+		}
+		lst_args = lst_args->next;
+	}
+	//free env list
+	return (0);
+}
 
 int	ft_export(char **cmd, t_exec *exec)
 {
@@ -114,10 +114,10 @@ int	ft_export(char **cmd, t_exec *exec)
 		nb_args++;
 	if (nb_args == 1)
 		show_export(exec);
-	// else
-	// {
-	// 	what_to_do(cmd, exec);
-	// }
+	else
+	{
+		what_to_do(cmd, exec);
+	}
 	if (exec->nb_cmds > 1)
 		exit(0);
 	return (0);

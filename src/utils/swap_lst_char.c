@@ -4,22 +4,24 @@ char	**env_lst_into_double_char(t_env *env)
 {
 	int		i;
 	char	**char_env;
+	char	*tmp2;
 	t_env	*tmp;
 	int		size_node;
 
 	i = 0;
 	tmp = env;
-	size_node = ft_strlen(env->name) + ft_strlen(env->value) + 1;
 	char_env = malloc(sizeof(char **) * (t_env_strlen(tmp) + 1));
 	if (!char_env)
 		return (perror("malloc"), NULL);
 	while (tmp)
 	{
+		size_node = ft_strlen(tmp->name) + ft_strlen(env->value) + 2;
 		char_env[i] = malloc(sizeof(char *) * (size_node + 1));
 		if (!char_env[i])
 			return (perror("malloc"), free_tab(char_env), NULL);
-		char_env[i] = ft_strjoin(tmp->name, "=");
-		char_env[i] = ft_strjoin(char_env[i], tmp->value);
+		tmp2 = ft_strjoin(tmp->name, "=");
+		char_env[i] = ft_strjoin(tmp2, tmp->value);
+		free(tmp2);
 		tmp = tmp->next;
 		i++;
 	}
