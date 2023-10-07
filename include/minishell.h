@@ -36,19 +36,19 @@ typedef struct s_env
 	struct s_env	*next;
 }					t_env;
 
-typedef struct s_struct
-{
-	char				*str;
-	t_enum				type;
-	struct s_struct		*next;
-}			t_struct;
-
 typedef struct s_exec
 {
 	int		nb_cmds;
 	t_env	*env;
 	t_env	*export;
 }				t_exec;
+
+typedef struct s_struct
+{
+	char				*str;
+	t_enum				type;
+	struct s_struct		*next;
+}			t_struct;
 
 char    *get_node(char *word, int *i);
 char		**get_path(char **env);
