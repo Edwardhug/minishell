@@ -54,7 +54,7 @@ void	change_pwd(t_exec *exec)
 
 int	ft_cd(char **cmd, t_exec *exec)
 {
-	// char	*pwd;
+	// char	*pwd; 
 
 	// pwd = get_pwd(exec);
 	if (ft_strlen_doublechar(cmd) == 1)
