@@ -2,53 +2,53 @@
 
 char	*get_pwd(t_exec *exec)
 {
-	t_env	*env;
+	t_env	*tmp;
 
-	env = exec->lst_env;
-	while (env->next)
+	tmp = exec->env;
+	while (tmp->next)
 	{
-		if (ft_strcmp(env->name, "PWD") == 0)
-			return (env->value);
-		env = env->next;
+		if (ft_strcmp(tmp->name, "PWD") == 0)
+			return (tmp->value);
+		tmp = tmp->next;
 	}
 	return (NULL);
 }
 
 void	change_old_pwd(t_exec *exec, char *pwd)
 {
-	t_env	*env;
+	t_env	*tmp;
 
-	env = exec->lst_env;
-	while (env->next)
+	tmp = exec->env;
+	while (tmp->next)
 	{
-		if (ft_strcmp(env->name, "OLDPWD") == 0)
+		if (ft_strcmp(tmp->name, "OLDPWD") == 0)
 		{
-			free(env->value);
-			env->value = ft_strdup(pwd);
-			ft_printf("new OLDPWD = %s\n", env->value);
+			free(tmp->value);
+			tmp->value = ft_strdup(pwd);
+			ft_printf("new OLDPWD = %s\n", tmp->value);
 			return ;
 		}
-		env = env->next;
+		tmp = tmp->next;
 	}
 }
 
 void	change_pwd(t_exec *exec)
 {
-	t_env	*env;
+	t_env	*tmp;
 	char	cwd[1024];
 
-	env = exec->lst_env;
+	tmp = exec->env;
 	getcwd(cwd, sizeof(cwd));
-	while (env->next)
+	while (tmp->next)
 	{
-		if (ft_strcmp(env->name, "PWD") == 0)
+		if (ft_strcmp(tmp->name, "PWD") == 0)
 		{
-			free(env->value);
-			env->value = ft_strdup(cwd);
-			ft_printf("new PWD = %s\n", env->value);
+			free(tmp->value);
+			tmp->value = ft_strdup(cwd);
+			ft_printf("new PWD = %s\n", tmp->value);
 			return ;
 		}
-		env = env->next;
+		tmp = tmp->next;
 	}
 }
 
