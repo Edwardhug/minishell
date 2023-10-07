@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 18:08:24 by lezard            #+#    #+#             */
-/*   Updated: 2023/10/05 15:19:49 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/07 14:18:45 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	wait_all_process(int *pid, t_struct *list_word)
 	{
 		if (ft_strcmp(list_word->str, "cd") == 0)
 		{
-			if (g_error_value == -33)
+			if (g_error_value == -1)
 				status = 256;
 			else
 				status = 0;
