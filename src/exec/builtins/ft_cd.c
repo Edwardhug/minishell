@@ -62,9 +62,9 @@ int	ft_cd(char **cmd, t_exec *exec)
 	else if (chdir(cmd[1])) //chdir va tout simplement rediriger vers le chemin donné en argument.
 	{
 		perror("");
-		g_error_value = -33;
 		if (exec->nb_cmds > 1)
 			exit(0);
+		g_error_value = -33;
 		return (0);
 	}
 	// ft_printf("OLDPWD = %s\n", pwd);
