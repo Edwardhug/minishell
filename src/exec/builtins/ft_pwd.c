@@ -14,7 +14,8 @@ int	ft_pwd(t_exec *exec)
 	{
 		perror("getcwd");
 		free(cwd);
-		exit(1);
+		g_error_value = -127;
+		return (1);
 	}
 	if (exec->nb_cmds > 1)
 		exit(0);

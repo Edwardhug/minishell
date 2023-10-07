@@ -81,6 +81,13 @@ void	wait_all_process(int *pid, t_struct *list_word)
 			else
 				status = 0;
 		}
+		else if (ft_strcmp(list_word->str, "pwd") == 0)
+		{
+			if (g_error_value == -127)
+				status = 127 * 256;
+			else
+				status = 0;
+		}
 		list_word = list_word->next;
 	}
 	g_error_value = status;
