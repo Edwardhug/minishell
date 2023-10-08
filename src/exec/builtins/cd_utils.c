@@ -86,4 +86,5 @@ void	change_pwd(t_exec *exec)
 	arg[0] = fill_newpwd(newpwd);
 	args_tmp = env_double_char_into_lst(arg);
 	export_existing_value(args_tmp, exec);
+	// free_env(args_tmp);
 }

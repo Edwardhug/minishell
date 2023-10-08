@@ -25,11 +25,11 @@ void	change_oldpwd(t_exec *exec, char *actual_pwd)
 	arg[0] = fill_oldpwd(actual_pwd);
 	args_tmp = env_double_char_into_lst(arg);
 	export_existing_value(args_tmp, exec);
-	change_pwd(exec);
 }
 
 void	go_to_old_pwd(char *oldpwd, t_exec *exec)
 {
+	char	*to_print;
 	if (chdir(get_old_pwd(exec)))
 	{
 		perror("");
@@ -39,10 +39,12 @@ void	go_to_old_pwd(char *oldpwd, t_exec *exec)
 		return ;
 	}
 	change_oldpwd(exec, oldpwd);
+	to_print = getcwd(NULL, 0);
+	ft_printf("%s\n", to_print);
+	free(to_print);
 	if (exec->nb_cmds > 1)
 		exit(0);
 	return ;
-	(void)oldpwd;
 }
 
 int	ft_cd(char **cmd, t_exec *exec)
