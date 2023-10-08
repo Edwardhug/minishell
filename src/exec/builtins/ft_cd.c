@@ -88,7 +88,7 @@ int	ft_cd(char **cmd, t_exec *exec)
 	char	*pwd;
 
 	pwd = get_pwd(exec);
-	ft_printf("OLDPWD = %s\n", pwd);
+	ft_printf("PWD before = %s\n", pwd);
 	if (ft_strlen_doublechar(cmd) == 1)
 		chdir("/root");
 	else if (chdir(cmd[1])) //chdir va tout simplement rediriger vers le chemin donné en argument.
@@ -100,6 +100,8 @@ int	ft_cd(char **cmd, t_exec *exec)
 		return (0);
 	}
 	change_pwd(exec, pwd);
+	pwd = get_pwd(exec);
+	ft_printf("PWD after = %s\n", pwd);
 	if (exec->nb_cmds > 1)
 		exit(0);
 	return (0);
