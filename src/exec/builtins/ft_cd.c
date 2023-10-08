@@ -7,7 +7,7 @@ char	*get_pwd(t_exec *exec)
 	tmp = exec->env;
 	while (tmp->next)
 	{
-		if (ft_strcmp(tmp->name, "PWD") == 0)
+		if (ft_strcmp(tmp->name, "OLDPWD") == 0)
 			return (tmp->value);
 		tmp = tmp->next;
 	}
@@ -34,20 +34,22 @@ char	*get_pwd(t_exec *exec)
 
 void	put_pwd_in_char(char **arg)
 {
-	(*arg)[0] = 'P';
-	(*arg)[1] = 'W';
+	(*arg)[0] = 'O';
+	(*arg)[1] = 'L';
 	(*arg)[2] = 'D';
-	(*arg)[3] = '=';
-	(*arg)[4] = '\"';
+	(*arg)[3] = 'P';
+	(*arg)[4] = 'W';
+	(*arg)[5] = 'D';
+	(*arg)[6] = '=';
 }
 
-char	*fill_pwd(char *actual_pwd)
+char	*fill_oldpwd(char *actual_pwd)
 {
 	int		i;
 	int		size;
 	char	*arg;
 
-	size = ft_strlen("PWD=\"") + ft_strlen(actual_pwd) + 2;
+	size = ft_strlen("OLDPWD=") + ft_strlen(actual_pwd) + 1;
 	i = 0;
 	arg = ft_calloc(size, sizeof(char));
 	if (!arg)
@@ -60,16 +62,15 @@ char	*fill_pwd(char *actual_pwd)
 		if (i == 0)
 		{
 			put_pwd_in_char(&arg);
-			i = 5;
+			i = 7;
 		}
-		arg[i] = actual_pwd[i - 5];
+		arg[i] = actual_pwd[i - 7];
 		i++;
 	}
-	arg[i - 1] = '\"';
 	return(arg);
 }
 
-void	change_pwd(t_exec *exec, char *actual_pwd)
+void	change_oldpwd(t_exec *exec, char *actual_pwd)
 {
 	char	**arg;
 	t_env    *args_tmp;
@@ -77,7 +78,7 @@ void	change_pwd(t_exec *exec, char *actual_pwd)
 	arg = ft_calloc(2, sizeof(char *));
 	if (!arg)
 		return ;
-	arg[0] = fill_pwd(actual_pwd);
+	arg[0] = fill_oldpwd(actual_pwd);
 	// ft_printf("%s\n", arg[0]);
 	args_tmp = env_double_char_into_lst(arg);
 	export_existing_value(args_tmp, exec);
@@ -85,10 +86,9 @@ void	change_pwd(t_exec *exec, char *actual_pwd)
 
 int	ft_cd(char **cmd, t_exec *exec)
 {
-	char	*pwd;
+	char	*oldpwd;
 
-	pwd = get_pwd(exec);
-	ft_printf("PWD before = %s\n", pwd);
+	oldpwd = getcwd(NULL, 0);		// alloue avec malloc donc checker les leaks
 	if (ft_strlen_doublechar(cmd) == 1)
 		chdir("/root");
 	else if (chdir(cmd[1])) //chdir va tout simplement rediriger vers le chemin donné en argument.
@@ -99,9 +99,8 @@ int	ft_cd(char **cmd, t_exec *exec)
 			exit(0);
 		return (0);
 	}
-	change_pwd(exec, pwd);
-	pwd = get_pwd(exec);
-	ft_printf("PWD after = %s\n", pwd);
+	change_oldpwd(exec, oldpwd);
+	free(oldpwd);
 	if (exec->nb_cmds > 1)
 		exit(0);
 	return (0);
