@@ -1,0 +1,28 @@
+static t_env *ft_lstnew_env(char *str, int nb)
+{
+    t_env *new;
+
+    new = malloc(sizeof(t_env));
+    if (!new)
+        return (perror("malloc lstnew_env 1"), NULL);
+
+    // Allouer suffisamment d'espace pour le nom (y compris le caractère nul).
+    new->name = malloc(sizeof(char) * (nb + 1));
+    if (!new->name)
+        return (perror("malloc lstnew_env 2"), free(new), NULL);
+
+    // Copier le nom dans le nouveau nœud.
+    ft_strncpy(new->name, str, nb);
+    new->name[nb] = '\0';
+
+    // Allouer suffisamment d'espace pour la valeur (y compris le caractère nul).
+    new->value = malloc(sizeof(char) * (ft_strlen(str) - nb));
+    if (!new->value)
+        return (perror("malloc lstnew_env 3"), free(new->name), free(new), NULL);
+
+    // Copier la valeur dans le nouveau nœud.
+    ft_strcpy(new->value, &str[nb + 1]);
+
+    new->next = NULL;
+    return (new);
+}
