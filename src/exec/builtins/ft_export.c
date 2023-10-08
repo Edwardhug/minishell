@@ -62,7 +62,7 @@ static void	show_export(t_exec *exec)
 	}
 }
 
-static void	export_existing_value(t_env *args_tmp, t_exec *exec)
+void	export_existing_value(t_env *args_tmp, t_exec *exec)
 {
 	t_env	*tmp_exp;
 	t_env	*tmp_env;
