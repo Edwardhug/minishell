@@ -85,7 +85,7 @@ int	ft_cd(char **cmd, t_exec *exec)
 		return (0);
 	}
 	change_oldpwd(exec, oldpwd);
-	// free(oldpwd);
+	// free(oldpwd); 
 	if (exec->nb_cmds > 1)
 		exit(0);
 	return (0);
