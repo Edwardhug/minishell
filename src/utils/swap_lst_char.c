@@ -36,14 +36,23 @@ static t_env	*ft_lstnew_env(char *str, int nb)
 	new = malloc(sizeof(t_env));
 	if (!new)
 		return (perror("malloc lstnew_env 1"), NULL);
-	new->name = malloc(sizeof(char *) * (nb + 1));
+	new->name = malloc(sizeof(char) * (nb + 1));
 	if (!new->name)
 		return (perror("malloc lstnew_env 2"), free(new), NULL);
-	new->name = ft_strncpy(new->name, str, nb);
-	new->value = malloc(sizeof(char *) * (ft_strlen(str) - nb + 1));	//pb, quand y'a pas de value, ce qui arrive dans export, bah forcément ça return l'erreur.
+	if (nb == 0)
+	{
+		new->name[0] = '=';
+		new->name[1] = '\0';
+	}
+	else
+	{
+		ft_strncpy(new->name, str, nb);
+		new->name[nb] = '\0';
+	}
+	new->value = malloc(sizeof(char) * (ft_strlen(str) - nb));
 	if (!new->value)
 		return (perror("malloc lstnew_env 3"), free(new), free(new->name), NULL);
-	new->value = ft_strcpy(new->value, &str[nb + 1]);
+	ft_strcpy(new->value, &str[nb + 1]);
 	new->next = NULL;
 	return (new);
 }

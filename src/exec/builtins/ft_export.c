@@ -149,6 +149,33 @@ static void	create_var(t_env *args_tmp, t_exec *exec)
 	}
 }
 
+//on a le droit qu'à alphanumérique et underscore. Ne peut pas commencer par un chiffre.
+static	int	is_valid_name(t_env *args_tmp)
+{
+	int		i;
+	t_env	*tmp;
+
+	tmp = args_tmp;
+	while (tmp)
+	{
+		if (tmp->name[0] >= '0' && tmp->name[0] <= '9')
+			return (1);
+		i = 0;
+		while (tmp->name[i])
+		{
+			if (!(tmp->name[i] >= 'a' && tmp->name[i] <= 'z')
+					&& !(tmp->name[i] >= 'A' && tmp->name[i] <= 'Z') 
+					&& !(tmp->name[i] >= '0' && tmp->name[i] <= '9') 
+					&& (tmp->name[i] != '_'))
+				return (1);
+			i++;
+		}
+		ft_printf("\n");
+		tmp = tmp->next;
+	}
+	return (0);
+}
+
 static int	what_to_do(char **cmd, t_exec *exec)
 {
 	t_env	*tmp;
@@ -156,6 +183,13 @@ static int	what_to_do(char **cmd, t_exec *exec)
 	t_env	*args_tmp;
 
 	lst_args = env_double_char_into_lst(cmd + 1);	//on met les args dans une liste pour comparer plus facilement.
+	if (is_valid_name(lst_args) == 1)
+	{
+//nom de l'argument à donner dans l'erreur
+		ft_putstr_fd(" not a valid identifier\n", 2);
+		g_error_value = -1;
+		return (1);
+	}
 	while (lst_args)
 	{
 		tmp = exec->export;
@@ -185,7 +219,6 @@ static int	what_to_do(char **cmd, t_exec *exec)
 	free_env(lst_args);
 	return (0);
 }
-
 int	ft_export(char **cmd, t_exec *exec)
 {
 	int	nb_args;
