@@ -1,5 +1,19 @@
 #include "../../../include/minishell.h"
 
+char	*get_old_pwd(t_exec *exec)
+{
+	t_env	*env;
+
+	env = exec->env;
+	while (env)
+	{
+		if (ft_strcmp(env->name, "OLDPWD") == 0)
+			return (env->value);
+		env = env->next;
+	}
+	return (NULL);
+}
+
 void	change_oldpwd(t_exec *exec, char *actual_pwd)
 {
 	char	**arg;
@@ -14,6 +28,23 @@ void	change_oldpwd(t_exec *exec, char *actual_pwd)
 	change_pwd(exec);
 }
 
+void	go_to_old_pwd(char *oldpwd, t_exec *exec)
+{
+	if (chdir(get_old_pwd(exec)))
+	{
+		perror("");
+		g_error_value = -1;
+		if (exec->nb_cmds > 1)
+			exit(0);
+		return ;
+	}
+	change_oldpwd(exec, oldpwd);
+	if (exec->nb_cmds > 1)
+		exit(0);
+	return ;
+	(void)oldpwd;
+}
+
 int	ft_cd(char **cmd, t_exec *exec)
 {
 	char	*oldpwd;
@@ -24,6 +55,8 @@ int	ft_cd(char **cmd, t_exec *exec)
 		change_oldpwd(exec, oldpwd);
 		chdir("/root");
 	}
+	else if (ft_strcmp(cmd[1], "-") == 0)
+		return (go_to_old_pwd(oldpwd, exec), 0);
 	else if (chdir(cmd[1])) //chdir va tout simplement rediriger vers le chemin donné en argument.
 	{
 		perror("");
