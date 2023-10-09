@@ -15,7 +15,7 @@ int	is_builtin_alone(char **cmd, t_exec *exec)
 	else if (ft_strcmp(cmd[0], "unset") == 0)
 		return (ft_unset(cmd, exec), 1);
 	// else if (ft_strcmp(cmd[0], "env") == 0)
-	// 	return (ft_env(exec), 1);
+	// 	return (ft_env(exec), 1); 
 	return (0);
 }
 
