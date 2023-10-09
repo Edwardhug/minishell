@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 14:28:48 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/08 18:59:05 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/09 19:26:04 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ char	*remove_new_line(char *str)
 {
 	int		i;
 	char	*to_ret;
+	int		j;
 
 	i = 0;
 	while (str[i] && str[i] != '\n')
@@ -29,9 +30,12 @@ char	*remove_new_line(char *str)
 		exit(EXIT_FAILURE);
 	}
 	i = 0;
-	while (str[i] && str[i] != '\n')
+	j = 0;
+	while (str[j] == ' ')
+		j++;
+	while (str[i + j] && str[i + j] != '\n')
 	{
-		to_ret[i] = str[i];
+		to_ret[i] = str[i + j];
 		i++;
 	}
 	to_ret[i] = 0;
