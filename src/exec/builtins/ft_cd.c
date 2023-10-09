@@ -33,7 +33,7 @@ void	go_to_old_pwd(char *oldpwd, t_exec *exec)
 
 	if (chdir(get_var(exec, "OLDPWD")))
 	{
-		perror("");
+		perror("OLDPWD");
 		g_error_value = -1;
 		if (exec->nb_cmds > 1)
 			exit(0);
@@ -52,7 +52,7 @@ void	go_to_home(char *oldpwd, t_exec *exec)
 {
 	if (chdir(get_var(exec, "HOME")))
 	{
-		perror("");
+		perror("HOME");
 		g_error_value = -1;
 		if (exec->nb_cmds > 1)
 			exit(0);
@@ -78,7 +78,7 @@ int	ft_cd(char **cmd, t_exec *exec)
 		return (go_to_old_pwd(oldpwd, exec), 0);
 	else if (chdir(cmd[1])) //chdir va tout simplement rediriger vers le chemin donné en argument.
 	{
-		perror("");
+		ft_error_message_arg(cmd[0], cmd[1], ": No such file or directory\n");
 		if (cmd[1][0] != '$' || cmd[2])
 			g_error_value = -1;
 		if (exec->nb_cmds > 1)

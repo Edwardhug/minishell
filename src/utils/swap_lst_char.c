@@ -32,17 +32,23 @@ char	**env_lst_into_double_char(t_env *env)
 static t_env	*ft_lstnew_env(char *str, int nb)
 {
 	t_env	*new;
+	int		i;
 
+	i = 0;
 	new = malloc(sizeof(t_env));
 	if (!new)
 		return (perror("malloc lstnew_env 1"), NULL);
 	new->name = malloc(sizeof(char) * (nb + 1));
 	if (!new->name)
 		return (perror("malloc lstnew_env 2"), free(new), NULL);
-	if (nb == 0)
+	if (str[0] == '=')
 	{
-		new->name[0] = '=';
-		new->name[1] = '\0';
+		while (str[i] == '=')
+		{
+			new->name[i] = '=';
+			i++;
+		}
+		new->name[i] = '\0';
 	}
 	else
 	{

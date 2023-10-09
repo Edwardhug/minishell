@@ -77,7 +77,7 @@ void	export_existing_value(t_env *args_tmp, t_exec *exec)
 			tmp_exp->value = ft_strdup(args_tmp->value);
 			if (!tmp_exp->value)
 			{
-				perror("tmp_exp->value malloc\n");
+				perror("tmp_exp->value dup error\n");
 				return ;
 			}
 		}
@@ -110,6 +110,8 @@ static t_env	*ft_lstnew_export(t_env *args_tmp)
 	if (!new->name)
 		return (perror("malloc lstnew_export2"), NULL);
 	new->name = ft_strdup(args_tmp->name);
+	if (!new->name)
+		return(perror("lstnew_export dup 1"), NULL);
 	if (args_tmp->value == NULL || args_tmp->value[0] == '\0')
 	{
 		new->value = malloc(sizeof(char *) * 1);
@@ -122,7 +124,14 @@ static t_env	*ft_lstnew_export(t_env *args_tmp)
 		if (!new->value)
 			return (perror("malloc lstnew_export3"), NULL);
 	}
-	new->value = ft_strdup(args_tmp->value);
+	if (args_tmp->value)
+	{
+		new->value = ft_strdup(args_tmp->value);
+		if (!new->value)
+			return (perror("lstnew_export dup 2"), NULL);
+	}
+	else
+		new->value[0] = '\0';
 	new->next = NULL;
 	return (new);
 }
@@ -150,7 +159,7 @@ static void	create_var(t_env *args_tmp, t_exec *exec)
 }
 
 //on a le droit qu'à alphanumérique et underscore. Ne peut pas commencer par un chiffre.
-static	int	is_valid_name(t_env *args_tmp)
+static	int	is_valid_name(char *cmd_name, t_env *args_tmp)
 {
 	int		i;
 	t_env	*tmp;
@@ -159,18 +168,23 @@ static	int	is_valid_name(t_env *args_tmp)
 	while (tmp)
 	{
 		if (tmp->name[0] >= '0' && tmp->name[0] <= '9')
+		{
+			ft_error_message_arg(cmd_name, tmp->name, ": not a valid identifier\n");
 			return (1);
+		}
 		i = 0;
 		while (tmp->name[i])
 		{
 			if (!(tmp->name[i] >= 'a' && tmp->name[i] <= 'z')
-					&& !(tmp->name[i] >= 'A' && tmp->name[i] <= 'Z') 
-					&& !(tmp->name[i] >= '0' && tmp->name[i] <= '9') 
+					&& !(tmp->name[i] >= 'A' && tmp->name[i] <= 'Z')
+					&& !(tmp->name[i] >= '0' && tmp->name[i] <= '9')
 					&& (tmp->name[i] != '_'))
+			{
+				ft_error_message_arg(cmd_name, tmp->name, ": not a valid identifier\n");
 				return (1);
+			}
 			i++;
 		}
-		ft_printf("\n");
 		tmp = tmp->next;
 	}
 	return (0);
@@ -183,10 +197,8 @@ static int	what_to_do(char **cmd, t_exec *exec)
 	t_env	*args_tmp;
 
 	lst_args = env_double_char_into_lst(cmd + 1);	//on met les args dans une liste pour comparer plus facilement.
-	if (is_valid_name(lst_args) == 1)
+	if (is_valid_name(cmd[0], lst_args))
 	{
-//nom de l'argument à donner dans l'erreur
-		ft_putstr_fd(" not a valid identifier\n", 2);
 		g_error_value = -1;
 		return (1);
 	}
@@ -199,13 +211,9 @@ static int	what_to_do(char **cmd, t_exec *exec)
 			if (ft_strcmp(tmp->name, args_tmp->name) == 0)
 			{
 				if (args_tmp->value == NULL || args_tmp->value[0] == '\0') //variable trouvée mais pas de valeur = on fait rien
-				{
 					break ;
-				}
 				else	//variable trouvée et nouvelle valeur à mettre
-				{
 					export_existing_value(args_tmp, exec);
-				}
 				break ;
 			}
 			tmp = tmp->next;

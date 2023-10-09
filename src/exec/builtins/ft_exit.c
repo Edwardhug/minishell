@@ -20,17 +20,18 @@ int	ft_exit(char **cmd, t_exec *exec)
 
 	status = 0;
 	(void)exec;
+	ft_putstr_fd("exit\n", 1);
 	if (cmd[1])
 	{
 		if (cmd[2]) //si il y a plus d'un argument c'est une erreur
 		{
-			ft_putstr_fd(" too many arguments\n", 2);
+			ft_error_message(cmd[0], ": too many arguments\n");
 			g_error_value = -1; // le message à renvoyer est 1
 			return (1);
 		}
 		if (is_number(cmd[1]) == 1)
 		{
-			ft_putstr_fd(" numeric argument required\n", 2);
+			ft_error_message_arg(cmd[0], cmd[1], ": numeric argument required\n");
 			exit(2);
 		}
 		status = ft_atoi(cmd[1]) % 256;

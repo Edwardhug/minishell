@@ -2,9 +2,9 @@
 
 // this c file is for export HELLO="123 A-"
 
-int	ft_isupper(int n)
+int	ft_isequal(int n)
 {
-	if (n >= 65 && n <= 90)
+	if (n == '=')
 		return (1);
 	return (0);
 }

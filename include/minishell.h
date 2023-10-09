@@ -64,8 +64,9 @@ void		free_list(t_struct **lst);
 void		signal_main_loop(void);
 void		handle_sigint_main_loop(int signal);
 void		exit_and_write_it(char **path, int fd_standart);
-void	clean_list(t_struct **list);
-int	ft_isupper(int n);
+void		clean_list(t_struct **list);
+//int			ft_isupper(int n);
+int			ft_isequal(int n);
 void fill_var_node(t_struct **list_word, char *word);
 int	get_len_var(char *line, int *i, t_struct **list_word);
 char	*find_end_var(char *line, int *i, t_struct **list_word);
@@ -120,6 +121,8 @@ size_t		t_env_strlen(t_env *env);
 char		**env_lst_into_double_char(t_env *env);
 t_env		*env_double_char_into_lst(char **c_env);
 void		free_env(t_env *lst);
+int			ft_error_message(char *cmd_name, char *msg);
+int			ft_error_message_arg(char *cmd_name, char *arg, char *msg);
 //t_env		*ft_lstcpy(t_env *source);
 
 //here doc
