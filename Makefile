@@ -14,6 +14,7 @@ SRCS =	parsing/minishell.c\
 		parsing/remove_things.c\
 		parsing/get_node.c\
 		parsing/clean_list.c\
+		parsing/add_pipe.c\
 		parsing/fill_var_node.c\
 		parsing/fill_quote_node.c\
 		exec/exec_start.c\

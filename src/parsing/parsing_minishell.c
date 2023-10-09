@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:50:18 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/09 19:26:57 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/09 19:44:32 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void fill_node(t_struct **list_word, char *word)
 	word = remove_quotes(word);
 	while (word[i])
 	{
+		add_pipe(list_word);
 		str = get_node(word, &i);
 		tmp = *list_word;
 		type = find_type_enum(tmp, str);		//currently working on this
