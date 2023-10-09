@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:50:18 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/03 12:40:13 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/09 10:34:38 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,9 @@ void	parsing_minishell(char **path, char *line, t_exec *exec)
 	i = 0;
 	while (line[i])
 	{
-		if (line[i] == '"')
+		if (ft_isupper(line[i]))
+			fill_var_node(&list_word, find_end_var(line, &i, &list_word));
+		else if (line[i] == '"')
 			fill_node(&list_word, find_second_quote(line, &i));
 		else
 			fill_node(&list_word, find_end_of_the_word(line, &i));
@@ -112,8 +114,9 @@ void	parsing_minishell(char **path, char *line, t_exec *exec)
 	}
 	delete_node(&list_word);
 	clean_list(&list_word);
-	//print_list(list_word);
+	// print_list(list_word);
 	begin_execution(path, exec, list_word);
 	(void)path;
+	(void)exec;
 	free_list(&list_word);
 }

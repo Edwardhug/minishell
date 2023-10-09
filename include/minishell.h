@@ -65,6 +65,12 @@ void		signal_main_loop(void);
 void		handle_sigint_main_loop(int signal);
 void		exit_and_write_it(char **path, int fd_standart);
 void	clean_list(t_struct **list);
+int	ft_isupper(int n);
+void fill_var_node(t_struct **list_word, char *word);
+int	get_len_var(char *line, int *i, t_struct **list_word);
+char	*find_end_var(char *line, int *i, t_struct **list_word);
+void fill_node(t_struct **list_word, char *word);
+char	*find_end_of_the_word(char *line, int *i);
 
 void		print_list(t_struct *list);
 
