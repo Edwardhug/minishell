@@ -71,6 +71,8 @@ int	get_len_var(char *line, int *i, t_struct **list_word);
 char	*find_end_var(char *line, int *i, t_struct **list_word);
 void fill_node(t_struct **list_word, char *word);
 char	*find_end_of_the_word(char *line, int *i);
+char	*find_last_quote(char *line, int *i, t_struct **list_word);
+void fill_quote_node(t_struct **list_word, char *word);
 
 void		print_list(t_struct *list);
 
