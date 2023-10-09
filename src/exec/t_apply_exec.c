@@ -100,7 +100,7 @@ void	t_apply_exec(t_struct *temp_list, t_exec *exec)
 	char	*path_cmd;
 	char	**splited_cmd;
 
-	print_return_value(temp_list);
+	// print_return_value(temp_list);
 	splited_cmd = t_get_clean_cmd(temp_list);
 	if (!splited_cmd)
 		return ;

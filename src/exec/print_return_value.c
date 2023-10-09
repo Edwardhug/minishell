@@ -24,15 +24,22 @@ void get_right_return_value(char **splited, struct stat info)
 	exit(127);
 }
 
-void	print_return_value(t_struct *lst)
+// void	print_return_value(t_struct *lst)
+// {
+// 	if ((ft_strncmp("$?", lst->str, 2) == 0)
+// 			&& (ft_strlen(lst->str) == 2))
+// 	{
+// 		ft_putnbr_fd(g_error_value / 256, 2);
+// 		ft_putstr_fd(": command not found\n", 2);
+// 		exit(127);
+// 	}
+// }
+
+void	print_return_value()
 {
-	if ((ft_strncmp("$?", lst->str, 2) == 0)
-			&& (ft_strlen(lst->str) == 2))
-	{
-		ft_putnbr_fd(g_error_value / 256, 2);
-		ft_putstr_fd(": command not found\n", 2);
-		exit(127);
-	}
+	ft_putnbr_fd(g_error_value / 256, 2);
+	ft_putstr_fd(": command not found\n", 2);
+	exit(127);
 }
 
 int	print_clean_return_value(char *str)
