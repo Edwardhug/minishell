@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:50:18 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/09 14:06:17 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/09 18:31:36 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	parsing_minishell(char **path, char *line, t_exec *exec)
 	i = 0;
 	while (line[i])
 	{
-		if (ft_isequal(line[i]))
+		if (i != 0 && ft_strcmp(get_last_node(list_word)->str, "export") == 0)
 			fill_var_node(&list_word, find_end_var(line, &i, &list_word));
 		else if ( i != 0 && ft_strcmp(get_last_node(list_word)->str, "echo") == 0 && (line[i] == '\'' || line[i] == '\"'))
 			fill_quote_node(&list_word, find_last_quote(line, &i, &list_word));
