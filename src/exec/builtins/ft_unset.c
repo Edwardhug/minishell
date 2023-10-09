@@ -61,7 +61,6 @@ seule la variable locale sera détruite.
 la variable globale gardera la valeur acquise avant
 l'appel à unset
 
-
 si je fais unset et que l'argument que je donne n'est pas bon ou même que je ne donne aucun arguments, il ne se passe rien.
 si je fais unset PATH par exemple, si après je fais ls il ne trouve rien, vu que le chemin a été supprimé.
 
