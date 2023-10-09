@@ -86,8 +86,9 @@ char	*t_get_cmd(char **env, char **splited_cmd)
 	if (!path)
 		return (free_tab(splited_cmd), NULL);
 	path = path + 5;
+	// ft_printf("cmd 1 = %s\n", splited_cmd[0]);
 	if (ft_strncmp(splited_cmd[0], "./", 2) == 0)
-		path = "";
+		return (ft_strdup(splited_cmd[0]));				// peut etre pas besoin du strdup mais je pense que si
 	all_path = ft_split(path, ':');
 	if (!all_path)
 		return (NULL);
@@ -97,23 +98,22 @@ char	*t_get_cmd(char **env, char **splited_cmd)
 
 void	t_apply_exec(t_struct *temp_list, t_exec *exec)
 {
-	char	*path_cmd;
-	char	**splited_cmd;
+	char		*path_cmd;
+	char		**splited_cmd;
 
-	// print_return_value(temp_list);
 	splited_cmd = t_get_clean_cmd(temp_list);
 	if (!splited_cmd)
 		return ;
 	path_cmd = t_get_cmd(env_lst_into_double_char(exec->env), splited_cmd);
+	// ft_printf("pass = %s\n", path_cmd);
 	if (!path_cmd)
-	{
 		exit(127);
-	}
 	execve(path_cmd, splited_cmd, env_lst_into_double_char(exec->env));
-	ft_putstr_fd("permission denied: ", 2);
-	ft_putstr_fd(path_cmd, 2);
-	ft_putstr_fd("\n", 2);
+	perror("");
 	free_tab(splited_cmd);
 	free(path_cmd);
+	// ft_printf("erno = %d\n", errno);
+	if (errno == 13)
+		exit (126);
 	exit(127);
 }
