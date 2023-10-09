@@ -36,10 +36,8 @@ int	ft_echo(char **cmd, t_exec *exec)
 	int	i;
 
 	i = 1;
-	if (exec->nb_cmds > 1 && print_clean_return_value(cmd[1]))
+	if (print_clean_return_value(cmd[1]))
 		exit(0);
-	else if (print_clean_return_value(cmd[1]))
-		return (2);
 		
 	if (ft_strcmp(cmd[1], "-n") == 0) //on regarde si on a le -n pour le saut à la ligne
 	{
@@ -60,7 +58,5 @@ int	ft_echo(char **cmd, t_exec *exec)
 	}
 	if (dash_n) //si on a pas de -n on va à la ligne
 		ft_printf("\n");
-	if (exec->nb_cmds > 1)
-		exit(0);
-	return (0);
+	exit(0);
 }
