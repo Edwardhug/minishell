@@ -49,6 +49,6 @@ void fill_quote_node(t_struct **list_word, char *word)
 	if (!word)
 		return ;
 	tmp = *list_word;
-	type = find_type_enum(tmp, word);		//currently working on this
+	type = find_type_enum(tmp, word);		//currently working on this 
 	add_node_back(list_word, new_node(word, type));
 }
