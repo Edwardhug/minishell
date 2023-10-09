@@ -17,6 +17,28 @@ int	find_size_quote(char *line, int *i, char quote, t_struct **list_word)
 	return (size);
 }
 
+char	*keep_quotes(char *line, int *i, t_struct **list_word)
+{
+	int		len;
+	char	*word;
+	int		j;
+
+	len = find_size_quote(line, i, '\'', list_word);
+	if (len == 0)
+		return (NULL);
+	word = calloc((len + 2), sizeof(char));
+	if (!word)
+		return (NULL);
+	j = 0;
+	while (j <= len)
+	{
+		word[j] = line[(*i) + j];
+		j++;
+	}
+	(*i) = (*i) + j;
+	return (word);
+}
+
 char	*find_last_quote(char *line, int *i, t_struct **list_word)
 {
 	char	type_quote;
@@ -27,6 +49,8 @@ char	*find_last_quote(char *line, int *i, t_struct **list_word)
 	type_quote = line[(*i)];
 	if (type_quote == '\'' && line[(*i) + 1] == '$')
 		return (find_end_var(line, i, list_word));
+	if (type_quote == '\'')
+		return (keep_quotes(line, i, list_word));
 	len = find_size_quote(line, i, type_quote, list_word);
 	if (len == 0)
 		return (NULL);
