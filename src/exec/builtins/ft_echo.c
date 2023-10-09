@@ -62,6 +62,7 @@ int	ft_echo(char **cmd, t_exec *exec)
 	int	dash_n; //sert de booléen
 	int	i;
 	int	j;
+	int	simple_quote;
 
 	i = 1;
 	if (ft_strcmp(cmd[1], "-n") == 0) //on regarde si on a le -n pour le saut à la ligne
@@ -73,13 +74,16 @@ int	ft_echo(char **cmd, t_exec *exec)
 		dash_n = 1;
 	while (cmd[i])
 	{
+		simple_quote = 0;
 		j = 0;
-		while (cmd[i][j])
+		if (cmd[i][j] == '\'')
+			simple_quote = 1;
+		while (cmd[i][j + simple_quote + simple_quote])
 		{
-			if (cmd[i][j] == '$')
+			if (cmd[i][j] == '$' && simple_quote == 0)
 				print_var(cmd, &i, &j, exec);
 			else
-				ft_printf("%c", cmd[i][j]);
+				ft_printf("%c", cmd[i][j + simple_quote]);
 			j++;
 		}
 		if (cmd[i + 1] != NULL) //si on est pas au dernier argument, on met un espace.
