@@ -25,6 +25,8 @@ char	*find_last_quote(char *line, int *i, t_struct **list_word)
 	int		j;
 
 	type_quote = line[(*i)];
+	if (type_quote == '\'' && line[(*i) + 1] == '$')
+		return (find_end_var(line, i, list_word));
 	len = find_size_quote(line, i, type_quote, list_word);
 	if (len == 0)
 		return (NULL);
