@@ -79,7 +79,8 @@ int	ft_cd(char **cmd, t_exec *exec)
 	else if (chdir(cmd[1])) //chdir va tout simplement rediriger vers le chemin donné en argument.
 	{
 		perror("");
-		g_error_value = -1;
+		if (cmd[1][0] != '$' || cmd[2])
+			g_error_value = -1;
 		if (exec->nb_cmds > 1)
 			exit(0);
 		return (0);
