@@ -15,4 +15,5 @@ int	ft_env(t_exec *exec)
 	if (exec->nb_cmds > 1)
 		exit(0);
 	return (0);
+	// (void)char_env;
 }

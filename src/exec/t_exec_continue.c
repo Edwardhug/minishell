@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 11:55:30 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/05 14:51:34 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/09 11:24:14 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	t_exec_cmd(t_struct *temp_list, t_exec *exec)
 	int		fd[2];
 	int		pid;
 
-	if (exec->nb_cmds == 1 && is_builtin(t_get_clean_cmd(temp_list), exec) == 1) //si il n'y a qu'un builtin seul, on l'exécute et c'est tout.
+	if (exec->nb_cmds == 1 && is_builtin_alone(t_get_clean_cmd(temp_list), exec) == 1)
 		return (0);
 	else
 	{
@@ -69,8 +69,8 @@ int	t_exec_cmd(t_struct *temp_list, t_exec *exec)
 		if (pid == 0)
 		{
 			close(fd[0]);
-			is_builtin(t_get_clean_cmd(temp_list), exec);
 			t_change_stdout(temp_list, fd[1]);
+			is_builtin_fork(t_get_clean_cmd(temp_list), exec);
 			close(fd[1]);
 			t_apply_exec(temp_list, exec);
 			exit(EXIT_FAILURE);

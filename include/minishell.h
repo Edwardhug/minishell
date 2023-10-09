@@ -92,10 +92,11 @@ char		*t_get_path_cmd(char **all_path, char **splited, struct stat info);
 char		*t_get_cmd(char **env, char **splited_cmd);
 void		t_apply_exec(t_struct *temp_list, t_exec *exec);
 void		print_error(char **splited_cmd, char **all_path, int i);
-int			is_builtin(char	**cmd, t_exec *exec);
 
 //builtins
 
+int	is_builtin_alone(char **cmd, t_exec *exec);
+int	is_builtin_fork(char **cmd, t_exec *exec);
 int			ft_cd(char **cmd, t_exec *exec);
 int			ft_echo(char **cmd, t_exec *exec);
 int			ft_env(t_exec *exec);

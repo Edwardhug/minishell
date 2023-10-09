@@ -21,6 +21,7 @@ SRCS =	parsing/minishell.c\
 		exec/t_exec_utils.c\
 		exec/print_return_value.c\
 		exec/t_stdin_out_gestion.c \
+		exec/builtins/is_builtin.c\
 		exec/builtins/ft_export.c\
 		exec/builtins/ft_cd.c\
 		exec/builtins/cd_utils.c\
