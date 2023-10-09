@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 17:02:27 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/09 09:26:08 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/09 12:24:41 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ char	*remove_simple_quotes(char *str)
 	i = 0;
 	while (str[i])
 	{
+		if (str[i] == '\'' && (str[i + 1] == '$'))
+			return (free(ret), str);
 		if (str[i] == '\'')
 			i++;
 		else
