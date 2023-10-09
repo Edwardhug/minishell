@@ -19,8 +19,19 @@ void	show_env_var(t_exec *exec, char *arg)
 int	is_env_var(t_exec *exec, char *arg)
 {
 	t_env	*tmp;
+	int		i;
 
 	tmp = exec->env;
+	i = 1;
+	if (arg[0] == '\'' && arg[1] == '$')
+	{
+		while (arg[i] && arg[i] != '\'')
+		{
+			ft_printf("%c", arg[i]);
+			i++;
+		}
+		return (1);
+	}
 	while (tmp)
 	{
 		if (ft_strcmp(tmp->name, arg + 1) == 0)
@@ -38,7 +49,6 @@ int	ft_echo(char **cmd, t_exec *exec)
 	i = 1;
 	if (print_clean_return_value(cmd[1]))
 		exit(0);
-		
 	if (ft_strcmp(cmd[1], "-n") == 0) //on regarde si on a le -n pour le saut à la ligne
 	{
 		i++;
