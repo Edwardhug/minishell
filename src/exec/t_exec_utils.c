@@ -10,4 +10,5 @@ void	print_error(char **splited_cmd, char **all_path, int i)
 	ft_putstr_fd("\n", 2);
 	// free_tab(splited_cmd);
 	free_tab(all_path);
+	// exit(EXIT_FAILURE);
 }

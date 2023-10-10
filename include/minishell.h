@@ -81,8 +81,8 @@ void		print_list(t_struct *list);
 //exec
 
 void		begin_execution(char **path, t_exec *exec, t_struct *list_word);
-int			open_fd_in(t_struct *temp_list);
-int			change_stdin(t_struct *list_word, t_struct *temp_list);
+// int			open_fd_in(t_struct *temp_list);
+int			change_stdin(t_struct *list_word, t_struct **temp_list);
 int			is_end(t_struct *temp_list);
 void		find_correct_path(t_exec *exec);
 void		access_cmd(t_exec *exec, int i);

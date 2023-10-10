@@ -33,23 +33,48 @@ void put_list_in_order(t_struct **lst)
 	}
 }
 
+// void	clean_list(t_struct **list)
+// {
+// 	t_struct *tmp;
+//     // t_struct *before;
+
+// 	put_list_in_order(list);
+//     while (*list)
+//     {
+//         if (ft_strcmp((*list)->str, "<") == 0)
+//         {
+//             tmp = *list;
+//             *list = (*list)->next;
+//             delete_node(&tmp);
+//         }
+//         else
+//         {
+//             list = &((*list)->next);
+//         }
+//     }
+// }
+
 void	clean_list(t_struct **list)
 {
-	t_struct *tmp;
-    // t_struct *before;
+	t_struct	*tmp;
+	t_struct	*cmd;
+	t_struct	*redir;
+	t_struct	*file;
 
-	put_list_in_order(list);
-    while (*list)
-    {
-        if (ft_strcmp((*list)->str, "<") == 0)
-        {
-            tmp = *list;
-            *list = (*list)->next;
-            delete_node(&tmp);
-        }
-        else
-        {
-            list = &((*list)->next);
-        }
-    }
+	tmp = (*list);
+	while (tmp && tmp->next && (tmp->next)->next)
+	{
+		cmd = tmp;
+		redir = tmp->next;
+		file = (tmp->next)->next;
+		if (cmd->type == CMD
+			&& redir->type == REDIRECTION
+			&& ft_strcmp(redir->str, "<") == 0
+			&& file->type == FILES)
+		{
+			swap_nodes(&cmd, &redir);
+			swap_nodes(&redir, &file);
+		}
+		tmp = tmp->next;
+	}
 }
