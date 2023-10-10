@@ -7,23 +7,27 @@ int	open_fd_in(t_struct **temp_list)									// fonction qui change de stdin pou
 
 	tmp = *temp_list;
 	tmp = tmp->next;
-	fd_in = open(tmp->str, O_RDONLY);
-	if (fd_in < 0)
+	while (tmp && tmp->next && tmp->type != CMD && tmp->type != PIPE)
 	{
-		perror(tmp->str);
-		(*temp_list) = (*temp_list)->next;
-		// ft_printf("%s\n", tmp->str);
-		// while (temp_list && (*temp_list)->type != PIPE)
-		// if ((*temp_list)->type == PIPE)
-		// 	(*temp_list) = (*temp_list)->next;
-		// ft_printf("pass\n");
-		g_error_value = 256;
+		fd_in = open(tmp->str, O_RDONLY);
+		if (fd_in < 0)
+		{
+			perror(tmp->str);
+			(*temp_list) = (*temp_list)->next;
+		}
+		if ((tmp->next)->type == CMD)
+		{
+			dup2(fd_in, STDIN_FILENO);
+			close (fd_in);
+			return (fd_in);
+		}
+		else if ((tmp->next)->type == REDIRECTION && ft_strcmp((tmp->next)->str, "<") == 0)
+		{
+			close (fd_in);
+			tmp = (tmp->next)->next;
+		}
 	}
-	else
-		dup2(fd_in, STDIN_FILENO);
-	if (fd_in != -1)
-		close (fd_in);
-	return (fd_in);
+	return (0);
 }
 
 int change_stdin(t_struct *list_word, t_struct **temp_list) // fonction pour savoir auel sera le fdin de la commande qui arrive
