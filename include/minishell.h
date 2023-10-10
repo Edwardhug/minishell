@@ -80,7 +80,7 @@ void		print_list(t_struct *list);
 
 //exec
 
-void		begin_execution(char **path, t_exec *exec, t_struct *list_word);
+void		begin_execution(t_exec *exec, t_struct *list_word);
 int			open_fd_in(t_struct *temp_list);
 int			change_stdin(t_struct *list_word, t_struct *temp_list);
 int			is_end(t_struct *temp_list);
@@ -124,6 +124,7 @@ t_env		*env_double_char_into_lst(char **c_env);
 void		free_env(t_env *lst);
 int			ft_error_message(char *cmd_name, char *msg);
 int			ft_error_message_arg(char *cmd_name, char *arg, char *msg);
+void		free_exec_struct(t_exec *exec);
 //t_env		*ft_lstcpy(t_env *source);
 
 //here doc

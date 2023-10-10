@@ -12,15 +12,39 @@ char	**env_lst_into_double_char(t_env *env)
 	tmp = env;
 	char_env = malloc(sizeof(char **) * (t_env_strlen(tmp) + 1));
 	if (!char_env)
-		return (perror("malloc lst into double char 1"), NULL);
+	{
+		perror("malloc lst into double char 1");
+		exit(EXIT_FAILURE);
+	}
 	while (tmp)
 	{
 		size_node = ft_strlen(tmp->name) + ft_strlen(env->value) + 2;
 		char_env[i] = malloc(sizeof(char *) * (size_node + 1));
 		if (!char_env[i])
-			return (perror("malloc lst into double char 2"), free_tab(char_env), NULL);
+		{
+			perror("malloc lst into double char 2");
+			free_tab(char_env);
+			free_env(env);
+			exit(EXIT_FAILURE);
+
+		}
 		tmp2 = ft_strjoin(tmp->name, "=");
+		if (!tmp2)
+		{
+			perror("malloc lst into double char 2");
+			free_tab(char_env);
+			free_env(env);
+			exit(EXIT_FAILURE);
+		}
 		char_env[i] = ft_strjoin(tmp2, tmp->value);
+		if (!char_env[i])
+		{
+			perror("malloc lst into double char 2");
+			free(tmp2);
+			free_tab(char_env);
+			free_env(env);
+			exit(EXIT_FAILURE);
+		}
 		free(tmp2);
 		tmp = tmp->next;
 		i++;
@@ -87,7 +111,11 @@ t_env	*env_double_char_into_lst(char **c_env)
 	{
 		new_env = ft_lstnew_env(c_env[i], search_equal_sign(c_env[i]));
 		if (!new_env)
-			return (perror("env_double_char_int_lst malloc error"), lst_env);
+		{
+			free_tab(c_env);
+			perror("env_double_char_int_lst lstnew_env failed");
+			exit(EXIT_FAILURE);
+		}
 		if (!lst_env)
 		{
 			lst_env = new_env;
