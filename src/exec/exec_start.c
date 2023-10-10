@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 18:08:24 by lezard            #+#    #+#             */
-/*   Updated: 2023/10/09 11:22:17 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/10 10:01:46 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	number_of_cmd(t_struct *list_word)
 	return (i);
 }
 
-void	wait_all_process(int *pid, t_struct *list_word)
+void	wait_all_process(int *pid, t_struct *list_word, t_exec *exec)
 {
 	int		cmd_to_finish;
 	int		i;
@@ -69,7 +69,7 @@ void	wait_all_process(int *pid, t_struct *list_word)
 			else
 				status = 0;
 		}
-		else if (ft_strcmp(list_word->str, "export") == 0)
+		else if (ft_strcmp(list_word->str, "export") == 0 && exec->nb_cmds == 1)
 		{
 			if (g_error_value == -1)
 				status = 1 * 256;
@@ -85,6 +85,8 @@ void	wait_all_process(int *pid, t_struct *list_word)
 		}
 		list_word = list_word->next;
 	}
+	if (status == 512)
+		status = 256;
 	g_error_value = status;
 }
 
@@ -115,5 +117,5 @@ void	begin_execution(char **path, t_exec *exec, t_struct *list_word)
 			break ;
 		i++;
 	}
-	wait_all_process(pid_tab, list_word);
+	wait_all_process(pid_tab, list_word, exec);
 }
