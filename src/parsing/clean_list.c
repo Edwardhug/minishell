@@ -14,24 +14,24 @@ void swap_nodes(t_struct **cmd, t_struct **tmp)
 	(*tmp)->type = enu;
 }
 
-void put_list_in_order(t_struct **lst)
-{
-	t_struct  *cmd;
-	t_struct *current = *lst;
+// void put_list_in_order(t_struct **lst)
+// {
+// 	t_struct  *cmd;
+// 	t_struct *current = *lst;
 
-	while (current->next)
-	{
-		if (current->type == CMD)
-			cmd = current->next;
-		if (ft_strcmp(current->str, "<") == 0)
-		{
-			// ft_printf("cmd = %s\nlst = %s\n", cmd->str, current->str);
-			swap_nodes(&cmd, &current);
-			swap_nodes(&(cmd->next), &(current->next));
-		}
-		current = current->next;
-	}
-}
+// 	while (current->next)
+// 	{
+// 		if (current->type == CMD)
+// 			cmd = current->next;
+// 		if (ft_strcmp(current->str, "<") == 0)
+// 		{
+// 			// ft_printf("cmd = %s\nlst = %s\n", cmd->str, current->str);
+// 			swap_nodes(&cmd, &current);
+// 			swap_nodes(&(cmd->next), &(current->next));
+// 		}
+// 		current = current->next;
+// 	}
+// }
 
 // void	clean_list(t_struct **list)
 // {
@@ -62,19 +62,24 @@ void	clean_list(t_struct **list)
 	t_struct	*file;
 
 	tmp = (*list);
-	while (tmp && tmp->next && (tmp->next)->next)
+	while (tmp && tmp->next)
 	{
-		cmd = tmp;
-		redir = tmp->next;
-		file = (tmp->next)->next;
+		if (tmp->type == CMD)
+			cmd = tmp;
+		else if (tmp->type == PIPE)
+			cmd = tmp;
+		redir = tmp;
+		file = tmp->next;
 		if (cmd->type == CMD
 			&& redir->type == REDIRECTION
 			&& ft_strcmp(redir->str, "<") == 0
 			&& file->type == FILES)
 		{
 			swap_nodes(&cmd, &redir);
-			swap_nodes(&redir, &file);
+			swap_nodes(&cmd->next, &file);
+			// print_list(*list);
 		}
-		tmp = tmp->next;
+		else
+			tmp = tmp->next;
 	}
 }

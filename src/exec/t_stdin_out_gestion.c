@@ -11,11 +11,12 @@ int	open_fd_in(t_struct **temp_list)									// fonction qui change de stdin pou
 	if (fd_in < 0)
 	{
 		perror(tmp->str);
+		(*temp_list) = (*temp_list)->next;
 		// ft_printf("%s\n", tmp->str);
-		while (temp_list && (*temp_list)->type != PIPE)
-			(*temp_list) = (*temp_list)->next;
-		if ((*temp_list)->type == PIPE)
-			(*temp_list) = (*temp_list)->next;
+		// while (temp_list && (*temp_list)->type != PIPE)
+		// if ((*temp_list)->type == PIPE)
+		// 	(*temp_list) = (*temp_list)->next;
+		// ft_printf("pass\n");
 		g_error_value = 256;
 	}
 	else
