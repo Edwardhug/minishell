@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:50:18 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/11 13:39:39 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/11 18:36:12 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ char	*find_end_of_the_word(char *line, int *i)
 	char	*word;
 
 	j = 0;
+	// if (check_quote_file(line, i, &word))
+	// 	return (word);
 	while (line[(*i) + j] && line[(*i) + j] != ' ')
 		j++;
 	word = calloc((j + 1), sizeof(char));
@@ -104,11 +106,12 @@ void	parsing_minishell(char **path, char *line, t_exec *exec)
 	i = 0;
 	while (line[i])
 	{
+		// ft_printf("line = %s\n", line + i);
 		if (i != 0 && ft_strcmp(get_last_node(list_word)->str, "export") == 0)
 			fill_var_node(&list_word, find_end_var(line, &i, &list_word));
 		else if ( i != 0 && ft_strcmp(get_last_node(list_word)->str, "echo") == 0 && (line[i] == '\'' || line[i] == '\"'))
 			fill_quote_node(&list_word, find_last_quote(line, &i, &list_word));
-		else if (line[i] == '"')
+		else if (line[i] == '"')	
 			fill_node(&list_word, find_second_quote(line, &i));
 		else
 			fill_node(&list_word, find_end_of_the_word(line, &i));

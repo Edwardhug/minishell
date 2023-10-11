@@ -148,6 +148,6 @@ void get_right_return_value(char **splited, struct stat info);
 
 
 
-
+int	check_quote_file(char *line, int *i, char **word);
 
 #endif

@@ -140,6 +140,17 @@ void	put_infile_in_order(t_struct **list)
 	clean_redir_out(list);
 }
 
+int	cmd_is_before(t_struct *cmd, t_struct *redir)
+{
+	while (cmd)
+	{
+		if (cmd == redir)
+			return (1);
+		cmd = cmd->next;
+	}
+	return (0);
+}
+
 void	clean_list(t_struct **list)
 {
 	t_struct	*tmp;
@@ -152,14 +163,18 @@ void	clean_list(t_struct **list)
 		if ((copy->next)->type == CMD)
 			b_cmd = copy;
 		if ((copy->next)->type == REDIRECTION
+			&& cmd_is_before(b_cmd, copy)
 			&& ft_strcmp((copy->next)->str, "<") == 0
-			&& ((copy->next)->next)->type == FILES)
+			&& ((copy->next)->next)->type == FILES
+			&& copy->type != ENUM_NULL)
 		{
 			tmp = copy->next;
 			copy->next = copy->next->next->next;
 			tmp->next->next = b_cmd->next;
 			b_cmd->next = tmp;
 			*list = b_cmd;
+			// print_list(*list);
+			// exit (0);
 		}
 		else
 			copy = copy->next;

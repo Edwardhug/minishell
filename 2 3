@@ -1,0 +1,12 @@
+1 2
+2 3
+3
+4
+Makefile
+include
+infile
+libft
+minishell
+minishell_tester
+obj
+src
