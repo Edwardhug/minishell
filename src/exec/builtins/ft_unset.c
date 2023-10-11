@@ -20,7 +20,10 @@ static void	ft_lstdelete_node(t_exec *exec, t_env *node_to_delete, int which_lst
 			}
 			else
 			{
-				exec->env = current->next;
+				if (which_lst == 0)
+					exec->env = current->next;
+				else
+					exec->export = current->next;
 			}
 			free(current->name);
 			free(current->value);

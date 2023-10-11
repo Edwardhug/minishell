@@ -99,7 +99,9 @@ void	begin_execution(t_exec *exec, t_struct *list_word)
 	if (!pid_tab)
 	{
 		perror("pid_tab malloc error");
-		return ;
+		free_exec_struct(exec);
+		free_list(&list_word);
+		exit(EXIT_FAILURE);
 	}
 	i = 0;
 	temp_list = list_word;
