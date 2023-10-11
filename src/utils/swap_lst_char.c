@@ -66,17 +66,14 @@ static t_env	*ft_lstnew_env(char *str, int nb)
 		return (perror("malloc lstnew_env 1"), NULL);
 	if (nb)
 	{
-//		ft_printf("test1\n");
 		new->name = malloc(sizeof(char) * (nb + 1));
 		if (!new->name)
 			return (perror("malloc lstnew_env 2"), free(new), NULL);
 	}
 	else
 	{
-//		ft_printf("test2\n");
 		while (str[i] == '=')
 			i++;
-//		ft_printf("i: %d\n", i);
 		new->name = malloc(sizeof(char) * i + 1);
 		if (!new->name)
 		{
@@ -88,10 +85,8 @@ static t_env	*ft_lstnew_env(char *str, int nb)
 		while (str[i] == '=')
 		{
 			new->name[i] = '=';
-//			ft_printf("name: %c\n", new->name[i]);
 			i++;
 		}
-//		ft_printf("last: %c\n", new->name[i]);
 		new->name[i] = '\0';
 		new->value = malloc(sizeof (char) * 1);
 		new->value[0] = '\0';
@@ -99,12 +94,10 @@ static t_env	*ft_lstnew_env(char *str, int nb)
 	}
 	if (!only_equal)
 	{
-//		ft_printf("test3\n");
 		ft_strncpy(new->name, str, nb);
 		new->name[nb] = '\0';
 		if (str[nb])
 		{
-//			ft_printf("test4\n");
 			new->value = malloc(sizeof(char) * (ft_strlen(str) - nb));
 			if (!new->value)
 				return (perror("malloc lstnew_env 3"), free(new), free(new->name), NULL);
@@ -112,7 +105,6 @@ static t_env	*ft_lstnew_env(char *str, int nb)
 		}
 		else
 		{
-//			ft_printf("test5\n");
 			new->value = malloc(sizeof (char) * 1);
 			new->value[0] = '\0';
 		}

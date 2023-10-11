@@ -68,8 +68,6 @@ int	special_builtin(char **cmd, t_exec *exec)
 
 int	is_builtin_alone(char **cmd, t_exec *exec)
 {
-	for (int i = 0; cmd[i]; i++)
-		ft_printf("cmd[i]: %s\n", cmd[i]);
 	if (ft_strcmp(cmd[0], "cd") == 0)
 		return (ft_cd(cmd, exec), 1);
 	else if (ft_strcmp(cmd[0], "pwd") == 0)

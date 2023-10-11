@@ -1,12 +1,15 @@
 #include "../../../include/minishell.h"
 
-void	ft_lstdelete_node(t_exec *exec, t_env *node_to_delete)
+static void	ft_lstdelete_node(t_exec *exec, t_env *node_to_delete, int which_lst)
 {
 	t_env *previous;
 	t_env *current;
 
 	previous = NULL;
-	current = exec->env;
+	if (which_lst == 0)
+		current = exec->env;
+	else
+		current = exec->export;
 	while (current)
 	{
 		if (current == node_to_delete)
@@ -32,6 +35,7 @@ void	ft_lstdelete_node(t_exec *exec, t_env *node_to_delete)
 int	ft_unset(char **cmd, t_exec *exec)
 {
 	t_env	*tmp;
+	t_env	*tmp2;
 	int		i;
 
 	i = 1;
@@ -42,10 +46,25 @@ int	ft_unset(char **cmd, t_exec *exec)
 		{
 			if (ft_strcmp(cmd[i], tmp->name) == 0)
 			{
-				ft_lstdelete_node(exec, tmp);
+				ft_lstdelete_node(exec, tmp, 0);
 				break ;
 			}
 			tmp = tmp->next;
+		}
+		i++;
+	}
+	i = 1;
+	while (cmd[i])
+	{
+		tmp2 = exec->export;
+		while (tmp)
+		{
+			if (ft_strcmp(cmd[i], tmp2->name) == 0)
+			{
+				ft_lstdelete_node(exec, tmp2, 1);
+				break ;
+			}
+			tmp2 = tmp2->next;
 		}
 		i++;
 	}

@@ -186,7 +186,6 @@ static	int	is_valid_name(char *cmd_name, t_env *args_tmp)
 	t_env	*tmp;
 
 	tmp = args_tmp;
-	ft_printf("name before is_valid_name: %s\n", tmp->name);
 	while (tmp)
 	{
 		if (tmp->name[0] >= '0' && tmp->name[0] <= '9')
