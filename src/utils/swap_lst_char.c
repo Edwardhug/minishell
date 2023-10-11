@@ -57,40 +57,6 @@ char	**env_lst_into_double_char(t_env *env)
 // {
 // 	t_env	*new;
 // 	int		i;
-
-// 	i = 0;
-// 	new = malloc(sizeof(t_env));
-// 	if (!new)
-// 		return (perror("malloc lstnew_env 1"), NULL);
-// 	new->name = malloc(sizeof(char) * (nb + 1));
-// 	if (!new->name)
-// 		return (perror("malloc lstnew_env 2"), free(new), NULL);
-// 	if (str[0] == '=')
-// 	{
-// 		while (str[i] == '=')
-// 		{
-// 				new->name[i] = '=';	
-// 					i++;
-// 		}
-// 		new->name[i] = '\0';
-// 	}
-// 	else
-// 	{
-// 		ft_strncpy(new->name, str, nb);
-// 		new->name[nb] = '\0';
-// 	}
-// 	new->value = malloc(sizeof(char) * (ft_strlen(str) - nb));
-// 	if (!new->value)
-// 		return (perror("malloc lstnew_env 3"), free(new), free(new->name), NULL);
-// 	ft_strcpy(new->value, &str[nb + 1]);
-// 	new->next = NULL;
-// 	return (new);
-// }
-
-// static t_env	*ft_lstnew_env(char *str, int nb)
-// {
-// 	t_env	*new;
-// 	int		i;
 // 	int		only_equal;
 
 // 	i = 0;
