@@ -59,7 +59,7 @@ t_struct	*get_last_node(t_struct *lst);
 void		add_node_back(t_struct **list, t_struct *new_node);
 t_enum		find_type_enum(t_struct *tmp, char *word);
 char		*remove_quotes(char *str);
-void		delete_node(t_struct **lst);
+int	delete_node(t_struct **lst);
 void		free_list(t_struct **lst);
 void		signal_main_loop(void);
 void		handle_sigint_main_loop(int signal);

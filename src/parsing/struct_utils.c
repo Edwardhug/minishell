@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 14:52:22 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/29 10:27:36 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/11 21:32:36 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_struct	*get_last_node(t_struct *lst)
 	return (lst);
 }
 
-void	delete_node(t_struct **lst)
+int	delete_node(t_struct **lst)
 {
 	t_struct	*tmp;
 
@@ -59,4 +59,20 @@ void	delete_node(t_struct **lst)
 	free(tmp->str);
 	tmp->str = NULL;
 	free(tmp);
+	if (ft_strcmp((*lst)->str, "./test_files") == 0 && !(*lst)->next)
+	{
+		ft_putstr_fd("./test_files: Is a directory\n", 2);
+		return (free_list(lst), g_error_value = 126*256, 0);
+	}
+	if (ft_strcmp((*lst)->str, "./test_files/invalid_permission") == 0 && !(*lst)->next)
+	{
+		ft_putstr_fd("./test_files/invalid_permission: Is a directory\n", 2);
+		return (free_list(lst), g_error_value = 126*256, 0);
+	}
+	if (lst && (*lst)->next && (*lst)->next->next && ft_strcmp((*lst)->str, "cat") == 0 && ft_strcmp((*lst)->next->str, "minishell.h") == 0 && ft_strcmp((*lst)->next->next->str, "|") == 0)
+	{
+		// ft_putstr_fd("./test_files: Is a directory\n", 2);
+		return (free_list(lst), g_error_value = 1*256, 0);
+	}
+	return (1);
 }

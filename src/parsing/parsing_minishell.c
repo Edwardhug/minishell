@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:50:18 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/11 20:58:26 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/11 21:15:21 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void	parsing_minishell(char **path, char *line, t_exec *exec)
 			fill_var_node(&list_word, find_end_var(line, &i, &list_word));
 		else if ( i != 0 && ft_strcmp(get_last_node(list_word)->str, "echo") == 0 && (line[i] == '\'' || line[i] == '\"'))
 			fill_quote_node(&list_word, find_last_quote(line, &i, &list_word));
-		else if (line[i] == '"' && line[i + 1] == '<')
+		else if (line[i] == '"' && (line[i + 1] == '<' || line[i + 1] == ')'))
 			fill_quote_node(&list_word, find_second_quote(line, &i));
 		else if (line[i] == '"')
 			fill_node(&list_word, find_second_quote(line, &i));
@@ -124,7 +124,9 @@ void	parsing_minishell(char **path, char *line, t_exec *exec)
 			i++;
 	}
 	clean_list(&list_word);
-	delete_node(&list_word);
+	if (!delete_node(&list_word))
+		return ;
+	
 	// print_list(list_word);
 	begin_execution(path, exec, list_word);
 	(void)path;
