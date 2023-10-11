@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:50:18 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/11 18:36:12 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/11 19:15:34 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,11 @@ char	*find_end_of_the_word(char *line, int *i)
 	char	*word;
 
 	j = 0;
-	// if (check_quote_file(line, i, &word))
-	// 	return (word);
+	if (check_quote_file(line, i, &word))
+	{
+		// ft_printf("space file found\n");
+		return (word);
+	}
 	while (line[(*i) + j] && line[(*i) + j] != ' ')
 		j++;
 	word = calloc((j + 1), sizeof(char));

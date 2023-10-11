@@ -57,8 +57,12 @@ char	*t_get_path_cmd(char **all_path, char **splited, struct stat info)
 	{
 		tmp = ft_strjoin(all_path[i], "/");
 		path_cmd = ft_strjoin(tmp, splited[0]);
+		// ft_printf("cmd = %s\n", path_cmd);
 		if (access(path_cmd, F_OK | X_OK) != -1)
+		{
+			// ft_printf("YOOO\n");
 			return (free(tmp), path_cmd);
+		}
 		free(path_cmd);
 		free(tmp);
 		i++;
@@ -86,7 +90,6 @@ char	*t_get_cmd(char **env, char **splited_cmd)
 	if (!path)
 		return (free_tab(splited_cmd), NULL);
 	path = path + 5;
-	// ft_printf("cmd 1 = %s\n", splited_cmd[0]);
 	if (ft_strncmp(splited_cmd[0], "./", 2) == 0)
 		return (ft_strdup(splited_cmd[0]));				// peut etre pas besoin du strdup mais je pense que si
 	all_path = ft_split(path, ':');
