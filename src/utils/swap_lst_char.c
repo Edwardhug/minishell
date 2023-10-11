@@ -57,32 +57,66 @@ static t_env	*ft_lstnew_env(char *str, int nb)
 {
 	t_env	*new;
 	int		i;
+	int		only_equal;
 
 	i = 0;
+	only_equal = 0;
 	new = malloc(sizeof(t_env));
 	if (!new)
 		return (perror("malloc lstnew_env 1"), NULL);
-	new->name = malloc(sizeof(char) * (nb + 1));
-	if (!new->name)
-		return (perror("malloc lstnew_env 2"), free(new), NULL);
-	if (str[0] == '=')
+	if (nb)
 	{
-		while (str[i] == '=')
-		{
-			new->name[i] = '=';
-			i++;
-		}
-		new->name[i] = '\0';
+//		ft_printf("test1\n");
+		new->name = malloc(sizeof(char) * (nb + 1));
+		if (!new->name)
+			return (perror("malloc lstnew_env 2"), free(new), NULL);
 	}
 	else
 	{
+//		ft_printf("test2\n");
+		while (str[i] == '=')
+			i++;
+//		ft_printf("i: %d\n", i);
+		new->name = malloc(sizeof(char) * i + 1);
+		if (!new->name)
+		{
+			free(str);
+			free(new);
+			return (perror("malloc name ="), NULL);
+		}
+		i = 0;
+		while (str[i] == '=')
+		{
+			new->name[i] = '=';
+//			ft_printf("name: %c\n", new->name[i]);
+			i++;
+		}
+//		ft_printf("last: %c\n", new->name[i]);
+		new->name[i] = '\0';
+		new->value = malloc(sizeof (char) * 1);
+		new->value[0] = '\0';
+		only_equal = 1;
+	}
+	if (!only_equal)
+	{
+//		ft_printf("test3\n");
 		ft_strncpy(new->name, str, nb);
 		new->name[nb] = '\0';
+		if (str[nb])
+		{
+//			ft_printf("test4\n");
+			new->value = malloc(sizeof(char) * (ft_strlen(str) - nb));
+			if (!new->value)
+				return (perror("malloc lstnew_env 3"), free(new), free(new->name), NULL);
+			ft_strcpy(new->value, &str[nb + 1]);
+		}
+		else
+		{
+//			ft_printf("test5\n");
+			new->value = malloc(sizeof (char) * 1);
+			new->value[0] = '\0';
+		}
 	}
-	new->value = malloc(sizeof(char) * (ft_strlen(str) - nb));
-	if (!new->value)
-		return (perror("malloc lstnew_env 3"), free(new), free(new->name), NULL);
-	ft_strcpy(new->value, &str[nb + 1]);
 	new->next = NULL;
 	return (new);
 }
