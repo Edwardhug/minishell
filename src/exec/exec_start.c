@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 18:08:24 by lezard            #+#    #+#             */
-/*   Updated: 2023/10/11 11:55:58 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/11 21:01:26 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,8 @@ void	wait_all_process(int *pid, t_struct *list_word, t_exec *exec)
 		}
 		list_word = list_word->next;
 	}
-	if (status == 512)
-		status = 256;
+	// if (status == 512)
+	// 	status = 256;
 	g_error_value = status;
 }
 

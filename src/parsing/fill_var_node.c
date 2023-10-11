@@ -77,3 +77,19 @@ char	*find_end_var(char *line, int *i, t_struct **list_word)
 	(*i) = (*i) + j;
 	return (word);
 }
+
+// void fill_move_quote(t_struct **list_word, char *word)
+// {
+// 	t_struct	*tmp;
+// 	t_enum		type;
+// 	int		i;
+
+// 	if (!word)
+// 		return ;
+// 	i = 0;
+// 	word = remove_quotes(word);
+// 		add_pipe(list_word);
+// 		tmp = *list_word;
+// 		type = find_type_enum(tmp, word);		//currently working on this 
+// 		add_node_back(list_word, new_node(word, type));
+// }
