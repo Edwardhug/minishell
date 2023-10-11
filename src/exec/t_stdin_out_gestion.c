@@ -19,6 +19,7 @@ int	open_fd_in(t_struct **temp_list)									// fonction qui change de stdin pou
 		{
 			dup2(fd_in, STDIN_FILENO);
 			close (fd_in);
+			(*temp_list) = tmp->next;
 			return (fd_in);
 		}
 		else if ((tmp->next)->type == REDIRECTION && ft_strcmp((tmp->next)->str, "<") == 0)

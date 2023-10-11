@@ -85,6 +85,25 @@ void swap_nodes(t_struct **cmd, t_struct **tmp)
 // 	print_list(*list);
 // }
 
+void	put_infile_in_order(t_struct **list)
+{
+	t_struct	*f_redir;
+	t_struct	*l_redir;
+
+	if ((*list)->next->type == REDIRECTION
+		&& ft_strcmp((*list)->next->str, "<") == 0
+		&& (*list)->next->next)
+		f_redir = ((*list)->next->next);
+	else
+		return ;
+	l_redir = f_redir;
+	while (l_redir->next && l_redir->next->type != CMD
+		&& l_redir->next->type != PIPE)
+		l_redir = l_redir->next;
+	swap_nodes(&f_redir, &l_redir);
+	
+}
+
 void	clean_list(t_struct **list)
 {
 	t_struct	*tmp;
@@ -94,25 +113,21 @@ void	clean_list(t_struct **list)
 	copy = *list;
 	while (copy && copy->next)
 	{
-		// ft_printf("yoooo\n");
 		if ((copy->next)->type == CMD)
 			b_cmd = copy;
-		// ft_printf("(copy->next)->type  %d\n", (copy->next)->type);
 		if ((copy->next)->type == REDIRECTION
 			&& ft_strcmp((copy->next)->str, "<") == 0
 			&& ((copy->next)->next)->type == FILES)
 		{
-			// ft_printf("copy = %s\n", tmp->next->str);
 			tmp = copy->next;
 			copy->next = copy->next->next->next;
 			tmp->next->next = b_cmd->next;
 			b_cmd->next = tmp;
 			*list = b_cmd;
-			return ;
+			// return ;
 		}
 		else
 			copy = copy->next;
 	}
-	(void)b_cmd;
-	(void)tmp;
+	put_infile_in_order(list);
 }
