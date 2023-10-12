@@ -46,7 +46,7 @@ int change_stdin(t_struct *list_word, t_struct **temp_list) // fonction pour sav
 				open_fd_in(temp_list);                    // l'entree c'est le fichier qui suit le ( < )
 		}
 		// else
-		//     dup2(fd_in, STDIN_FILENO);                                          // l'entree c'est le terminal
+		//     dup2(fd_in, STDIN_FILENO);                                          // l'entree c'est le terminal 
 	}
 	// else
 	//     dup2(fd_in, STDIN_FILENO);                                      // l'infile est le stdout deja existant
