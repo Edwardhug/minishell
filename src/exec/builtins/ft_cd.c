@@ -88,7 +88,7 @@ int	ft_cd(char **cmd, t_exec *exec)
 	}
 	else if (ft_strcmp(cmd[1], "-") == 0)
 		return (go_to_old_pwd(oldpwd, exec), 0);
-	else if (chdir(cmd[1])) //chdir va tout simplement rediriger vers le chemin donné en argument.
+	else if (chdir(cmd[1])) //chdir va tout simplement rediriger vers le chemin donné en argument. 
 	{
 		ft_error_message_arg(cmd[0], cmd[1], ": No such file or directory\n");
 		if (cmd[1][0] != '$' || cmd[2])
