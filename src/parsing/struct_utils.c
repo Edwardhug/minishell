@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 14:52:22 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/12 09:14:48 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/12 09:28:50 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	delete_node(t_struct **lst)
 	// ft_printf("%s\n", l->next->next->next->next->str);
 	if (l && l->next && l->next->next && l->next->next->next && l->next->next->next->next && ft_strcmp(l->next->next->next->next->str, "\");\"") == 0)
 	{
-		// ft_putstr_fd("./test_files: Is a directory\n", 2);
+		// ft_putstr_fd("./test_files: Is a directory\n", 2); 
 		return (free_list(lst), g_error_value = 1*256, 0);
 	}
 	return (1);
