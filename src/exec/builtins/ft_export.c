@@ -276,6 +276,7 @@ static char	**quotation_check(char **cmd, t_exec *exec, int nb_args)
 	int		j;
 	int		k;
 
+	ft_printf("nb_args: %d\n", nb_args);
 	clean_cmd = malloc(sizeof(char *) * (nb_args + 1));
 	if (!clean_cmd)
 	{
