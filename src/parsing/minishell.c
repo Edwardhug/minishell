@@ -43,6 +43,16 @@ char	*remove_new_line(char *str)
 	return (to_ret);
 }
 
+static void if_env_i(t_exec *exec)
+{
+	(void)exec;
+	//prendre pwd
+	//prendre last command avec path _ (le créer sans l'initialiser en vrai)
+	//prendre old_pwd
+	//créer shlvl
+	return ;
+}
+
 int	main(int ac, char **av, char **env)
 {
 	char	**path;
@@ -50,8 +60,13 @@ int	main(int ac, char **av, char **env)
 	int		fd_standart;
 	t_exec	exec;
 
-	exec.env = env_double_char_into_lst(env);
-	exec.export = env_double_char_into_lst(env);
+	if (!env)
+		if_env_i(&exec);
+	else
+	{
+		exec.env = env_double_char_into_lst(env);
+		exec.export = env_double_char_into_lst(env);
+	}
 //	exec.export = ft_lstcpy(exec.env);
 	fd_standart = dup(STDIN_FILENO);
 	if (ac != 1)
