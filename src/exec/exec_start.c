@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 18:08:24 by lezard            #+#    #+#             */
-/*   Updated: 2023/10/12 15:11:40 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/09 11:22:17 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	number_of_cmd(t_struct *list_word)
 	return (i);
 }
 
-void	wait_all_process(int *pid, t_struct *list_word, t_exec *exec)
+void	wait_all_process(int *pid, t_struct *list_word)
 {
 	int		cmd_to_finish;
 	int		i;
@@ -46,7 +46,7 @@ void	wait_all_process(int *pid, t_struct *list_word, t_exec *exec)
 	i = 0;
 	old_signal[0] = signal(SIGINT, sigint_handler_in_process);
 	old_signal[1] = signal(SIGQUIT, sigquit_handler_in_process);
-	while (i <= cmd_to_finish)
+	while (i < cmd_to_finish)
 	{
 		waitpid(pid[i], &status, WUNTRACED);
 		i++;
@@ -69,7 +69,7 @@ void	wait_all_process(int *pid, t_struct *list_word, t_exec *exec)
 			else
 				status = 0;
 		}
-		else if (ft_strcmp(list_word->str, "export") == 0 && exec->nb_cmds == 1)
+		else if (ft_strcmp(list_word->str, "export") == 0)
 		{
 			if (g_error_value == -1)
 				status = 1 * 256;
@@ -85,12 +85,10 @@ void	wait_all_process(int *pid, t_struct *list_word, t_exec *exec)
 		}
 		list_word = list_word->next;
 	}
-	// if (status == 512)
-	// 	status = 256;
 	g_error_value = status;
 }
 
-void	begin_execution(char **path, t_exec *exec, t_struct *list_word)
+void	begin_execution(t_exec *exec, t_struct *list_word)
 {
 	int			*pid_tab;
 	int			i;
@@ -98,16 +96,19 @@ void	begin_execution(char **path, t_exec *exec, t_struct *list_word)
 
 	exec->nb_cmds = number_of_cmd(list_word);
 	pid_tab = malloc(sizeof(int) * exec->nb_cmds);
+	if (!pid_tab)
+	{
+		perror("pid_tab malloc error");
+		free_exec_struct(exec);
+		free_list(&list_word);
+		exit(EXIT_FAILURE);
+	}
 	i = 0;
-	(void)path;
 	temp_list = list_word;
-	// ft_printf("%s\n", temp_list->str);
 	while (temp_list)
 	{
-		// ft_printf("before : %s\n", temp_list->str);
-		if (!change_stdin(list_word, &temp_list))
+		if (!change_stdin(list_word, temp_list))
 			return ;
-		// ft_printf("after : %s\n", temp_list->str); 
 		pid_tab[i] = t_exec_cmd(temp_list, exec);
 		while (temp_list->next && temp_list->type != PIPE)
 		{
@@ -119,5 +120,6 @@ void	begin_execution(char **path, t_exec *exec, t_struct *list_word)
 			break ;
 		i++;
 	}
-	wait_all_process(pid_tab, list_word, exec);
+	wait_all_process(pid_tab, list_word);
+	free(pid_tab);
 }

@@ -15,7 +15,6 @@ SRCS =	parsing/minishell.c\
 		parsing/get_node.c\
 		parsing/clean_list.c\
 		parsing/add_pipe.c\
-		parsing/check_quote_file.c\
 		parsing/fill_var_node.c\
 		parsing/fill_quote_node.c\
 		exec/exec_start.c\
@@ -33,6 +32,7 @@ SRCS =	parsing/minishell.c\
 		exec/builtins/ft_exit.c\
 		exec/builtins/ft_env.c\
 		exec/builtins/ft_unset.c\
+		utils/free_all.c\
 		utils/error_message.c\
 		utils/free_tab.c\
 		utils/exit_fonctions.c\

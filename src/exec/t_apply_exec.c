@@ -27,11 +27,22 @@ char	**t_get_clean_cmd(t_struct *temp_list)
 	}
 	str = malloc(sizeof(char *) * (t_size_cmd(temp_list) + 1));
 	if (!str)
-		return (NULL);
+	{
+		free_list(&temp_list);
+		exit(EXIT_FAILURE);
+	}
 	while (temp_list && temp_list->type != REDIRECTION	
 		&& temp_list->type != PIPE)
 	{
-		str[i] = temp_list->str;				// remplit le tab** avec la commande et les argument
+		str[i] = ft_strdup(temp_list->str);				// remplit le tab** avec la commande et les argument
+		if (!str[i])
+		{
+			while (--i <= 0)
+				free(str[i]);
+			free(str);
+			free_list(&temp_list);
+			exit(EXIT_FAILURE);
+		}
 		i++;
 		temp_list = temp_list->next;
 	}
@@ -57,12 +68,8 @@ char	*t_get_path_cmd(char **all_path, char **splited, struct stat info)
 	{
 		tmp = ft_strjoin(all_path[i], "/");
 		path_cmd = ft_strjoin(tmp, splited[0]);
-		// ft_printf("cmd = %s\n", path_cmd);
 		if (access(path_cmd, F_OK | X_OK) != -1)
-		{
-			// ft_printf("YOOO\n");
 			return (free(tmp), path_cmd);
-		}
 		free(path_cmd);
 		free(tmp);
 		i++;
@@ -91,7 +98,7 @@ char	*t_get_cmd(char **env, char **splited_cmd)
 		return (free_tab(splited_cmd), NULL);
 	path = path + 5;
 	if (ft_strncmp(splited_cmd[0], "./", 2) == 0)
-		return (ft_strdup(splited_cmd[0]));				// peut etre pas besoin du strdup mais je pense que si
+		path = "";
 	all_path = ft_split(path, ':');
 	if (!all_path)
 		return (NULL);
@@ -101,22 +108,23 @@ char	*t_get_cmd(char **env, char **splited_cmd)
 
 void	t_apply_exec(t_struct *temp_list, t_exec *exec)
 {
-	char		*path_cmd;
-	char		**splited_cmd;
+	char	*path_cmd;
+	char	**splited_cmd;
 
+	// print_return_value(temp_list);
 	splited_cmd = t_get_clean_cmd(temp_list);
 	if (!splited_cmd)
 		return ;
 	path_cmd = t_get_cmd(env_lst_into_double_char(exec->env), splited_cmd);
-	// ft_printf("pass = %s\n", path_cmd);
 	if (!path_cmd)
+	{
 		exit(127);
+	}
 	execve(path_cmd, splited_cmd, env_lst_into_double_char(exec->env));
-	perror("");
+	ft_putstr_fd("permission denied: ", 2);
+	ft_putstr_fd(path_cmd, 2);
+	ft_putstr_fd("\n", 2);
 	free_tab(splited_cmd);
 	free(path_cmd);
-	// ft_printf("erno = %d\n", errno);
-	if (errno == 13)
-		exit (126);
 	exit(127);
 }

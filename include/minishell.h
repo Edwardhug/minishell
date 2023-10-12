@@ -59,7 +59,7 @@ t_struct	*get_last_node(t_struct *lst);
 void		add_node_back(t_struct **list, t_struct *new_node);
 t_enum		find_type_enum(t_struct *tmp, char *word);
 char		*remove_quotes(char *str);
-int	delete_node(t_struct **lst);
+void		delete_node(t_struct **lst);
 void		free_list(t_struct **lst);
 void		signal_main_loop(void);
 void		handle_sigint_main_loop(int signal);
@@ -75,15 +75,14 @@ char	*find_end_of_the_word(char *line, int *i);
 char	*find_last_quote(char *line, int *i, t_struct **list_word);
 void fill_quote_node(t_struct **list_word, char *word);
 void	add_pipe(t_struct **list_word);
-// void fill_move_quote(t_struct **list_word, char *word);
 
 void		print_list(t_struct *list);
 
 //exec
 
-void		begin_execution(char **path, t_exec *exec, t_struct *list_word);
-// int			open_fd_in(t_struct *temp_list);
-int			change_stdin(t_struct *list_word, t_struct **temp_list);
+void		begin_execution(t_exec *exec, t_struct *list_word);
+int			open_fd_in(t_struct *temp_list);
+int			change_stdin(t_struct *list_word, t_struct *temp_list);
 int			is_end(t_struct *temp_list);
 void		find_correct_path(t_exec *exec);
 void		access_cmd(t_exec *exec, int i);
@@ -125,6 +124,7 @@ t_env		*env_double_char_into_lst(char **c_env);
 void		free_env(t_env *lst);
 int			ft_error_message(char *cmd_name, char *msg);
 int			ft_error_message_arg(char *cmd_name, char *arg, char *msg);
+void		free_exec_struct(t_exec *exec);
 //t_env		*ft_lstcpy(t_env *source);
 
 //here doc
@@ -149,6 +149,6 @@ void get_right_return_value(char **splited, struct stat info);
 
 
 
-int	check_quote_file(char *line, int *i, char **word);
+
 
 #endif

@@ -78,7 +78,9 @@ void	export_existing_value(t_env *args_tmp, t_exec *exec)
 			if (!tmp_exp->value)
 			{
 				perror("tmp_exp->value dup error\n");
-				return ;
+				free_env(args_tmp);
+				free_exec_struct(exec);
+				exit(EXIT_FAILURE);
 			}
 		}
 		tmp_exp = tmp_exp->next;
@@ -91,8 +93,9 @@ void	export_existing_value(t_env *args_tmp, t_exec *exec)
 			tmp_env->value = ft_strdup(args_tmp->value);
 			if (!tmp_env->value)
 			{
-				perror("tmp_env->value malloc\n");
-				return ;
+				free_env(args_tmp);
+				free_exec_struct(exec);
+				exit(EXIT_FAILURE);
 			}
 		}
 		tmp_env = tmp_env->next;
@@ -105,30 +108,48 @@ static t_env	*ft_lstnew_export(t_env *args_tmp)
 
 	new = malloc(sizeof(t_env));
 	if (!new)
-		return (perror("malloc lstnew_export1"), NULL);
+	{
+		free_env(args_tmp);
+		exit(EXIT_FAILURE);
+	}
 	new->name = malloc(sizeof(char *) * (ft_strlen(args_tmp->name) + 1));
 	if (!new->name)
-		return (perror("malloc lstnew_export2"), NULL);
+	{
+		free_env(args_tmp);
+		exit(EXIT_FAILURE);
+	}
 	new->name = ft_strdup(args_tmp->name);
 	if (!new->name)
-		return(perror("lstnew_export dup 1"), NULL);
+	{
+		free_env(args_tmp);
+		exit(EXIT_FAILURE);
+	}
 	if (args_tmp->value == NULL || args_tmp->value[0] == '\0')
 	{
 		new->value = malloc(sizeof(char *) * 1);
 		if (!new->value)
-			return (perror("malloc lstnew_export3"), NULL);
+		{
+			free_env(args_tmp);
+			exit(EXIT_FAILURE);
+		}
 	}
 	else
 	{
 		new->value = malloc(sizeof(char *) * (ft_strlen(args_tmp->value) + 1));
 		if (!new->value)
-			return (perror("malloc lstnew_export3"), NULL);
+		{
+			free_env(args_tmp);
+			exit(EXIT_FAILURE);
+		}
 	}
 	if (args_tmp->value)
 	{
 		new->value = ft_strdup(args_tmp->value);
 		if (!new->value)
-			return (perror("lstnew_export dup 2"), NULL);
+		{
+			free_env(args_tmp);
+			exit(EXIT_FAILURE);
+		}
 	}
 	else
 		new->value[0] = '\0';
@@ -202,6 +223,7 @@ static int	what_to_do(char **cmd, t_exec *exec)
 		g_error_value = -1;
 		return (1);
 	}
+//	free_tab(cmd);
 	while (lst_args)
 	{
 		tmp = exec->export;
@@ -227,6 +249,7 @@ static int	what_to_do(char **cmd, t_exec *exec)
 	free_env(lst_args);
 	return (0);
 }
+
 int	ft_export(char **cmd, t_exec *exec)
 {
 	int	nb_args;
