@@ -55,7 +55,10 @@ static void	show_export(t_exec *exec)
 		if (tmp->value != NULL)
 		{
 			ft_printf("=");
-			ft_printf("\"%s\"", tmp->value);
+			if (tmp->value[0] == '\"' && tmp->value[ft_strlen(tmp->value) - 1] == '\"')
+				ft_printf("%s", tmp->value);
+			else
+				ft_printf("\"%s\"", tmp->value);
 		}
 		ft_printf("\n");
 		tmp = tmp->next;
@@ -188,12 +191,12 @@ static	int	is_valid_name(char *cmd_name, t_env *args_tmp)
 	tmp = args_tmp;
 	while (tmp)
 	{
-		if (tmp->name[0] >= '0' && tmp->name[0] <= '9')
+		i = 0;
+		if (tmp->name[i] >= '0' && tmp->name[i] <= '9')
 		{
 			ft_error_message_arg(cmd_name, tmp->name, ": not a valid identifier\n");
 			return (1);
 		}
-		i = 0;
 		while (tmp->name[i])
 		{
 			if (!(tmp->name[i] >= 'a' && tmp->name[i] <= 'z')
@@ -250,9 +253,76 @@ static int	what_to_do(char **cmd, t_exec *exec)
 	return (0);
 }
 
+static int	quote_here(char *arg)
+{
+	int	i;
+	int	nb;
+
+	i = 0;
+	nb = 0;
+	while (arg[i])
+	{
+		if (arg[i] == '\"')
+			nb++;
+		i++;
+	}
+	return (nb);
+}
+
+static char	**quotation_check(char **cmd, t_exec *exec, int nb_args)
+{
+	char	**clean_cmd;
+	int		i;
+	int		j;
+	int		k;
+
+	clean_cmd = malloc(sizeof(char *) * (nb_args + 1));
+	if (!clean_cmd)
+	{
+		free_tab(cmd);
+		free_exec_struct(exec);
+		exit(EXIT_FAILURE);
+	}
+	i = 0;
+	while (cmd[i])
+	{
+		j = 0;
+		k = 0;
+		if (quote_here(cmd[i]))
+			clean_cmd[i] = malloc(sizeof(char) * ft_strlen(cmd[i]) - 1);
+		else
+			clean_cmd[i] = malloc(sizeof(char) * ft_strlen(cmd[i]) + 1);
+		if (!clean_cmd[i])
+		{
+			free_tab(cmd);
+			free_exec_struct(exec);
+			while (clean_cmd[--i])
+				free(clean_cmd[i]);
+			free(clean_cmd);
+			exit(EXIT_FAILURE);
+		}
+		while (clean_cmd[i][j] && cmd[i][k])
+		{
+
+			if (cmd[i][k] != '\"')
+			{
+				clean_cmd[i][j] = cmd[i][k];
+				j++;
+				k++;
+			}
+			else
+				k++;
+		}
+		i++;
+	}
+	clean_cmd[i] = NULL;
+	return (clean_cmd);
+}
+
 int	ft_export(char **cmd, t_exec *exec)
 {
-	int	nb_args;
+	int		nb_args;
+	char	**clean_cmd;
 
 	nb_args = 0;
 	while (cmd[nb_args])
@@ -260,7 +330,13 @@ int	ft_export(char **cmd, t_exec *exec)
 	if (nb_args == 1) //export seul = on affiche la liste export
 		show_export(exec);
 	else
-		what_to_do(cmd, exec);
+	{
+		clean_cmd = quotation_check(cmd, exec, nb_args);
+//		for (int i = 0; clean_cmd[i]; i++)
+//			ft_printf("clean_cmd: %s\n", clean_cmd[i]);
+		what_to_do(clean_cmd, exec);
+		free_tab(clean_cmd);
+	}
 	if (exec->nb_cmds > 1)
 		exit(0);
 	return (0);

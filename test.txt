@@ -3,10 +3,74 @@ old pwd cree dans export mais pas initialis;e
 
 mkdir 123 cd 123 mkdir 123 cd 123 rm -rf ../../123. cd -> segfault
 
-pwd pas modifié dans l'environnement, que le old pwd
-
 double double guillemets dans parsing export.
+
 leak quand:
 
 -export avec double guillemets
 -export puis exit
+
+
+
+#include <stdlib.h>
+#include <string.h>
+
+static int quote_here(char *arg) {
+    int i = 0;
+    while (arg[i]) {
+        if (arg[i] == '\"') {
+            return 1;
+        }
+        i++;
+    }
+    return 0;
+}
+
+static char **quotation_check(char **cmd, t_exec *exec) {
+    int i = 0;
+    char **clean_cmd;
+
+    // Compter le nombre d'éléments dans cmd
+    int cmd_count = 0;
+    while (cmd[cmd_count] != NULL) {
+        cmd_count++;
+    }
+
+    clean_cmd = (char **)malloc(sizeof(char *) * (cmd_count + 1));
+    if (!clean_cmd) {
+        free_tab(cmd);
+        free_exec_struct(exec);
+        exit(EXIT_FAILURE);
+    }
+
+    i = 0;
+    while (cmd[i]) {
+        int j = 0;
+        int k = 0;
+        int len = strlen(cmd[i]);
+
+        clean_cmd[i] = (char *)malloc(len + 1);
+        if (!clean_cmd[i]) {
+            // Gestion d'erreur : échec d'allocation de mémoire
+            for (int l = 0; l < i; l++) {
+                free(clean_cmd[l]);
+            }
+            free(clean_cmd);
+            free_tab(cmd);
+            free_exec_struct(exec);
+            exit(EXIT_FAILURE);
+        }
+
+        while (k < len) {
+            if (cmd[i][k] != '\"') {
+                clean_cmd[i][j] = cmd[i][k];
+                j++;
+            }
+            k++;
+        }
+        clean_cmd[i][j] = '\0';
+        i++;
+    }
+    clean_cmd[i] = NULL;
+    return clean_cmd;
+}
