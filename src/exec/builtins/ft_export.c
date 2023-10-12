@@ -262,8 +262,6 @@ int	ft_export(char **cmd, t_exec *exec)
 	else
 		what_to_do(cmd, exec);
 	if (exec->nb_cmds > 1)
-	{
 		exit(0);
-	}
 	return (0);
 }
