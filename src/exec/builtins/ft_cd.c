@@ -17,14 +17,26 @@ char	*get_var(t_exec *exec, char *var_name)
 void	change_oldpwd(t_exec *exec, char *actual_pwd)
 {
 	char	**arg;
+	char	**arg_pwd;
 	t_env    *args_tmp;
+	t_env    *args_tmp_pwd;
 
 	arg = ft_calloc(2, sizeof(char *));
 	if (!arg)
 		return ;
+	arg_pwd = ft_calloc(2, sizeof(char *));
+	if (!arg_pwd)
+	{
+		free(arg);
+		return ;
+	}
+	arg_pwd[0] = getcwd(NULL, 0);
+	arg_pwd[0] = ft_strjoin("PWD=", arg_pwd[0]);
 	arg[0] = fill_oldpwd(actual_pwd);
 	args_tmp = env_double_char_into_lst(arg);
+	args_tmp_pwd = env_double_char_into_lst(arg_pwd);
 	export_existing_value(args_tmp, exec);
+	export_existing_value(args_tmp_pwd, exec);
 }
 
 void	go_to_old_pwd(char *oldpwd, t_exec *exec)
