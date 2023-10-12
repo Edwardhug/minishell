@@ -1,0 +1,12 @@
+env -i faut quand meme creer pwd, shlvl et underscore
+old pwd cree dans export mais pas initialis;e
+
+mkdir 123 cd 123 mkdir 123 cd 123 rm -rf ../../123. cd -> segfault
+
+pwd pas modifié dans l'environnement, que le old pwd
+
+double double guillemets dans parsing export.
+leak quand:
+
+-export avec double guillemets
+-export puis exit

@@ -94,25 +94,36 @@ int	t_exec_cmd(t_struct *temp_list, t_exec *exec)
 {
 	int		fd[2];
 	int		pid;
+	char	**clean_cmd;
 
-	if (exec->nb_cmds == 1 && is_builtin_alone(t_get_clean_cmd(temp_list), exec) == 1)
+	clean_cmd = t_get_clean_cmd(temp_list);
+	if (exec->nb_cmds == 1 && is_builtin_alone(clean_cmd, exec) == 1)
+	{
+		free_tab(clean_cmd);
 		return (0);
+	}
 	else
 	{
 		if (pipe(fd) == -1)
+		{
+			free_exec_struct(exec);
+			free_tab(clean_cmd);
 			exit(EXIT_FAILURE);
+		}
 		pid = fork();
 		if (pid == 0)
 		{
 			close(fd[0]);
 			t_change_stdout(temp_list, fd[1]);
-			is_builtin_fork(t_get_clean_cmd(temp_list), exec);
+			is_builtin_fork(clean_cmd, exec);
+			free_tab(clean_cmd);
 			close(fd[1]);
 			t_apply_exec(temp_list, exec);
 			exit(EXIT_FAILURE);
 		}
 		else
 		{
+			free_tab(clean_cmd);
 			close(fd[1]);
 			dup2(fd[0], STDIN_FILENO);
 			close(fd[0]);

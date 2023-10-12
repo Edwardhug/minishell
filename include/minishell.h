@@ -125,6 +125,7 @@ t_env		*env_double_char_into_lst(char **c_env);
 void		free_env(t_env *lst);
 int			ft_error_message(char *cmd_name, char *msg);
 int			ft_error_message_arg(char *cmd_name, char *arg, char *msg);
+void		free_exec_struct(t_exec *exec);
 //t_env		*ft_lstcpy(t_env *source);
 
 //here doc
