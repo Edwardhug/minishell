@@ -124,6 +124,6 @@ void	begin_execution(t_exec *exec, t_struct *list_word)
 			break ;
 		i++;
 	}
-	wait_all_process(pid_tab, list_word);
+	wait_all_process(pid_tab, list_word, exec);
 	free(pid_tab);
 }
