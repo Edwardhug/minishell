@@ -32,17 +32,13 @@ int	ft_exit(char **cmd, t_exec *exec)
 		if (is_number(cmd[1]) == 1)
 		{
 			ft_error_message_arg(cmd[0], cmd[1], ": numeric argument required\n");
-			free_tab(cmd);
-			free_exec_struct(exec);
 			exit(2);
 		}
 		status = ft_atoi(cmd[1]) % 256;
-		free_tab(cmd);
-		free_exec_struct(exec);
 		exit(status);
 	}
-	free_tab(cmd);
-	free_exec_struct(exec);
+	//free and close everything
+	// exit(status);
 	exit(0);
 	return (0);
 }

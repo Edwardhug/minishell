@@ -27,22 +27,11 @@ char	**t_get_clean_cmd(t_struct *temp_list)
 	}
 	str = malloc(sizeof(char *) * (t_size_cmd(temp_list) + 1));
 	if (!str)
-	{
-		free_list(&temp_list);
-		exit(EXIT_FAILURE);
-	}
+		return (NULL);
 	while (temp_list && temp_list->type != REDIRECTION	
 		&& temp_list->type != PIPE)
 	{
-		str[i] = ft_strdup(temp_list->str);				// remplit le tab** avec la commande et les argument
-		if (!str[i])
-		{
-			while (--i <= 0)
-				free(str[i]);
-			free(str);
-			free_list(&temp_list);
-			exit(EXIT_FAILURE);
-		}
+		str[i] = temp_list->str;				// remplit le tab** avec la commande et les argument
 		i++;
 		temp_list = temp_list->next;
 	}

@@ -1,15 +1,12 @@
 #include "../../../include/minishell.h"
 
-static void	ft_lstdelete_node(t_exec *exec, t_env *node_to_delete, int which_lst)
+void	ft_lstdelete_node(t_exec *exec, t_env *node_to_delete)
 {
 	t_env *previous;
 	t_env *current;
 
 	previous = NULL;
-	if (which_lst == 0)
-		current = exec->env;
-	else
-		current = exec->export;
+	current = exec->env;
 	while (current)
 	{
 		if (current == node_to_delete)
@@ -20,10 +17,7 @@ static void	ft_lstdelete_node(t_exec *exec, t_env *node_to_delete, int which_lst
 			}
 			else
 			{
-				if (which_lst == 0)
-					exec->env = current->next;
-				else
-					exec->export = current->next;
+				exec->env = current->next;
 			}
 			free(current->name);
 			free(current->value);
@@ -38,7 +32,6 @@ static void	ft_lstdelete_node(t_exec *exec, t_env *node_to_delete, int which_lst
 int	ft_unset(char **cmd, t_exec *exec)
 {
 	t_env	*tmp;
-	t_env	*tmp2;
 	int		i;
 
 	i = 1;
@@ -49,31 +42,14 @@ int	ft_unset(char **cmd, t_exec *exec)
 		{
 			if (ft_strcmp(cmd[i], tmp->name) == 0)
 			{
-				ft_lstdelete_node(exec, tmp, 0);
+				ft_lstdelete_node(exec, tmp);
 				break ;
 			}
 			tmp = tmp->next;
 		}
 		i++;
 	}
-	i = 1;
-	while (cmd[i])
-	{
-		tmp2 = exec->export;
-		while (tmp)
-		{
-			if (ft_strcmp(cmd[i], tmp2->name) == 0)
-			{
-				ft_lstdelete_node(exec, tmp2, 1);
-				break ;
-			}
-			tmp2 = tmp2->next;
-		}
-		i++;
-	}
-	if (exec->nb_cmds > 1)
-		exit(0);
-	return (0);
+	exit (0);
 }
 
 /*unset détruit la ou les variables d'environnement dont le nom a

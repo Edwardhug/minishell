@@ -92,7 +92,5 @@ int	ft_echo(char **cmd, t_exec *exec)
 	}
 	if (dash_n) //si on a pas de -n on va à la ligne
 		ft_printf("\n");
-	if (exec->nb_cmds > 1)
-		exit(0);
-	return (0);
+	exit(0);
 }

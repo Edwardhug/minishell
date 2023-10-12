@@ -29,31 +29,31 @@ void fill_var_node(t_struct **list_word, char *word)
 	free(word);
 }
 
-int    get_len_var(char *line, int *i, t_struct **list_word)
+int	get_len_var(char *line, int *i, t_struct **list_word)
 {
-    int    j;
-    int    quotes;            // will help us to check for = and for "
-    // int equal;
-    int copy;
+	int	j;
+	int	quotes;			// will help us to check for = and for "
+	int equal;
+	int copy;
 
-    j = 0;
-    quotes = 0;
-    // equal = 0;
-    copy = (*i);
-    while (line[copy] && quotes < 2)
-    {
-        // if (line[copy] == '=')
-        //     equal++;
-        if (line[copy] == '\"')
-            quotes++;
-        else if (line[copy] == ' ' && quotes < 1)
-            return (j);
-        j++;
-        copy++;
-    }
-    if (quotes < 2)
-        return (fill_node(list_word, find_end_of_the_word(line, i)), 0);
-    return (j);
+	j = 0;
+	quotes = 0;
+	equal = 0;
+	copy = (*i);
+	while (line[copy] && (quotes + equal) < 3)
+	{
+		if (line[copy] == '=')
+			equal++;
+		else if (line[copy] == '\"')
+			quotes++;
+		else if (line[copy] == ' ' && quotes < 1)
+			return (j);
+		j++;
+		copy++;
+	}
+	if ((quotes + equal) < 3)
+		return (fill_node(list_word, find_end_of_the_word(line, i)), 0);
+	return (j);
 }
 
 char	*find_end_var(char *line, int *i, t_struct **list_word)

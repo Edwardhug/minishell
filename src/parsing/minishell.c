@@ -50,11 +50,12 @@ int	main(int ac, char **av, char **env)
 	int		fd_standart;
 	t_exec	exec;
 
-	if (ac != 1)
-		return (ft_printf("No arg needed\n"), 1);
 	exec.env = env_double_char_into_lst(env);
 	exec.export = env_double_char_into_lst(env);
+//	exec.export = ft_lstcpy(exec.env);
 	fd_standart = dup(STDIN_FILENO);
+	if (ac != 1)
+		return (ft_printf("No arg needed\n"), 1);
 	path = get_path(env);
 	signals();
 	while (1)
@@ -71,6 +72,6 @@ int	main(int ac, char **av, char **env)
 	}
 	// rl_clear_history();
 	free_tab(path);
-	free_exec_struct(&exec);	(void)av;
+	(void)av;
 	return (0);
 }
