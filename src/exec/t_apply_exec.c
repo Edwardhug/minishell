@@ -105,7 +105,8 @@ void	t_apply_exec(t_struct *temp_list, t_exec *exec, t_fd fd)
 	char		**splited_cmd;
 
 	// ft_putnbr_fd(fd.fd_in, 2);
-	// ft_putnbr_fd(fd.fd_out, 2);
+	// ft_putstr_fd(temp_list->str, 2);
+	// ft_printf("%s\n", temp_list->str);
 	if (fd.fd_in == -1)
 	{
 		// ft_putstr_fd("YOOO\n", 2);
