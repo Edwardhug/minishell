@@ -56,6 +56,8 @@ typedef struct s_struct
 	struct s_struct		*next;
 }			t_struct;
 
+
+void    change_std(t_fd *tfd, t_struct *lst, int fd);
 char    *get_node(char *word, int *i);
 char		**get_path(char **env);
 //void		free_tab(char **tab);

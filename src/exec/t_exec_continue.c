@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 11:55:30 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/13 12:06:12 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/13 17:12:33 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,9 +110,10 @@ int	t_exec_cmd(t_struct *temp_list, t_exec *exec, t_fd tfd)
 		if (pid == 0)
 		{
 			close(fd[0]);
-			if (tfd.fd_in == -1)
-				exit(1);
-			tfd.fd_out = t_change_stdout(temp_list, fd[1]);
+			// if (tfd.fd_in == -1)
+			// 	exit(1);
+			// tfd.fd_out = t_change_stdout(temp_list, fd[1]);
+			change_std(&tfd, temp_list, fd[1]);
 			close(fd[1]);
 			is_builtin_fork(t_get_clean_cmd(temp_list), exec);
 		// ft_putstr_fd("yooo\n", 2);

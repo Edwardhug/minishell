@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 18:08:24 by lezard            #+#    #+#             */
-/*   Updated: 2023/10/13 11:22:45 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/13 17:10:05 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	begin_execution(char **path, t_exec *exec, t_struct *list_word)
 	// ft_printf("%s\n", temp_list->str);
 	while (temp_list)
 	{
-		fd.fd_in = change_stdin(list_word, &temp_list);
+		// fd.fd_in = change_stdin(list_word, &temp_list);
 		pid_tab[i] = t_exec_cmd(temp_list, exec, fd);
 		while (temp_list->next && temp_list->type != PIPE)
 		{
