@@ -13,7 +13,10 @@ int	open_fd_in(t_struct **temp_list)									// fonction qui change de stdin pou
 		if (fd_in < 0)
 		{
 			perror(tmp->str);
+			dup2(fd_in, STDIN_FILENO);
+			close (fd_in);
 			(*temp_list) = (*temp_list)->next;
+			return (-1);
 		}
 		if ((tmp->next)->type == CMD)
 		{
