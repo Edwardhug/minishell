@@ -53,13 +53,10 @@ void    change_std(t_fd *tfd, t_struct *lst, int fd)
 		}
 		lst = lst->next;
 	}
-	// if (cfd.fd_in == -1)
-	// 	exit (0)
 	if (lst && lst->type == PIPE)
 		dup2(fd, STDOUT_FILENO);
 	dup2(cfd.fd_out, STDOUT_FILENO);
 	close (cfd.fd_out);
-	// ft_putstr_fd("hakhs\n", 2);
 	close (fd);
 	dup2(cfd.fd_in, STDIN_FILENO);
 	close (cfd.fd_in);
