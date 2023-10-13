@@ -104,8 +104,13 @@ void	t_apply_exec(t_struct *temp_list, t_exec *exec, t_fd fd)
 	char		*path_cmd;
 	char		**splited_cmd;
 
+	// ft_putnbr_fd(fd.fd_in, 2);
+	// ft_putnbr_fd(fd.fd_out, 2);
 	if (fd.fd_in == -1)
+	{
+		// ft_putstr_fd("YOOO\n", 2);
 		exit(1);
+	}
 	// else if (fd.fd_in == -1 && fd.fd_out == 1)
 	splited_cmd = t_get_clean_cmd(temp_list);
 	if (!splited_cmd)
