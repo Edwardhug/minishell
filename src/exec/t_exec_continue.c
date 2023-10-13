@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 11:55:30 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/13 19:00:46 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/13 19:22:49 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,9 +97,19 @@ int	t_change_stdout(t_struct *temp_list, int fd)
 
 t_struct	*to_cmd(t_struct *lst)
 {
+	t_struct	*cmd;
 	while (lst && lst->type != CMD)
 		lst = lst->next;
-	return (lst);
+	cmd = lst;
+	while (lst && lst->next && lst->next->type != PIPE)
+	{
+		if (lst->next->type == REDIRECTION)
+			lst->next = lst->next->next->next;
+		else
+			lst = lst->next;
+	}
+	// print_list(cmd);
+	return (cmd);
 }
 
 int	t_exec_cmd(t_struct *temp_list, t_exec *exec, t_fd tfd)
@@ -122,10 +132,10 @@ int	t_exec_cmd(t_struct *temp_list, t_exec *exec, t_fd tfd)
 			// tfd.fd_out = t_change_stdout(temp_list, fd[1]);
 			change_std(&tfd, temp_list, fd[1]);
 			close(fd[1]);
-			is_builtin_fork(t_get_clean_cmd(temp_list), exec);
+			is_builtin_fork(t_get_clean_cmd(to_cmd(temp_list)), exec); 	//garder ca
 			// ft_putstr_fd("yooo\n", 2);
 			// ft_printf("%s\n", to_cmd(temp_list)->str);
-			t_apply_exec(to_cmd(temp_list), exec, tfd);
+			t_apply_exec(to_cmd(temp_list), exec, tfd);			// garder ca 
 			exit(EXIT_FAILURE);
 		}
 		else
