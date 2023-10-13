@@ -43,13 +43,19 @@ char	*remove_new_line(char *str)
 	return (to_ret);
 }
 
-static void if_env_i(t_exec *exec)
+/*
+cub git:(hgeffroy) ✗ env -i bash
+hgeffroy@z4r7p5:/nfs/homes/hgeffroy/Documents/cub$ export
+declare -x OLDPWD
+declare -x PWD="/nfs/homes/hgeffroy/Documents/cub"
+declare -x SHLVL="1"
+*/
+static void	if_env_i(t_exec *exec)
 {
-	(void)exec;
+	shlvl(exec, 1, 1);
 	//prendre pwd
 	//prendre last command avec path _ (le créer sans l'initialiser en vrai)
 	//prendre old_pwd
-	//créer shlvl
 	return ;
 }
 
@@ -60,7 +66,7 @@ int	main(int ac, char **av, char **env)
 	int		fd_standart;
 	t_exec	exec;
 
-	if (!env)
+	if (!env[0])
 		if_env_i(&exec);
 	else
 	{

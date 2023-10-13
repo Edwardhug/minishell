@@ -23,7 +23,9 @@ SRCS =	parsing/minishell.c\
 		exec/t_apply_exec.c\
 		exec/t_exec_utils.c\
 		exec/print_return_value.c\
-		exec/t_stdin_out_gestion.c \
+		exec/t_stdin_out_gestion.c\
+		exec/shlvl.c\
+		exec/var_underscore.c\
 		exec/builtins/is_builtin.c\
 		exec/builtins/ft_export.c\
 		exec/builtins/ft_cd.c\
@@ -34,6 +36,7 @@ SRCS =	parsing/minishell.c\
 		exec/builtins/ft_env.c\
 		exec/builtins/ft_unset.c\
 		utils/error_message.c\
+		utils/free_all.c\
 		utils/free_tab.c\
 		utils/exit_fonctions.c\
 		utils/t_struct_utils.c\

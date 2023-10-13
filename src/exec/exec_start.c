@@ -96,18 +96,16 @@ void	begin_execution(char **path, t_exec *exec, t_struct *list_word)
 	int			i;
 	t_struct	*temp_list;
 
+	exec->list_word = list_word;
 	exec->nb_cmds = number_of_cmd(list_word);
 	pid_tab = malloc(sizeof(int) * exec->nb_cmds);
 	i = 0;
 	(void)path;
 	temp_list = list_word;
-	// ft_printf("%s\n", temp_list->str);
 	while (temp_list)
 	{
-		// ft_printf("before : %s\n", temp_list->str);
 		if (!change_stdin(list_word, &temp_list))
 			return ;
-		// ft_printf("after : %s\n", temp_list->str); 
 		pid_tab[i] = t_exec_cmd(temp_list, exec);
 		while (temp_list->next && temp_list->type != PIPE)
 		{

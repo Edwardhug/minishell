@@ -38,9 +38,10 @@ typedef struct s_env
 
 typedef struct s_exec
 {
-	int		nb_cmds;
-	t_env	*env;
-	t_env	*export;
+	int			nb_cmds;
+	t_env		*env;
+	t_env		*export;
+	t_struct	*list_word;
 }				t_exec;
 
 typedef struct s_struct
@@ -87,6 +88,8 @@ int			change_stdin(t_struct *list_word, t_struct **temp_list);
 int			is_end(t_struct *temp_list);
 void		find_correct_path(t_exec *exec);
 void		access_cmd(t_exec *exec, int i);
+void		shlvl(t_exec *exec, int empty_env, int more_or_less);
+void		change_underscore(char *cmd, t_exec *exec);
 
 void		t_open_fd_out(t_struct *temp_list);
 void		t_change_stdout(t_struct *temp_list, int fd);
@@ -122,7 +125,10 @@ size_t		t_struct_strlen(t_struct *list_word);
 size_t		t_env_strlen(t_env *env);
 char		**env_lst_into_double_char(t_env *env);
 t_env		*env_double_char_into_lst(char **c_env);
+t_env		*ft_lstnew_env(char *str, int nb);
+int			search_equal_sign(char *str);
 void		free_env(t_env *lst);
+void		free_exec_struct(t_exec *exec);
 int			ft_error_message(char *cmd_name, char *msg);
 int			ft_error_message_arg(char *cmd_name, char *arg, char *msg);
 //t_env		*ft_lstcpy(t_env *source);

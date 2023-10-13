@@ -10,3 +10,13 @@ leak quand:
 
 -export avec double guillemets
 -export puis exit
+
+
+
+_ fonctionne MAIS
+-si on fait echo $_ ça donne forcément echo alors que:
+-echo $_ ne doit pas changer le _
+-si on fait echo $_ après avoir fait un echo, _ devient l'argument de echo. Si il y
+a plusieurs, ça devient le dernier argument.
+-dans le cas des pipes, ça prend celui du premier pipe.
+- _ devrait être la commande avec le path dans l'env, mais pas dans echo
