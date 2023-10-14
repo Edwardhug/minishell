@@ -6,13 +6,13 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 11:55:30 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/11 19:02:00 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/14 10:24:16 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	t_open_fd_out(t_struct *temp_list)
+int	t_open_fd_out(t_struct *temp_list)
 {
 	int	fd_out;
 
@@ -37,7 +37,7 @@ void	t_open_fd_out(t_struct *temp_list)
 			// ft_putstr_fd("pass\n", 2);
 			dup2(fd_out, STDOUT_FILENO);
 			close (fd_out);
-			return ;
+			return (fd_out);
 		}
 		else
 		{
@@ -46,6 +46,7 @@ void	t_open_fd_out(t_struct *temp_list)
 			temp_list = temp_list->next;
 		}
 	}
+	return (0);
 }
 
 // void	t_open_fd_out(t_struct *temp_list)
@@ -72,7 +73,7 @@ void	t_open_fd_out(t_struct *temp_list)
 	
 // }
 
-void	t_change_stdout(t_struct *temp_list, int fd)
+int	t_change_stdout(t_struct *temp_list, int fd)
 {
 	if (temp_list->type == REDIRECTION) // on avance dans la liste chainee en cas de redirection 2 fois pour passer la redirection et le fichier
 	{
@@ -85,12 +86,33 @@ void	t_change_stdout(t_struct *temp_list, int fd)
 		temp_list = temp_list->next;
 	}
 	if (temp_list->type == REDIRECTION)
-		t_open_fd_out(temp_list);		//peut etre que des fd resterons open a cause de ca
+		return (t_open_fd_out(temp_list));		//peut etre que des fd resterons open a cause de ca
 	else if (temp_list->type == PIPE)
+	{
 		dup2(fd, STDOUT_FILENO);
+		return (1);
+	}
+	return (0);
 }
 
-int	t_exec_cmd(t_struct *temp_list, t_exec *exec)
+t_struct	*to_cmd(t_struct *lst)
+{
+	t_struct	*cmd;
+	while (lst && lst->type != CMD)
+		lst = lst->next;
+	cmd = lst;
+	while (lst && lst->next && lst->next->type != PIPE)
+	{
+		if (lst->next->type == REDIRECTION)
+			lst->next = lst->next->next->next;
+		else
+			lst = lst->next;
+	}
+	// print_list(cmd);
+	return (cmd);
+}
+
+int	t_exec_cmd(t_struct *temp_list, t_exec *exec, t_fd tfd)
 {
 	int		fd[2];
 	int		pid;
@@ -105,10 +127,10 @@ int	t_exec_cmd(t_struct *temp_list, t_exec *exec)
 		if (pid == 0)
 		{
 			close(fd[0]);
-			t_change_stdout(temp_list, fd[1]);
-			is_builtin_fork(t_get_clean_cmd(temp_list), exec);
+			change_std(&tfd, temp_list, fd[1]);
 			close(fd[1]);
-			t_apply_exec(temp_list, exec);
+			is_builtin_fork(t_get_clean_cmd(to_cmd(temp_list)), exec); 	//garder ca
+			t_apply_exec(to_cmd(temp_list), exec, tfd);			// garder ca 
 			exit(EXIT_FAILURE);
 		}
 		else

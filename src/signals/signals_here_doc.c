@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:25:52 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/29 09:48:08 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/14 10:23:21 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,6 @@ void sigint_handler_heredoc(int sig)
 {
 	(void) sig;
 	ft_putstr_fd("\n", 2);
-	exit(EXIT_FAILURE);
+	// g_error_value = 130 *256;
+	exit(130);
 }

@@ -68,6 +68,8 @@ int	special_builtin(char **cmd, t_exec *exec)
 
 int	is_builtin_alone(char **cmd, t_exec *exec)
 {
+	if (!cmd[0])		// a garder !!
+		return (0);
 	if (ft_strcmp(cmd[0], "cd") == 0)
 		return (ft_cd(cmd, exec), 1);
 	else if (ft_strcmp(cmd[0], "pwd") == 0)
@@ -87,6 +89,8 @@ int	is_builtin_alone(char **cmd, t_exec *exec)
 
 int	is_builtin_fork(char **cmd, t_exec *exec)
 {
+	if (!cmd[0])	// a garder !!
+		return (0);
 	if (ft_strcmp(cmd[0], "cd") == 0)
 		return (ft_cd(cmd, exec), 1);
 	else if (ft_strcmp(cmd[0], "pwd") == 0)

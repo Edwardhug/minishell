@@ -120,23 +120,23 @@ void	clean_redir_out(t_struct **list)
 
 void	put_infile_in_order(t_struct **list)
 {
-	t_struct	*f_redir;
-	t_struct	*l_redir;
+	// t_struct	*f_redir;
+	// t_struct	*l_redir;
 
-	if ((*list)->next->type == REDIRECTION
-		&& ft_strcmp((*list)->next->str, "<") == 0
-		&& (*list)->next->next)
-		f_redir = ((*list)->next->next);
-	else
-	{
-		clean_redir_out(list);
-		return ;
-	}
-	l_redir = f_redir;
-	while (l_redir->next && l_redir->next->type != CMD
-		&& l_redir->next->type != PIPE)
-		l_redir = l_redir->next;
-	swap_nodes(&f_redir, &l_redir);
+	// if ((*list)->next->type == REDIRECTION
+	// 	&& ft_strcmp((*list)->next->str, "<") == 0
+	// 	&& (*list)->next->next)
+	// 	f_redir = ((*list)->next->next);
+	// else
+	// {
+	// 	clean_redir_out(list);
+	// 	return ;
+	// }
+	// l_redir = f_redir;
+	// while (l_redir->next && l_redir->next->type != CMD
+	// 	&& l_redir->next->type != PIPE)
+	// 	l_redir = l_redir->next;
+	// swap_nodes(&f_redir, &l_redir);
 	clean_redir_out(list);
 }
 
@@ -153,31 +153,31 @@ int	cmd_is_before(t_struct *cmd, t_struct *redir)
 
 void	clean_list(t_struct **list)
 {
-	t_struct	*tmp;
-	t_struct	*copy;
-	t_struct	*b_cmd;
+	// t_struct	*tmp;
+	// t_struct	*copy;
+	// t_struct	*b_cmd;
 
-	copy = *list;
-	while (copy && copy->next)
-	{
-		if ((copy->next)->type == CMD)
-			b_cmd = copy;
-		if ((copy->next)->type == REDIRECTION
-			&& cmd_is_before(b_cmd, copy)
-			&& ft_strcmp((copy->next)->str, "<") == 0
-			&& ((copy->next)->next)->type == FILES
-			&& copy->type != ENUM_NULL)
-		{
-			tmp = copy->next;
-			copy->next = copy->next->next->next;
-			tmp->next->next = b_cmd->next;
-			b_cmd->next = tmp;
-			*list = b_cmd;
-			// print_list(*list);
-			// exit (0);
-		}
-		else
-			copy = copy->next;
-	}
+	// copy = *list;
+	// while (copy && copy->next)
+	// {
+	// 	if ((copy->next)->type == CMD)
+	// 		b_cmd = copy;
+	// 	if ((copy->next)->type == REDIRECTION
+	// 		&& cmd_is_before(b_cmd, copy)
+	// 		&& ft_strcmp((copy->next)->str, "<") == 0
+	// 		&& ((copy->next)->next)->type == FILES
+	// 		&& copy->type != ENUM_NULL)
+	// 	{
+	// 		tmp = copy->next;
+	// 		copy->next = copy->next->next->next;
+	// 		tmp->next->next = b_cmd->next;
+	// 		b_cmd->next = tmp;
+	// 		*list = b_cmd;
+	// 		// print_list(*list);
+	// 		// exit (0);
+	// 	}
+	// 	else
+	// 		copy = copy->next;
+	// }
 	put_infile_in_order(list);
 }

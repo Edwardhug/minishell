@@ -21,6 +21,7 @@ SRCS =	parsing/minishell.c\
 		exec/exec_start.c\
 		exec/t_exec_continue.c\
 		exec/t_apply_exec.c\
+		exec/change_std.c\
 		exec/t_exec_utils.c\
 		exec/print_return_value.c\
 		exec/t_stdin_out_gestion.c \

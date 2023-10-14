@@ -13,7 +13,10 @@ int	open_fd_in(t_struct **temp_list)									// fonction qui change de stdin pou
 		if (fd_in < 0)
 		{
 			perror(tmp->str);
+			dup2(fd_in, STDIN_FILENO);
+			close (fd_in);
 			(*temp_list) = (*temp_list)->next;
+			return (-1);
 		}
 		if ((tmp->next)->type == CMD)
 		{
@@ -33,22 +36,15 @@ int	open_fd_in(t_struct **temp_list)									// fonction qui change de stdin pou
 
 int change_stdin(t_struct *list_word, t_struct **temp_list) // fonction pour savoir auel sera le fdin de la commande qui arrive
 {
-	if (t_struct_strlen(list_word) == t_struct_strlen(*temp_list)) // check si c'est la premiere commande
+	t_struct	*copy;
+
+	copy = (*temp_list);
+	while (copy && copy->type != PIPE)
 	{
-		if (list_word->type == REDIRECTION)                        // verifie si c'est une redirection
-		{
-			if (ft_strncmp(list_word->str, "<<", 2) == 0)
-			{
-				if (!here_doc(*temp_list))                // l'entree c'est le heredoc mais on verra ca plus tard, (lgabet a un heredoc)
-					return (0);
-			}
-			else
-				open_fd_in(temp_list);                    // l'entree c'est le fichier qui suit le ( < )
-		}
-		// else
-		//     dup2(fd_in, STDIN_FILENO);                                          // l'entree c'est le terminal
+		if (ft_strcmp(copy->str, "<<") == 0)
+			return (here_doc(*temp_list));
+		copy = copy->next;
 	}
-	// else
-	//     dup2(fd_in, STDIN_FILENO);                                      // l'infile est le stdout deja existant
 	return (1);
+	(void)list_word;
 }
