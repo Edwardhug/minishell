@@ -37,6 +37,7 @@ SRCS =	parsing/minishell.c\
 		exec/builtins/ft_unset.c\
 		utils/error_message.c\
 		utils/free_tab.c\
+		utils/free_all.c\
 		utils/exit_fonctions.c\
 		utils/t_struct_utils.c\
 		utils/swap_lst_char.c\

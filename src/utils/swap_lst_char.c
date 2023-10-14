@@ -18,7 +18,7 @@ char	**env_lst_into_double_char(t_env *env)
 		size_node = ft_strlen(tmp->name) + ft_strlen(env->value) + 2;
 		char_env[i] = malloc(sizeof(char *) * (size_node + 1));
 		if (!char_env[i])
-			return (perror("malloc lst into double char 2"), free_tab(char_env), NULL);
+			return (free_tab(char_env), NULL);
 		tmp2 = ft_strjoin(tmp->name, "=");
 		char_env[i] = ft_strjoin(tmp2, tmp->value);
 		free(tmp2);
@@ -41,23 +41,10 @@ static t_env	*ft_lstnew_env(char *str, int nb)
 	new->name = malloc(sizeof(char) * (nb + 1));
 	if (!new->name)
 		return (perror("malloc lstnew_env 2"), free(new), NULL);
-	if (str[0] == '=')
-	{
-		while (str[i] == '=')
-		{
-			new->name[i] = '=';
-			i++;
-		}
-		new->name[i] = '\0';
-	}
-	else
-	{
-		ft_strncpy(new->name, str, nb);
-		new->name[nb] = '\0';
-	}
+	change_name(&new, str, &i, nb);
 	new->value = malloc(sizeof(char) * (ft_strlen(str) - nb));
 	if (!new->value)
-		return (perror("malloc lstnew_env 3"), free(new), free(new->name), NULL);
+		return (free(new), free(new->name), NULL);
 	ft_strcpy(new->value, &str[nb + 1]);
 	new->next = NULL;
 	return (new);
@@ -71,6 +58,20 @@ static int	search_equal_sign(char *str)
 	while (str[i] && str[i] != '=')
 		i++;
 	return (i);
+}
+
+void	change_tail(t_env **tail, t_env **new_env, t_env **lst_env)
+{
+	if (!(*lst_env))
+	{
+		(*lst_env) = (*new_env);
+		(*tail) = (*lst_env);
+	}
+	else
+	{
+		(*tail)->next = (*new_env);
+		(*tail) = (*new_env);
+	}
 }
 
 t_env	*env_double_char_into_lst(char **c_env)
@@ -88,16 +89,7 @@ t_env	*env_double_char_into_lst(char **c_env)
 		new_env = ft_lstnew_env(c_env[i], search_equal_sign(c_env[i]));
 		if (!new_env)
 			return (perror("env_double_char_int_lst malloc error"), lst_env);
-		if (!lst_env)
-		{
-			lst_env = new_env;
-			tail = lst_env;
-		}
-		else
-		{
-			tail->next = new_env;
-			tail = new_env;
-		}
+		change_tail(&tail, &new_env, &lst_env);
 		i++;
 	}
 	return (lst_env);

@@ -130,6 +130,7 @@ void	change_pwd(t_exec *exec);
 
 // utils
 
+void	change_name(t_env **new, char *str, int *i, int nb);
 size_t		t_struct_strlen(t_struct *list_word);
 size_t		t_env_strlen(t_env *env);
 char		**env_lst_into_double_char(t_env *env);
