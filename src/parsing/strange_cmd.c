@@ -1,29 +1,5 @@
 #include "../../include/minishell.h"
 
-// int	impair_quote(char *str)
-// {
-// 	int	i;
-// 	int	s_quote;
-// 	int	d_quote;
-
-// 	i = 0;
-// 	s_quote = 0;
-// 	d_quote = 0;
-// 	while (str[i])
-// 	{
-// 		if (str[i] == '\'')
-// 			s_quote++;
-// 		if (str[i] == '\"')
-// 			d_quote++;
-// 		i++;
-// 	}
-// 	if (d_quote % 2 != 0)
-// 		return (1);
-// 	if (s_quote % 2 != 0)
-// 		return (2);
-// 	return (0);
-// }
-
 int	last_char_redir(char *str)
 {
 	int i;

@@ -84,6 +84,7 @@ char	*find_last_quote(char *line, int *i, t_struct **list_word);
 void fill_quote_node(t_struct **list_word, char *word);
 void	add_pipe(t_struct **list_word);
 // void fill_move_quote(t_struct **list_word, char *word);
+void	clean_redir_out(t_struct **list);
 
 void		print_list(t_struct *list);
 

@@ -2,10 +2,10 @@
 
 int	verif(char *line, int *i)
 {
-	int q_count;
+	int	q_count;
 	int	j;
-	int c;
-	int space;
+	int	c;
+	int	space;
 
 	q_count = 0;
 	j = 0;
@@ -20,10 +20,7 @@ int	verif(char *line, int *i)
 		if (q_count == 0)
 			j++;
 		if (q_count == 1 && line[c] == ' ')
-		{
-			// ft_printf("pass\n");
 			space++;
-		}
 		c++;
 	}
 	if (q_count == 2 && space != 0)
@@ -33,8 +30,8 @@ int	verif(char *line, int *i)
 
 int	check_quote_file(char *line, int *i, char **word)
 {
-	int	size;
-	int j;
+	int		size;
+	int		j;
 	char	*cp;
 
 	cp = *word;
@@ -45,7 +42,7 @@ int	check_quote_file(char *line, int *i, char **word)
 	if (!cp)
 		return (0);
 	j = 0;
-	while(j < size && line[(*i) + j] != ' ')
+	while (j < size && line[(*i) + j] != ' ')
 	{
 		(cp)[j] = line[(*i) + j];
 		j++;
