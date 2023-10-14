@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 17:02:27 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/09 12:24:41 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/14 13:04:36 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	*remove_simple_quotes(char *str)
 		{
 			ret[j] = str[i];
 			i++;
-			j++;	
+			j++;
 		}
 	}
 	return (free(str), ret);
