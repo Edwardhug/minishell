@@ -36,20 +36,20 @@ typedef struct s_env
 	struct s_env	*next;
 }					t_env;
 
-typedef struct s_exec
-{
-	int			nb_cmds;
-	t_env		*env;
-	t_env		*export;
-	t_struct	*list_word;
-}				t_exec;
-
 typedef struct s_struct
 {
 	char				*str;
 	t_enum				type;
 	struct s_struct		*next;
 }			t_struct;
+
+typedef struct s_exec
+{
+	int			nb_cmds;
+	t_env		*env;
+	t_env		*export;
+}				t_exec;
+
 
 char    *get_node(char *word, int *i);
 char		**get_path(char **env);
@@ -103,21 +103,22 @@ void		print_error(char **splited_cmd, char **all_path, int i);
 
 //builtins
 
-int	is_builtin_alone(char **cmd, t_exec *exec);
-int	is_builtin_fork(char **cmd, t_exec *exec);
+int			is_builtin_alone(char **cmd, t_exec *exec);
+int			is_builtin_fork(char **cmd, t_exec *exec);
 int			ft_cd(char **cmd, t_exec *exec);
 int			ft_echo(char **cmd, t_exec *exec);
 int			ft_env(t_exec *exec);
 int			ft_exit(char **cmd, t_exec *exec);
 int			ft_export(char **cmd, t_exec *exec);
+void		create_var(t_env *args_tmp, t_exec *exec);
 int			ft_pwd(t_exec *exec);
 int			ft_unset(char **cmd, t_exec *exec);
-void	export_existing_value(t_env *args_tmp, t_exec *exec);
-void	put_old_pwd_in_char(char **arg);
-void	put_pwd_in_char(char **arg);
-char	*fill_oldpwd(char *actual_pwd);
-char	*fill_newpwd(char *actual_pwd);
-void	change_pwd(t_exec *exec);
+void		export_existing_value(t_env *args_tmp, t_exec *exec);
+void		put_old_pwd_in_char(char **arg);
+void		put_pwd_in_char(char **arg);
+char		*fill_oldpwd(char *actual_pwd);
+char		*fill_newpwd(char *actual_pwd);
+void		change_pwd(t_exec *exec);
 
 // utils
 

@@ -136,7 +136,7 @@ static t_env	*ft_lstnew_export(t_env *args_tmp)
 	return (new);
 }
 
-static void	create_var(t_env *args_tmp, t_exec *exec)
+void	create_var(t_env *args_tmp, t_exec *exec)
 {
 	t_env	*new_exp;
 	t_env	*new_env;

@@ -17,11 +17,12 @@ void	change_underscore(char *cmd, t_exec *exec)
 					break ;
 				tmp_exp = tmp_exp->next;
 			}
-			if (tmp_env->value[0])
+			if (tmp_env->value[0] && !(ft_strcmp(cmd, "echo") == 0))
 			{
 				free(tmp_env->value);
 			}
-			tmp_env->value = ft_strdup(cmd);
+			if (!(ft_strcmp(cmd, "echo") == 0))
+				tmp_env->value = ft_strdup(cmd);
 			if (!tmp_env->value)
 			{
 				free(cmd);

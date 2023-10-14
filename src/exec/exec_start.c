@@ -96,7 +96,7 @@ void	begin_execution(char **path, t_exec *exec, t_struct *list_word)
 	int			i;
 	t_struct	*temp_list;
 
-	exec->list_word = list_word;
+	change_underscore(list_word->str, exec);
 	exec->nb_cmds = number_of_cmd(list_word);
 	pid_tab = malloc(sizeof(int) * exec->nb_cmds);
 	i = 0;

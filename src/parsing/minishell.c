@@ -43,20 +43,34 @@ char	*remove_new_line(char *str)
 	return (to_ret);
 }
 
-/*
-cub git:(hgeffroy) ✗ env -i bash
-hgeffroy@z4r7p5:/nfs/homes/hgeffroy/Documents/cub$ export
-declare -x OLDPWD
-declare -x PWD="/nfs/homes/hgeffroy/Documents/cub"
-declare -x SHLVL="1"
-*/
 static void	if_env_i(t_exec *exec)
 {
+	char	*cwd;
+	char	*pwd;
+
+	cwd = malloc(sizeof(char *) * (PATH_MAX + 1));
+	if (!cwd)
+	{
+		ft_putstr_fd("malloc error\n", 2);
+		exit(EXIT_FAILURE);
+	}
 	shlvl(exec, 1, 1);
-	//prendre pwd
-	//prendre last command avec path _ (le créer sans l'initialiser en vrai)
-	//prendre old_pwd
-	return ;
+	exec->env->next = ft_lstnew_env("_=", 1);
+	exec->export->next = ft_lstnew_env("_=", 1);
+	if (getcwd(cwd, PATH_MAX) != NULL)
+	{
+		pwd = ft_strjoin("PWD=", cwd);
+		if (!pwd)
+		{
+			ft_putstr_fd("malloc error\n", 2);
+			free(cwd);
+			exit(EXIT_FAILURE);
+		}
+		exec->env->next->next = ft_lstnew_env(pwd, 3);
+		exec->export->next->next = ft_lstnew_env(pwd, 3);
+	}
+//	exec->export->next->next->next = ft_lstnew_env("OLDPWD=", 7);
+	free(cwd);
 }
 
 int	main(int ac, char **av, char **env)

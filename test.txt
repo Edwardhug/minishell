@@ -11,7 +11,7 @@ leak quand:
 -export avec double guillemets
 -export puis exit
 
-
+export trie pas correctement pour LD_LIBRARY_PATH... uniquement pour lui.
 
 _ fonctionne MAIS
 -si on fait echo $_ ça donne forcément echo alors que:
@@ -20,3 +20,6 @@ _ fonctionne MAIS
 a plusieurs, ça devient le dernier argument.
 -dans le cas des pipes, ça prend celui du premier pipe.
 - _ devrait être la commande avec le path dans l'env, mais pas dans echo
+
+-je crois que pour echo var env qui existe pas y'a un souci. On est censé ne rien afficher.
+à la place on affiche $VARNAME
