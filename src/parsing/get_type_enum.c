@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 16:15:26 by lgabet            #+#    #+#             */
-/*   Updated: 2023/09/29 09:48:08 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/14 12:37:56 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ t_enum	find_type_enum(t_struct *tmp, char *word)
 		type = CMD;
 	else if ((tmp->type == CMD || tmp->type == OPT) && word[0] == '-')
 		type = OPT;
-	else if (((tmp->type == CMD || tmp->type == OPT) && word[0] != '-') || tmp->type == ARG)
+	else if (((tmp->type == CMD || tmp->type == OPT)
+			&& word[0] != '-') || tmp->type == ARG)
 		type = ARG;
 	else if (tmp->type == REDIRECTION)
 		type = FILES;
