@@ -6,30 +6,32 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:50:18 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/14 12:06:03 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/14 13:03:04 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void print_list(t_struct *list)
+void	print_list(t_struct *list)
 {
-	int	i = 0;
+	int	i;
 
+	i = 0;
 	while (list)
 	{
-		ft_printf("node n%d\n	-str = %s\n	-type = %d\n", i, list->str, list->type);
+		ft_printf("node n%d\n	-str = %s\n", i, list->str);
+		ft_printf("	-type = %d\n", list->type);
 		i++;
 		list = list->next;
 	}
 }
 
-void fill_node(t_struct **list_word, char *word)
+void	fill_node(t_struct **list_word, char *word)
 {
 	t_struct	*tmp;
 	t_enum		type;
-	char	*str;
-	int		i;
+	char		*str;
+	int			i;
 
 	if (!word)
 		return ;
@@ -40,7 +42,7 @@ void fill_node(t_struct **list_word, char *word)
 		add_pipe(list_word);
 		str = get_node(word, &i);
 		tmp = *list_word;
-		type = find_type_enum(tmp, str);		//currently working on this  
+		type = find_type_enum(tmp, str);
 		add_node_back(list_word, new_node(str, type));
 	}
 	free(word);
@@ -53,10 +55,7 @@ char	*find_end_of_the_word(char *line, int *i)
 
 	j = 0;
 	if (check_quote_file(line, i, &word))
-	{
-		// ft_printf("space file found\n");
 		return (word);
-	}
 	while (line[(*i) + j] && line[(*i) + j] != ' ')
 		j++;
 	word = calloc((j + 1), sizeof(char));
@@ -80,7 +79,7 @@ char	*find_second_quote(char *line, int *i)
 	j = 1;
 	while (line[(*i) + j] && line[(*i) + j] != '"')
 		j++;
-	if (!line[j + (*i)])		// only one double quote
+	if (!line[j + (*i)])
 		return ((*i)++, find_end_of_the_word(line, i));
 	word = calloc((j + 2), sizeof(char));
 	if (!word)
@@ -100,33 +99,15 @@ char	*find_second_quote(char *line, int *i)
 
 void	parsing_minishell(char **path, char *line, t_exec *exec)
 {
-	int			i;
 	t_struct	*list_word;
 
 	if (line[0] == 0 || have_strange_cmd(line))
 		return ;
 	list_word = new_node(NULL, ENUM_NULL);
-	i = 0;
-	while (line[i])
-	{
-		// ft_printf("line = %s\n", line + i);
-		if (i != 0 && ft_strcmp(get_last_node(list_word)->str, "export") == 0)
-			fill_var_node(&list_word, find_end_var(line, &i, &list_word));
-		else if ( i != 0 && ft_strcmp(get_last_node(list_word)->str, "echo") == 0 && (line[i] == '\'' || line[i] == '\"'))
-			fill_quote_node(&list_word, find_last_quote(line, &i, &list_word));
-		else if (line[i] == '"' && (line[i + 1] == '<' || line[i + 1] == ')'))
-			fill_quote_node(&list_word, find_second_quote(line, &i));
-		else if (line[i] == '"')
-			fill_node(&list_word, find_second_quote(line, &i));
-		else
-			fill_node(&list_word, find_end_of_the_word(line, &i));
-		if (line[i] == ' ')
-			i++;
-	}
+	loop_parsing(&list_word, line);
 	clean_redir_out(&list_word);
 	if (!delete_node(&list_word))
 		return ;
-	// print_list(list_word); 
 	begin_execution(path, exec, list_word);
 	(void)path;
 	(void)exec;

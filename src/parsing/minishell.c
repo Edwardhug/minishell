@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 14:28:48 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/14 12:51:23 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/14 13:01:45 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,30 @@ void	loop_main(char **path, int fd_standart, t_exec exec)
 	free(line);
 	dup2(fd_standart, STDIN_FILENO);
 	signal(SIGINT, sigint_handler);
+}
+
+void	loop_parsing(t_struct **list_word, char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (i != 0 && ft_strcmp(get_last_node(*list_word)->str, "export") == 0)
+			fill_var_node(list_word, find_end_var(line, &i, list_word));
+		else if (i != 0
+			&& ft_strcmp(get_last_node(*list_word)->str, "echo") == 0
+			&& (line[i] == '\'' || line[i] == '\"'))
+			fill_quote_node(list_word, find_last_quote(line, &i, list_word));
+		else if (line[i] == '"' && (line[i + 1] == '<' || line[i + 1] == ')'))
+			fill_quote_node(list_word, find_second_quote(line, &i));
+		else if (line[i] == '"')
+			fill_node(list_word, find_second_quote(line, &i));
+		else
+			fill_node(list_word, find_end_of_the_word(line, &i));
+		if (line[i] == ' ')
+			i++;
+	}
 }
 
 int	main(int ac, char **av, char **env)
