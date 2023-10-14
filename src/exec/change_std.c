@@ -35,9 +35,10 @@ int	open_fd_out(t_struct *lst)
 	return (fd_out);
 }
 
-void    change_std(t_fd *tfd, t_struct *lst, int fd)
+void	change_std(t_fd *tfd, t_struct *lst, int fd)
 {
 	t_fd	cfd;
+
 	while (lst && lst->next && lst->type != PIPE)
 	{
 		if (ft_strcmp(lst->str, "<") == 0)

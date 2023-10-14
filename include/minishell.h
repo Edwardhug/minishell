@@ -93,6 +93,7 @@ void		print_list(t_struct *list);
 
 //exec
 
+void	change_value_builtin(t_struct *list_word, t_exec *exec, int *status);
 void		begin_execution(char **path, t_exec *exec, t_struct *list_word);
 // int			open_fd_in(t_struct *temp_list);
 int			change_stdin(t_struct *list_word, t_struct **temp_list);
@@ -109,6 +110,7 @@ char		*t_get_path_cmd(char **all_path, char **splited, struct stat info);
 char		*t_get_cmd(char **env, char **splited_cmd);
 void	t_apply_exec(t_struct *temp_list, t_exec *exec, t_fd fd);
 void		print_error(char **splited_cmd, char **all_path, int i);
+int	to_next_cmd(t_struct **temp_list);
 
 //builtins
 

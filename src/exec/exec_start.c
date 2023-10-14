@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 18:08:24 by lezard            #+#    #+#             */
-/*   Updated: 2023/10/14 10:44:54 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/14 14:08:38 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,42 +51,9 @@ void	wait_all_process(int *pid, t_struct *list_word, t_exec *exec)
 		waitpid(pid[i], &status, WUNTRACED);
 		i++;
 	}
-	signal(SIGINT, old_signal[0]);		// signal ctrl c
-	signal(SIGQUIT, old_signal[1]);		// signal ctrl backslash
-	while (list_word)
-	{
-		if (ft_strcmp(list_word->str, "cd") == 0)
-		{
-			if (g_error_value == -1)
-				status = 256;
-			else
-				status = 0;
-		}
-		else if (ft_strcmp(list_word->str, "pwd") == 0)
-		{
-			if (g_error_value == -127)
-				status = 127 * 256;
-			else
-				status = 0;
-		}
-		else if (ft_strcmp(list_word->str, "export") == 0 && exec->nb_cmds == 1)
-		{
-			if (g_error_value == -1)
-				status = 1 * 256;
-			else
-				status = 0;
-		}
-		else if (ft_strcmp(list_word->str, "exit") == 0)
-		{
-			if (g_error_value == -1)
-				status = 1 * 256;
-			else
-				status = 0;
-		}
-		list_word = list_word->next;
-	}
-	// if (status == 512)
-	// 	status = 256;
+	signal(SIGINT, old_signal[0]);
+	signal(SIGQUIT, old_signal[1]);
+	change_value_builtin(list_word, exec, &status);
 	g_error_value = status;
 }
 
@@ -102,7 +69,6 @@ void	begin_execution(char **path, t_exec *exec, t_struct *list_word)
 	i = 0;
 	(void)path;
 	temp_list = list_word;
-	// ft_printf("%s\n", temp_list->str);
 	while (temp_list)
 	{
 		if (!change_stdin(list_word, &temp_list))
@@ -110,15 +76,8 @@ void	begin_execution(char **path, t_exec *exec, t_struct *list_word)
 			free(pid_tab);
 			return ;
 		}
-		// ft_printf("after : %s\n", temp_list->str);
 		pid_tab[i] = t_exec_cmd(temp_list, exec, fd);
-		while (temp_list->next && temp_list->type != PIPE)
-		{
-			temp_list = temp_list->next;
-		}
-		if (temp_list->type == PIPE)
-			temp_list = temp_list->next;
-		else
+		if (to_next_cmd(&temp_list))
 			break ;
 		i++;
 	}
