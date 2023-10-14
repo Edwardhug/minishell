@@ -1,9 +1,9 @@
 #include "../../include/minishell.h"
 
-char    *fill_str(char *word, int *i, int size)
+char	*fill_str(char *word, int *i, int size)
 {
 	char	*str;
-	int j;
+	int		j;
 
 	str = calloc((size + 1), sizeof(char));
 	if (!str)
@@ -17,26 +17,29 @@ char    *fill_str(char *word, int *i, int size)
 	return (str);
 }
 
-char    *get_node(char *word, int *i)
+char	*get_node(char *word, int *i)
 {
-	int size;
+	int	size;
 
 	size = 0;
 	if (word[*i] && (word[*i] == '|' || word[*i] == '<' || word[*i] == '>'))
 	{
-		while (word[*i] && (word[*i] == '|' || word[*i] == '<' || word[*i] == '>'))
+		while (word[*i] && (word[*i] == '|'
+				|| word[*i] == '<' || word[*i] == '>'))
 		{
 			size++;
 			(*i)++;
 		}
 	}
-	else if (word[*i] && (word[*i] != '|' && word[*i] != '<' && word[*i] != '>'))
+	else if (word[*i] && (word[*i] != '|'
+			&& word[*i] != '<' && word[*i] != '>'))
 	{
-		while (word[*i] && (word[*i] != '|' && word[*i] != '<' && word[*i] != '>'))
+		while (word[*i] && (word[*i] != '|'
+				&& word[*i] != '<' && word[*i] != '>'))
 		{
 			size++;
 			(*i)++;
 		}
 	}
-	return(fill_str(word, i, size));
+	return (fill_str(word, i, size));
 }

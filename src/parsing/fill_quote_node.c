@@ -2,8 +2,8 @@
 
 int	find_size_quote(char *line, int *i, char quote, t_struct **list_word)
 {
-	int size;
-	int copy;
+	int	size;
+	int	copy;
 
 	size = 1;
 	copy = (*i) + 1;
@@ -67,7 +67,7 @@ char	*find_last_quote(char *line, int *i, t_struct **list_word)
 	return (word);
 }
 
-void fill_quote_node(t_struct **list_word, char *word)
+void	fill_quote_node(t_struct **list_word, char *word)
 {
 	t_struct	*tmp;
 	t_enum		type;
@@ -75,6 +75,6 @@ void fill_quote_node(t_struct **list_word, char *word)
 	if (!word)
 		return ;
 	tmp = *list_word;
-	type = find_type_enum(tmp, word);		//currently working on this 
+	type = find_type_enum(tmp, word);
 	add_node_back(list_word, new_node(word, type));
 }

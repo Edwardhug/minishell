@@ -1,7 +1,5 @@
 #include "../../include/minishell.h"
 
-// this c file is for export HELLO="123 A-"
-
 int	ft_isequal(int n)
 {
 	if (n == '=')
@@ -9,12 +7,12 @@ int	ft_isequal(int n)
 	return (0);
 }
 
-void fill_var_node(t_struct **list_word, char *word)
+void	fill_var_node(t_struct **list_word, char *word)
 {
 	t_struct	*tmp;
 	t_enum		type;
-	char	*str;
-	int		i;
+	char		*str;
+	int			i;
 
 	if (!word)
 		return ;
@@ -23,7 +21,7 @@ void fill_var_node(t_struct **list_word, char *word)
 	{
 		str = get_node(word, &i);
 		tmp = *list_word;
-		type = find_type_enum(tmp, str);		//currently working on this
+		type = find_type_enum(tmp, str);
 		add_node_back(list_word, new_node(str, type));
 	}
 	free(word);
@@ -32,9 +30,9 @@ void fill_var_node(t_struct **list_word, char *word)
 int	get_len_var(char *line, int *i, t_struct **list_word)
 {
 	int	j;
-	int	quotes;			// will help us to check for = and for "
-	int equal;
-	int copy;
+	int	quotes;
+	int	equal;
+	int	copy;
 
 	j = 0;
 	quotes = 0;
