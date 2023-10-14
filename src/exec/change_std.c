@@ -17,6 +17,7 @@ int	open_fd_out(t_struct *lst)
 {
 	int	fd_out;
 
+	fd_out = 1;
 	if (!ft_strcmp(lst->str, ">>"))
 	{
 		lst = lst->next;

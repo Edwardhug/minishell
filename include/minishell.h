@@ -16,8 +16,7 @@
 # include <sys/stat.h>
 # include <errno.h>
 
-// extern int	g_error_value;
-int	g_error_value;
+extern int	g_error_value;
 
 typedef enum s_enum
 {

@@ -12,6 +12,8 @@
 
 #include "../../include/minishell.h"
 
+int	g_error_value = 0;
+
 char	*remove_new_line(char *str)
 {
 	int		i;
@@ -86,7 +88,6 @@ int	main(int ac, char **av, char **env)
 	int		fd_standart;
 	t_exec	exec;
 
-	g_error_value = 0;
 	exec.env = env_double_char_into_lst(env);
 	exec.export = env_double_char_into_lst(env);
 	fd_standart = dup(STDIN_FILENO);
