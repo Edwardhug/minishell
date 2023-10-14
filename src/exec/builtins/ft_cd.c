@@ -37,6 +37,8 @@ void	change_oldpwd(t_exec *exec, char *actual_pwd)
 	args_tmp_pwd = env_double_char_into_lst(arg_pwd);
 	export_existing_value(args_tmp, exec);
 	export_existing_value(args_tmp_pwd, exec);
+	free_tab(arg_pwd);
+	free_tab(arg);
 }
 
 void	go_to_old_pwd(char *oldpwd, t_exec *exec)
@@ -81,6 +83,11 @@ int	ft_cd(char **cmd, t_exec *exec)
 	char	*oldpwd;
 
 	oldpwd = getcwd(NULL, 0);		// alloue avec malloc donc checker les leaks
+	if (!oldpwd)
+	{
+		perror("malloc");
+		exit(EXIT_FAILURE);
+	}
 	if (ft_strlen_doublechar(cmd) == 1 || ft_strcmp(cmd[1], "~") == 0)
 	{
 		change_oldpwd(exec, oldpwd);

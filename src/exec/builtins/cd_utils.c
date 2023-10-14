@@ -82,9 +82,14 @@ void	change_pwd(t_exec *exec)
 	newpwd = getcwd(NULL, 0);		//faut peut etre free
 	arg = ft_calloc(2, sizeof(char *));
 	if (!arg)
-		return ;
+	{
+		free(newpwd);
+		exit(EXIT_FAILURE);
+	}
 	arg[0] = fill_newpwd(newpwd);
+	free(newpwd);
 	args_tmp = env_double_char_into_lst(arg);
+	free_tab(arg);
 	export_existing_value(args_tmp, exec);
-	// free_env(args_tmp);
+	free_env(args_tmp);
 }
