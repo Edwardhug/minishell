@@ -1,13 +1,13 @@
 #include "../../include/minishell.h"
 
-void get_right_return_value(char **splited, struct stat info)
+void	get_right_return_value(char **splited, struct stat info)
 {
-	if (access(splited[0], F_OK) != -1)				
+	if (access(splited[0], F_OK) != -1)
 	{
 		if (splited[0][0] == '.' && splited[0][1] == '/')
 		{
 			free_tab(splited);
-		 	exit(126);
+			exit(126);
 		}
 		else
 		{
@@ -24,18 +24,7 @@ void get_right_return_value(char **splited, struct stat info)
 	exit(127);
 }
 
-// void	print_return_value(t_struct *lst)
-// {
-// 	if ((ft_strncmp("$?", lst->str, 2) == 0)
-// 			&& (ft_strlen(lst->str) == 2))
-// 	{
-// 		ft_putnbr_fd(g_error_value / 256, 2);
-// 		ft_putstr_fd(": command not found\n", 2);
-// 		exit(127);
-// 	}
-// }
-
-void	print_return_value()
+void	print_return_value(void)
 {
 	ft_putnbr_fd(g_error_value / 256, 2);
 	ft_putstr_fd(": command not found\n", 2);
@@ -44,12 +33,9 @@ void	print_return_value()
 
 int	print_clean_return_value(char *str)
 {
-	// ft_printf("str = %s\n", str);
 	if ((ft_strncmp("$?", str, 2) == 0))
 	{
 		ft_putnbr_fd(g_error_value / 256, 1);
-		// if (!str[2])
-		// 	ft_putstr_fd("\n", 1);
 		return (1);
 	}
 	return (0);

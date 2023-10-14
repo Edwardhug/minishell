@@ -1,8 +1,8 @@
 #include "../../include/minishell.h"
 
-int	t_size_cmd(t_struct *temp_list)			// compte la taille de ma commande complete
+int	t_size_cmd(t_struct *temp_list)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (temp_list && temp_list->type != REDIRECTION
@@ -20,7 +20,7 @@ char	**t_get_clean_cmd(t_struct *temp_list)
 	int		i;
 
 	i = 0;
-	if (temp_list->type == REDIRECTION) // on avance dans la liste chainee en cas de redirection 2 fois pour passer la redirection et le fichier
+	if (temp_list->type == REDIRECTION)
 	{
 		temp_list = temp_list->next;
 		temp_list = temp_list->next;
@@ -28,10 +28,10 @@ char	**t_get_clean_cmd(t_struct *temp_list)
 	str = malloc(sizeof(char *) * (t_size_cmd(temp_list) + 1));
 	if (!str)
 		return (NULL);
-	while (temp_list && temp_list->type != REDIRECTION	
+	while (temp_list && temp_list->type != REDIRECTION
 		&& temp_list->type != PIPE)
 	{
-		str[i] = temp_list->str;				// remplit le tab** avec la commande et les argument
+		str[i] = temp_list->str;
 		i++;
 		temp_list = temp_list->next;
 	}
@@ -50,19 +50,15 @@ char	*t_get_path_cmd(char **all_path, char **splited, struct stat info)
 	{
 		path_cmd = ft_strdup(splited[0]);
 		if (access(path_cmd, F_OK | X_OK) == -1)
-			return (print_error(splited, all_path, 0), free(path_cmd),exit(127), NULL);
+			return (free(path_cmd), exit(127), NULL);
 		return (free_tab(all_path), path_cmd);
 	}
 	while (all_path[i])
 	{
 		tmp = ft_strjoin(all_path[i], "/");
 		path_cmd = ft_strjoin(tmp, splited[0]);
-		// ft_printf("cmd = %s\n", path_cmd);
 		if (access(path_cmd, F_OK | X_OK) != -1)
-		{
-			// ft_printf("YOOO\n");
 			return (free(tmp), path_cmd);
-		}
 		free(path_cmd);
 		free(tmp);
 		i++;
@@ -74,10 +70,10 @@ char	*t_get_path_cmd(char **all_path, char **splited, struct stat info)
 
 char	*t_get_cmd(char **env, char **splited_cmd)
 {
-	int		i;
-	char	*path;
-	char	**all_path;
-	struct stat info;		// pour savoir si on essaie d'applique a un directory ou pas
+	int			i;
+	char		*path;
+	char		**all_path;
+	struct stat	info;
 
 	i = 0;
 	path = NULL;
@@ -91,11 +87,11 @@ char	*t_get_cmd(char **env, char **splited_cmd)
 		return (free_tab(splited_cmd), NULL);
 	path = path + 5;
 	if (ft_strncmp(splited_cmd[0], "./", 2) == 0)
-		return (ft_strdup(splited_cmd[0]));				// peut etre pas besoin du strdup mais je pense que si
+		return (ft_strdup(splited_cmd[0]));
 	all_path = ft_split(path, ':');
 	if (!all_path)
 		return (NULL);
-	stat(splited_cmd[0], &info);	// pour savoir si on essaie d'applique a un directory ou pas
+	stat(splited_cmd[0], &info);
 	return (t_get_path_cmd(all_path, splited_cmd, info));
 }
 
@@ -104,27 +100,18 @@ void	t_apply_exec(t_struct *temp_list, t_exec *exec, t_fd fd)
 	char		*path_cmd;
 	char		**splited_cmd;
 
-	// ft_putnbr_fd(fd.fd_in, 2);
-	// ft_putstr_fd(temp_list->str, 2);
-	// ft_printf("%s\n", temp_list->str);
 	if (fd.fd_in == -1)
-	{
-		// ft_putstr_fd("YOOO\n", 2);
 		exit(1);
-	}
-	// else if (fd.fd_in == -1 && fd.fd_out == 1)
 	splited_cmd = t_get_clean_cmd(temp_list);
 	if (!splited_cmd)
 		return ;
 	path_cmd = t_get_cmd(env_lst_into_double_char(exec->env), splited_cmd);
-	// ft_printf("pass = %s\n", path_cmd);
 	if (!path_cmd)
 		exit(127);
 	execve(path_cmd, splited_cmd, env_lst_into_double_char(exec->env));
 	perror("");
 	free_tab(splited_cmd);
 	free(path_cmd);
-	// ft_printf("erno = %d\n", errno);
 	if (errno == 13)
 		exit (126);
 	exit(127);
