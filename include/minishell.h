@@ -93,6 +93,7 @@ void		print_list(t_struct *list);
 
 //exec
 
+void change_outfile(t_struct **temp_list, int *fd_out);
 void	change_value_builtin(t_struct *list_word, t_exec *exec, int *status);
 void		begin_execution(char **path, t_exec *exec, t_struct *list_word);
 // int			open_fd_in(t_struct *temp_list);

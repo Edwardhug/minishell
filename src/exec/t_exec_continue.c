@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 11:55:30 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/14 10:24:16 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/14 14:26:50 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,30 +18,17 @@ int	t_open_fd_out(t_struct *temp_list)
 
 	while (temp_list && temp_list->next && temp_list->next->type != PIPE)
 	{
-		if (!ft_strcmp(temp_list->str, ">>"))
-		{
-			temp_list = temp_list->next;
-			fd_out = open(temp_list->str, O_WRONLY | O_CREAT | O_APPEND, 0644);
-		}
-		else if (!ft_strcmp(temp_list->str, ">"))
-		{
-			temp_list = temp_list->next;
-			fd_out = open(temp_list->str, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		}
+		change_outfile(&temp_list, &fd_out);
 		if (fd_out < 0)
 			perror(temp_list->str);
-		// ft_printf("temp_list->str = %s\ntemp_list->next = %s\n\n", temp_list->next->type, temp_list->next);
-			// ft_printf("%d\n", fd_out);
 		if (!temp_list->next || temp_list->next->type == PIPE)
 		{
-			// ft_putstr_fd("pass\n", 2);
 			dup2(fd_out, STDOUT_FILENO);
 			close (fd_out);
 			return (fd_out);
 		}
 		else
 		{
-			// ft_putstr_fd("pass\n", 2);
 			close (fd_out);
 			temp_list = temp_list->next;
 		}
@@ -49,33 +36,9 @@ int	t_open_fd_out(t_struct *temp_list)
 	return (0);
 }
 
-// void	t_open_fd_out(t_struct *temp_list)
-// {
-// 	int	fd_out;
-
-// 	if (!ft_strcmp(temp_list->str, ">>"))
-// 	{
-// 		temp_list = temp_list->next;
-// 		fd_out = open(temp_list->str, O_WRONLY | O_CREAT | O_APPEND, 0644);
-// 	}
-// 	else
-// 	{
-// 		temp_list = temp_list->next;
-// 		fd_out = open(temp_list->str, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-// 	}
-// 	if (fd_out < 0)
-// 	{
-// 		perror(temp_list->str);
-// 		exit(1);
-// 	}
-// 	dup2(fd_out, STDOUT_FILENO);
-// 	close (fd_out);
-	
-// }
-
 int	t_change_stdout(t_struct *temp_list, int fd)
 {
-	if (temp_list->type == REDIRECTION) // on avance dans la liste chainee en cas de redirection 2 fois pour passer la redirection et le fichier
+	if (temp_list->type == REDIRECTION)
 	{
 		temp_list = temp_list->next;
 		temp_list = temp_list->next;
@@ -86,7 +49,7 @@ int	t_change_stdout(t_struct *temp_list, int fd)
 		temp_list = temp_list->next;
 	}
 	if (temp_list->type == REDIRECTION)
-		return (t_open_fd_out(temp_list));		//peut etre que des fd resterons open a cause de ca
+		return (t_open_fd_out(temp_list));
 	else if (temp_list->type == PIPE)
 	{
 		dup2(fd, STDOUT_FILENO);
@@ -98,6 +61,7 @@ int	t_change_stdout(t_struct *temp_list, int fd)
 t_struct	*to_cmd(t_struct *lst)
 {
 	t_struct	*cmd;
+
 	while (lst && lst->type != CMD)
 		lst = lst->next;
 	cmd = lst;
@@ -108,7 +72,6 @@ t_struct	*to_cmd(t_struct *lst)
 		else
 			lst = lst->next;
 	}
-	// print_list(cmd);
 	return (cmd);
 }
 
@@ -117,7 +80,8 @@ int	t_exec_cmd(t_struct *temp_list, t_exec *exec, t_fd tfd)
 	int		fd[2];
 	int		pid;
 
-	if (exec->nb_cmds == 1 && is_builtin_alone(t_get_clean_cmd(temp_list), exec) == 1)
+	if (exec->nb_cmds == 1
+		&& is_builtin_alone(t_get_clean_cmd(temp_list), exec) == 1)
 		return (0);
 	else
 	{
@@ -129,8 +93,8 @@ int	t_exec_cmd(t_struct *temp_list, t_exec *exec, t_fd tfd)
 			close(fd[0]);
 			change_std(&tfd, temp_list, fd[1]);
 			close(fd[1]);
-			is_builtin_fork(t_get_clean_cmd(to_cmd(temp_list)), exec); 	//garder ca
-			t_apply_exec(to_cmd(temp_list), exec, tfd);			// garder ca 
+			is_builtin_fork(t_get_clean_cmd(to_cmd(temp_list)), exec);
+			t_apply_exec(to_cmd(temp_list), exec, tfd);
 			exit(EXIT_FAILURE);
 		}
 		else

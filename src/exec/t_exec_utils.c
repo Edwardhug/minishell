@@ -8,7 +8,19 @@ void	print_error(char **splited_cmd, char **all_path, int i)
 		ft_putstr_fd("no such file or directory: ", 2);
 	ft_putstr_fd(splited_cmd[0], 2);
 	ft_putstr_fd("\n", 2);
-	// free_tab(splited_cmd);
 	free_tab(all_path);
-	// exit(EXIT_FAILURE);
+}
+
+void change_outfile(t_struct **temp_list, int *fd_out)
+{
+	if (!ft_strcmp((*temp_list)->str, ">>"))
+	{
+		(*temp_list) = (*temp_list)->next;
+		(*fd_out) = open((*temp_list)->str, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	}
+	else if (!ft_strcmp((*temp_list)->str, ">"))
+	{
+		(*temp_list) = (*temp_list)->next;
+		(*fd_out) = open((*temp_list)->str, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	}
 }
