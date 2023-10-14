@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:50:18 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/14 10:49:12 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/14 10:55:45 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	parsing_minishell(char **path, char *line, t_exec *exec)
 	int			i;
 	t_struct	*list_word;
 
-	if (line[0] == 0)
+	if (line[0] == 0 || have_strange_cmd(line))
 		return ;
 	list_word = new_node(NULL, ENUM_NULL);
 	i = 0;
