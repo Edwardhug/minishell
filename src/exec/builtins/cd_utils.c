@@ -75,21 +75,15 @@ char	*fill_newpwd(char *actual_pwd)
 
 void	change_pwd(t_exec *exec)
 {
-	char	*newpwd;
-	char	**arg;
-	t_env    *args_tmp;
+	char	**arg_pwd;
 
-	newpwd = getcwd(NULL, 0);		//faut peut etre free
-	arg = ft_calloc(2, sizeof(char *));
-	if (!arg)
-	{
-		free(newpwd);
-		exit(EXIT_FAILURE);
-	}
-	arg[0] = fill_newpwd(newpwd);
-	free(newpwd);
-	args_tmp = env_double_char_into_lst(arg);
-	free_tab(arg);
-	export_existing_value(args_tmp, exec);
-	free_env(args_tmp);
+	t_env    *args_tmp_pwd;
+	arg_pwd = ft_calloc(2, sizeof(char *));
+	if (!arg_pwd)
+		return ;
+	arg_pwd[0] = getcwd(NULL, 0);
+	arg_pwd[0] = ft_strjoin("PWD=", arg_pwd[0]);
+	args_tmp_pwd = env_double_char_into_lst(arg_pwd);
+	export_existing_value(args_tmp_pwd, exec);
+	free_tab(arg_pwd);
 }

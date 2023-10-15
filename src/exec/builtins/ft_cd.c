@@ -82,31 +82,24 @@ int	ft_cd(char **cmd, t_exec *exec)
 {
 	char	*oldpwd;
 
-	oldpwd = getcwd(NULL, 0);		// alloue avec malloc donc checker les leaks
-	if (!oldpwd)
-	{
-		perror("malloc");
-		exit(EXIT_FAILURE);
-	}
-	if (ft_strlen_doublechar(cmd) == 1 || ft_strcmp(cmd[1], "~") == 0)
+	oldpwd = getcwd(NULL, 0);
+	if (ft_strlen_doublechar(cmd) == 1
+		|| ft_strcmp(cmd[1], "~") == 0)
 	{
 		change_oldpwd(exec, oldpwd);
 		chdir("/root");
 	}
 	else if (ft_strcmp(cmd[1], "-") == 0)
 		return (go_to_old_pwd(oldpwd, exec), 0);
-	else if (chdir(cmd[1])) //chdir va tout simplement rediriger vers le chemin donné en argument.
+	if (chdir(cmd[1]) == -1 || chdir(cmd[1]) == 0)
 	{
-		ft_error_message_arg(cmd[0], cmd[1], ": No such file or directory\n");
+		ft_putstr_fd("Can't go to this dir, moved to /root\n", 2);
+		chdir("/root");
+		change_pwd(exec);
 		if (cmd[1][0] != '$' || cmd[2])
 			g_error_value = -1;
-		if (exec->nb_cmds > 1)
-			exit(0);
 		return (0);
 	}
 	change_oldpwd(exec, oldpwd);
-	// free(oldpwd); 
-	if (exec->nb_cmds > 1)
-		exit(0);
 	return (0);
 }

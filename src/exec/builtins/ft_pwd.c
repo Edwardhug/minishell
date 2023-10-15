@@ -7,12 +7,12 @@ int	ft_pwd(t_exec *exec)
 	cwd = malloc(sizeof(char *) * (PATH_MAX + 1)); //prend la taille max d'un path en malloc
 	if (getcwd(cwd, PATH_MAX) != NULL) //stock le path dans cwd
 	{
-		ft_printf("%s\n", cwd); //affiche cwd
+		ft_printf("%s\n", cwd);
 		free(cwd);
 	}
 	else
 	{
-		perror("getcwd");
+		perror("Path error");
 		free(cwd);
 		g_error_value = -127;
 		return (1);
