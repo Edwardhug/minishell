@@ -11,16 +11,16 @@ void	print_error(char **splited_cmd, char **all_path, int i)
 	free_tab(all_path);
 }
 
-void change_outfile(t_struct **temp_list, int *fd_out)
+void	change_outfile(t_struct **temp_list, int *fd)
 {
 	if (!ft_strcmp((*temp_list)->str, ">>"))
 	{
 		(*temp_list) = (*temp_list)->next;
-		(*fd_out) = open((*temp_list)->str, O_WRONLY | O_CREAT | O_APPEND, 0644);
+		(*fd) = open((*temp_list)->str, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	}
 	else if (!ft_strcmp((*temp_list)->str, ">"))
 	{
 		(*temp_list) = (*temp_list)->next;
-		(*fd_out) = open((*temp_list)->str, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		(*fd) = open((*temp_list)->str, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	}
 }

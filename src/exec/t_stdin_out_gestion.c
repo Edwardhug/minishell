@@ -1,8 +1,17 @@
 #include "../../include/minishell.h"
 
-int	open_fd_in(t_struct **temp_list)									// fonction qui change de stdin pour mettre fd_in a la place
+int	open_beak(t_struct *tmp, int fd_in, t_struct **temp_list)
 {
-	int	fd_in;
+	perror(tmp->str);
+	dup2(fd_in, STDIN_FILENO);
+	close (fd_in);
+	(*temp_list) = (*temp_list)->next;
+	return (-1);
+}
+
+int	open_fd_in(t_struct **temp_list)
+{
+	int			fd_in;
 	t_struct	*tmp;
 
 	tmp = *temp_list;
@@ -11,13 +20,7 @@ int	open_fd_in(t_struct **temp_list)									// fonction qui change de stdin pou
 	{
 		fd_in = open(tmp->str, O_RDONLY);
 		if (fd_in < 0)
-		{
-			perror(tmp->str);
-			dup2(fd_in, STDIN_FILENO);
-			close (fd_in);
-			(*temp_list) = (*temp_list)->next;
-			return (-1);
-		}
+			return (open_beak(tmp, fd_in, temp_list));
 		if ((tmp->next)->type == CMD)
 		{
 			dup2(fd_in, STDIN_FILENO);
@@ -25,7 +28,8 @@ int	open_fd_in(t_struct **temp_list)									// fonction qui change de stdin pou
 			(*temp_list) = tmp->next;
 			return (fd_in);
 		}
-		else if ((tmp->next)->type == REDIRECTION && ft_strcmp((tmp->next)->str, "<") == 0)
+		else if ((tmp->next)->type == REDIRECTION
+			&& ft_strcmp((tmp->next)->str, "<") == 0)
 		{
 			close (fd_in);
 			tmp = (tmp->next)->next;
@@ -34,7 +38,7 @@ int	open_fd_in(t_struct **temp_list)									// fonction qui change de stdin pou
 	return (0);
 }
 
-int change_stdin(t_struct *list_word, t_struct **temp_list) // fonction pour savoir auel sera le fdin de la commande qui arrive
+int	change_stdin(t_struct *list_word, t_struct **temp_list)
 {
 	t_struct	*copy;
 
