@@ -49,7 +49,13 @@ int	ft_unset(char **cmd, t_exec *exec)
 		}
 		i++;
 	}
-	exit (0);
+	if (exec->nb_cmds > 1)
+	{
+		free_exec_struct(exec);
+		free_tab(cmd);	
+		exit(0);
+	}
+	return (0);
 }
 
 /*unset détruit la ou les variables d'environnement dont le nom a

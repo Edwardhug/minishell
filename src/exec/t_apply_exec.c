@@ -14,7 +14,7 @@ int	t_size_cmd(t_struct *temp_list)
 	return (i);
 }
 
-char	**t_get_clean_cmd(t_struct *temp_list)
+char	**t_get_clean_cmd(t_struct *temp_list, t_exec *exec)
 {
 	char	**str;
 	int		i;
@@ -27,11 +27,21 @@ char	**t_get_clean_cmd(t_struct *temp_list)
 	}
 	str = malloc(sizeof(char *) * (t_size_cmd(temp_list) + 1));
 	if (!str)
+	{
+		free_exec_struct(exec);
 		return (NULL);
+	}
 	while (temp_list && temp_list->type != REDIRECTION
 		&& temp_list->type != PIPE)
 	{
-		str[i] = temp_list->str;
+		str[i] = ft_strdup(temp_list->str);
+		if (!str[i])
+		{
+			free_exec_struct(exec);
+			while (--i > 0)
+				free(str[i]);
+			free(str);
+		}
 		i++;
 		temp_list = temp_list->next;
 	}
@@ -102,7 +112,7 @@ void	t_apply_exec(t_struct *temp_list, t_exec *exec, t_fd fd)
 
 	if (fd.fd_in == -1)
 		exit(1);
-	splited_cmd = t_get_clean_cmd(temp_list);
+	splited_cmd = t_get_clean_cmd(temp_list, exec);
 	if (!splited_cmd)
 		return ;
 	path_cmd = t_get_cmd(env_lst_into_double_char(exec->env), splited_cmd);

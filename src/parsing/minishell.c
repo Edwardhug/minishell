@@ -87,11 +87,11 @@ int	main(int ac, char **av, char **env)
 	t_exec	exec;
 
 	g_error_value = 0;
+	if (ac != 1)
+		return (ft_printf("No arg needed\n"), 1);
 	exec.env = env_double_char_into_lst(env);
 	exec.export = env_double_char_into_lst(env);
 	fd_standart = dup(STDIN_FILENO);
-	if (ac != 1)
-		return (ft_printf("No arg needed\n"), 1);
 	path = get_path(env);
 	signals();
 	while (1)

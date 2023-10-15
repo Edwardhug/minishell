@@ -46,7 +46,7 @@ void	wait_all_process(int *pid, t_struct *list_word, t_exec *exec)
 	i = 0;
 	old_signal[0] = signal(SIGINT, sigint_handler_in_process);
 	old_signal[1] = signal(SIGQUIT, sigquit_handler_in_process);
-	while (i <= cmd_to_finish)
+	while (i < cmd_to_finish)
 	{
 		waitpid(pid[i], &status, WUNTRACED);
 		i++;
@@ -64,11 +64,21 @@ void	begin_execution(char **path, t_exec *exec, t_struct *list_word)
 	t_struct	*temp_list;
 	t_fd		fd;
 
+	fd.fd_in = 0;
+	fd.fd_out = 0;
 	exec->nb_cmds = number_of_cmd(list_word);
 	pid_tab = malloc(sizeof(int) * exec->nb_cmds);
+	if (!pid_tab)
+	{
+		free_tab(path);
+		free_exec_struct(exec);
+		perror("malloc");
+		exit(EXIT_FAILURE);
+	}
 	i = 0;
 	(void)path;
 	temp_list = list_word;
+	exec->list_word = list_word;
 	while (temp_list)
 	{
 		if (!change_stdin(list_word, &temp_list))

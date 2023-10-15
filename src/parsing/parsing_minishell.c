@@ -41,6 +41,10 @@ void	fill_node(t_struct **list_word, char *word)
 	{
 		add_pipe(list_word);
 		str = get_node(word, &i);
+		if (!str)
+		{
+			
+		}
 		tmp = *list_word;
 		type = find_type_enum(tmp, str);
 		add_node_back(list_word, new_node(str, type));

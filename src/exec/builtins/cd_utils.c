@@ -19,7 +19,7 @@ void	put_pwd_in_char(char **arg)
 	(*arg)[4] = '=';
 }
 
-char	*fill_oldpwd(char *actual_pwd)
+char	*fill_oldpwd(char *actual_pwd, t_exec *exec)
 {
 	int		i;
 	int		size;
@@ -30,8 +30,10 @@ char	*fill_oldpwd(char *actual_pwd)
 	arg = ft_calloc(size, sizeof(char));
 	if (!arg)
 	{
-		free(arg);
-		return (NULL);
+		perror("malloc error");
+		free(actual_pwd);
+		free_exec_struct(exec);
+		exit(EXIT_FAILURE);
 	}
 	while (i < size - 1)
 	{
@@ -46,7 +48,7 @@ char	*fill_oldpwd(char *actual_pwd)
 	return(arg);
 }
 
-char	*fill_newpwd(char *actual_pwd)
+char	*fill_newpwd(char *actual_pwd, t_exec *exec)
 {
 	int		i;
 	int		size;
@@ -58,6 +60,7 @@ char	*fill_newpwd(char *actual_pwd)
 	if (!arg)
 	{
 		free(arg);
+		free_exec_struct(exec);
 		return (NULL);
 	}
 	while (i < size - 1)
@@ -79,14 +82,20 @@ void	change_pwd(t_exec *exec)
 	char	**arg;
 	t_env    *args_tmp;
 
-	newpwd = getcwd(NULL, 0);		//faut peut etre free
+	newpwd = getcwd(NULL, 0);
+	if (!newpwd)
+	{
+		free_exec_struct(exec);
+		exit(EXIT_FAILURE);
+	}
 	arg = ft_calloc(2, sizeof(char *));
 	if (!arg)
 	{
 		free(newpwd);
+		free_exec_struct(exec);
 		exit(EXIT_FAILURE);
 	}
-	arg[0] = fill_newpwd(newpwd);
+	arg[0] = fill_newpwd(newpwd, exec);
 	free(newpwd);
 	args_tmp = env_double_char_into_lst(arg);
 	free_tab(arg);
