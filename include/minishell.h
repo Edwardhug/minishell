@@ -126,7 +126,7 @@ int			ft_exit(char **cmd, t_exec *exec);
 int			ft_export(char **cmd, t_exec *exec);
 int			ft_pwd(t_exec *exec);
 int			ft_unset(char **cmd, t_exec *exec);
-void		export_existing_value(t_env *args_tmp, t_exec *exec);
+void		export_existing_value(t_env *args_tmp, t_exec *exec, t_env *lst_args);
 void		put_old_pwd_in_char(char **arg);
 void		put_pwd_in_char(char **arg);
 char		*fill_oldpwd(char *actual_pwd, t_exec *exec);

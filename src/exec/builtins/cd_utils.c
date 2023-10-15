@@ -99,6 +99,6 @@ void	change_pwd(t_exec *exec)
 	free(newpwd);
 	args_tmp = env_double_char_into_lst(arg);
 	free_tab(arg);
-	export_existing_value(args_tmp, exec);
+	export_existing_value(args_tmp, exec, NULL);
 	free_env(args_tmp);
 }

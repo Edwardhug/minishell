@@ -62,7 +62,7 @@ static void	show_export(t_exec *exec)
 	}
 }
 
-void	export_existing_value(t_env *args_tmp, t_exec *exec)
+void	export_existing_value(t_env *args_tmp, t_exec *exec, t_env *lst_args)
 {
 	t_env	*tmp_exp;
 	t_env	*tmp_env;
@@ -78,7 +78,9 @@ void	export_existing_value(t_env *args_tmp, t_exec *exec)
 			if (!tmp_exp->value)
 			{
 				perror("tmp_exp->value dup error\n");
-				return ;
+				free_exec_struct(exec);
+				if (lst_args)
+					free_env(lst_args);
 			}
 		}
 		tmp_exp = tmp_exp->next;
@@ -136,7 +138,7 @@ static t_env	*ft_lstnew_export(t_env *args_tmp)
 	return (new);
 }
 
-static void	create_var(t_env *args_tmp, t_exec *exec)
+static void	create_var(t_env *args_tmp, t_exec *exec, t_env *lst_args)
 {
 	t_env	*new_exp;
 	t_env	*new_env;
@@ -150,9 +152,21 @@ static void	create_var(t_env *args_tmp, t_exec *exec)
 	else //a une valeur donc on met dans export et env
 	{
 		new_exp = ft_lstnew_export(args_tmp);
+		if (!new_exp)
+		{
+			free_env(lst_args);
+			free_exec_struct(exec);
+			exit(EXIT_FAILURE);
+		}
 		new_exp->next = exec->export;
 		exec->export = new_exp;
 		new_env = ft_lstnew_export(args_tmp);
+		if (!new_env)
+		{
+			free_env(lst_args);
+			free_exec_struct(exec);
+			exit(EXIT_FAILURE);
+		}
 		new_env->next = exec->env;
 		exec->env = new_env;
 	}
@@ -213,14 +227,14 @@ static int	what_to_do(char **cmd, t_exec *exec)
 				if (args_tmp->value == NULL || args_tmp->value[0] == '\0') //variable trouvée mais pas de valeur = on fait rien
 					break ;
 				else	//variable trouvée et nouvelle valeur à mettre
-					export_existing_value(args_tmp, exec);
+					export_existing_value(args_tmp, exec, lst_args);
 				break ;
 			}
 			tmp = tmp->next;
 		}
 		if (!tmp)
 		{
-			create_var(args_tmp, exec); //la variable n'a pas été trouvée donc on la crée
+			create_var(args_tmp, exec, lst_args); //la variable n'a pas été trouvée donc on la crée
 		}
 		lst_args = lst_args->next;
 	}
@@ -234,7 +248,7 @@ int	ft_export(char **cmd, t_exec *exec)
 	nb_args = 0;
 	while (cmd[nb_args])
 		nb_args++;
-	if (nb_args == 1) //export seul = on affiche la liste export
+	if (nb_args == 1)
 		show_export(exec);
 	else
 		what_to_do(cmd, exec);
