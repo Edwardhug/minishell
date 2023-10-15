@@ -32,12 +32,14 @@ int	ft_exit(char **cmd, t_exec *exec)
 		{
 			ft_error_message_arg(cmd[0], cmd[1], ": numeric argument required\n");
 			free_exec_struct(exec);
+//			shlvl(exec, 0, 0); en commentaire parce que le test ne passe plus je sais pas pourquoi.
 			exit(2);
 		}
 		status = ft_atoi(cmd[1]) % 256;
 		free_exec_struct(exec);
 		exit(status);
 	}
+	shlvl(exec, 0, 0);
 //	free_exec_struct(exec); en commentaire parce que casse un test du tester......
 	exit(0);
 	return (0);

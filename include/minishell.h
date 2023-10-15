@@ -87,9 +87,9 @@ char	*find_last_quote(char *line, int *i, t_struct **list_word);
 void fill_quote_node(t_struct **list_word, char *word);
 void	add_pipe(t_struct **list_word);
 // void fill_move_quote(t_struct **list_word, char *word); 
-void	clean_redir_out(t_struct **list);
-void	loop_parsing(t_struct **list_word, char *line);
-char	*find_second_quote(char *line, int *i);
+void		clean_redir_out(t_struct **list);
+void		loop_parsing(t_struct **list_word, char *line);
+char		*find_second_quote(char *line, int *i);
 
 void		print_list(t_struct *list);
 
@@ -114,6 +114,8 @@ char		*t_get_cmd(char **env, char **splited_cmd);
 void		t_apply_exec(t_struct *temp_list, t_exec *exec, t_fd *fd);
 void		print_error(char **splited_cmd, char **all_path, int i);
 int			to_next_cmd(t_struct **temp_list);
+void		shlvl(t_exec *exec, int empty_env, int more_or_less);
+void		change_underscore(char *cmd, t_exec *exec);
 
 //builtins
 
@@ -140,6 +142,7 @@ size_t		t_struct_strlen(t_struct *list_word);
 size_t		t_env_strlen(t_env *env);
 char		**env_lst_into_double_char(t_env *env);
 t_env		*env_double_char_into_lst(char **c_env);
+t_env		*ft_lstnew_env(char *str, int nb);
 void		free_env(t_env *lst);
 void		free_exec_struct(t_exec *exec);
 int			ft_error_message(char *cmd_name, char *msg);

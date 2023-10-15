@@ -55,7 +55,10 @@ static void	show_export(t_exec *exec)
 		if (tmp->value != NULL)
 		{
 			ft_printf("=");
-			ft_printf("\"%s\"", tmp->value);
+			if (tmp->value[0] == '\"' && tmp->value[ft_strlen(tmp->value) - 1] == '\"')
+				ft_printf("%s", tmp->value);
+			else
+				ft_printf("\"%s\"", tmp->value);
 		}
 		ft_printf("\n");
 		tmp = tmp->next;
