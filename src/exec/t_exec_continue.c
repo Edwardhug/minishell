@@ -75,7 +75,7 @@ t_struct	*to_cmd(t_struct *lst)
 	return (cmd);
 }
 
-int	t_exec_cmd(t_struct *temp_list, t_exec *exec, t_fd tfd)
+int	t_exec_cmd(t_struct *temp_list, t_exec *exec, t_fd *tfd)
 {
 	int		fd[2];
 	int		pid;
@@ -100,7 +100,7 @@ int	t_exec_cmd(t_struct *temp_list, t_exec *exec, t_fd tfd)
 		if (pid == 0)
 		{
 			close(fd[0]);
-			change_std(&tfd, temp_list, fd[1]);
+			change_std(tfd, temp_list, fd[1]);
 			close(fd[1]);
 			free_tab(clean_cmd);
 			clean_cmd = t_get_clean_cmd(to_cmd(temp_list), exec);

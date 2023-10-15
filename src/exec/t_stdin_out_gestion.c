@@ -34,7 +34,7 @@ int	open_fd_in(t_struct **temp_list)									// fonction qui change de stdin pou
 	return (0);
 }
 
-int change_stdin(t_struct *list_word, t_struct **temp_list) // fonction pour savoir auel sera le fdin de la commande qui arrive
+int change_stdin(t_struct *list_word, t_struct **temp_list) // fonction pour savoir quel sera le fdin de la commande qui arrive
 {
 	t_struct	*copy;
 

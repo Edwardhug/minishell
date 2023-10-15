@@ -105,13 +105,16 @@ char	*t_get_cmd(char **env, char **splited_cmd)
 	return (t_get_path_cmd(all_path, splited_cmd, info));
 }
 
-void	t_apply_exec(t_struct *temp_list, t_exec *exec, t_fd fd)
+void	t_apply_exec(t_struct *temp_list, t_exec *exec, t_fd *fd)
 {
 	char		*path_cmd;
 	char		**splited_cmd;
 
-	if (fd.fd_in == -1)
+	if (fd->fd_in == -1)
+	{
+		free_exec_struct(exec);
 		exit(1);
+	}
 	splited_cmd = t_get_clean_cmd(temp_list, exec);
 	if (!splited_cmd)
 		return ;

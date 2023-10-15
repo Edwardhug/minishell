@@ -61,5 +61,6 @@ void	change_std(t_fd *tfd, t_struct *lst, int fd)
 	close (fd);
 	dup2(cfd.fd_in, STDIN_FILENO);
 	close (cfd.fd_in);
-	(*tfd) = cfd;
+	tfd->fd_in = cfd.fd_in;
+	tfd->fd_out = cfd.fd_out;
 }

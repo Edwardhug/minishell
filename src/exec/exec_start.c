@@ -64,8 +64,9 @@ void	begin_execution(char **path, t_exec *exec, t_struct *list_word)
 	t_struct	*temp_list;
 	t_fd		fd;
 
+	(void)path;
 	fd.fd_in = 0;
-	fd.fd_out = 0;
+	fd.fd_out = 1;
 	exec->nb_cmds = number_of_cmd(list_word);
 	pid_tab = malloc(sizeof(int) * exec->nb_cmds);
 	if (!pid_tab)
@@ -76,7 +77,6 @@ void	begin_execution(char **path, t_exec *exec, t_struct *list_word)
 		exit(EXIT_FAILURE);
 	}
 	i = 0;
-	(void)path;
 	temp_list = list_word;
 	exec->list_word = list_word;
 	while (temp_list)
@@ -84,12 +84,15 @@ void	begin_execution(char **path, t_exec *exec, t_struct *list_word)
 		if (!change_stdin(list_word, &temp_list))
 		{
 			free(pid_tab);
+			free_tab(path);
+			free_exec_struct(exec);
 			return ;
 		}
-		pid_tab[i] = t_exec_cmd(temp_list, exec, fd);
+		pid_tab[i] = t_exec_cmd(temp_list, exec, &fd);
 		if (to_next_cmd(&temp_list))
 			break ;
 		i++;
 	}
 	wait_all_process(pid_tab, list_word, exec);
+	free(pid_tab);
 }
