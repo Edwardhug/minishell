@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 11:55:30 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/15 13:18:16 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/15 13:28:52 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,17 @@ t_struct	*to_cmd(t_struct *lst)
 	return (cmd);
 }
 
+int	child_process(int *fd, t_struct *temp_list, t_exec *exec)
+{
+	close(fd[0]);
+	change_std(temp_list, fd[1]);
+	close(fd[1]);
+	is_builtin_fork(t_get_clean_cmd(to_cmd(temp_list)), exec);
+	t_apply_exec(to_cmd(temp_list), exec);
+	exit(EXIT_FAILURE);
+	return (0);
+}
+
 int	t_exec_cmd(t_struct *temp_list, t_exec *exec)
 {
 	int		fd[2];
@@ -89,14 +100,7 @@ int	t_exec_cmd(t_struct *temp_list, t_exec *exec)
 			exit(EXIT_FAILURE);
 		pid = fork();
 		if (pid == 0)
-		{
-			close(fd[0]);
-			change_std(temp_list, fd[1]);
-			close(fd[1]);
-			is_builtin_fork(t_get_clean_cmd(to_cmd(temp_list)), exec);
-			t_apply_exec(to_cmd(temp_list), exec);
-			exit(EXIT_FAILURE);
-		}
+			return (child_process(fd, temp_list, exec), 1);
 		else
 		{
 			close(fd[1]);
