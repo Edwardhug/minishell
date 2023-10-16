@@ -6,11 +6,13 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 14:28:48 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/14 13:01:45 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/16 10:15:45 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+int	g_error_value = 0;
 
 char	*remove_new_line(char *str)
 {
