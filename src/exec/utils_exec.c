@@ -21,6 +21,8 @@ void	change_value_builtin(t_struct *list_word, t_exec *exec, int *status)
 			else
 				(*status) = 0;
 		}
+		else if (g_error_value == -77)
+			(*status) = 0;
 		list_word = list_word->next;
 	}
 }

@@ -55,6 +55,7 @@ int	ft_unset(char **cmd, t_exec *exec)
 		free_tab(cmd);	
 		exit(0);
 	}
+	g_error_value = -77;
 	return (0);
 }
 
