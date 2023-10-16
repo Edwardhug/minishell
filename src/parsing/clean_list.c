@@ -10,6 +10,43 @@ void	swap_node(t_struct **redir, t_struct **cmd)
 	(*cmd)->next = tmp;
 }
 
+void	switch_to_value(t_struct **list, t_exec *exec)
+{
+	t_env	*env;
+	char	*value;
+
+	env = exec->env;
+	while (env)
+	{
+		if (ft_strcmp((*list)->str + 1, env->name) == 0)
+		{
+			value = ft_strdup(env->value);
+			free((*list)->str);
+			(*list)->str = NULL;
+			(*list)->str = value;
+			return ;
+		}
+		env = env->next;
+	}
+}
+
+void	change_env_var(t_struct **list, t_exec *exec)
+{
+	t_struct	*lst;
+	t_struct	*start;
+
+	lst = (*list);
+	start = lst;
+	while (lst && lst->next)
+	{
+		if (ft_strcmp(lst->str, "echo") == 0
+			&& ft_strncmp(lst->next->str, "$", 1) == 0)
+			switch_to_value(&lst->next, exec);
+		lst = lst->next;
+	}
+	(*list) = start;
+}
+
 void	clean_redir_out(t_struct **list)
 {
 	t_struct	*redir;

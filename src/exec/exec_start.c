@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 18:08:24 by lezard            #+#    #+#             */
-/*   Updated: 2023/10/15 13:17:56 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/16 13:31:13 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	begin_execution(char **path, t_exec *exec, t_struct *list_word)
 	int			i;
 	t_struct	*temp_list;
 
+	change_env_var(&list_word, exec);
 	exec->nb_cmds = number_of_cmd(list_word);
 	pid_tab = malloc(sizeof(int) * exec->nb_cmds);
 	i = 0;
