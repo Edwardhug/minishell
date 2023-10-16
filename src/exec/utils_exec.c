@@ -21,6 +21,8 @@ void	change_value_builtin(t_struct *list_word, t_exec *exec, int *status)
 			else
 				(*status) = 0;
 		}
+		else if (g_error_value == -131)
+			(*status) = 131 * 256;
 		list_word = list_word->next;
 	}
 }

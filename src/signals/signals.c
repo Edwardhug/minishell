@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 14:45:53 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/16 12:15:59 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/16 12:22:23 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	sigquit_handler_in_process(int sig)
 	old_signal = signal(SIGINT, no_line_return);
 	(void) sig;
 	kill(0, SIGINT);
+	g_error_value = -131;
 	signal(SIGINT, old_signal);
 }
 
