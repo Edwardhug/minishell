@@ -88,6 +88,7 @@ int	ft_cd(char **cmd, t_exec *exec)
 		ft_putstr_fd("Can't go to this dir, moved to /lgabet\n", 2);
 		chdir("/nfs/homes/lgabet");
 		change_pwd(exec);
+		g_error_value = -1;
 		return (0);
 	}
 	if (!cmd[1] || ft_strcmp(cmd[1], "~") == 0)
