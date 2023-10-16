@@ -65,6 +65,8 @@ int	ft_echo(char **cmd, t_exec *exec)
 	int	simple_quote;
 
 	i = 1;
+	if (!cmd[1])
+		return (ft_printf(""), 0);
 	if (ft_strcmp(cmd[1], "-n") == 0) //on regarde si on a le -n pour le saut à la ligne 
 	{
 		i++;

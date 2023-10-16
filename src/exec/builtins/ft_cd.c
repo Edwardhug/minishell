@@ -93,17 +93,16 @@ int	ft_cd(char **cmd, t_exec *exec)
 	}
 	if (!cmd[1] || ft_strcmp(cmd[1], "~") == 0)
 	{
-		change_oldpwd(exec, oldpwd);
 		chdir("/nfs/homes/lgabet");
+		change_oldpwd(exec, oldpwd);
+		return (0);
 	}
 	else if (ft_strcmp(cmd[1], "-") == 0)
 		return (go_to_old_pwd(oldpwd, exec), 0);
-	if (chdir(cmd[1]) == 0)
-	{
-		if (cmd[1][0] != '$' || cmd[2])
-			g_error_value = -1;
+	if (!chdir(cmd[1]))
 		return (0);
-	}
+	if (cmd[1][0] != '$' || cmd[2])
+		g_error_value = -1;
 	change_oldpwd(exec, oldpwd);
 	return (0);
 }
