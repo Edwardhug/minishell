@@ -98,7 +98,7 @@ int	ft_cd(char **cmd, t_exec *exec)
 	}
 	else if (ft_strcmp(cmd[1], "-") == 0)
 		return (go_to_old_pwd(oldpwd, exec), 0);
-	if (chdir(cmd[1]) == -1 || chdir(cmd[1]) == 0)
+	if (chdir(cmd[1]) == 0)
 	{
 		if (cmd[1][0] != '$' || cmd[2])
 			g_error_value = -1;
