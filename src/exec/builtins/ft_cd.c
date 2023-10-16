@@ -116,24 +116,20 @@ int	ft_cd(char **cmd, t_exec *exec)
 	oldpwd = getcwd(NULL, 0);
 	if (!oldpwd)
 	{
-		perror("malloc");
-		free_tab(cmd);
-		free_exec_struct(exec);
-		exit(EXIT_FAILURE);
+		ft_putstr_fd("Can't go to this dir, moved to /lgabet\n", 2);
+		chdir("/nfs/homes/lgabet");
+		change_pwd(exec);
+		return (0);
 	}
-	if (ft_strlen_doublechar(cmd) == 1
-		|| ft_strcmp(cmd[1], "~") == 0)
+	if (!cmd[1] || ft_strcmp(cmd[1], "~") == 0)
 	{
 		change_oldpwd(exec, oldpwd);
-		chdir("/root");
+		chdir("/nfs/homes/lgabet");
 	}
 	else if (ft_strcmp(cmd[1], "-") == 0)
 		return (go_to_old_pwd(oldpwd, exec), 0);
 	if (chdir(cmd[1]) == -1 || chdir(cmd[1]) == 0)
 	{
-		ft_putstr_fd("Can't go to this dir, moved to /root\n", 2);
-		chdir("/root");
-		change_pwd(exec);
 		if (cmd[1][0] != '$' || cmd[2])
 			g_error_value = -1;
 		return (0);
