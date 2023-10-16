@@ -43,7 +43,7 @@ char	*remove_new_line(char *str)
 	return (to_ret);
 }
 
-void	loop_main(char **path, int fd_standart, t_exec exec)
+void	loop_main(char **path, int fd_standart, t_exec *exec)
 {
 	char	*line;
 
@@ -52,7 +52,7 @@ void	loop_main(char **path, int fd_standart, t_exec exec)
 		exit_and_write_it(path, fd_standart);
 	add_history(line);
 	line = remove_new_line(line);
-	parsing_minishell(path, line, &exec);
+	parsing_minishell(path, line, exec);
 	free(line);
 	dup2(fd_standart, STDIN_FILENO);
 	signal(SIGINT, sigint_handler);
@@ -131,7 +131,7 @@ int	main(int ac, char **av, char **env)
 	path = get_path(env);
 	signals();
 	while (1)
-		loop_main(path, fd_standart, exec);
+		loop_main(path, fd_standart, &exec);
 	rl_clear_history();
 	free_tab(path);
 	(void)av;

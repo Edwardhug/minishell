@@ -1,12 +1,15 @@
 #include "../../../include/minishell.h"
 
-void	ft_lstdelete_node(t_exec *exec, t_env *node_to_delete)
+void	ft_lstdelete_node(t_exec *exec, t_env *node_to_delete, int boolean)
 {
 	t_env *previous;
 	t_env *current;
 
 	previous = NULL;
-	current = exec->env;
+	if (boolean == 1)
+		current = exec->env;
+	else
+		current = exec->export;
 	while (current)
 	{
 		if (current == node_to_delete)
@@ -17,7 +20,10 @@ void	ft_lstdelete_node(t_exec *exec, t_env *node_to_delete)
 			}
 			else
 			{
-				exec->env = current->next;
+				if (boolean == 1)
+					exec->env = current->next;
+				else
+					exec->export = current->next;
 			}
 			free(current->name);
 			free(current->value);
@@ -31,21 +37,32 @@ void	ft_lstdelete_node(t_exec *exec, t_env *node_to_delete)
 
 int	ft_unset(char **cmd, t_exec *exec)
 {
-	t_env	*tmp;
+	t_env	*tmp_env;
+	t_env	*tmp_exp;
 	int		i;
 
 	i = 1;
 	while (cmd[i])
 	{
-		tmp = exec->env;
-		while (tmp)
+		tmp_env = exec->env;
+		tmp_exp = exec->export;
+		while (tmp_env)
 		{
-			if (ft_strcmp(cmd[i], tmp->name) == 0)
+			if (ft_strcmp(cmd[i], tmp_env->name) == 0)
 			{
-				ft_lstdelete_node(exec, tmp);
+				while (tmp_exp)
+				{
+					if (ft_strcmp(cmd[i], tmp_exp->name) == 0)
+					{
+						ft_lstdelete_node(exec, tmp_exp, 0);
+						break ;
+					}
+					tmp_exp = tmp_exp->next;
+				}
+				ft_lstdelete_node(exec, tmp_env, 1);
 				break ;
 			}
-			tmp = tmp->next;
+			tmp_env = tmp_env->next;
 		}
 		i++;
 	}
@@ -58,24 +75,3 @@ int	ft_unset(char **cmd, t_exec *exec)
 	g_error_value = -77;
 	return (0);
 }
-
-/*unset détruit la ou les variables d'environnement dont le nom a
-été passé en argument $var.
-à l'intérieur du fonction le comportement varie
-suivant le type de variable qu'on veut détruire.
-Si variable globale détruite depuis une fonction,
-seule la variable locale sera détruite.
-la variable globale gardera la valeur acquise avant
-l'appel à unset
-
-si je fais unset et que l'argument que je donne n'est pas bon ou même que je ne donne aucun arguments, il ne se passe rien.
-si je fais unset PATH par exemple, si après je fais ls il ne trouve rien, vu que le chemin a été supprimé.
-
-si je fais echo une variable qui a été suppr', ça n'affiche rien. Enfin un saut à la ligne si j'ai pas fait echo -n.
-La plupart du temps y'a pas de messages d'erreur mais si je fais 'unset $PATH' au lieu de 'unset PATH' j'ai un message
-d'erreur.
-si je fais 'unset $USER' juste ça fait rien...
-bizarre la gestion d'erreur mais bon.
-
-si je met plusieurs arguments, ils sont tous exécutés. Même si ils sont tous faux sauf un au milieu ça va marcher.
-*/

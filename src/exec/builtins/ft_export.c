@@ -42,7 +42,7 @@ static void	sort_list(t_exec *exec)
 	}
 }
 
-static void	show_export(t_exec *exec)
+void	show_export(t_exec *exec)
 {
 	t_env	*tmp;
 
@@ -55,10 +55,11 @@ static void	show_export(t_exec *exec)
 		if (tmp->value != NULL)
 		{
 			ft_printf("=");
-			if (tmp->value[0] == '\"' && tmp->value[ft_strlen(tmp->value) - 1] == '\"')
-				ft_printf("%s", tmp->value);
-			else
-				ft_printf("\"%s\"", tmp->value);
+			// if (tmp->value[0] == '\"' && tmp->value[ft_strlen(tmp->value) - 1] == '\"')
+			// 	ft_printf("%s", tmp->value);
+			// else
+			// 	ft_printf("\"%s\"", tmp->value);
+			ft_printf("\"%s\"", tmp->value);
 		}
 		ft_printf("\n");
 		tmp = tmp->next;
@@ -146,13 +147,19 @@ static void	create_var(t_env *args_tmp, t_exec *exec, t_env *lst_args)
 	t_env	*new_exp;
 	t_env	*new_env;
 
-	if (args_tmp->value == NULL || args_tmp->value[0] == '\0') //pas de valeur donnée donc on met juste dans export
+	if (args_tmp->value == NULL || args_tmp->value[0] == '\0')
 	{
 		new_exp = ft_lstnew_export(args_tmp);
+		if (!new_exp)
+		{
+			free_env(lst_args);
+			free_exec_struct(exec);
+			exit(EXIT_FAILURE);
+		}
 		new_exp->next = exec->export;
 		exec->export = new_exp;
 	}
-	else //a une valeur donc on met dans export et env
+	else
 	{
 		new_exp = ft_lstnew_export(args_tmp);
 		if (!new_exp)
@@ -175,7 +182,6 @@ static void	create_var(t_env *args_tmp, t_exec *exec, t_env *lst_args)
 	}
 }
 
-//on a le droit qu'à alphanumérique et underscore. Ne peut pas commencer par un chiffre.
 static	int	is_valid_name(char *cmd_name, t_env *args_tmp)
 {
 	int		i;
@@ -213,7 +219,7 @@ static int	what_to_do(char **cmd, t_exec *exec)
 	t_env	*lst_args;
 	t_env	*args_tmp;
 
-	lst_args = env_double_char_into_lst(cmd + 1);	//on met les args dans une liste pour comparer plus facilement.
+	lst_args = env_double_char_into_lst(cmd + 1);
 	if (is_valid_name(cmd[0], lst_args))
 	{
 		g_error_value = -1;
@@ -227,9 +233,9 @@ static int	what_to_do(char **cmd, t_exec *exec)
 		{
 			if (ft_strcmp(tmp->name, args_tmp->name) == 0)
 			{
-				if (args_tmp->value == NULL || args_tmp->value[0] == '\0') //variable trouvée mais pas de valeur = on fait rien
+				if (args_tmp->value == NULL || args_tmp->value[0] == '\0')
 					break ;
-				else	//variable trouvée et nouvelle valeur à mettre
+				else
 					export_existing_value(args_tmp, exec, lst_args);
 				break ;
 			}
@@ -237,24 +243,92 @@ static int	what_to_do(char **cmd, t_exec *exec)
 		}
 		if (!tmp)
 		{
-			create_var(args_tmp, exec, lst_args); //la variable n'a pas été trouvée donc on la crée
+			create_var(args_tmp, exec, lst_args);
 		}
 		lst_args = lst_args->next;
 	}
 	free_env(lst_args);
 	return (0);
 }
+
+static size_t	size_without_quotes(char *arg)
+{
+	size_t	i;
+	size_t	nb;
+
+	i = 0;
+	nb = 0;
+	while(arg[i])
+	{
+		if (arg[i] == '\"')
+			nb--;
+		nb++;
+		i++;
+	}
+	return (nb);
+}
+
+static char	**delete_quotation_mark(char **cmd, t_exec *exec, int nb_args)
+{
+	char	**clean_cmd;
+	size_t	i;
+	size_t	j;
+	size_t	k;
+
+	i = 0;
+	j = 0;
+	k = 0;
+	clean_cmd = malloc(sizeof(char *) * (nb_args + 1));
+	if (!clean_cmd)
+	{
+		free_tab(cmd);
+		free_exec_struct(exec);
+		perror("malloc");
+		exit(EXIT_FAILURE);
+	}
+	while (cmd[i])
+	{
+		clean_cmd[i] = malloc(sizeof(char) * (size_without_quotes(cmd[i]) + 1));
+		if (!clean_cmd[i])
+		{
+			perror("malloc");
+			while (--i >= 0)
+				free(clean_cmd[i]);
+			free(clean_cmd);
+			free_exec_struct(exec);
+			exit(EXIT_FAILURE);
+		}
+		j = 0;
+		k = 0;
+		while (cmd[i][k])
+		{
+			if (cmd[i][k] != '\"')
+			{
+				clean_cmd[i][j] = cmd[i][k];
+				j++;
+			}
+			k++;
+		}
+		clean_cmd[i][j] = '\0';
+		i++;
+	}
+	clean_cmd[i] = NULL;
+	return (clean_cmd);
+}
+
 int	ft_export(char **cmd, t_exec *exec)
 {
 	int	nb_args;
+	char	**clean_cmd;
 
 	nb_args = 0;
 	while (cmd[nb_args])
 		nb_args++;
+	clean_cmd = delete_quotation_mark(cmd, exec, nb_args);
 	if (nb_args == 1)
 		show_export(exec);
 	else
-		what_to_do(cmd, exec);
+		what_to_do(clean_cmd, exec);
 	if (exec->nb_cmds > 1)
 		exit(0);
 	return (0);

@@ -41,6 +41,6 @@ int	ft_exit(char **cmd, t_exec *exec)
 	}
 	shlvl(exec, 0, 0);
 //	free_exec_struct(exec); en commentaire parce que casse un test du tester......
-	exit(0);
+	exit(g_error_value / 256);
 	return (0);
 }

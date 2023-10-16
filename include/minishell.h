@@ -134,6 +134,7 @@ void		put_pwd_in_char(char **arg);
 char		*fill_oldpwd(char *actual_pwd, t_exec *exec);
 char		*fill_newpwd(char *actual_pwd, t_exec *exec);
 void		change_pwd(t_exec *exec);
+void	show_export(t_exec *exec);
 
 // utils
 
