@@ -37,6 +37,8 @@ void	change_oldpwd(t_exec *exec, char *actual_pwd)
 	args_tmp_pwd = env_double_char_into_lst(arg_pwd);
 	export_existing_value(args_tmp, exec);
 	export_existing_value(args_tmp_pwd, exec);
+	free_tab(arg_pwd);
+	free_tab(arg);
 }
 
 void	go_to_old_pwd(char *oldpwd, t_exec *exec)
@@ -80,26 +82,27 @@ int	ft_cd(char **cmd, t_exec *exec)
 {
 	char	*oldpwd;
 
-	oldpwd = getcwd(NULL, 0);		// alloue avec malloc donc checker les leaks
-	if (ft_strlen_doublechar(cmd) == 1 || ft_strcmp(cmd[1], "~") == 0)
+	oldpwd = getcwd(NULL, 0);
+	if (!oldpwd)
+	{
+		ft_putstr_fd("Can't go to this dir, moved to /lgabet\n", 2);
+		chdir("/nfs/homes/lgabet");
+		change_pwd(exec);
+		return (0);
+	}
+	if (!cmd[1] || ft_strcmp(cmd[1], "~") == 0)
 	{
 		change_oldpwd(exec, oldpwd);
-		chdir("/root");
+		chdir("/nfs/homes/lgabet");
 	}
 	else if (ft_strcmp(cmd[1], "-") == 0)
 		return (go_to_old_pwd(oldpwd, exec), 0);
-	else if (chdir(cmd[1])) //chdir va tout simplement rediriger vers le chemin donné en argument.
+	if (chdir(cmd[1]) == -1 || chdir(cmd[1]) == 0)
 	{
-		ft_error_message_arg(cmd[0], cmd[1], ": No such file or directory\n");
 		if (cmd[1][0] != '$' || cmd[2])
 			g_error_value = -1;
-		if (exec->nb_cmds > 1)
-			exit(0);
 		return (0);
 	}
 	change_oldpwd(exec, oldpwd);
-	// free(oldpwd); 
-	if (exec->nb_cmds > 1)
-		exit(0);
 	return (0);
 }

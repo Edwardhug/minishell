@@ -57,7 +57,7 @@ typedef struct s_struct
 }			t_struct;
 
 int	have_strange_cmd(char *str);
-void    change_std(t_fd *tfd, t_struct *lst, int fd);
+void    change_std(t_struct *lst, int fd);
 char    *get_node(char *word, int *i);
 char		**get_path(char **env);
 //void		free_tab(char **tab);
@@ -102,13 +102,13 @@ void		find_correct_path(t_exec *exec);
 void		access_cmd(t_exec *exec, int i);
 
 int	t_open_fd_out(t_struct *temp_list);
-int	t_change_stdout(t_struct *temp_list, int fd);
-int	t_exec_cmd(t_struct *temp_list, t_exec *exec, t_fd tfd);
+// int	t_change_stdout(t_struct *temp_list, int fd);
+int	t_exec_cmd(t_struct *temp_list, t_exec *exec);
 int			t_size_cmd(t_struct *temp_list);
 char		**t_get_clean_cmd(t_struct *temp_list);
 char		*t_get_path_cmd(char **all_path, char **splited, struct stat info);
 char		*t_get_cmd(char **env, char **splited_cmd);
-void	t_apply_exec(t_struct *temp_list, t_exec *exec, t_fd fd);
+void	t_apply_exec(t_struct *temp_list, t_exec *exec);
 void		print_error(char **splited_cmd, char **all_path, int i);
 int	to_next_cmd(t_struct **temp_list);
 
