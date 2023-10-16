@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 14:28:48 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/16 10:15:45 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/16 16:16:27 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ void	loop_main(char **path, int fd_standart, t_exec exec)
 	line = readline("Minishell> ");
 	if (line == NULL)
 		exit_and_write_it(path, fd_standart);
-	add_history(line);
+	if (line[0])
+		add_history(line);
 	line = remove_new_line(line);
 	parsing_minishell(path, line, &exec);
 	free(line);
