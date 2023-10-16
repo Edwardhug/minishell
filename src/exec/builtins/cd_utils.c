@@ -60,8 +60,9 @@ char	*fill_newpwd(char *actual_pwd, t_exec *exec)
 	if (!arg)
 	{
 		free(arg);
+		free(actual_pwd);
 		free_exec_struct(exec);
-		return (NULL);
+		exit(EXIT_FAILURE);
 	}
 	while (i < size - 1)
 	{
@@ -78,27 +79,31 @@ char	*fill_newpwd(char *actual_pwd, t_exec *exec)
 
 void	change_pwd(t_exec *exec)
 {
-	char	**arg;
-	char	**args_tmp;
-	char	*newpwd;
+	char	**arg_pwd;
+	char	*tmp;
+	t_env    *args_tmp_pwd;
 
-	newpwd = getcwd(NULL, 0);
-	if (!newpwd)
+	arg_pwd = ft_calloc(2, sizeof(char *));
+	if (!arg_pwd)
 	{
 		free_exec_struct(exec);
 		exit(EXIT_FAILURE);
 	}
-	arg = ft_calloc(2, sizeof(char *));
-	if (!arg)
+	tmp = getcwd(NULL, 0);
+	if (!tmp)
 	{
-		free(newpwd);
 		free_exec_struct(exec);
 		exit(EXIT_FAILURE);
 	}
-	arg[0] = fill_newpwd(newpwd, exec);
-	free(newpwd);
-	args_tmp = env_double_char_into_lst(arg);
-	free_tab(arg);
-	export_existing_value(args_tmp, exec, NULL);
-	free_env(args_tmp);
+	arg_pwd[0] = ft_strjoin("PWD=", tmp);
+	if (!arg_pwd[0])
+	{
+		free_exec_struct(exec);
+		free(tmp);
+		exit(EXIT_FAILURE);
+	}
+	free(tmp);
+	args_tmp_pwd = env_double_char_into_lst(arg_pwd);
+	export_existing_value(args_tmp_pwd, exec, NULL);
+	free_tab(arg_pwd);
 }

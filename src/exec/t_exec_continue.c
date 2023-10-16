@@ -77,10 +77,14 @@ t_struct	*to_cmd(t_struct *lst)
 
 int	child_process(int *fd, t_struct *temp_list, t_exec *exec)
 {
+	char	**clean_cmd;
+
 	close(fd[0]);
 	change_std(temp_list, fd[1]);
 	close(fd[1]);
-	is_builtin_fork(t_get_clean_cmd(to_cmd(temp_list)), exec);
+	clean_cmd = t_get_clean_cmd(to_cmd(temp_list), exec);
+	is_builtin_fork(clean_cmd, exec);
+	free_tab(clean_cmd);
 	t_apply_exec(to_cmd(temp_list), exec);
 	exit(EXIT_FAILURE);
 	return (0);

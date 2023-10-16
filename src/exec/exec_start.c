@@ -64,8 +64,6 @@ void	begin_execution(char **path, t_exec *exec, t_struct *list_word)
 	t_struct	*temp_list;
 
 	(void)path;
-	fd.fd_in = 0;
-	fd.fd_out = 1;
 	change_underscore(list_word->str, exec);
 	exec->nb_cmds = number_of_cmd(list_word);
 	pid_tab = malloc(sizeof(int) * exec->nb_cmds);
