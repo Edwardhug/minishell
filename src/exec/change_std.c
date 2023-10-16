@@ -35,10 +35,12 @@ int	open_fd_out(t_struct *lst)
 	return (fd_out);
 }
 
-void	change_std(t_fd *tfd, t_struct *lst, int fd)
+void	change_std(t_struct *lst, int fd)
 {
 	t_fd	cfd;
 
+	cfd.fd_in = 0;
+	cfd.fd_out = 1;
 	while (lst && lst->next && lst->type != PIPE)
 	{
 		if (ft_strcmp(lst->str, "<") == 0)
@@ -55,12 +57,18 @@ void	change_std(t_fd *tfd, t_struct *lst, int fd)
 		lst = lst->next;
 	}
 	if (lst && lst->type == PIPE)
+	{
 		dup2(fd, STDOUT_FILENO);
-	dup2(cfd.fd_out, STDOUT_FILENO);
-	close (cfd.fd_out);
-	close (fd);
-	dup2(cfd.fd_in, STDIN_FILENO);
-	close (cfd.fd_in);
-	tfd->fd_in = cfd.fd_in;
-	tfd->fd_out = cfd.fd_out;
+		close (fd);
+	}
+	if (cfd.fd_out != 1)
+	{
+		dup2(cfd.fd_out, STDOUT_FILENO);
+		close (cfd.fd_out);
+	}
+	if (cfd.fd_in != 0)
+	{
+		dup2(cfd.fd_in, STDIN_FILENO);
+		close (cfd.fd_in);
+	}
 }

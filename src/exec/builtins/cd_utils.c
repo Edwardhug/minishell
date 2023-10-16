@@ -78,9 +78,9 @@ char	*fill_newpwd(char *actual_pwd, t_exec *exec)
 
 void	change_pwd(t_exec *exec)
 {
-	char	*newpwd;
 	char	**arg;
-	t_env    *args_tmp;
+	char	**args_tmp;
+	char	*newpwd;
 
 	newpwd = getcwd(NULL, 0);
 	if (!newpwd)

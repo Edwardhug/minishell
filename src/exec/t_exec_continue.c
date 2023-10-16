@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 11:55:30 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/14 14:26:50 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/15 13:28:52 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,18 @@ t_struct	*to_cmd(t_struct *lst)
 	return (cmd);
 }
 
-int	t_exec_cmd(t_struct *temp_list, t_exec *exec, t_fd *tfd)
+int	child_process(int *fd, t_struct *temp_list, t_exec *exec)
+{
+	close(fd[0]);
+	change_std(temp_list, fd[1]);
+	close(fd[1]);
+	is_builtin_fork(t_get_clean_cmd(to_cmd(temp_list)), exec);
+	t_apply_exec(to_cmd(temp_list), exec);
+	exit(EXIT_FAILURE);
+	return (0);
+}
+
+int	t_exec_cmd(t_struct *temp_list, t_exec *exec)
 {
 	int		fd[2];
 	int		pid;
@@ -98,17 +109,7 @@ int	t_exec_cmd(t_struct *temp_list, t_exec *exec, t_fd *tfd)
 		}
 		pid = fork();
 		if (pid == 0)
-		{
-			close(fd[0]);
-			change_std(tfd, temp_list, fd[1]);
-			close(fd[1]);
-			free_tab(clean_cmd);
-			clean_cmd = t_get_clean_cmd(to_cmd(temp_list), exec);
-			is_builtin_fork(clean_cmd, exec);
-			free_tab(clean_cmd);
-			t_apply_exec(to_cmd(temp_list), exec, tfd);
-			exit(EXIT_FAILURE);
-		}
+			return (child_process(fd, temp_list, exec), 1);
 		else
 		{
 			close(fd[1]);

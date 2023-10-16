@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 18:08:24 by lezard            #+#    #+#             */
-/*   Updated: 2023/10/14 14:08:38 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/15 13:17:56 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void	begin_execution(char **path, t_exec *exec, t_struct *list_word)
 	int			*pid_tab;
 	int			i;
 	t_struct	*temp_list;
-	t_fd		fd;
 
 	(void)path;
 	fd.fd_in = 0;
@@ -89,7 +88,7 @@ void	begin_execution(char **path, t_exec *exec, t_struct *list_word)
 			free_exec_struct(exec);
 			return ;
 		}
-		pid_tab[i] = t_exec_cmd(temp_list, exec, &fd);
+		pid_tab[i] = t_exec_cmd(temp_list, exec);
 		if (to_next_cmd(&temp_list))
 			break ;
 		i++;
