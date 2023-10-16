@@ -19,7 +19,7 @@ void	put_pwd_in_char(char **arg)
 	(*arg)[4] = '=';
 }
 
-char	*fill_oldpwd(char *actual_pwd)
+char	*fill_oldpwd(char *actual_pwd, t_exec *exec)
 {
 	int		i;
 	int		size;
@@ -30,8 +30,10 @@ char	*fill_oldpwd(char *actual_pwd)
 	arg = ft_calloc(size, sizeof(char));
 	if (!arg)
 	{
-		free(arg);
-		return (NULL);
+		perror("malloc error");
+		free(actual_pwd);
+		free_exec_struct(exec);
+		exit(EXIT_FAILURE);
 	}
 	while (i < size - 1)
 	{
@@ -46,7 +48,7 @@ char	*fill_oldpwd(char *actual_pwd)
 	return(arg);
 }
 
-char	*fill_newpwd(char *actual_pwd)
+char	*fill_newpwd(char *actual_pwd, t_exec *exec)
 {
 	int		i;
 	int		size;
@@ -58,7 +60,9 @@ char	*fill_newpwd(char *actual_pwd)
 	if (!arg)
 	{
 		free(arg);
-		return (NULL);
+		free(actual_pwd);
+		free_exec_struct(exec);
+		exit(EXIT_FAILURE);
 	}
 	while (i < size - 1)
 	{
@@ -76,14 +80,30 @@ char	*fill_newpwd(char *actual_pwd)
 void	change_pwd(t_exec *exec)
 {
 	char	**arg_pwd;
-
+	char	*tmp;
 	t_env    *args_tmp_pwd;
+
 	arg_pwd = ft_calloc(2, sizeof(char *));
 	if (!arg_pwd)
-		return ;
-	arg_pwd[0] = getcwd(NULL, 0);
-	arg_pwd[0] = ft_strjoin("PWD=", arg_pwd[0]);
+	{
+		free_exec_struct(exec);
+		exit(EXIT_FAILURE);
+	}
+	tmp = getcwd(NULL, 0);
+	if (!tmp)
+	{
+		free_exec_struct(exec);
+		exit(EXIT_FAILURE);
+	}
+	arg_pwd[0] = ft_strjoin("PWD=", tmp);
+	if (!arg_pwd[0])
+	{
+		free_exec_struct(exec);
+		free(tmp);
+		exit(EXIT_FAILURE);
+	}
+	free(tmp);
 	args_tmp_pwd = env_double_char_into_lst(arg_pwd);
-	export_existing_value(args_tmp_pwd, exec);
+	export_existing_value(args_tmp_pwd, exec, NULL);
 	free_tab(arg_pwd);
 }

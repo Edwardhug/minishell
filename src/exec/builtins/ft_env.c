@@ -12,7 +12,11 @@ int	ft_env(t_exec *exec)
 		ft_printf("%s\n", char_env[i]);
 		i++;
 	}
+	free_tab(char_env);
 	if (exec->nb_cmds > 1)
+	{
+		free_exec_struct(exec);
 		exit(0);
+	}
 	return (0);
 }

@@ -36,11 +36,19 @@ typedef struct s_env
 	struct s_env	*next;
 }					t_env;
 
+typedef struct s_struct
+{
+	char				*str;
+	t_enum				type;
+	struct s_struct		*next;
+}			t_struct;
+
 typedef struct s_exec
 {
-	int		nb_cmds;
-	t_env	*env;
-	t_env	*export;
+	int			nb_cmds;
+	t_env		*env;
+	t_env		*export;
+	t_struct	*list_word;
 }				t_exec;
 
 typedef	struct s_fd
@@ -49,12 +57,6 @@ typedef	struct s_fd
 	int	fd_out;
 }				t_fd;
 
-typedef struct s_struct
-{
-	char				*str;
-	t_enum				type;
-	struct s_struct		*next;
-}			t_struct;
 
 int	have_strange_cmd(char *str);
 void    change_std(t_struct *lst, int fd);
@@ -84,9 +86,9 @@ char	*find_last_quote(char *line, int *i, t_struct **list_word);
 void fill_quote_node(t_struct **list_word, char *word);
 void	add_pipe(t_struct **list_word);
 // void fill_move_quote(t_struct **list_word, char *word); 
-void	clean_redir_out(t_struct **list);
-void	loop_parsing(t_struct **list_word, char *line);
-char	*find_second_quote(char *line, int *i);
+void		clean_redir_out(t_struct **list);
+void		loop_parsing(t_struct **list_word, char *line);
+char		*find_second_quote(char *line, int *i);
 
 void		print_list(t_struct *list);
 
@@ -105,17 +107,19 @@ int	t_open_fd_out(t_struct *temp_list);
 // int	t_change_stdout(t_struct *temp_list, int fd);
 int	t_exec_cmd(t_struct *temp_list, t_exec *exec);
 int			t_size_cmd(t_struct *temp_list);
-char		**t_get_clean_cmd(t_struct *temp_list);
+char		**t_get_clean_cmd(t_struct *temp_list, t_exec *exec);
 char		*t_get_path_cmd(char **all_path, char **splited, struct stat info);
 char		*t_get_cmd(char **env, char **splited_cmd);
 void	t_apply_exec(t_struct *temp_list, t_exec *exec);
 void		print_error(char **splited_cmd, char **all_path, int i);
-int	to_next_cmd(t_struct **temp_list);
+int			to_next_cmd(t_struct **temp_list);
+void		shlvl(t_exec *exec, int empty_env, int more_or_less);
+void		change_underscore(char *cmd, t_exec *exec);
 
 //builtins
 
-int	is_builtin_alone(char **cmd, t_exec *exec);
-int	is_builtin_fork(char **cmd, t_exec *exec);
+int			is_builtin_alone(char **cmd, t_exec *exec);
+int			is_builtin_fork(char **cmd, t_exec *exec);
 int			ft_cd(char **cmd, t_exec *exec);
 int			ft_echo(char **cmd, t_exec *exec);
 int			ft_env(t_exec *exec);
@@ -123,12 +127,13 @@ int			ft_exit(char **cmd, t_exec *exec);
 int			ft_export(char **cmd, t_exec *exec);
 int			ft_pwd(t_exec *exec);
 int			ft_unset(char **cmd, t_exec *exec);
-void	export_existing_value(t_env *args_tmp, t_exec *exec);
-void	put_old_pwd_in_char(char **arg);
-void	put_pwd_in_char(char **arg);
-char	*fill_oldpwd(char *actual_pwd);
-char	*fill_newpwd(char *actual_pwd);
-void	change_pwd(t_exec *exec);
+void		export_existing_value(t_env *args_tmp, t_exec *exec, t_env *lst_args);
+void		put_old_pwd_in_char(char **arg);
+void		put_pwd_in_char(char **arg);
+char		*fill_oldpwd(char *actual_pwd, t_exec *exec);
+char		*fill_newpwd(char *actual_pwd, t_exec *exec);
+void		change_pwd(t_exec *exec);
+void	show_export(t_exec *exec);
 
 // utils
 
@@ -137,7 +142,9 @@ size_t		t_struct_strlen(t_struct *list_word);
 size_t		t_env_strlen(t_env *env);
 char		**env_lst_into_double_char(t_env *env);
 t_env		*env_double_char_into_lst(char **c_env);
+t_env		*ft_lstnew_env(char *str, int nb);
 void		free_env(t_env *lst);
+void		free_exec_struct(t_exec *exec);
 int			ft_error_message(char *cmd_name, char *msg);
 int			ft_error_message_arg(char *cmd_name, char *arg, char *msg);
 //t_env		*ft_lstcpy(t_env *source);

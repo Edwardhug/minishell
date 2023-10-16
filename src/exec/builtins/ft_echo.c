@@ -59,13 +59,13 @@ void	print_var(char **cmd, int *i, int *j, t_exec *exec)
 
 int	ft_echo(char **cmd, t_exec *exec)
 {
-	int	dash_n; //sert de booléen
+	int	dash_n;
 	int	i;
 	int	j;
 	int	simple_quote;
 
 	i = 1;
-	if (ft_strcmp(cmd[1], "-n") == 0) //on regarde si on a le -n pour le saut à la ligne 
+	if (ft_strcmp(cmd[1], "-n") == 0)
 	{
 		i++;
 		dash_n = 0;
@@ -86,11 +86,12 @@ int	ft_echo(char **cmd, t_exec *exec)
 				ft_printf("%c", cmd[i][j + simple_quote]);
 			j++;
 		}
-		if (cmd[i + 1] != NULL) //si on est pas au dernier argument, on met un espace.
+		if (cmd[i + 1] != NULL)
 			ft_printf(" ");
 		i++;
 	}
-	if (dash_n) //si on a pas de -n on va à la ligne
+	if (dash_n)
 		ft_printf("\n");
+	free_exec_struct(exec);
 	exit(0);
 }

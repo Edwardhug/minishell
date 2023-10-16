@@ -29,7 +29,7 @@ char	**env_lst_into_double_char(t_env *env)
 	return (char_env);
 }
 
-static t_env	*ft_lstnew_env(char *str, int nb)
+t_env	*ft_lstnew_env(char *str, int nb)
 {
 	t_env	*new;
 	int		i;
