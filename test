@@ -1,0 +1,63 @@
+t_env *ft_lstnew_export(t_env *args_tmp)
+{
+    t_env *new = malloc(sizeof(t_env));
+    if (!new)
+        return (perror("malloc lstnew_export1"), NULL);
+
+    new->name = ft_strdup(args_tmp->name);
+    if (!new->name)
+    {
+        free(new);
+        perror("lstnew_export dup 1");
+        return NULL;
+    }
+
+    if (args_tmp->value == NULL || args_tmp->value[0] == '\0')
+    {
+        new->value = NULL;
+    }
+    else
+    {
+        new->value = ft_strdup(args_tmp->value);
+        if (!new->value)
+        {
+            free(new->name);
+            free(new);
+            perror("lstnew_export dup 2");
+            return NULL;
+        }
+    }
+
+    new->next = NULL;
+    return new;
+}
+
+void create_var(t_env *args_tmp, t_exec *exec, t_env *lst_args)
+{
+    t_env *new_exp = ft_lstnew_export(args_tmp);
+    if (!new_exp)
+    {
+        free_env(lst_args);
+        free_exec_struct(exec);
+        exit(EXIT_FAILURE);
+    }
+    new_exp->next = exec->export;
+    exec->export = new_exp;
+
+    if (args_tmp->value != NULL && args_tmp->value[0] != '\0')
+    {
+        t_env *new_env = ft_lstnew_export(args_tmp);
+        if (!new_env)
+        {
+            free_env(lst_args);
+            free_exec_struct(exec);
+            exit(EXIT_FAILURE);
+        }
+        new_env->next = exec->env;
+        exec->env = new_env;
+    }
+}
+test
+test
+test
+test

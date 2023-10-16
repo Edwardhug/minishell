@@ -117,8 +117,6 @@ int	main(int ac, char **av, char **env)
 	int		fd_standart;
 	t_exec	exec;
 
-	exec.env = env_double_char_into_lst(env);
-	exec.export = env_double_char_into_lst(env);
 	fd_standart = dup(STDIN_FILENO);
 	if (ac != 1)
 		return (ft_printf("No arg needed\n"), 1);
@@ -126,8 +124,10 @@ int	main(int ac, char **av, char **env)
 		if_env_i(&exec);
 	else
 	{
-		exec.env = env_double_char_into_lst(env);
-		exec.export = env_double_char_into_lst(env);
+		exec.env = NULL;
+		exec.export = NULL;
+		exec.env = env_double_char_into_lst(env, &exec);
+		exec.export = env_double_char_into_lst(env, &exec);
 	}
 	fd_standart = dup(STDIN_FILENO);
 	path = get_path(env);

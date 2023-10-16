@@ -103,7 +103,7 @@ void	change_pwd(t_exec *exec)
 		exit(EXIT_FAILURE);
 	}
 	free(tmp);
-	args_tmp_pwd = env_double_char_into_lst(arg_pwd);
-	export_existing_value(args_tmp_pwd, exec, NULL);
+	args_tmp_pwd = env_double_char_into_lst(arg_pwd, exec);
 	free_tab(arg_pwd);
+	export_existing_value(args_tmp_pwd, exec, NULL);
 }

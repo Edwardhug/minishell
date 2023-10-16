@@ -112,32 +112,20 @@ static t_env	*ft_lstnew_export(t_env *args_tmp)
 	new = malloc(sizeof(t_env));
 	if (!new)
 		return (perror("malloc lstnew_export1"), NULL);
-	new->name = malloc(sizeof(char *) * (ft_strlen(args_tmp->name) + 1));
-	if (!new->name)
-		return (perror("malloc lstnew_export2"), NULL);
 	new->name = ft_strdup(args_tmp->name);
 	if (!new->name)
 		return(perror("lstnew_export dup 1"), NULL);
 	if (args_tmp->value == NULL || args_tmp->value[0] == '\0')
 	{
 		new->value = malloc(sizeof(char *) * 1);
-		if (!new->value)
-			return (perror("malloc lstnew_export3"), NULL);
+		new->value[0] = '\0';
 	}
 	else
-	{
-		new->value = malloc(sizeof(char *) * (ft_strlen(args_tmp->value) + 1));
-		if (!new->value)
-			return (perror("malloc lstnew_export3"), NULL);
-	}
-	if (args_tmp->value)
 	{
 		new->value = ft_strdup(args_tmp->value);
 		if (!new->value)
 			return (perror("lstnew_export dup 2"), NULL);
 	}
-	else
-		new->value[0] = '\0';
 	new->next = NULL;
 	return (new);
 }
@@ -219,7 +207,7 @@ static int	what_to_do(char **cmd, t_exec *exec)
 	t_env	*lst_args;
 	t_env	*args_tmp;
 
-	lst_args = env_double_char_into_lst(cmd + 1);
+	lst_args = env_double_char_into_lst(cmd + 1, exec);
 	if (is_valid_name(cmd[0], lst_args))
 	{
 		g_error_value = -1;
