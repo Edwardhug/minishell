@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 14:45:53 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/14 13:24:49 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/16 12:15:59 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	sigint_handler(int sig)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
+	g_error_value = 130 * 256;
 	(void) sig;
 }
 
