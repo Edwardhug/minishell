@@ -23,7 +23,7 @@ int	ft_exit(char **cmd, t_exec *exec)
 	ft_putstr_fd("exit\n", 1);
 	if (cmd[1])
 	{
-		if (cmd[2]) //si il y a plus d'un argument c'est une erreur
+		if (cmd[2]) //si il y a plus d'un argument c'est une erreur 
 		{
 			ft_error_message(cmd[0], ": too many arguments\n");
 			g_error_value = -1; // le message à renvoyer est 1
