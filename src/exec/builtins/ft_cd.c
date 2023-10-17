@@ -81,19 +81,21 @@ void	go_to_home(char *oldpwd, t_exec *exec)
 int	ft_cd(char **cmd, t_exec *exec)
 {
 	char	*oldpwd;
+	char	*home;
 
+	home = get_var_home(*exec);
 	oldpwd = getcwd(NULL, 0);
 	if (!oldpwd)
 	{
 		ft_putstr_fd("Can't go to this dir, moved to /lgabet\n", 2);
-		chdir("/nfs/homes/lgabet");
+		chdir(home);
 		change_pwd(exec);
 		g_error_value = -1;
 		return (0);
 	}
 	if (!cmd[1] || ft_strcmp(cmd[1], "~") == 0)
 	{
-		chdir("/nfs/homes/lgabet");
+		chdir(home);
 		change_oldpwd(exec, oldpwd);
 		return (0);
 	}

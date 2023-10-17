@@ -132,6 +132,7 @@ void	put_pwd_in_char(char **arg);
 char	*fill_oldpwd(char *actual_pwd);
 char	*fill_newpwd(char *actual_pwd);
 void	change_pwd(t_exec *exec);
+char	*get_var_home(t_exec exec);
 
 // utils
 
