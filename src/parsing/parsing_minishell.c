@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:50:18 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/17 10:09:46 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/17 11:32:45 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ char	*find_second_quote(char *line, int *i)
 	return (word);
 }
 
-void	parsing_minishell(char **path, char *line, t_exec *exec)
+void	parsing_minishell(char *line, t_exec *exec)
 {
 	t_struct	*list_word;
 
@@ -109,8 +109,7 @@ void	parsing_minishell(char **path, char *line, t_exec *exec)
 	if (!delete_node(&list_word))
 		return ;
 	// print_list(list_word);
-	begin_execution(path, exec, list_word);
-	(void)path;
+	begin_execution(exec, list_word);
 	(void)exec;
 	free_list(&list_word);
 }

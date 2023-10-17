@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 14:28:48 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/16 16:16:27 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/17 11:31:55 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,17 @@ char	*remove_new_line(char *str)
 	return (to_ret);
 }
 
-void	loop_main(char **path, int fd_standart, t_exec exec)
+void	loop_main(int fd_standart, t_exec exec)
 {
 	char	*line;
 
 	line = readline("Minishell> ");
 	if (line == NULL)
-		exit_and_write_it(path, fd_standart);
+		exit_and_write_it(fd_standart);
 	if (line[0])
 		add_history(line);
 	line = remove_new_line(line);
-	parsing_minishell(path, line, &exec);
+	parsing_minishell(line, &exec);
 	free(line);
 	dup2(fd_standart, STDIN_FILENO);
 	signal(SIGINT, sigint_handler);
@@ -85,7 +85,6 @@ void	loop_parsing(t_struct **list_word, char *line)
 
 int	main(int ac, char **av, char **env)
 {
-	char	**path;
 	int		fd_standart;
 	t_exec	exec;
 
@@ -95,12 +94,10 @@ int	main(int ac, char **av, char **env)
 	fd_standart = dup(STDIN_FILENO);
 	if (ac != 1)
 		return (ft_printf("No arg needed\n"), 1);
-	path = get_path(env);
 	signals();
 	while (1)
-		loop_main(path, fd_standart, exec);
+		loop_main(fd_standart, exec);
 	rl_clear_history();
-	free_tab(path);
 	(void)av;
 	return (0);
 }

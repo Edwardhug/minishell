@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 18:08:24 by lezard            #+#    #+#             */
-/*   Updated: 2023/10/16 13:31:13 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/17 11:32:23 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	wait_all_process(int *pid, t_struct *list_word, t_exec *exec)
 	g_error_value = status;
 }
 
-void	begin_execution(char **path, t_exec *exec, t_struct *list_word)
+void	begin_execution(t_exec *exec, t_struct *list_word)
 {
 	int			*pid_tab;
 	int			i;
@@ -67,7 +67,6 @@ void	begin_execution(char **path, t_exec *exec, t_struct *list_word)
 	exec->nb_cmds = number_of_cmd(list_word);
 	pid_tab = malloc(sizeof(int) * exec->nb_cmds);
 	i = 0;
-	(void)path;
 	temp_list = list_word;
 	while (temp_list)
 	{
