@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 11:55:30 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/15 13:28:52 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/17 15:20:32 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ t_struct	*to_cmd(t_struct *lst)
 int	child_process(int *fd, t_struct *temp_list, t_exec *exec)
 {
 	close(fd[0]);
+	close(exec->fd_stand);
 	change_std(temp_list, fd[1]);
 	close(fd[1]);
 	is_builtin_fork(t_get_clean_cmd(to_cmd(temp_list)), exec);

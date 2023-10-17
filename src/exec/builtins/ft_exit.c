@@ -37,6 +37,7 @@ int	ft_exit(char **cmd, t_exec *exec)
 		status = ft_atoi(cmd[1]) % 256;
 		exit(status);
 	}
+	close(exec->fd_stand);
 	//free and close everything
 	// exit(status);
 	exit(0);

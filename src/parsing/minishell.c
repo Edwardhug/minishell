@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 14:28:48 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/17 11:31:55 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/17 15:19:40 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ int	main(int ac, char **av, char **env)
 	exec.env = env_double_char_into_lst(env);
 	exec.export = env_double_char_into_lst(env);
 	fd_standart = dup(STDIN_FILENO);
+	exec.fd_stand = fd_standart;
 	if (ac != 1)
 		return (ft_printf("No arg needed\n"), 1);
 	signals();

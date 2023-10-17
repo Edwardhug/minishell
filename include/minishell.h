@@ -42,6 +42,7 @@ typedef struct s_exec
 	int		nb_cmds;
 	t_env	*env;
 	t_env	*export;
+	int		fd_stand;
 }				t_exec;
 
 typedef	struct s_fd
