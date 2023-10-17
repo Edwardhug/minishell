@@ -55,10 +55,6 @@ void	show_export(t_exec *exec)
 		if (tmp->value != NULL)
 		{
 			ft_printf("=");
-			// if (tmp->value[0] == '\"' && tmp->value[ft_strlen(tmp->value) - 1] == '\"')
-			// 	ft_printf("%s", tmp->value);
-			// else
-			// 	ft_printf("\"%s\"", tmp->value);
 			ft_printf("\"%s\"", tmp->value);
 		}
 		ft_printf("\n");
@@ -144,6 +140,7 @@ static void	create_var(t_env *args_tmp, t_exec *exec, t_env *lst_args)
 			free_exec_struct(exec);
 			exit(EXIT_FAILURE);
 		}
+		new_exp->value = NULL;
 		new_exp->next = exec->export;
 		exec->export = new_exp;
 	}
@@ -290,7 +287,7 @@ static char	**delete_quotation_mark(char **cmd, t_exec *exec, int nb_args)
 		k = 0;
 		while (cmd[i][k])
 		{
-			if (cmd[i][k] != '\"')
+			if (cmd[i][k] != '\"' && cmd[i][k] != '\'')
 			{
 				clean_cmd[i][j] = cmd[i][k];
 				j++;

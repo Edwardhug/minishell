@@ -57,6 +57,24 @@ void	print_var(char **cmd, int *i, int *j, t_exec *exec)
 		ft_printf("$");
 }
 
+static int	is_dash_n(char *arg)
+{
+	int	i;
+
+	i = 1;
+	if (ft_strncmp(arg, "-n", 2) == 0)
+	{
+		while (arg[i])
+		{
+			if (arg[i] != 'n')
+				return (1);
+			i++;
+		}
+		return (0);
+	}
+	return (1);
+}
+
 int	ft_echo(char **cmd, t_exec *exec)
 {
 	int	dash_n;
@@ -65,13 +83,9 @@ int	ft_echo(char **cmd, t_exec *exec)
 	int	simple_quote;
 
 	i = 1;
-	if (ft_strcmp(cmd[1], "-n") == 0)
-	{
+	dash_n = is_dash_n(cmd[1]);
+	if (!dash_n)
 		i++;
-		dash_n = 0;
-	}
-	else
-		dash_n = 1;
 	while (cmd[i])
 	{
 		simple_quote = 0;

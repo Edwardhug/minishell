@@ -72,10 +72,15 @@ t_env	*ft_lstnew_env(char *str, int nb)
 	if (!new->name)
 		return (perror("malloc lstnew_env 2"), free(new), NULL);
 	change_name(&new, str, &i, nb);
-	new->value = malloc(sizeof(char) * (ft_strlen(str) - nb));
-	if (!new->value)
-		return (free(new), free(new->name), NULL);
-	ft_strcpy(new->value, &str[nb + 1]);
+	if (str[nb + 1] != '\0')
+	{
+		new->value = malloc(sizeof(char) * (ft_strlen(str) - nb));
+		if (!new->value)
+			return (free(new), free(new->name), NULL);
+		ft_strcpy(new->value, &str[nb + 1]);
+	}
+	else
+		new->value = NULL;
 	new->next = NULL;
 	return (new);
 }
