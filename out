@@ -1,0 +1,9 @@
+build
+include
+libft
+Makefile
+minishell
+minishell_tester
+obj
+out
+src
