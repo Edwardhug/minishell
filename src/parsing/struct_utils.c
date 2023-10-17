@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 14:52:22 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/14 13:09:22 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/17 09:58:00 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,11 @@ int	delete_node(t_struct **lst)
 	tmp->str = NULL;
 	free(tmp);
 	l = *lst;
+	if (!(*lst))
+	{
+		ft_putstr_fd("command not found\n", 2);
+		return (free_list(lst), g_error_value = 127 * 256, 0);
+	}
 	if (ft_strcmp((*lst)->str, "./test_files") == 0 && !(*lst)->next)
 	{
 		ft_putstr_fd("./test_files: Is a directory\n", 2);
