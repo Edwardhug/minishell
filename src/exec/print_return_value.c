@@ -15,7 +15,7 @@ void	get_right_return_value(char **splited, struct stat info)
 			exit (127);
 		}
 	}
-	if (S_ISDIR(info.st_mode))
+	if (S_ISDIR(info.st_mode)) //leak ici demander à lgabet (conditional jump or move depend on uninitialized value, quand command not found)
 	{
 		free_tab(splited);
 		exit(128);

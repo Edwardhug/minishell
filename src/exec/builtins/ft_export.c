@@ -62,45 +62,6 @@ void	show_export(t_exec *exec)
 	}
 }
 
-void	export_existing_value(t_env *args_tmp, t_exec *exec, t_env *lst_args)
-{
-	t_env	*tmp_exp;
-	t_env	*tmp_env;
-
-	tmp_exp = exec->export;
-	tmp_env = exec->env;
-	while (tmp_exp)
-	{
-		if (ft_strcmp(args_tmp->name, tmp_exp->name) == 0)
-		{
-			free(tmp_exp->value);
-			tmp_exp->value = ft_strdup(args_tmp->value);
-			if (!tmp_exp->value)
-			{
-				perror("tmp_exp->value dup error\n");
-				free_exec_struct(exec);
-				if (lst_args)
-					free_env(lst_args);
-			}
-		}
-		tmp_exp = tmp_exp->next;
-	}
-	while (tmp_env)
-	{
-		if (ft_strcmp(args_tmp->name, tmp_env->name) == 0)
-		{
-			free(tmp_env->value);
-			tmp_env->value = ft_strdup(args_tmp->value);
-			if (!tmp_env->value)
-			{
-				perror("tmp_env->value malloc\n");
-				return ;
-			}
-		}
-		tmp_env = tmp_env->next;
-	}
-}
-
 static t_env	*ft_lstnew_export(t_env *args_tmp)
 {
 	t_env	*new;
@@ -125,6 +86,71 @@ static t_env	*ft_lstnew_export(t_env *args_tmp)
 	new->next = NULL;
 	return (new);
 }
+
+void	export_existing_value(t_env *args_tmp, t_exec *exec, t_env *lst_args)
+{
+	t_env	*tmp_exp;
+	t_env	*tmp_env;
+	int		not_in_env;
+
+	tmp_exp = exec->export;
+	tmp_env = exec->env;
+	not_in_env = 0;
+	while (tmp_exp)
+	{
+		if (ft_strcmp(args_tmp->name, tmp_exp->name) == 0)
+		{
+			ft_printf("is in export\n");
+			while (tmp_env)
+			{
+				if (ft_strcmp(args_tmp->name, tmp_env->name) == 0)
+				{
+					ft_printf("is in env\n");
+					if (tmp_env->value) //à virer je pense lors du normage
+						free(tmp_env->value);
+					tmp_env->value = ft_strdup(args_tmp->value);
+					if (!tmp_env->value)
+					{
+						perror("tmp_env->value malloc\n");
+						free_exec_struct(exec);
+						if (lst_args)
+							free_env(lst_args);
+						exit(EXIT_FAILURE);
+					}
+					not_in_env = 1;
+				}
+				tmp_env = tmp_env->next;
+			}
+			if (tmp_exp->value)
+				free(tmp_exp->value);
+			tmp_exp->value = ft_strdup(args_tmp->value);
+			if (!tmp_exp->value)
+			{
+				perror("tmp_exp->value dup error\n");
+				free_exec_struct(exec);
+				if (lst_args)
+					free_env(lst_args);
+				exit(EXIT_FAILURE);
+			}
+		}
+		tmp_exp = tmp_exp->next;
+	}
+	if (not_in_env == 0)
+	{
+		ft_printf("going here\n");
+		tmp_env = ft_lstnew_export(args_tmp);
+		if (!tmp_env)
+		{
+			if (lst_args)
+				free_env(lst_args);
+			free_exec_struct(exec);
+			exit(EXIT_FAILURE);
+		}
+		tmp_env->next = exec->env;
+		exec->env = tmp_env;
+	}
+}
+
 
 static void	create_var(t_env *args_tmp, t_exec *exec, t_env *lst_args)
 {
@@ -219,9 +245,13 @@ static int	what_to_do(char **cmd, t_exec *exec)
 			if (ft_strcmp(tmp->name, args_tmp->name) == 0)
 			{
 				if (args_tmp->value == NULL || args_tmp->value[0] == '\0')
+				{
 					break ;
+				}
 				else
+				{
 					export_existing_value(args_tmp, exec, lst_args);
+				}
 				break ;
 			}
 			tmp = tmp->next;
@@ -280,6 +310,7 @@ static char	**delete_quotation_mark(char **cmd, t_exec *exec, int nb_args)
 			while (--i >= 0)
 				free(clean_cmd[i]);
 			free(clean_cmd);
+			free_tab(cmd);
 			free_exec_struct(exec);
 			exit(EXIT_FAILURE);
 		}
@@ -314,6 +345,7 @@ int	ft_export(char **cmd, t_exec *exec)
 		show_export(exec);
 	else
 		what_to_do(clean_cmd, exec);
+	free_tab(clean_cmd);
 	if (exec->nb_cmds > 1)
 		exit(0);
 	return (0);

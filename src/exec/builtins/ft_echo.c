@@ -78,14 +78,24 @@ static int	is_dash_n(char *arg)
 int	ft_echo(char **cmd, t_exec *exec)
 {
 	int	dash_n;
+	int	newline;
 	int	i;
 	int	j;
 	int	simple_quote;
 
 	i = 1;
-	dash_n = is_dash_n(cmd[1]);
-	if (!dash_n)
-		i++;
+	newline = 0;
+	while (cmd[i])
+	{
+		dash_n = is_dash_n(cmd[i]);
+		if (!dash_n)
+		{
+			newline++;
+			i++;
+		}
+		else
+			break ;
+	}
 	while (cmd[i])
 	{
 		simple_quote = 0;
@@ -104,7 +114,7 @@ int	ft_echo(char **cmd, t_exec *exec)
 			ft_printf(" ");
 		i++;
 	}
-	if (dash_n)
+	if (!newline)
 		ft_printf("\n");
 	free_exec_struct(exec);
 	exit(0);

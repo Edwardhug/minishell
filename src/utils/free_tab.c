@@ -33,7 +33,7 @@ void	free_env(t_env *lst)
 {
 	t_env	*temp;
 
-	if (lst && lst)
+	if (lst)
 	{
 		while (lst)
 		{

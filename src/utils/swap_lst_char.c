@@ -6,7 +6,6 @@ char	**env_lst_into_double_char(t_env *env, t_exec *exec)
 	char	**char_env;
 	char	*tmp2;
 	t_env	*tmp;
-//	int		size_node;
 
 	i = 0;
 	tmp = env;
@@ -19,17 +18,6 @@ char	**env_lst_into_double_char(t_env *env, t_exec *exec)
 	}
 	while (tmp)
 	{
-//		size_node = ft_strlen(tmp->name) + ft_strlen(env->value) + 2;
-//		char_env[i] = malloc(sizeof(char *) * (size_node + 1));
-//		if (!char_env[i])
-//		{
-//			while (--i >= 0)
-//				free(char_env[i]);
-//			free(char_env);
-//			free_exec_struct(exec);
-//			perror("malloc error\n");
-//			exit(EXIT_FAILURE);
-//		}
 		tmp2 = ft_strjoin(tmp->name, "=");
 		if (!tmp2)
 		{
@@ -72,7 +60,7 @@ t_env	*ft_lstnew_env(char *str, int nb)
 	if (!new->name)
 		return (perror("malloc lstnew_env 2"), free(new), NULL);
 	change_name(&new, str, &i, nb);
-	if (str[nb + 1] != '\0')
+	if (str[nb] != '\0')
 	{
 		new->value = malloc(sizeof(char) * (ft_strlen(str) - nb));
 		if (!new->value)
