@@ -82,12 +82,13 @@ int	ft_cd(char **cmd, t_exec *exec)
 {
 	char	*oldpwd;
 	char	*home;
+	int		result;
 
 	home = get_var_home(*exec);
 	oldpwd = getcwd(NULL, 0);
 	if (!oldpwd)
 	{
-		ft_putstr_fd("Can't go to this dir, moved to /lgabet\n", 2);
+		ft_putstr_fd("Can't go to this dir, moved to home\n", 2);
 		chdir(home);
 		change_pwd(exec);
 		g_error_value = -1;
@@ -101,8 +102,11 @@ int	ft_cd(char **cmd, t_exec *exec)
 	}
 	else if (ft_strcmp(cmd[1], "-") == 0)
 		return (go_to_old_pwd(oldpwd, exec), 0);
-	if (!chdir(cmd[1]))
+	result = chdir(cmd[1]);
+	if (result == 0)
 		return (0);
+	if (result == -1)
+		ft_putstr_fd(" no such file or directory\n", 2);
 	if (cmd[1][0] != '$' || cmd[2])
 		g_error_value = -1;
 	change_oldpwd(exec, oldpwd);
