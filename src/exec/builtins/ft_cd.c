@@ -86,6 +86,11 @@ int	ft_cd(char **cmd, t_exec *exec)
 
 	home = get_var_home(*exec);
 	oldpwd = getcwd(NULL, 0);
+	if (cmd[1] && cmd[2])
+	{
+		ft_putstr_fd(" too many arguments\n", 2);
+		return (g_error_value = -1, 0);
+	}
 	if (!oldpwd)
 	{
 		ft_putstr_fd("Can't go to this dir, moved to home\n", 2);

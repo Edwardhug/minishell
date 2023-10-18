@@ -51,7 +51,7 @@ char	*t_get_path_cmd(char **all_path, char **splited, struct stat info)
 		path_cmd = ft_strdup(splited[0]);
 		if (access(path_cmd, F_OK | X_OK) == -1)
 			return (free(path_cmd), exit(127), NULL);
-		return (free_tab(all_path), path_cmd);
+		return (free_tab(all_path), exit(126), path_cmd);
 	}
 	while (all_path[i])
 	{
@@ -106,6 +106,8 @@ void	t_apply_exec(t_struct *temp_list, t_exec *exec)
 	path_cmd = t_get_cmd(env_lst_into_double_char(exec->env), splited_cmd);
 	if (!path_cmd)
 		exit(127);
+
+
 	execve(path_cmd, splited_cmd, env_lst_into_double_char(exec->env));
 	perror("");
 	free_tab(splited_cmd);

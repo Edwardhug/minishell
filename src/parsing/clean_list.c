@@ -10,53 +10,48 @@ void	swap_node(t_struct **redir, t_struct **cmd)
 	(*cmd)->next = tmp;
 }
 
-void	switch_to_value(t_struct **list, t_exec *exec)
+void    switch_to_value(t_struct **list, t_exec exec)
 {
-	t_env		*env;
-	char		*value;
-	t_struct	*copy;
+    char        *value;
+	// t_struct	*copy;
 
-	env = exec->env;
-	while (env)
-	{
-		if (ft_strcmp((*list)->next->str + 1, env->name) == 0)
-		{
-			value = ft_strdup(env->value);
-			free((*list)->next->str);
-			(*list)->next->str = NULL;
-			(*list)->next->str = value;
-			return ;
-		}
-		env = env->next;
-	}
-	if (ft_strncmp((*list)->next->str, "$?", 2) != 0)
-	{
-		copy = (*list);
+    while (exec.env)
+    {
+        if (ft_strcmp((*list)->next->str + 1, exec.env->name) == 0)
+        {
+            value = ft_strdup(exec.env->value);
+            free((*list)->next->str);
+            (*list)->next->str = NULL;
+            (*list)->next->str = value;
+            return ;
+        }
+        exec.env = exec.env->next;
+    }
+	if (ft_strncmp((*list)->next->str, "$?", 2)
+		&& (*list)->next->str[1])
+	{	
 		(*list)->next = (*list)->next->next;
 	}
-
 }
 
-void	change_env_var(t_struct **list, t_exec *exec)
+int    change_env_var(t_struct **list, t_exec *exec)
 {
-	t_struct	*lst;
-	t_struct	*start;
+    t_struct    *lst;
+    t_struct    *start;
 
-	lst = (*list);
-	start = lst;
-	while (lst && lst->next)
-	{
-		if (ft_strcmp(lst->str, "echo") == 0
-			&& ft_strncmp(lst->next->str, "$", 1) == 0
-			&& lst->next->str[1])
-			{
-				switch_to_value(&lst, exec);
-				// lst = lst->next;
-			}
-		lst = lst->next;
-	}
-	(*list) = start;
-	// print_list(*list);
+    lst = (*list);
+    start = lst;
+    while (lst && lst->next)
+    {
+        if (ft_strncmp(lst->next->str, "$", 1) == 0
+            && (!lst->str || lst->str[1]))
+                switch_to_value(&lst, *exec);
+        lst = lst->next;
+    }
+    (*list) = start;
+	if (!(*list)->next)
+		return (0);
+	return (1);
 }
 
 void	clean_redir_out(t_struct **list)

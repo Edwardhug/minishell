@@ -58,7 +58,7 @@ typedef struct s_struct
 	struct s_struct		*next;
 }			t_struct;
 
-void	change_env_var(t_struct **list, t_exec *exec);
+int    change_env_var(t_struct **list, t_exec *exec);
 int	have_strange_cmd(char *str);
 void    change_std(t_struct *lst, int fd);
 char    *get_node(char *word, int *i);
