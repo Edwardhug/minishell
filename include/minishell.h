@@ -50,6 +50,7 @@ typedef struct s_exec
 	t_env	*export;
 	int		fd_stand;
 	char	quote;
+	int		i_stat;
 	t_struct	*list_word;
 }				t_exec;
 
@@ -111,8 +112,8 @@ int			t_open_fd_out(t_struct *temp_list);
 int			t_exec_cmd(t_struct *temp_list, t_exec *exec);
 int			t_size_cmd(t_struct *temp_list);
 char		**t_get_clean_cmd(t_struct *temp_list, t_exec *exec);
-char		*t_get_path_cmd(char **all_path, char **splited, struct stat info, int i_stat);
-char		*t_get_cmd(char **env, char **splited_cmd);
+char		*t_get_path_cmd(char **all_path, char **splited, struct stat info, t_exec *exec);
+char		*t_get_cmd(char **env, char **splited_cmd, t_exec *exec);
 void		t_apply_exec(t_struct *temp_list, t_exec *exec);
 void		print_error(char **splited_cmd, char **all_path, int i);
 int			to_next_cmd(t_struct **temp_list);
@@ -148,7 +149,7 @@ t_env		*env_double_char_into_lst(char **c_env, t_exec *exec);
 t_env		*ft_lstnew_env(char *str, int nb);
 void		free_env(t_env *lst);
 void		free_exec_struct(t_exec *exec);
-void		free_stuff_error(t_exec *exec);
+void		free_stuff_error(t_exec *exec, int which, int error_value);
 int			ft_error_message(char *cmd_name, char *msg);
 int			ft_error_message_arg(char *cmd_name, char *arg, char *msg);
 //t_env		*ft_lstcpy(t_env *source);
@@ -171,7 +172,7 @@ void		no_line_return(int sig);
 
 void		print_return_value();
 int			print_clean_return_value(char *str);
-void		get_right_return_value(char **splited, struct stat info, int i_stat);
+void		get_right_return_value(char **splited, struct stat info, t_exec *exec);
 
 
 

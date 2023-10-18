@@ -49,7 +49,7 @@ char	**t_get_clean_cmd(t_struct *temp_list, t_exec *exec)
 	return (str);
 }
 
-char	*t_get_path_cmd(char **all_path, char **splited, struct stat info, int i_stat)
+char	*t_get_path_cmd(char **all_path, char **splited, struct stat info, t_exec *exec)
 {
 	int		i;
 	char	*tmp;
@@ -59,32 +59,58 @@ char	*t_get_path_cmd(char **all_path, char **splited, struct stat info, int i_st
 	if (splited[0][0] == '/')
 	{
 		path_cmd = ft_strdup(splited[0]);
+		if (!path_cmd)
+		{
+			free_tab(all_path);
+			free_tab(splited);
+			free_stuff_error(exec, 0, -1);
+			
+		}
 		if (access(path_cmd, F_OK | X_OK) == -1)
-			return (free(path_cmd), perror(""), exit(127), NULL);
-		return (free_tab(all_path), perror(""), exit(126), path_cmd);
+		{
+			free_tab(all_path);
+			free_tab(splited);
+			free(path_cmd);
+			free_stuff_error(exec, 1, 127);
+		}
+//		free_tab(splited);
+		free_tab(all_path);
+		free_stuff_error(exec, 0, 126);
 	}
 	while (all_path[i])
 	{
 		tmp = ft_strjoin(all_path[i], "/");
+		if (!tmp)
+		{
+
+		}
 		path_cmd = ft_strjoin(tmp, splited[0]);
+		if (!path_cmd)
+		{
+			//
+		}
 		if (access(path_cmd, F_OK | X_OK) != -1)
+		{
+			// free_tab(all_path);
+			// free_tab(splited);
+	//		free_stuff_error(exec, 1);
 			return (free(tmp), path_cmd);
+		}
 		free(path_cmd);
 		free(tmp);
 		i++;
 	}
 	print_error(splited, all_path, 1);
-	get_right_return_value(splited, info, i_stat);
+	get_right_return_value(splited, info, exec);
 	return (NULL);
 }
 
-char	*t_get_cmd(char **env, char **splited_cmd)
+char	*t_get_cmd(char **env, char **splited_cmd, t_exec *exec)
 {
 	int			i;
 	char		*path;
 	char		**all_path;
 	struct stat	info;
-	int			i_stat;
 
 	i = 0;
 	path = NULL;
@@ -102,8 +128,9 @@ char	*t_get_cmd(char **env, char **splited_cmd)
 	all_path = ft_split(path, ':');
 	if (!all_path)
 		return (NULL);
-	i_stat = stat(splited_cmd[0], &info);
-	return (t_get_path_cmd(all_path, splited_cmd, info, i_stat));
+	exec->i_stat = stat(splited_cmd[0], &info);
+	free_tab(env);
+	return (t_get_path_cmd(all_path, splited_cmd, info, exec));
 }
 
 void	t_apply_exec(t_struct *temp_list, t_exec *exec)
@@ -114,7 +141,7 @@ void	t_apply_exec(t_struct *temp_list, t_exec *exec)
 	splited_cmd = t_get_clean_cmd(temp_list, exec);
 	if (!splited_cmd)
 		return ;
-	path_cmd = t_get_cmd(env_lst_into_double_char(exec->env, exec), splited_cmd);
+	path_cmd = t_get_cmd(env_lst_into_double_char(exec->env, exec), splited_cmd, exec);
 	if (!path_cmd)
 	{
 		//en faire une fonction avec strjoin pendant le normage pour pas que ça se marche dessus
@@ -125,10 +152,10 @@ void	t_apply_exec(t_struct *temp_list, t_exec *exec)
 	if (ft_strcmp("./minishell", path_cmd) == 0)
 		shlvl(exec, 0, 1);
 	execve(path_cmd, splited_cmd, env_lst_into_double_char(exec->env, exec));
-	perror("execve");
 	free_tab(splited_cmd);
 	free(path_cmd);
 	if (errno == 13)
-		exit (126);
-	exit(127);
+		free_stuff_error(exec, 2, 126);
+	else
+		free_stuff_error(exec, 2, 127);
 }

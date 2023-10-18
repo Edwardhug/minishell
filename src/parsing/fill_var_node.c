@@ -24,7 +24,7 @@ void	fill_var_node(t_struct **list_word, char *word, t_exec *exec)
 		{
 			free_list(list_word);
 			free(word);
-			free_stuff_error(exec);
+			free_stuff_error(exec, 0, -1);
 		}
 		tmp = *list_word;
 		type = find_type_enum(tmp, str);
