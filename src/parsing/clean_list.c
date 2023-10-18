@@ -10,16 +10,56 @@ void	swap_node(t_struct **redir, t_struct **cmd)
 	(*cmd)->next = tmp;
 }
 
+char	*dup_without_space(char *str)
+{
+	int		i;
+	int		j;
+	char	*copy;
+
+	i = 0;
+	j = 0;
+	copy = calloc(ft_strlen(str) + 1, sizeof(char));
+	if (!copy)
+		return (NULL);
+	while(str[i])
+	{
+		if (str[i] == ' ')
+		{
+			copy[j] = str[i];
+			j++;
+			i++;
+			while (str[i] && str[i] == ' ')
+				i++;
+		}
+		copy[j] = str[i];
+		j++;
+		i++;
+	}
+	return (copy);
+}
+
 void    switch_to_value(t_struct **list, t_exec exec)
 {
     char        *value;
-	// t_struct	*copy;
 
     while (exec.env)
     {
-        if (ft_strcmp((*list)->next->str + 1, exec.env->name) == 0)
+		if ((*list)->str && ft_strcmp((*list)->str, "echo") == 0
+			&& ft_strcmp((*list)->next->str + 1, exec.env->name) == 0)
+		{
+			value = dup_without_space(exec.env->value);
+			if (!value)
+				return ;
+            free((*list)->next->str);
+            (*list)->next->str = NULL;
+            (*list)->next->str = value;
+            return ;
+		}
+        else if (ft_strcmp((*list)->next->str + 1, exec.env->name) == 0)
         {
             value = ft_strdup(exec.env->value);
+			if (!value)
+				return ;
             free((*list)->next->str);
             (*list)->next->str = NULL;
             (*list)->next->str = value;
