@@ -104,7 +104,7 @@ void	export_existing_value(t_env *args_tmp, t_exec *exec, t_env *head)
 			{
 				if (ft_strcmp(args_tmp->name, tmp_env->name) == 0)
 				{
-					if (tmp_env->value) //à virer je pense lors du normage
+					if (tmp_env->value) //à virer je pense lors du normage 
 						free(tmp_env->value);
 					tmp_env->value = ft_strdup(args_tmp->value);
 					if (!tmp_env->value)
