@@ -5,7 +5,7 @@ char	*fill_str(char *word, int *i, int size)
 	char	*str;
 	int		j;
 
-	str = calloc((size + 1), sizeof(char));
+	str = ft_calloc((size + 1), sizeof(char));
 	if (!str)
 		return (NULL);
 	j = 0;

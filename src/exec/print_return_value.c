@@ -1,6 +1,6 @@
 #include "../../include/minishell.h"
 
-void	get_right_return_value(char **splited, struct stat info, int i_stat)
+void	get_right_return_value(char **splited, struct stat info, t_exec *exec)
 {
 	if (access(splited[0], F_OK) != -1)
 	{
@@ -15,7 +15,7 @@ void	get_right_return_value(char **splited, struct stat info, int i_stat)
 			exit (127);
 		}
 	}
-	if (i_stat == 0)
+	if (exec->i_stat == 0)
 	{
 		if (S_ISDIR(info.st_mode))
 		{

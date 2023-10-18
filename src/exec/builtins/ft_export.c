@@ -135,7 +135,6 @@ void	export_existing_value(t_env *args_tmp, t_exec *exec, t_env *head)
 	}
 	if (not_in_env == 0)
 	{
-		ft_printf("going here\n");
 		tmp_env = ft_lstnew_export(args_tmp);
 		if (!tmp_env)
 		{

@@ -38,7 +38,7 @@ int	check_quote_file(char *line, int *i, char **word)
 	size = verif(line, i);
 	if (size == 0)
 		return (0);
-	cp = calloc((size + 1), sizeof(char));
+	cp = ft_calloc((size + 1), sizeof(char));
 	if (!cp)
 		return (0);
 	j = 0;
