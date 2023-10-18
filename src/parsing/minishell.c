@@ -133,7 +133,6 @@ int	main(int ac, char **av, char **env)
 		exec.env = env_double_char_into_lst(env, &exec);
 		exec.export = env_double_char_into_lst(env, &exec);
 	}
-	fd_standart = dup(STDIN_FILENO);
 	signals();
 	while (1)
 		loop_main(fd_standart, &exec);
