@@ -48,12 +48,12 @@ void	change_oldpwd(t_exec *exec, char *actual_pwd)
 	arg_pwd[0] = ft_strjoin("PWD=", tmp);
 	free(tmp);
 	arg[0] = fill_oldpwd(actual_pwd, exec);
-	args_tmp = env_double_char_into_lst(arg);
-	args_tmp_pwd = env_double_char_into_lst(arg_pwd);
-	export_existing_value(args_tmp, exec, NULL);
-	export_existing_value(args_tmp_pwd, exec, NULL);
-	free_tab(arg_pwd);
+	args_tmp = env_double_char_into_lst(arg, exec);
 	free_tab(arg);
+	args_tmp_pwd = env_double_char_into_lst(arg_pwd, exec);
+	export_existing_value(args_tmp, exec, NULL);
+	free_tab(arg_pwd);
+	export_existing_value(args_tmp_pwd, exec, NULL);
 }
 
 void	go_to_old_pwd(char *oldpwd, t_exec *exec)

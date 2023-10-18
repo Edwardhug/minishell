@@ -108,7 +108,7 @@ int	t_open_fd_out(t_struct *temp_list);
 int	t_exec_cmd(t_struct *temp_list, t_exec *exec);
 int			t_size_cmd(t_struct *temp_list);
 char		**t_get_clean_cmd(t_struct *temp_list, t_exec *exec);
-char		*t_get_path_cmd(char **all_path, char **splited, struct stat info);
+char		*t_get_path_cmd(char **all_path, char **splited, struct stat info, int i_stat);
 char		*t_get_cmd(char **env, char **splited_cmd);
 void	t_apply_exec(t_struct *temp_list, t_exec *exec);
 void		print_error(char **splited_cmd, char **all_path, int i);
@@ -140,8 +140,8 @@ void	show_export(t_exec *exec);
 void	change_name(t_env **new, char *str, int *i, int nb);
 size_t		t_struct_strlen(t_struct *list_word);
 size_t		t_env_strlen(t_env *env);
-char		**env_lst_into_double_char(t_env *env);
-t_env		*env_double_char_into_lst(char **c_env);
+char		**env_lst_into_double_char(t_env *env, t_exec *exec);
+t_env		*env_double_char_into_lst(char **c_env, t_exec *exec);
 t_env		*ft_lstnew_env(char *str, int nb);
 void		free_env(t_env *lst);
 void		free_exec_struct(t_exec *exec);
@@ -167,7 +167,7 @@ void	no_line_return(int sig);
 
 void	print_return_value();
 int	print_clean_return_value(char *str);
-void get_right_return_value(char **splited, struct stat info);
+void	get_right_return_value(char **splited, struct stat info, int i_stat);
 
 
 

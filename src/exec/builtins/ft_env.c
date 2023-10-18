@@ -5,7 +5,7 @@ int	ft_env(t_exec *exec)
 	int		i;
 	char	**char_env;
 
-	char_env = env_lst_into_double_char(exec->env);
+	char_env = env_lst_into_double_char(exec->env, exec);
 	i = 0;
 	while (char_env[i])
 	{

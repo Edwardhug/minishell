@@ -1,12 +1,17 @@
-NAME = minishell
 
-CC = cc
+.PHONY:     			all clear mkbuild lib clean fclean re
 
-CFLAG = -Wall -Wextra -Werror -g3
+NAME					= minishell
 
-LINKFLAG = -lreadline -L/usr/include
+BUILD_DIR				= build/
+	
+HEADER_DIR				= include/
+HEADER_FILE				= minishell.h
+HEADERS_WITH_PATH		= $(addprefix $(HEADER_DIR),$(HEADER_FILE))
 
-SRCS =	parsing/minishell.c\
+DIR						= src/
+
+SRC =	parsing/minishell.c\
 		parsing/get_path.c\
 		parsing/parsing_minishell.c\
 		parsing/struct_utils.c\
@@ -48,118 +53,49 @@ SRCS =	parsing/minishell.c\
 		signals/signals_here_doc.c\
 		here_doc/here_doc.c\
 
-INCLUDE = minishell.h
 
-OBJS = $(SRCS:%.c=$(PATH_OBJS)%.o)
+OBJECTS			    	= ${addprefix ${BUILD_DIR},${SRC:.c=.o}}
 
-LIBFT_A = libft/libft.a
+LIBFT					= libft.a
+LIB_DIR					= libft/
+	
+GCC						= cc
+CFLAGS					= -Wall -Wextra -Werror -g3
 
-PATH_SRCS = src/
+RM 						= rm -rf
+CLEAR					= clear
 
-PATH_INCLUDE = include/
+LINKFLAG = -lreadline -L/usr/include
 
-PATH_OBJS = obj/
-
-PATH_LIBFT = libft/
-
-# ----------------------------------variable bonus--------------------------
-
-# NAME_BONUS = pipex_bonus
-
-# SRCS_BONUS = pipex_bonus.c\
-# 			 ft_utils_bonus.c\
-# 			 ft_here_doc.c
-
-# PATH_OBJS_BONUS = obj_bonus/
-
-# OBJS_BONUS = $(SRCS_BONUS:%.c=$(PATH_OBJS_BONUS)%.o)
-
-# PATH_SRCS_BONUS = src_bonus/
-
-# INCLUDE_BONUS = pipex_bonus.h
-
-# ------------------------------------make----------------------------------
-
-all: $(NAME)
-
-$(NAME) : $(PATH_OBJS) $(OBJS) $(PATH_INCLUDE)$(INCLUDE)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT_A) -o $(NAME) $(LINKFLAG)
+$(BUILD_DIR)%.o:		$(DIR)%.c ${HEADERS_WITH_PATH} Makefile
+						mkdir -p $(@D)
+						$(GCC) $(CFLAGS) -I$(HEADER_DIR) -c $< -o $@
 
 
-$(OBJS)	: $(PATH_OBJS)%.o: $(PATH_SRCS)%.c $(PATH_INCLUDE)$(INCLUDE) $(LIBFT_A)
-				$(CC) $(CFLAG) -I$(PATH_INCLUDE) -I$(PATH_LIBFT) -c $< -o $@
+all: 					mkbuild  $(HEADER_DIR)
+						$(MAKE) lib
+						$(MAKE) $(NAME)
 
-# --------------------------------make bonus---------------------------------
+mkbuild:
+						mkdir -p build
 
-# bonus: $(NAME_BONUS)
+clear:
+						$(CLEAR)
 
-# $(NAME_BONUS) : $(PATH_OBJS_BONUS) $(OBJS_BONUS) $(PATH_INCLUDE)$(INCLUDE_BONUS)
-# 	$(CC) $(CFLAGS) $(OBJS_BONUS) $(LIBFT_A) -o $(NAME_BONUS)
+$(NAME): 				$(OBJECTS) lib $(LIB_DIR)$(LIBFT)
+						$(GCC) $(CFLAGS) $(OBJECTS) -o $(NAME) $(LIB_DIR)$(LIBFT) $(LINKFLAG)
 
-# $(OBJS_BONUS)	: $(PATH_OBJS_BONUS)%.o: $(PATH_SRCS_BONUS)%.c $(PATH_INCLUDE)$(INCLUDE_BONUS) $(LIBFT_A)
-# 				$(CC) $(CFLAG) -I$(PATH_INCLUDE) -I$(PATH_LIBFT) -c $< -o $@
+lib:
+						make FLAGS="-Wall -Wextra -Werror -g3" -C $(LIB_DIR)
+						
+clean:					
+						${RM} $(OBJECTS)
+						make clean -C $(LIB_DIR)
+						${RM} $(BUILD_DIR)
 
-# ----------------------------------utils------------------------------------
+fclean:					clean
+						${RM} ${NAME}
+						make fclean -C $(LIB_DIR)
 
-$(PATH_OBJS) :
-				mkdir -p $(PATH_OBJS)
-				mkdir -p $(PATH_OBJS)/parsing
-				mkdir -p $(PATH_OBJS)/exec
-				mkdir -p $(PATH_OBJS)/exec/builtins
-				mkdir -p $(PATH_OBJS)/utils
-				mkdir -p $(PATH_OBJS)/signals
-				mkdir -p $(PATH_OBJS)/here_doc
-
-# $(PATH_OBJS_BONUS) :
-# 				mkdir -p $(PATH_OBJS_BONUS)
-
-$(LIBFT_A)	:	FORCE
-				make all -C $(PATH_LIBFT)
-
-
-# --------------------------------Removing readline leaks---------------------
-
-leaks            :    all
-				echo "{" > valgrind_ignore_leaks.txt
-				echo "leak readline" >> valgrind_ignore_leaks.txt
-				echo "    Memcheck:Leak" >> valgrind_ignore_leaks.txt
-				echo "    ..." >> valgrind_ignore_leaks.txt
-				echo "    fun:readline" >> valgrind_ignore_leaks.txt
-				echo "}" >> valgrind_ignore_leaks.txt
-				echo "{" >> valgrind_ignore_leaks.txt
-				echo "    leak add_history" >> valgrind_ignore_leaks.txt
-				echo "    Memcheck:Leak" >> valgrind_ignore_leaks.txt
-				echo "    ..." >> valgrind_ignore_leaks.txt
-				echo "    fun:add_history" >> valgrind_ignore_leaks.txt
-				echo "}" >> valgrind_ignore_leaks.txt
-				valgrind --suppressions=valgrind_ignore_leaks.txt --leak-check=full \
-					--show-leak-kinds=all --track-fds=yes \
-					--show-mismatched-frees=yes --read-var-info=yes \
-					-s ./${NAME}
-					#--log-file=valgrind.txt \
-
-envleaks            :    all
-				env -i valgrind --suppressions=valgrind_ignore_leaks.txt --leak-check=full \
-					--show-leak-kinds=all --track-fds=yes \
-					--show-mismatched-frees=yes --read-var-info=yes \
-					-s ./${NAME}
-
-# ----------------------------------commands---------------------------------
-
-clean:
-	rm -rf ${OBJS} $(PATH_OBJS)
-	rm -rf valgrind_ignore_leaks.txt
-	@make clean -C $(PATH_LIBFT)
-#	rm -rf ${OBJS_BONUS} $(PATH_OBJS_BONUS)
-
-fclean: clean
-	rm -rf $(NAME)
-	rm -rf valgrind_ignore_leaks.txt
-	@make fclean -C $(PATH_LIBFT)
-#	rm -rf $(NAME_BONUS)
-
-re: fclean all
-
-FORCE: 
-
-.PHONY: all re bonus clean fclean
+re:						fclean
+						$(MAKE) all

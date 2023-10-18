@@ -55,53 +55,10 @@ void	show_export(t_exec *exec)
 		if (tmp->value != NULL)
 		{
 			ft_printf("=");
-			// if (tmp->value[0] == '\"' && tmp->value[ft_strlen(tmp->value) - 1] == '\"')
-			// 	ft_printf("%s", tmp->value);
-			// else
-			// 	ft_printf("\"%s\"", tmp->value);
 			ft_printf("\"%s\"", tmp->value);
 		}
 		ft_printf("\n");
 		tmp = tmp->next;
-	}
-}
-
-void	export_existing_value(t_env *args_tmp, t_exec *exec, t_env *lst_args)
-{
-	t_env	*tmp_exp;
-	t_env	*tmp_env;
-
-	tmp_exp = exec->export;
-	tmp_env = exec->env;
-	while (tmp_exp)
-	{
-		if (ft_strcmp(args_tmp->name, tmp_exp->name) == 0)
-		{
-			free(tmp_exp->value);
-			tmp_exp->value = ft_strdup(args_tmp->value);
-			if (!tmp_exp->value)
-			{
-				perror("tmp_exp->value dup error\n");
-				free_exec_struct(exec);
-				if (lst_args)
-					free_env(lst_args);
-			}
-		}
-		tmp_exp = tmp_exp->next;
-	}
-	while (tmp_env)
-	{
-		if (ft_strcmp(args_tmp->name, tmp_env->name) == 0)
-		{
-			free(tmp_env->value);
-			tmp_env->value = ft_strdup(args_tmp->value);
-			if (!tmp_env->value)
-			{
-				perror("tmp_env->value malloc\n");
-				return ;
-			}
-		}
-		tmp_env = tmp_env->next;
 	}
 }
 
@@ -112,37 +69,90 @@ static t_env	*ft_lstnew_export(t_env *args_tmp)
 	new = malloc(sizeof(t_env));
 	if (!new)
 		return (perror("malloc lstnew_export1"), NULL);
-	new->name = malloc(sizeof(char *) * (ft_strlen(args_tmp->name) + 1));
-	if (!new->name)
-		return (perror("malloc lstnew_export2"), NULL);
 	new->name = ft_strdup(args_tmp->name);
 	if (!new->name)
 		return(perror("lstnew_export dup 1"), NULL);
 	if (args_tmp->value == NULL || args_tmp->value[0] == '\0')
 	{
 		new->value = malloc(sizeof(char *) * 1);
-		if (!new->value)
-			return (perror("malloc lstnew_export3"), NULL);
+		new->value[0] = '\0';
 	}
 	else
-	{
-		new->value = malloc(sizeof(char *) * (ft_strlen(args_tmp->value) + 1));
-		if (!new->value)
-			return (perror("malloc lstnew_export3"), NULL);
-	}
-	if (args_tmp->value)
 	{
 		new->value = ft_strdup(args_tmp->value);
 		if (!new->value)
 			return (perror("lstnew_export dup 2"), NULL);
 	}
-	else
-		new->value[0] = '\0';
 	new->next = NULL;
 	return (new);
 }
 
-static void	create_var(t_env *args_tmp, t_exec *exec, t_env *lst_args)
+void	export_existing_value(t_env *args_tmp, t_exec *exec, t_env *head)
+{
+	t_env	*tmp_exp;
+	t_env	*tmp_env;
+	int		not_in_env;
+
+	tmp_exp = exec->export;
+	tmp_env = exec->env;
+	not_in_env = 0;
+	while (tmp_exp)
+	{
+		if (ft_strcmp(args_tmp->name, tmp_exp->name) == 0)
+		{
+			ft_printf("is in export\n");
+			while (tmp_env)
+			{
+				if (ft_strcmp(args_tmp->name, tmp_env->name) == 0)
+				{
+					ft_printf("is in env\n");
+					if (tmp_env->value) //à virer je pense lors du normage
+						free(tmp_env->value);
+					tmp_env->value = ft_strdup(args_tmp->value);
+					if (!tmp_env->value)
+					{
+						perror("tmp_env->value malloc\n");
+						free_exec_struct(exec);
+						if (head)
+							free_env(head);
+						exit(EXIT_FAILURE);
+					}
+					not_in_env = 1;
+				}
+				tmp_env = tmp_env->next;
+			}
+			if (tmp_exp->value)
+				free(tmp_exp->value);
+			tmp_exp->value = ft_strdup(args_tmp->value);
+			if (!tmp_exp->value)
+			{
+				perror("tmp_exp->value dup error\n");
+				free_exec_struct(exec);
+				if (head)
+					free_env(head);
+				exit(EXIT_FAILURE);
+			}
+		}
+		tmp_exp = tmp_exp->next;
+	}
+	if (not_in_env == 0)
+	{
+		ft_printf("going here\n");
+		tmp_env = ft_lstnew_export(args_tmp);
+		if (!tmp_env)
+		{
+			if (head)
+				free_env(head);
+			free_exec_struct(exec);
+			exit(EXIT_FAILURE);
+		}
+		tmp_env->next = exec->env;
+		exec->env = tmp_env;
+	}
+}
+
+
+static void	create_var(t_env *args_tmp, t_exec *exec, t_env *head)
 {
 	t_env	*new_exp;
 	t_env	*new_env;
@@ -152,10 +162,13 @@ static void	create_var(t_env *args_tmp, t_exec *exec, t_env *lst_args)
 		new_exp = ft_lstnew_export(args_tmp);
 		if (!new_exp)
 		{
-			free_env(lst_args);
+			free_env(head);
 			free_exec_struct(exec);
 			exit(EXIT_FAILURE);
 		}
+		if (new_exp->value)
+			free(new_exp->value);
+		new_exp->value = NULL;
 		new_exp->next = exec->export;
 		exec->export = new_exp;
 	}
@@ -164,7 +177,7 @@ static void	create_var(t_env *args_tmp, t_exec *exec, t_env *lst_args)
 		new_exp = ft_lstnew_export(args_tmp);
 		if (!new_exp)
 		{
-			free_env(lst_args);
+			free_env(head);
 			free_exec_struct(exec);
 			exit(EXIT_FAILURE);
 		}
@@ -173,7 +186,7 @@ static void	create_var(t_env *args_tmp, t_exec *exec, t_env *lst_args)
 		new_env = ft_lstnew_export(args_tmp);
 		if (!new_env)
 		{
-			free_env(lst_args);
+			free_env(head);
 			free_exec_struct(exec);
 			exit(EXIT_FAILURE);
 		}
@@ -218,8 +231,10 @@ static int	what_to_do(char **cmd, t_exec *exec)
 	t_env	*tmp;
 	t_env	*lst_args;
 	t_env	*args_tmp;
+	t_env	*head;
 
-	lst_args = env_double_char_into_lst(cmd + 1);
+	lst_args = env_double_char_into_lst(cmd + 1, exec);
+	head = lst_args;
 	if (is_valid_name(cmd[0], lst_args))
 	{
 		g_error_value = -1;
@@ -234,20 +249,24 @@ static int	what_to_do(char **cmd, t_exec *exec)
 			if (ft_strcmp(tmp->name, args_tmp->name) == 0)
 			{
 				if (args_tmp->value == NULL || args_tmp->value[0] == '\0')
+				{
 					break ;
+				}
 				else
-					export_existing_value(args_tmp, exec, lst_args);
+				{
+					export_existing_value(args_tmp, exec, head);
+				}
 				break ;
 			}
 			tmp = tmp->next;
 		}
 		if (!tmp)
 		{
-			create_var(args_tmp, exec, lst_args);
+			create_var(args_tmp, exec, head);
 		}
 		lst_args = lst_args->next;
 	}
-	free_env(lst_args);
+	free_env(head);
 	return (0);
 }
 
@@ -295,6 +314,7 @@ static char	**delete_quotation_mark(char **cmd, t_exec *exec, int nb_args)
 			while (--i >= 0)
 				free(clean_cmd[i]);
 			free(clean_cmd);
+			free_tab(cmd);
 			free_exec_struct(exec);
 			exit(EXIT_FAILURE);
 		}
@@ -302,7 +322,7 @@ static char	**delete_quotation_mark(char **cmd, t_exec *exec, int nb_args)
 		k = 0;
 		while (cmd[i][k])
 		{
-			if (cmd[i][k] != '\"')
+			if (cmd[i][k] != '\"' && cmd[i][k] != '\'')
 			{
 				clean_cmd[i][j] = cmd[i][k];
 				j++;
@@ -329,6 +349,7 @@ int	ft_export(char **cmd, t_exec *exec)
 		show_export(exec);
 	else
 		what_to_do(clean_cmd, exec);
+	free_tab(clean_cmd);
 	if (exec->nb_cmds > 1)
 		exit(0);
 	return (0);
