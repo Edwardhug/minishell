@@ -59,7 +59,7 @@ void	print_var(char **cmd, int *i, int *j, t_exec *exec)
 
 int	ft_echo(char **cmd, t_exec *exec)
 {
-	int	dash_n; //sert de booléen
+	int	dash_n; //sert de booléen 
 	int	i;
 	int	j;
 	int	simple_quote;
