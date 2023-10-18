@@ -18,7 +18,7 @@ char	*dup_without_space(char *str)
 
 	i = 0;
 	j = 0;
-	copy = calloc(ft_strlen(str) + 1, sizeof(char));
+	copy = ft_calloc(ft_strlen(str) + 1, sizeof(char));
 	if (!copy)
 		return (NULL);
 	while(str[i])
