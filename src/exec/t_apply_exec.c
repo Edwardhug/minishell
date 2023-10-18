@@ -51,7 +51,7 @@ char	*t_get_path_cmd(char **all_path, char **splited, struct stat info)
 		path_cmd = ft_strdup(splited[0]);
 		if (access(path_cmd, F_OK | X_OK) == -1)
 			return (free(path_cmd), perror(""), exit(127), NULL);
-		return (free_tab(all_path), exit(126), path_cmd);
+		return (free_tab(all_path), perror(""), exit(126), path_cmd);
 	}
 	while (all_path[i])
 	{
