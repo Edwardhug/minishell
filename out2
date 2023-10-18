@@ -1,3 +1,4 @@
+<<<<<<< HEAD:out2
 build
 include
 libft
@@ -8,3 +9,5 @@ obj
 out
 out2
 src
+=======
+>>>>>>> bb5ca51066c2e24e9dc678a7fcff4513d92c4d7d:test

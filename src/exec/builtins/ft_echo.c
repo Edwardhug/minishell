@@ -57,23 +57,45 @@ void	print_var(char **cmd, int *i, int *j, t_exec *exec)
 		ft_printf("$");
 }
 
+static int	is_dash_n(char *arg)
+{
+	int	i;
+
+	i = 1;
+	if (ft_strncmp(arg, "-n", 2) == 0)
+	{
+		while (arg[i])
+		{
+			if (arg[i] != 'n')
+				return (1);
+			i++;
+		}
+		return (0);
+	}
+	return (1);
+}
+
 int	ft_echo(char **cmd, t_exec *exec)
 {
-	int	dash_n; //sert de booléen 
+	int	dash_n;
+	int	newline;
 	int	i;
 	int	j;
 	int	simple_quote;
 
 	i = 1;
-	if (!cmd[1])
-		return (ft_printf(""), 0);
-	if (ft_strcmp(cmd[1], "-n") == 0) //on regarde si on a le -n pour le saut à la ligne 
+	newline = 0;
+	while (cmd[i])
 	{
-		i++;
-		dash_n = 0;
+		dash_n = is_dash_n(cmd[i]);
+		if (!dash_n)
+		{
+			newline++;
+			i++;
+		}
+		else
+			break ;
 	}
-	else
-		dash_n = 1;
 	while (cmd[i])
 	{
 		simple_quote = 0;
@@ -88,11 +110,12 @@ int	ft_echo(char **cmd, t_exec *exec)
 				ft_printf("%c", cmd[i][j + simple_quote]);
 			j++;
 		}
-		if (cmd[i + 1] != NULL) //si on est pas au dernier argument, on met un espace.
+		if (cmd[i + 1] != NULL)
 			ft_printf(" ");
 		i++;
 	}
-	if (dash_n) //si on a pas de -n on va à la ligne
+	if (!newline)
 		ft_printf("\n");
+	free_exec_struct(exec);
 	exit(0);
 }

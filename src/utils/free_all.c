@@ -4,6 +4,7 @@ void	free_exec_struct(t_exec *exec)
 {
 	free_env(exec->env);
 	free_env(exec->export);
+	free_list(&exec->list_word);
 }
 
 void	change_name(t_env **new, char *str, int *i, int nb)

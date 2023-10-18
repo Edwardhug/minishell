@@ -14,7 +14,7 @@ int	t_size_cmd(t_struct *temp_list)
 	return (i);
 }
 
-char	**t_get_clean_cmd(t_struct *temp_list)
+char	**t_get_clean_cmd(t_struct *temp_list, t_exec *exec)
 {
 	char	**str;
 	int		i;
@@ -27,11 +27,21 @@ char	**t_get_clean_cmd(t_struct *temp_list)
 	}
 	str = malloc(sizeof(char *) * (t_size_cmd(temp_list) + 1));
 	if (!str)
+	{
+		free_exec_struct(exec);
 		return (NULL);
+	}
 	while (temp_list && temp_list->type != REDIRECTION
 		&& temp_list->type != PIPE)
 	{
-		str[i] = temp_list->str;
+		str[i] = ft_strdup(temp_list->str);
+		if (!str[i])
+		{
+			free_exec_struct(exec);
+			while (--i > 0)
+				free(str[i]);
+			free(str);
+		}
 		i++;
 		temp_list = temp_list->next;
 	}
@@ -39,7 +49,7 @@ char	**t_get_clean_cmd(t_struct *temp_list)
 	return (str);
 }
 
-char	*t_get_path_cmd(char **all_path, char **splited, struct stat info)
+char	*t_get_path_cmd(char **all_path, char **splited, struct stat info, int i_stat)
 {
 	int		i;
 	char	*tmp;
@@ -64,7 +74,7 @@ char	*t_get_path_cmd(char **all_path, char **splited, struct stat info)
 		i++;
 	}
 	print_error(splited, all_path, 1);
-	get_right_return_value(splited, info);
+	get_right_return_value(splited, info, i_stat);
 	return (NULL);
 }
 
@@ -74,6 +84,7 @@ char	*t_get_cmd(char **env, char **splited_cmd)
 	char		*path;
 	char		**all_path;
 	struct stat	info;
+	int			i_stat;
 
 	i = 0;
 	path = NULL;
@@ -91,8 +102,8 @@ char	*t_get_cmd(char **env, char **splited_cmd)
 	all_path = ft_split(path, ':');
 	if (!all_path)
 		return (NULL);
-	stat(splited_cmd[0], &info);
-	return (t_get_path_cmd(all_path, splited_cmd, info));
+	i_stat = stat(splited_cmd[0], &info);
+	return (t_get_path_cmd(all_path, splited_cmd, info, i_stat));
 }
 
 void	t_apply_exec(t_struct *temp_list, t_exec *exec)
@@ -100,14 +111,21 @@ void	t_apply_exec(t_struct *temp_list, t_exec *exec)
 	char		*path_cmd;
 	char		**splited_cmd;
 
-	splited_cmd = t_get_clean_cmd(temp_list);
+	splited_cmd = t_get_clean_cmd(temp_list, exec);
 	if (!splited_cmd)
 		return ;
-	path_cmd = t_get_cmd(env_lst_into_double_char(exec->env), splited_cmd);
+	path_cmd = t_get_cmd(env_lst_into_double_char(exec->env, exec), splited_cmd);
 	if (!path_cmd)
+	{
+		//en faire une fonction avec strjoin pendant le normage pour pas que ça se marche dessus
+		ft_putstr_fd(temp_list->str, 2);
+		ft_putstr_fd(": command not found\n", 2);
 		exit(127);
-	execve(path_cmd, splited_cmd, env_lst_into_double_char(exec->env));
-	perror("");
+	}
+	if (ft_strcmp("./minishell", path_cmd) == 0)
+		shlvl(exec, 0, 1);
+	execve(path_cmd, splited_cmd, env_lst_into_double_char(exec->env, exec));
+	perror("execve");
 	free_tab(splited_cmd);
 	free(path_cmd);
 	if (errno == 13)

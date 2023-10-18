@@ -77,11 +77,15 @@ t_struct	*to_cmd(t_struct *lst)
 
 int	child_process(int *fd, t_struct *temp_list, t_exec *exec)
 {
+	char	**clean_cmd;
+
 	close(fd[0]);
 	close(exec->fd_stand);
 	change_std(temp_list, fd[1]);
 	close(fd[1]);
-	is_builtin_fork(t_get_clean_cmd(to_cmd(temp_list)), exec);
+	clean_cmd = t_get_clean_cmd(to_cmd(temp_list), exec);
+	is_builtin_fork(clean_cmd, exec);
+	free_tab(clean_cmd);
 	t_apply_exec(to_cmd(temp_list), exec);
 	exit(EXIT_FAILURE);
 	return (0);
@@ -91,14 +95,23 @@ int	t_exec_cmd(t_struct *temp_list, t_exec *exec)
 {
 	int		fd[2];
 	int		pid;
+	char	**clean_cmd;
 
+	clean_cmd = t_get_clean_cmd(temp_list, exec);
 	if (exec->nb_cmds == 1
-		&& is_builtin_alone(t_get_clean_cmd(temp_list), exec) == 1)
+		&& is_builtin_alone(clean_cmd, exec) == 1)
+	{
+		free_tab(clean_cmd);
 		return (0);
+	}
 	else
 	{
 		if (pipe(fd) == -1)
+		{
+			free_exec_struct(exec);
+			free_tab(clean_cmd);
 			exit(EXIT_FAILURE);
+		}
 		pid = fork();
 		if (pid == 0)
 			return (child_process(fd, temp_list, exec), 1);
@@ -107,6 +120,7 @@ int	t_exec_cmd(t_struct *temp_list, t_exec *exec)
 			close(fd[1]);
 			dup2(fd[0], STDIN_FILENO);
 			close(fd[0]);
+			free_tab(clean_cmd);
 			return (pid);
 		}
 	}

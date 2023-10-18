@@ -11,7 +11,7 @@ void	put_old_pwd_in_char(char **arg)
 	(*arg)[6] = '=';
 }
 
-char	*fill_oldpwd(char *actual_pwd)
+char	*fill_oldpwd(char *actual_pwd, t_exec *exec)
 {
 	int		i;
 	int		size;
@@ -36,6 +36,7 @@ char	*fill_oldpwd(char *actual_pwd)
 		i++;
 	}
 	return(arg);
+	(void)exec;
 }
 
 void	change_pwd(t_exec *exec)
@@ -48,8 +49,8 @@ void	change_pwd(t_exec *exec)
 		return ;
 	arg_pwd[0] = getcwd(NULL, 0);
 	arg_pwd[0] = ft_strjoin("PWD=", arg_pwd[0]);
-	args_tmp_pwd = env_double_char_into_lst(arg_pwd);
-	export_existing_value(args_tmp_pwd, exec);
+	args_tmp_pwd = env_double_char_into_lst(arg_pwd, exec);
+	export_existing_value(args_tmp_pwd, exec, NULL);
 	free_tab(arg_pwd);
 }
 
