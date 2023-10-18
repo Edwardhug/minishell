@@ -39,7 +39,7 @@ char	*remove_simple_quotes(char *str, t_exec *exec)
 	if (!ret)
 	{
 		free(str);
-		free_stuff_error(exec, 0, -1);
+		free_stuff_error(exec, "malloc", -1);
 	}
 	i = 0;
 	while (str[i])
@@ -70,7 +70,7 @@ char	*remove_quotes(char *str, t_exec *exec)
 	if (!ret)
 	{
 		free(str);
-		free_stuff_error(exec, 0, -1);
+		free_stuff_error(exec, "malloc", -1);
 	}
 	i = 0;
 	while (str[i])

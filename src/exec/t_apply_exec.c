@@ -27,20 +27,17 @@ char	**t_get_clean_cmd(t_struct *temp_list, t_exec *exec)
 	}
 	str = malloc(sizeof(char *) * (t_size_cmd(temp_list) + 1));
 	if (!str)
-	{
-		free_exec_struct(exec);
-		return (NULL);
-	}
+		free_stuff_error(exec, "malloc", -1);
 	while (temp_list && temp_list->type != REDIRECTION
 		&& temp_list->type != PIPE)
 	{
 		str[i] = ft_strdup(temp_list->str);
 		if (!str[i])
 		{
-			free_exec_struct(exec);
 			while (--i > 0)
 				free(str[i]);
 			free(str);
+			free_stuff_error(exec, "malloc", -1);
 		}
 		i++;
 		temp_list = temp_list->next;
@@ -63,7 +60,7 @@ char	*t_get_path_cmd(char **all_path, char **splited, struct stat info, t_exec *
 		{
 			free_tab(all_path);
 			free_tab(splited);
-			free_stuff_error(exec, 0, -1);
+			free_stuff_error(exec, "malloc", -1);
 			
 		}
 		if (access(path_cmd, F_OK | X_OK) == -1)
@@ -71,29 +68,29 @@ char	*t_get_path_cmd(char **all_path, char **splited, struct stat info, t_exec *
 			free_tab(all_path);
 			free_tab(splited);
 			free(path_cmd);
-			free_stuff_error(exec, 1, 127);
+			free_stuff_error(exec, "access", 127);
 		}
-//		free_tab(splited);
+		free_tab(splited);
 		free_tab(all_path);
-		free_stuff_error(exec, 0, 126);
+		free_stuff_error(exec, splited[0], 126);
 	}
 	while (all_path[i])
 	{
 		tmp = ft_strjoin(all_path[i], "/");
 		if (!tmp)
 		{
-
+			free_stuff_error(exec, "malloc", -1);
 		}
 		path_cmd = ft_strjoin(tmp, splited[0]);
 		if (!path_cmd)
 		{
-			//
+			free_stuff_error(exec, "malloc", -1);
 		}
 		if (access(path_cmd, F_OK | X_OK) != -1)
 		{
-			// free_tab(all_path);
-			// free_tab(splited);
-	//		free_stuff_error(exec, 1);
+//			// free_tab(all_path);
+//			// free_tab(splited);
+//	//		free_stuff_error(exec, 1);
 			return (free(tmp), path_cmd);
 		}
 		free(path_cmd);
@@ -157,7 +154,7 @@ void	t_apply_exec(t_struct *temp_list, t_exec *exec)
 	free(path_cmd);
 	free_tab(char_env);
 	if (errno == 13)
-		free_stuff_error(exec, 2, 126);
+		free_stuff_error(exec, "execve", 126);
 	else
-		free_stuff_error(exec, 2, 127);
+		free_stuff_error(exec, "execve", 127);
 }

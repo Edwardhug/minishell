@@ -8,14 +8,9 @@ void	free_exec_struct(t_exec *exec)
 		free_list(&exec->list_word);
 }
 
-void	free_stuff_error(t_exec *exec, int which, int error_value)
+void	free_stuff_error(t_exec *exec, char *strperror, int error_value)
 {
-	if (which == 0)
-		perror("malloc");
-	if (which == 1)
-		perror("access");
-	if (which == 2)
-		perror("execve");
+	perror(strperror);
 	free_exec_struct(exec);
 	if (error_value >= 0)
 		exit(error_value);

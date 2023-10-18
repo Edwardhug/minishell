@@ -43,19 +43,20 @@ char	*remove_new_line(char *str)
 	return (to_ret);
 }
 
-void	loop_main(int fd_standart, t_exec *exec)
+void	loop_main(t_exec *exec)
 {
 	char	*line;
 
 	line = readline("Minishell> ");
 	if (line == NULL)
-		exit_and_write_it(fd_standart);
+		exit_and_write_it(exec);
 	if (line[0])
 		add_history(line);
 	line = remove_new_line(line);
 	parsing_minishell(line, exec);
 	free(line);
-	dup2(fd_standart, STDIN_FILENO);
+	dup2(exec->fd_stand, STDIN_FILENO);
+	close(exec->fd_stand);
 	signal(SIGINT, sigint_handler);
 }
 
@@ -116,11 +117,9 @@ static void	if_env_i(t_exec *exec)
 
 int	main(int ac, char **av, char **env)
 {
-	int		fd_standart;
 	t_exec	exec;
 
-	fd_standart = dup(STDIN_FILENO);
-	exec.fd_stand = fd_standart;
+	exec.fd_stand = dup(STDIN_FILENO);
 	if (ac != 1)
 		return (ft_printf("No arg needed\n"), 1);
 	exec.list_word = NULL;
@@ -135,7 +134,7 @@ int	main(int ac, char **av, char **env)
 	}
 	signals();
 	while (1)
-		loop_main(fd_standart, &exec);
+		loop_main(&exec);
 	rl_clear_history();
 	(void)av;
 	return (0);
