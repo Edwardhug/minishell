@@ -7,7 +7,7 @@ int	ft_isequal(int n)
 	return (0);
 }
 
-void	fill_var_node(t_struct **list_word, char *word)
+void	fill_var_node(t_struct **list_word, char *word, t_exec *exec)
 {
 	t_struct	*tmp;
 	t_enum		type;
@@ -20,6 +20,12 @@ void	fill_var_node(t_struct **list_word, char *word)
 	while (word[i])
 	{
 		str = get_node(word, &i);
+		if (!str)
+		{
+			free_list(list_word);
+			free(word);
+			free_stuff_error(exec);
+		}
 		tmp = *list_word;
 		type = find_type_enum(tmp, str);
 		add_node_back(list_word, new_node(str, type));
@@ -27,7 +33,7 @@ void	fill_var_node(t_struct **list_word, char *word)
 	free(word);
 }
 
-int	get_len_var(char *line, int *i, t_struct **list_word)
+int	get_len_var(char *line, int *i, t_struct **list_word, t_exec *exec)
 {
 	int	j;
 	int	quotes;
@@ -50,20 +56,20 @@ int	get_len_var(char *line, int *i, t_struct **list_word)
 		copy++;
 	}
 	if ((quotes + equal) < 3)
-		return (fill_node(list_word, find_end_of_the_word(line, i)), 0);
+		return (fill_node(list_word, find_end_of_the_word(line, i), exec), 0);
 	return (j);
 }
 
-char	*find_end_var(char *line, int *i, t_struct **list_word)
+char	*find_end_var(char *line, int *i, t_struct **list_word, t_exec *exec)
 {
 	int		len;
 	char	*word;
 	int		j;
 
-	len = get_len_var(line, i, list_word);
+	len = get_len_var(line, i, list_word, exec);
 	if (len == 0)
 		return (NULL);
-	word = calloc((len + 1), sizeof(char));
+	word = ft_calloc((len + 1), sizeof(char));
 	if (!word)
 		return (NULL);
 	j = 0;
@@ -85,7 +91,7 @@ char	*find_end_var(char *line, int *i, t_struct **list_word)
 // 	if (!word)
 // 		return ;
 // 	i = 0;
-// 	word = remove_quotes(word);
+// 	word = remove_quotes(word, exec);
 // 		add_pipe(list_word);
 // 		tmp = *list_word;
 // 		type = find_type_enum(tmp, word);		//currently working on this 

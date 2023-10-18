@@ -26,7 +26,7 @@ void	print_list(t_struct *list)
 	}
 }
 
-void	fill_node(t_struct **list_word, char *word)
+void	fill_node(t_struct **list_word, char *word, t_exec *exec)
 {
 	t_struct	*tmp;
 	t_enum		type;
@@ -36,14 +36,16 @@ void	fill_node(t_struct **list_word, char *word)
 	if (!word)
 		return ;
 	i = 0;
-	word = remove_quotes(word);
+	word = remove_quotes(word, exec);
 	while (word[i])
 	{
 		add_pipe(list_word);
 		str = get_node(word, &i);
 		if (!str)
 		{
-			
+			free(word);
+			free_list(list_word);
+			free_stuff_error(exec);
 		}
 		tmp = *list_word;
 		type = find_type_enum(tmp, str);
@@ -62,7 +64,7 @@ char	*find_end_of_the_word(char *line, int *i)
 		return (word);
 	while (line[(*i) + j] && line[(*i) + j] != ' ')
 		j++;
-	word = calloc((j + 1), sizeof(char));
+	word = ft_calloc((j + 1), sizeof(char));
 	if (!word)
 		return (NULL);
 	j = 0;
@@ -75,7 +77,7 @@ char	*find_end_of_the_word(char *line, int *i)
 	return (word);
 }
 
-char	*find_second_quote(char *line, int *i)
+char	*find_second_quote(char *line, int *i, t_exec *exec)
 {
 	int		j;
 	char	*word;
@@ -85,9 +87,12 @@ char	*find_second_quote(char *line, int *i)
 		j++;
 	if (!line[j + (*i)])
 		return ((*i)++, find_end_of_the_word(line, i));
-	word = calloc((j + 2), sizeof(char));
+	word = ft_calloc((j + 2), sizeof(char));
 	if (!word)
-		return (NULL);
+	{
+		free(line);
+		free_stuff_error(exec);
+	}
 	j = 0;
 	word[j] = line[(*i) + j];
 	j++;
@@ -108,7 +113,7 @@ void	parsing_minishell(char *line, t_exec *exec)
 	if (line[0] == 0 || have_strange_cmd(line))
 		return ;
 	list_word = new_node(NULL, ENUM_NULL);
-	loop_parsing(&list_word, line);
+	loop_parsing(&list_word, line, exec);
 	clean_redir_out(&list_word);
 	if (!change_env_var(&list_word, exec))
 		return ;

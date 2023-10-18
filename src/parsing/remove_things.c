@@ -14,10 +14,11 @@
 
 char	*have_dollar_sign(char *str, char *ret, int *i, int *j)
 {
-	if (str[*i] == '"' && str[(*i) - 1] == '$')
+	// ft_printf("str: %s i: %d\n", str, *i);
+	if (str[(*i) + 1] && str[*i + 1] == '"' && str[(*i)] == '$')
 	{
 		(*i)++;
-		while (str[*i] != '"')
+		while (str[*i] && str[*i] != '"')
 		{
 			ret[*j] = str[*i];
 			(*i)++;
@@ -27,7 +28,7 @@ char	*have_dollar_sign(char *str, char *ret, int *i, int *j)
 	return (ret);
 }
 
-char	*remove_simple_quotes(char *str)
+char	*remove_simple_quotes(char *str, t_exec *exec)
 {
 	char	*ret;
 	int		i;
@@ -35,9 +36,12 @@ char	*remove_simple_quotes(char *str)
 
 	j = 0;
 	i = ft_strlen(str);
-	ret = calloc((i + 1), sizeof(char));
+	ret = ft_calloc((i + 1), sizeof(char));
 	if (!ret)
-		return (NULL);
+	{
+		free(str);
+		free_stuff_error(exec);
+	}
 	i = 0;
 	while (str[i])
 	{
@@ -55,7 +59,7 @@ char	*remove_simple_quotes(char *str)
 	return (free(str), ret);
 }
 
-char	*remove_quotes(char *str)
+char	*remove_quotes(char *str, t_exec *exec)
 {
 	char	*ret;
 	int		i;
@@ -63,9 +67,12 @@ char	*remove_quotes(char *str)
 
 	j = 0;
 	i = ft_strlen(str);
-	ret = calloc((i + 1), sizeof(char));
+	ret = ft_calloc((i + 2), sizeof(char));
 	if (!ret)
-		return (NULL);
+	{
+		free(str);
+		free_stuff_error(exec);
+	}
 	i = 0;
 	while (str[i])
 	{
@@ -81,5 +88,5 @@ char	*remove_quotes(char *str)
 			j++;
 		}
 	}
-	return (free(str), remove_simple_quotes(ret));
+	return (free(str), remove_simple_quotes(ret, exec));
 }

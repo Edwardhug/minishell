@@ -2,9 +2,18 @@
 
 void	free_exec_struct(t_exec *exec)
 {
+	close(exec->fd_stand);
 	free_env(exec->env);
 	free_env(exec->export);
-	free_list(&exec->list_word);
+	if (exec->list_word)
+		free_list(&exec->list_word);
+}
+
+void	free_stuff_error(t_exec *exec)
+{
+	perror("malloc");
+	free_exec_struct(exec);
+	exit(EXIT_FAILURE);
 }
 
 void	change_name(t_env **new, char *str, int *i, int nb)
