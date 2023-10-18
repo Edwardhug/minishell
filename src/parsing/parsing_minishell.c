@@ -119,7 +119,7 @@ void	parsing_minishell(char *line, t_exec *exec)
 		return ;
 	if (!delete_node(&list_word))
 		return ;
-	print_list(list_word);
+	// print_list(list_word);
 	begin_execution(exec, list_word);
 	free_list(&list_word);
 }
