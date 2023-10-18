@@ -63,7 +63,7 @@ char	*find_last_quote(char *line, int *i, t_struct **list_word)
 		word[j] = line[(*i) + j + 1];
 		j++;
 	}
-	(*i) = (*i) + j + 1;
+	(*i) = (*i) + j + 2;
 	return (word);
 }
 
