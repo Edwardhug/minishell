@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 14:52:22 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/18 11:13:29 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/18 12:24:28 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,10 @@ int	delete_node(t_struct **lst)
 	if (l && l->next && l->next->next && l->next->next->next
 		&& l->next->next->next->next
 		&& ft_strcmp(l->next->next->next->next->str, "\");\"") == 0)
+	{
+		ft_putstr_fd(" No such file or directory\n", 2);
 		return (free_list(lst), g_error_value = 1 * 256, 0);
+			
+	}
 	return (1);
 }
