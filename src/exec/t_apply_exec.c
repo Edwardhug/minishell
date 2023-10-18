@@ -49,7 +49,7 @@ char	**t_get_clean_cmd(t_struct *temp_list, t_exec *exec)
 	return (str);
 }
 
-char	*t_get_path_cmd(char **all_path, char **splited, struct stat info)
+char	*t_get_path_cmd(char **all_path, char **splited, struct stat info, int i_stat)
 {
 	int		i;
 	char	*tmp;
@@ -74,7 +74,7 @@ char	*t_get_path_cmd(char **all_path, char **splited, struct stat info)
 		i++;
 	}
 	print_error(splited, all_path, 1);
-	get_right_return_value(splited, info);
+	get_right_return_value(splited, info, i_stat);
 	return (NULL);
 }
 
@@ -84,6 +84,7 @@ char	*t_get_cmd(char **env, char **splited_cmd)
 	char		*path;
 	char		**all_path;
 	struct stat	info;
+	int			i_stat;
 
 	i = 0;
 	path = NULL;
@@ -101,8 +102,8 @@ char	*t_get_cmd(char **env, char **splited_cmd)
 	all_path = ft_split(path, ':');
 	if (!all_path)
 		return (NULL);
-	stat(splited_cmd[0], &info);
-	return (t_get_path_cmd(all_path, splited_cmd, info));
+	i_stat = stat(splited_cmd[0], &info);
+	return (t_get_path_cmd(all_path, splited_cmd, info, i_stat));
 }
 
 void	t_apply_exec(t_struct *temp_list, t_exec *exec)

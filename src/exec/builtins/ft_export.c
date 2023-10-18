@@ -87,7 +87,7 @@ static t_env	*ft_lstnew_export(t_env *args_tmp)
 	return (new);
 }
 
-void	export_existing_value(t_env *args_tmp, t_exec *exec, t_env *lst_args)
+void	export_existing_value(t_env *args_tmp, t_exec *exec, t_env *head)
 {
 	t_env	*tmp_exp;
 	t_env	*tmp_env;
@@ -113,8 +113,8 @@ void	export_existing_value(t_env *args_tmp, t_exec *exec, t_env *lst_args)
 					{
 						perror("tmp_env->value malloc\n");
 						free_exec_struct(exec);
-						if (lst_args)
-							free_env(lst_args);
+						if (head)
+							free_env(head);
 						exit(EXIT_FAILURE);
 					}
 					not_in_env = 1;
@@ -128,8 +128,8 @@ void	export_existing_value(t_env *args_tmp, t_exec *exec, t_env *lst_args)
 			{
 				perror("tmp_exp->value dup error\n");
 				free_exec_struct(exec);
-				if (lst_args)
-					free_env(lst_args);
+				if (head)
+					free_env(head);
 				exit(EXIT_FAILURE);
 			}
 		}
@@ -141,8 +141,8 @@ void	export_existing_value(t_env *args_tmp, t_exec *exec, t_env *lst_args)
 		tmp_env = ft_lstnew_export(args_tmp);
 		if (!tmp_env)
 		{
-			if (lst_args)
-				free_env(lst_args);
+			if (head)
+				free_env(head);
 			free_exec_struct(exec);
 			exit(EXIT_FAILURE);
 		}
@@ -152,7 +152,7 @@ void	export_existing_value(t_env *args_tmp, t_exec *exec, t_env *lst_args)
 }
 
 
-static void	create_var(t_env *args_tmp, t_exec *exec, t_env *lst_args)
+static void	create_var(t_env *args_tmp, t_exec *exec, t_env *head)
 {
 	t_env	*new_exp;
 	t_env	*new_env;
@@ -162,10 +162,12 @@ static void	create_var(t_env *args_tmp, t_exec *exec, t_env *lst_args)
 		new_exp = ft_lstnew_export(args_tmp);
 		if (!new_exp)
 		{
-			free_env(lst_args);
+			free_env(head);
 			free_exec_struct(exec);
 			exit(EXIT_FAILURE);
 		}
+		if (new_exp->value)
+			free(new_exp->value);
 		new_exp->value = NULL;
 		new_exp->next = exec->export;
 		exec->export = new_exp;
@@ -175,7 +177,7 @@ static void	create_var(t_env *args_tmp, t_exec *exec, t_env *lst_args)
 		new_exp = ft_lstnew_export(args_tmp);
 		if (!new_exp)
 		{
-			free_env(lst_args);
+			free_env(head);
 			free_exec_struct(exec);
 			exit(EXIT_FAILURE);
 		}
@@ -184,7 +186,7 @@ static void	create_var(t_env *args_tmp, t_exec *exec, t_env *lst_args)
 		new_env = ft_lstnew_export(args_tmp);
 		if (!new_env)
 		{
-			free_env(lst_args);
+			free_env(head);
 			free_exec_struct(exec);
 			exit(EXIT_FAILURE);
 		}
@@ -229,8 +231,10 @@ static int	what_to_do(char **cmd, t_exec *exec)
 	t_env	*tmp;
 	t_env	*lst_args;
 	t_env	*args_tmp;
+	t_env	*head;
 
 	lst_args = env_double_char_into_lst(cmd + 1, exec);
+	head = lst_args;
 	if (is_valid_name(cmd[0], lst_args))
 	{
 		g_error_value = -1;
@@ -250,7 +254,7 @@ static int	what_to_do(char **cmd, t_exec *exec)
 				}
 				else
 				{
-					export_existing_value(args_tmp, exec, lst_args);
+					export_existing_value(args_tmp, exec, head);
 				}
 				break ;
 			}
@@ -258,11 +262,11 @@ static int	what_to_do(char **cmd, t_exec *exec)
 		}
 		if (!tmp)
 		{
-			create_var(args_tmp, exec, lst_args);
+			create_var(args_tmp, exec, head);
 		}
 		lst_args = lst_args->next;
 	}
-	free_env(lst_args);
+	free_env(head);
 	return (0);
 }
 

@@ -1,6 +1,6 @@
 #include "../../include/minishell.h"
 
-void	get_right_return_value(char **splited, struct stat info)
+void	get_right_return_value(char **splited, struct stat info, int i_stat)
 {
 	if (access(splited[0], F_OK) != -1)
 	{
@@ -15,10 +15,13 @@ void	get_right_return_value(char **splited, struct stat info)
 			exit (127);
 		}
 	}
-	if (S_ISDIR(info.st_mode)) //leak ici demander à lgabet (conditional jump or move depend on uninitialized value, quand command not found)
+	if (i_stat == 0)
 	{
-		free_tab(splited);
-		exit(128);
+		if (S_ISDIR(info.st_mode))
+		{
+			free_tab(splited);
+			exit(128);
+		}
 	}
 	free_tab(splited);
 	exit(127);
