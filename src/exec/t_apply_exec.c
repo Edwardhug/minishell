@@ -129,7 +129,6 @@ char	*t_get_cmd(char **env, char **splited_cmd, t_exec *exec)
 	if (!all_path)
 		return (NULL);
 	exec->i_stat = stat(splited_cmd[0], &info);
-	free_tab(env);
 	return (t_get_path_cmd(all_path, splited_cmd, info, exec));
 }
 
@@ -137,11 +136,13 @@ void	t_apply_exec(t_struct *temp_list, t_exec *exec)
 {
 	char		*path_cmd;
 	char		**splited_cmd;
+	char		**char_env;
 
 	splited_cmd = t_get_clean_cmd(temp_list, exec);
 	if (!splited_cmd)
 		return ;
-	path_cmd = t_get_cmd(env_lst_into_double_char(exec->env, exec), splited_cmd, exec);
+	char_env = env_lst_into_double_char(exec->env, exec);
+	path_cmd = t_get_cmd(char_env, splited_cmd, exec);
 	if (!path_cmd)
 	{
 		//en faire une fonction avec strjoin pendant le normage pour pas que ça se marche dessus
@@ -151,9 +152,10 @@ void	t_apply_exec(t_struct *temp_list, t_exec *exec)
 	}
 	if (ft_strcmp("./minishell", path_cmd) == 0)
 		shlvl(exec, 0, 1);
-	execve(path_cmd, splited_cmd, env_lst_into_double_char(exec->env, exec));
+	execve(path_cmd, splited_cmd, char_env);
 	free_tab(splited_cmd);
 	free(path_cmd);
+	free_tab(char_env);
 	if (errno == 13)
 		free_stuff_error(exec, 2, 126);
 	else
