@@ -3,8 +3,10 @@
 void	ft_child_here_doc(t_struct *temp_list, int *fd)
 {
 	char	*tmp;
+	char	*to_ret;
 
 	close(fd[0]);
+	to_ret = NULL;
 	temp_list = temp_list->next;
 	signal(SIGINT, sigint_handler_heredoc);
 	while (1)
@@ -12,6 +14,8 @@ void	ft_child_here_doc(t_struct *temp_list, int *fd)
 		tmp = readline("> ");
 		if (!tmp)
 		{
+			free(to_ret);
+			ft_putstr_fd(tmp, fd[1]);
 			close(fd[1]);
 			ft_printf("warning : wanted `%s'\n", temp_list->str);
 			exit(3);
@@ -19,12 +23,14 @@ void	ft_child_here_doc(t_struct *temp_list, int *fd)
 		if ((ft_strncmp(tmp, temp_list->str, ft_strlen(temp_list->str)) == 0)
 			&& (ft_strlen(temp_list->str) == ft_strlen(tmp)))
 		{
+			ft_putstr_fd(tmp, fd[1]);
 			free(tmp);
+			free(to_ret);
 			close(fd[1]);
 			exit(EXIT_SUCCESS);
 		}
-		tmp = ft_strjoin(tmp, "\n");
-		ft_putstr_fd(tmp, fd[1]);
+		to_ret = ft_strjoin(to_ret, tmp);
+		to_ret = ft_strjoin(to_ret, "\n");
 		free(tmp);
 	}
 }
