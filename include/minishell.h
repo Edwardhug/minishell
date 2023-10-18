@@ -116,7 +116,7 @@ int			to_next_cmd(t_struct **temp_list);
 void		shlvl(t_exec *exec, int empty_env, int more_or_less);
 void		change_underscore(char *cmd, t_exec *exec);
 
-//builtins
+//builtins 
 
 int			is_builtin_alone(char **cmd, t_exec *exec);
 int			is_builtin_fork(char **cmd, t_exec *exec);
