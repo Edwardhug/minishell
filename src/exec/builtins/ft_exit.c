@@ -41,6 +41,7 @@ int	ft_exit(char **cmd, t_exec *exec)
 	}
 	shlvl(exec, 0, 0);
 	free_tab(cmd);
+	free(exec->pid_tab);
 	free_exec_struct(exec);
 	close(exec->fd_stand);
 	exit(g_error_value / 256);

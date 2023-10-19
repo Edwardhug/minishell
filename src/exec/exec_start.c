@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 18:08:24 by lezard            #+#    #+#             */
-/*   Updated: 2023/10/18 18:05:57 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/19 13:29:03 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,13 @@ void	wait_all_process(int *pid, t_struct *list_word, t_exec *exec)
 
 void	begin_execution(t_exec *exec, t_struct *list_word)
 {
-	int			*pid_tab;
 	int			i;
 	t_struct	*temp_list;
 
 	change_underscore(list_word->str, exec);
 	exec->nb_cmds = number_of_cmd(list_word);
-	pid_tab = malloc(sizeof(int) * exec->nb_cmds);
-	if (!pid_tab)
+	exec->pid_tab = malloc(sizeof(int) * exec->nb_cmds);
+	if (!exec->pid_tab)
 	{
 		free_exec_struct(exec);
 		perror("malloc");
@@ -80,13 +79,13 @@ void	begin_execution(t_exec *exec, t_struct *list_word)
 	{
 		if (!change_stdin(list_word, &temp_list))
 		{
-			free(pid_tab);
+			free(exec->pid_tab);
 			return ;
 		}
-		pid_tab[i] = t_exec_cmd(temp_list, exec);
+		exec->pid_tab[i] = t_exec_cmd(temp_list, exec);
 		if (to_next_cmd(&temp_list))
 			break ;
 		i++;
 	}
-	wait_all_process(pid_tab, list_word, exec);
+	wait_all_process(exec->pid_tab, list_word, exec);
 }
