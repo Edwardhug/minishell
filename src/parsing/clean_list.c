@@ -41,6 +41,7 @@ char	*dup_without_space(char *str)
 void    switch_to_value(t_struct **list, t_exec exec)
 {
     char        *value;
+	t_struct	*copy;
 
     while (exec.env)
     {
@@ -70,7 +71,10 @@ void    switch_to_value(t_struct **list, t_exec exec)
 	if (ft_strncmp((*list)->next->str, "$?", 2)
 		&& (*list)->next->str[1])
 	{	
+		copy = (*list)->next;
 		(*list)->next = (*list)->next->next;
+		free(copy->str);
+		free(copy);
 	}
 }
 
