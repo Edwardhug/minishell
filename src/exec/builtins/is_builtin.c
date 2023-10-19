@@ -53,6 +53,7 @@ int	special_builtin(char **cmd, t_exec *exec)
 	}
 	if (!cmd[0][1])
 	{
+		free_exec_fork(exec);
 		ft_putstr_fd("command not found\n", 2);
 		exit(127);
 	}

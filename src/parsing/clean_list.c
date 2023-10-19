@@ -76,6 +76,8 @@ void    switch_to_value(t_struct **list, t_exec exec)
 		free(copy->str);
 		free(copy);
 	}
+	if ((*list)->str == NULL && (*list)->next && (*list)->next->str)
+		(*list) = (*list)->next;
 }
 
 int    change_env_var(t_struct **list, t_exec *exec)
