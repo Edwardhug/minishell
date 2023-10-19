@@ -5,6 +5,8 @@ void	free_exec_struct(t_exec *exec)
 	free_env(exec->env);
 	free_env(exec->export);
 	rl_clear_history();
+	if (exec->pid_tab)
+		free(exec->pid_tab);
 	free(exec->line);
 	if (exec->list_word)
 		free_list(&exec->list_word);
