@@ -1,6 +1,6 @@
 #include "../../include/minishell.h"
 
-void	ft_child_here_doc(t_struct *temp_list, int *fd)
+void	ft_child_here_doc(t_struct *temp_list, int *fd, t_exec *exec)
 {
 	char	*tmp;
 	char	*to_ret;
@@ -18,6 +18,7 @@ void	ft_child_here_doc(t_struct *temp_list, int *fd)
 			ft_putstr_fd(tmp, fd[1]);
 			close(fd[1]);
 			ft_printf("warning : wanted `%s'\n", temp_list->str);
+			free_exec_struct(exec);
 			exit(3);
 		}
 		if ((ft_strncmp(tmp, temp_list->str, ft_strlen(temp_list->str)) == 0)
@@ -27,6 +28,7 @@ void	ft_child_here_doc(t_struct *temp_list, int *fd)
 			free(tmp);
 			free(to_ret);
 			close(fd[1]);
+			free_exec_struct(exec);
 			exit(EXIT_SUCCESS);
 		}
 		to_ret = ft_strjoin(to_ret, tmp);
@@ -55,7 +57,7 @@ int	parent_here_doc(t_struct *temp_list, int *fd)
 		return (0);
 }
 
-int	here_doc(t_struct *temp_list)
+int	here_doc(t_struct *temp_list, t_exec *exec)
 {
 	int	fd[2];
 	int	pid;
@@ -71,7 +73,9 @@ int	here_doc(t_struct *temp_list)
 	if (pid == -1)
 		return (0);
 	if (pid == 0)
-		ft_child_here_doc(temp_list, fd);
+	{
+		ft_child_here_doc(temp_list, fd, exec);
+	}
 	else
 		return (parent_here_doc(temp_list, fd));
 	return (1);
