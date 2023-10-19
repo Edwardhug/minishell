@@ -92,7 +92,7 @@ char	*t_get_path_cmd(char **all_path, char **splited, struct stat info, t_exec *
 		{
 			// free_tab(all_path);
 			// free_tab(splited);
-	//		free_stuff_error(exec, 1);
+	//		free_stuff_error(exec, 1); 
 			return (free(tmp), path_cmd);
 		}
 		free(path_cmd);
