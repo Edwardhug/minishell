@@ -54,6 +54,7 @@ typedef struct s_exec
 	t_struct	*list_word;
 	char	*line;
 	int		*pid_tab;
+	char	**clean_cmd;
 }				t_exec;
 
 typedef	struct s_fd

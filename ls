@@ -1,0 +1,10 @@
+build
+include
+libft
+ls
+Makefile
+minishell
+minishell_tester
+obj
+src
+valgrind_ignore_leaks.txt
