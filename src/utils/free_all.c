@@ -4,6 +4,7 @@ void	free_exec_struct(t_exec *exec)
 {
 	free_env(exec->env);
 	free_env(exec->export);
+	rl_clear_history();
 	free(exec->line);
 	if (exec->list_word)
 		free_list(&exec->list_word);
@@ -12,7 +13,6 @@ void	free_exec_struct(t_exec *exec)
 void	free_stuff_error(t_exec *exec, char *strperror, int error_value)
 {
 	perror(strperror);
-	rl_clear_history();
 	free_exec_struct(exec);
 	if (error_value >= 0)
 		exit(error_value);
