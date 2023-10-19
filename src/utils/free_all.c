@@ -3,6 +3,7 @@
 void	free_exec_struct(t_exec *exec)
 {
 	free_env(exec->env);
+	close(exec->fd_stand);
 	free_env(exec->export);
 	rl_clear_history();
 	if (exec->pid_tab)
