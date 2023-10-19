@@ -45,7 +45,7 @@ void	fill_node(t_struct **list_word, char *word, t_exec *exec)
 		{
 			free(word);
 			free_list(list_word);
-			free_stuff_error(exec, 0, -1);
+			free_stuff_error(exec, "malloc", -1);
 		}
 		tmp = *list_word;
 		type = find_type_enum(tmp, str);
@@ -91,7 +91,7 @@ char	*find_second_quote(char *line, int *i, t_exec *exec)
 	if (!word)
 	{
 		free(line);
-		free_stuff_error(exec, 0, -1);
+		free_stuff_error(exec, "malloc", -1);
 	}
 	j = 0;
 	word[j] = line[(*i) + j];

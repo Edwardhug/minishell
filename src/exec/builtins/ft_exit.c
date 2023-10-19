@@ -39,9 +39,9 @@ int	ft_exit(char **cmd, t_exec *exec)
 		free_exec_struct(exec);
 		exit(status);
 	}
-	close(exec->fd_stand);
 	shlvl(exec, 0, 0);
 	free_exec_struct(exec);
+	close(exec->fd_stand);
 	exit(g_error_value / 256);
 	return (0);
 }

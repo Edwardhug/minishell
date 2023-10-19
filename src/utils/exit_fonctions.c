@@ -12,11 +12,12 @@
 
 #include "../../include/minishell.h"
 
-void	exit_and_write_it(int fd_standart)
+void	exit_and_write_it(t_exec *exec)
 {
 	ft_printf("exit\n");
 	rl_clear_history();
-	close(fd_standart);
-	(void)fd_standart;
+	close(exec->fd_stand);
+	free_env(exec->env);
+	free_env(exec->export);
 	exit(EXIT_SUCCESS);
 }
