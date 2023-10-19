@@ -47,6 +47,7 @@ void	loop_main(t_exec *exec)
 {
 	char	*line;
 
+	exec->fd_stand = dup(STDIN_FILENO);
 	line = readline("Minishell> ");
 	if (line == NULL)
 		exit_and_write_it(exec);
@@ -121,7 +122,6 @@ int	main(int ac, char **av, char **env)
 {
 	t_exec	exec;
 
-	exec.fd_stand = dup(STDIN_FILENO);
 	if (ac != 1)
 		return (ft_printf("No arg needed\n"), 1);
 	exec.list_word = NULL;
