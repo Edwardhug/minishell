@@ -58,6 +58,8 @@ int	special_builtin(char **cmd, t_exec *exec)
 	}
 	if (cmd[0][1] == '?')
 	{
+		free_exec_struct(exec);
+		// free_tab(cmd);
 		print_return_value();
 		exit(127);
 	}
