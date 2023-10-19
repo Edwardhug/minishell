@@ -26,26 +26,30 @@ void	change_oldpwd(t_exec *exec, char *actual_pwd)
 	if (!arg)
 	{
 		free(actual_pwd);
-		free_exec_struct(exec);
-		exit(EXIT_FAILURE);
+		free_stuff_error(exec, "malloc", -1);
 	}
 	arg_pwd = ft_calloc(2, sizeof(char *));
 	if (!arg_pwd)
 	{
 		free(arg);
 		free(actual_pwd);
-		free_exec_struct(exec);
-		exit(EXIT_FAILURE);
+		free_stuff_error(exec, "malloc", -1);
 	}
 	tmp = getcwd(NULL, 0);
 	if (!tmp)
 	{
-		free_exec_struct(exec);
 		free(arg);
 		free(actual_pwd);
-		exit(EXIT_FAILURE);
+		free_stuff_error(exec, "malloc", -1);
 	}
 	arg_pwd[0] = ft_strjoin("PWD=", tmp);
+	if (!arg_pwd[0])
+	{
+		free(tmp);
+		free(arg);
+		free(actual_pwd);
+		free_stuff_error(exec, "malloc", -1);
+	}
 	free(tmp);
 	arg[0] = fill_oldpwd(actual_pwd, exec);
 	args_tmp = env_double_char_into_lst(arg, exec);
