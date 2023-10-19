@@ -138,12 +138,7 @@ void	t_apply_exec(t_struct *temp_list, t_exec *exec)
 	exec->char_env = env_lst_into_double_char(exec->env, exec);
 	path_cmd = t_get_cmd(exec->char_env, splited_cmd, exec);
 	if (!path_cmd)
-	{
-		//en faire une fonction avec strjoin pendant le normage pour pas que ça se marche dessus
-		ft_putstr_fd(temp_list->str, 2);
-		ft_putstr_fd(": command not found\n", 2);
-		exit(127);
-	}
+		free_stuff_error(exec, temp_list->str, 127);
 	if (ft_strcmp("./minishell", path_cmd) == 0)
 		shlvl(exec, 0, 1);
 	execve(path_cmd, splited_cmd, exec->char_env);

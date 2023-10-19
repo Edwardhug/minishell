@@ -1,18 +1,23 @@
 #include "../../include/minishell.h"
 
-void	free_exec_struct(t_exec *exec)
+void	free_exec_fork(t_exec *exec)
 {
 	free_env(exec->env);
-	close(exec->fd_stand);
 	free_env(exec->export);
-	rl_clear_history();
+	close(exec->fd_stand);
 	free(exec->line);
-	if (exec->pid_tab)
-		free(exec->pid_tab);
 	if (exec->clean_cmd)
 		free_tab(exec->clean_cmd);
 	if (exec->list_word)
 		free_list(&exec->list_word);
+	if (exec->pid_tab)
+		free(exec->pid_tab);
+}
+
+void	free_exec_struct(t_exec *exec)
+{
+	free_exec_fork(exec);
+	rl_clear_history();
 }
 
 void	free_stuff_error(t_exec *exec, char *strperror, int error_value)

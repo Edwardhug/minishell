@@ -14,7 +14,7 @@ static int	is_not_number(char *arg)
 	return (0);
 }
 
-int	ft_exit(char **cmd, t_exec *exec)
+int	ft_exit(char **cmd, t_exec *exec, int are_pipes)
 {
 	long long	status;
 
@@ -32,18 +32,24 @@ int	ft_exit(char **cmd, t_exec *exec)
 		{
 			ft_error_message_arg(cmd[0], cmd[1], ": numeric argument required\n");
 			shlvl(exec, 0, 0);
-			free_tab(cmd);
-			free_exec_struct(exec);
+			if (are_pipes)
+				free_exec_fork(exec);
+			else
+				free_exec_struct(exec);
 			exit(2);
 		}
 		status = ft_atoi(cmd[1]) % 256;
-		free_tab(cmd);
-		free_exec_struct(exec);
+		if (are_pipes)
+			free_exec_fork(exec);
+		else
+			free_exec_struct(exec);
 		exit(status);
 	}
 	shlvl(exec, 0, 0);
-	free_tab(cmd);
-	free_exec_struct(exec);
+	if (are_pipes)
+		free_exec_fork(exec);
+	else
+		free_exec_struct(exec);
 	close(exec->fd_stand);
 	exit(g_error_value / 256);
 	return (0);

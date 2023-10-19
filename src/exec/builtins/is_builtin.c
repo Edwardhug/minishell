@@ -77,7 +77,7 @@ int	is_builtin_alone(char **cmd, t_exec *exec)
 	// else if (ft_strcmp(cmd[0], "echo") == 0)
 	// 	return (ft_echo(cmd, exec), 1);
 	else if (ft_strcmp(cmd[0], "exit") == 0)
-		return (ft_exit(cmd, exec), 1);
+		return (ft_exit(cmd, exec, 0), 1);
 	else if (ft_strcmp(cmd[0], "export") == 0)
 		return (ft_export(cmd, exec), 1);
 	else if (ft_strcmp(cmd[0], "unset") == 0)
@@ -98,7 +98,7 @@ int	is_builtin_fork(char **cmd, t_exec *exec)
 	else if (ft_strcmp(cmd[0], "echo") == 0)
 		return (ft_echo(cmd, exec), 1);
 	else if (ft_strcmp(cmd[0], "exit") == 0)
-		return (ft_exit(cmd, exec), 1);
+		return (ft_exit(cmd, exec, 1), 1);
 	else if (ft_strcmp(cmd[0], "export") == 0)
 		return (ft_export(cmd, exec), 1);
 	else if (ft_strcmp(cmd[0], "unset") == 0)
