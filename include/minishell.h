@@ -52,6 +52,7 @@ typedef struct s_exec
 	char	quote;
 	int		i_stat;
 	t_struct	*list_word;
+	char	*line;
 }				t_exec;
 
 typedef	struct s_fd

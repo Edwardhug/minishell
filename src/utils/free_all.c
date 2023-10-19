@@ -4,6 +4,7 @@ void	free_exec_struct(t_exec *exec)
 {
 	free_env(exec->env);
 	free_env(exec->export);
+	free(exec->line);
 	if (exec->list_word)
 		free_list(&exec->list_word);
 }

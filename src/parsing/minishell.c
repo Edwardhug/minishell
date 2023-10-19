@@ -53,6 +53,7 @@ void	loop_main(t_exec *exec)
 	if (line[0])
 		add_history(line);
 	line = remove_new_line(line);
+	exec->line = line;
 	parsing_minishell(line, exec);
 	free(line);
 	dup2(exec->fd_stand, STDIN_FILENO);
