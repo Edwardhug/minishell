@@ -2,6 +2,9 @@
 
 void	get_right_return_value(char **splited, struct stat info, t_exec *exec)
 {
+	free_exec_struct(exec);
+	if (exec->char_env)
+		free_tab(exec->char_env);
 	if (access(splited[0], F_OK) != -1)
 	{
 		if (splited[0][0] == '.' && splited[0][1] == '/')

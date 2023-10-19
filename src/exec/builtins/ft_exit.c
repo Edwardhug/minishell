@@ -1,6 +1,6 @@
 #include "../../../include/minishell.h"
 
-static int	is_number(char *arg)
+static int	is_not_number(char *arg)
 {
 	int	i;
 
@@ -28,14 +28,16 @@ int	ft_exit(char **cmd, t_exec *exec)
 			g_error_value = -1;
 			return (1);
 		}
-		if (is_number(cmd[1]) == 1)
+		if (is_not_number(cmd[1]) == 1)
 		{
 			ft_error_message_arg(cmd[0], cmd[1], ": numeric argument required\n");
 			shlvl(exec, 0, 0);
+			free_tab(cmd);
 			free_exec_struct(exec);
 			exit(2);
 		}
 		status = ft_atoi(cmd[1]) % 256;
+		free_tab(cmd);
 		free_exec_struct(exec);
 		exit(status);
 	}

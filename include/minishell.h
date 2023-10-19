@@ -55,6 +55,7 @@ typedef struct s_exec
 	char	*line;
 	int		*pid_tab;
 	char	**clean_cmd;
+	char	**char_env;
 }				t_exec;
 
 typedef	struct s_fd
@@ -105,7 +106,7 @@ void		change_outfile(t_struct **temp_list, int *fd_out);
 void		change_value_builtin(t_struct *list_word, t_exec *exec, int *status);
 void		begin_execution(t_exec *exec, t_struct *list_word);
 //int		open_fd_in(t_struct *temp_list);
-int			change_stdin(t_struct *list_word, t_struct **temp_list);
+int			change_stdin(t_struct *list_word, t_struct **temp_list, t_exec *exec);
 int			is_end(t_struct *temp_list);
 void		find_correct_path(t_exec *exec);
 void		access_cmd(t_exec *exec, int i);
@@ -159,7 +160,7 @@ int			ft_error_message_arg(char *cmd_name, char *arg, char *msg);
 
 //	here doc
 
-int			here_doc(t_struct *temp_list);
+int			here_doc(t_struct *temp_list, t_exec *exec);
 
 //	signals
 
