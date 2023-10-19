@@ -56,8 +56,10 @@ void	change_oldpwd(t_exec *exec, char *actual_pwd)
 	free_tab(arg);
 	args_tmp_pwd = env_double_char_into_lst(arg_pwd, exec);
 	export_existing_value(args_tmp, exec, NULL);
+	free_env(args_tmp);
 	free_tab(arg_pwd);
 	export_existing_value(args_tmp_pwd, exec, NULL);
+	free_env(args_tmp_pwd);
 }
 
 void	go_to_old_pwd(char *oldpwd, t_exec *exec)
@@ -80,9 +82,9 @@ void	go_to_old_pwd(char *oldpwd, t_exec *exec)
 	to_print = getcwd(NULL, 0);
 	ft_printf("%s\n", to_print);
 	free(to_print);
+	free(oldpwd);
 	if (exec->nb_cmds > 1)
 	{
-		free(oldpwd);
 		free_exec_struct(exec);
 		exit(0);
 	}
@@ -119,13 +121,13 @@ int	ft_cd(char **cmd, t_exec *exec)
 	char	*home;
 	int		result;
 
-	home = get_var_home(*exec);
-	oldpwd = getcwd(NULL, 0);
 	if (cmd[1] && cmd[2])
 	{
 		ft_putstr_fd(" too many arguments\n", 2);
 		return (g_error_value = -1, 0);
 	}
+	home = get_var_home(*exec);
+	oldpwd = getcwd(NULL, 0);
 	if (!oldpwd)
 	{
 		ft_putstr_fd("Can't go to this dir, moved to home\n", 2);
@@ -144,7 +146,10 @@ int	ft_cd(char **cmd, t_exec *exec)
 		return (go_to_old_pwd(oldpwd, exec), 0);
 	result = chdir(cmd[1]);
 	if (result == 0)
+	{
+		free(oldpwd);
 		return (0);
+	}
 	if (result == -1)
 		ft_putstr_fd(" no such file or directory\n", 2);
 	if (cmd[1][0] != '$' || cmd[2])

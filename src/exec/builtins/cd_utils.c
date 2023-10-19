@@ -23,7 +23,8 @@ char	*fill_oldpwd(char *actual_pwd, t_exec *exec)
 	if (!arg)
 	{
 		free(arg);
-		return (NULL);
+		free(actual_pwd);
+		free_stuff_error(exec, "malloc", -1);
 	}
 	while (i < size - 1)
 	{
@@ -36,7 +37,6 @@ char	*fill_oldpwd(char *actual_pwd, t_exec *exec)
 		i++;
 	}
 	return(arg);
-	(void)exec;
 }
 
 void	change_pwd(t_exec *exec)
