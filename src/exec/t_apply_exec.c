@@ -70,9 +70,7 @@ char	*t_get_path_cmd(char **all_path, char **splited, struct stat info, t_exec *
 			free(path_cmd);
 			free_stuff_error(exec, "access", 127);
 		}
-		free_tab(splited);
-		free_tab(all_path);
-		free_stuff_error(exec, "", 126);
+		return (free_tab(all_path), path_cmd);
 	}
 	while (all_path[i])
 	{
