@@ -5,7 +5,7 @@ int	ft_pwd(t_exec *exec)
 	char	*cwd;
 	
 	cwd = malloc(sizeof(char *) * (PATH_MAX + 1)); //prend la taille max d'un path en malloc
-	if (getcwd(cwd, PATH_MAX) != NULL) //stock le path dans cwd
+	if (getcwd(cwd, PATH_MAX) != NULL) //stock le path dans cwd 
 	{
 		ft_printf("%s\n", cwd);
 		free(cwd);
