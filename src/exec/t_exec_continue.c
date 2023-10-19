@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 11:55:30 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/18 11:41:15 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/19 13:40:26 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,10 @@ int	t_exec_cmd(t_struct *temp_list, t_exec *exec)
 		}
 		pid = fork();
 		if (pid == 0)
+		{
+			free_tab(clean_cmd);
 			return (child_process(fd, temp_list, exec), 1);
+		}
 		else
 		{
 			close(fd[1]);
