@@ -147,7 +147,17 @@ void	t_apply_exec(t_struct *temp_list, t_exec *exec)
 	free(path_cmd);
 	free_tab(exec->char_env);
 	if (errno == 13)
-		free_stuff_error(exec, NULL, "execve: command not found\n", 126);
+	{
+		if (temp_list->str[0] == '/')
+			free_stuff_error(exec, NULL, "no such file or directory\n", 126);
+		else
+			free_stuff_error(exec, NULL, "command not found\n", 126);
+	}
 	else
-		free_stuff_error(exec, NULL, "execve: command not found\n", 127);
+	{
+		if (temp_list->str[0] == '/')
+			free_stuff_error(exec, NULL, "no such file or directory\n", 127);
+		else
+			free_stuff_error(exec, NULL, "command not found\n", 127);
+	}
 }
