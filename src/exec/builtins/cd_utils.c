@@ -42,16 +42,19 @@ char	*fill_oldpwd(char *actual_pwd, t_exec *exec)
 void	change_pwd(t_exec *exec)
 {
 	char	**arg_pwd;
-
+	char	*join_arg_pwd;
 	t_env    *args_tmp_pwd;
+
 	arg_pwd = ft_calloc(2, sizeof(char *));
 	if (!arg_pwd)
-		return ;
-	arg_pwd[0] = getcwd(NULL, 0);
-	arg_pwd[0] = ft_strjoin("PWD=", arg_pwd[0]);
+		free_stuff_error(exec, "malloc", -1);
+	join_arg_pwd = getcwd(NULL, 0);
+	arg_pwd[0] = ft_strjoin("PWD=", join_arg_pwd);
+	free(join_arg_pwd);
 	args_tmp_pwd = env_double_char_into_lst(arg_pwd, exec);
 	export_existing_value(args_tmp_pwd, exec, NULL);
 	free_tab(arg_pwd);
+	free_env(args_tmp_pwd);
 }
 
 char	*get_var_home(t_exec exec)

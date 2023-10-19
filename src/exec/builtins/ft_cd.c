@@ -140,6 +140,7 @@ int	ft_cd(char **cmd, t_exec *exec)
 	{
 		chdir(home);
 		change_oldpwd(exec, oldpwd);
+		free(oldpwd);
 		return (0);
 	}
 	else if (ft_strcmp(cmd[1], "-") == 0)
