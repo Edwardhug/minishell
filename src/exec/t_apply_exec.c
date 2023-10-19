@@ -118,7 +118,8 @@ char	*t_get_cmd(char **env, char **splited_cmd, t_exec *exec)
 	if (!path)
 		return (free_tab(splited_cmd), free_tab(env), NULL);
 	path = path + 5;
-	if (ft_strncmp(splited_cmd[0], "./", 2) == 0)
+	if (ft_strncmp(splited_cmd[0], "./", 2) == 0
+		|| ft_strncmp(splited_cmd[0], "/", 1) == 0)
 		return (ft_strdup(splited_cmd[0]));
 	all_path = ft_split(path, ':');
 	if (!all_path)
