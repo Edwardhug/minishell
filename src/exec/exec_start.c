@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 18:08:24 by lezard            #+#    #+#             */
-/*   Updated: 2023/10/19 16:18:24 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/19 18:06:37 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,14 @@ void	begin_execution(t_exec *exec, t_struct *list_word)
 			return ;
 		}
 		exec->pid_tab[i] = t_exec_cmd(temp_list, exec);
+		if (ft_strcmp(list_word->str, "$?") == 0)
+		{
+			wait(0);
+			free(exec->pid_tab);
+			g_error_value = 127 * 256;
+			return ;
+		}
+		
 		if (to_next_cmd(&temp_list))
 			break ;
 		i++;
