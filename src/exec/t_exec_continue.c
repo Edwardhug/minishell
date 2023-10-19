@@ -102,8 +102,8 @@ int	t_exec_cmd(t_struct *temp_list, t_exec *exec)
 	{
 		if (pipe(fd) == -1)
 		{
-			free_exec_struct(exec);
 			free_tab(clean_cmd);
+			free_exec_struct(exec);
 			exit(EXIT_FAILURE);
 		}
 		pid = fork();

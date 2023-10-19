@@ -19,7 +19,8 @@ int	ft_exit(char **cmd, t_exec *exec, int are_pipes)
 	long long	status;
 
 	status = 0;
-	ft_putstr_fd("exit\n", 1);
+	if (!are_pipes)
+		ft_putstr_fd("exit\n", 1);
 	if (cmd[1])
 	{
 		if (cmd[2])
@@ -36,6 +37,7 @@ int	ft_exit(char **cmd, t_exec *exec, int are_pipes)
 				free_exec_fork(exec);
 			else
 				free_exec_struct(exec);
+			free_tab(cmd);
 			exit(2);
 		}
 		status = ft_atoi(cmd[1]) % 256;
@@ -43,6 +45,7 @@ int	ft_exit(char **cmd, t_exec *exec, int are_pipes)
 			free_exec_fork(exec);
 		else
 			free_exec_struct(exec);
+		free_tab(cmd);
 		exit(status);
 	}
 	shlvl(exec, 0, 0);
@@ -50,6 +53,7 @@ int	ft_exit(char **cmd, t_exec *exec, int are_pipes)
 		free_exec_fork(exec);
 	else
 		free_exec_struct(exec);
+	free_tab(cmd);
 	close(exec->fd_stand);
 	exit(g_error_value / 256);
 	return (0);

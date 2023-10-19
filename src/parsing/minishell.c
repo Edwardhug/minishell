@@ -125,15 +125,15 @@ int	main(int ac, char **av, char **env)
 	if (ac != 1)
 		return (ft_printf("No arg needed\n"), 1);
 	exec.list_word = NULL;
+	exec.env = NULL;
+	exec.export = NULL;
+	exec.pid_tab = NULL;
+	exec.clean_cmd = NULL;
+	exec.char_env = NULL;
 	if (!env[0])
 		if_env_i(&exec);
 	else
 	{
-		exec.env = NULL;
-		exec.export = NULL;
-		exec.pid_tab = NULL;
-		exec.clean_cmd = NULL;
-		exec.char_env = NULL;
 		exec.env = env_double_char_into_lst(env, &exec);
 		exec.export = env_double_char_into_lst(env, &exec);
 	}
