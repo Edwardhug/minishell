@@ -6,11 +6,11 @@ void	free_exec_struct(t_exec *exec)
 	close(exec->fd_stand);
 	free_env(exec->export);
 	rl_clear_history();
+	free(exec->line);
 	if (exec->pid_tab)
 		free(exec->pid_tab);
 	if (exec->clean_cmd)
 		free_tab(exec->clean_cmd);
-	free(exec->line);
 	if (exec->list_word)
 		free_list(&exec->list_word);
 }

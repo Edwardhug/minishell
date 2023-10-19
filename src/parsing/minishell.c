@@ -133,6 +133,7 @@ int	main(int ac, char **av, char **env)
 		exec.export = NULL;
 		exec.pid_tab = NULL;
 		exec.clean_cmd = NULL;
+		exec.char_env = NULL;
 		exec.env = env_double_char_into_lst(env, &exec);
 		exec.export = env_double_char_into_lst(env, &exec);
 	}
