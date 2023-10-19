@@ -111,6 +111,7 @@ static void	if_env_i(t_exec *exec)
 		}
 		exec->env->next->next = ft_lstnew_env(pwd, 3);
 		exec->export->next->next = ft_lstnew_env(pwd, 3);
+		free(pwd);
 	}
 	free(cwd);
 }

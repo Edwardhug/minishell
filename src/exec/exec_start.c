@@ -51,6 +51,7 @@ void	wait_all_process(int *pid, t_struct *list_word, t_exec *exec)
 		waitpid(pid[i], &status, WUNTRACED);
 		i++;
 	}
+	free(pid);
 	signal(SIGINT, old_signal[0]);
 	signal(SIGQUIT, old_signal[1]);
 	change_value_builtin(list_word, exec, &status);
@@ -88,5 +89,4 @@ void	begin_execution(t_exec *exec, t_struct *list_word)
 		i++;
 	}
 	wait_all_process(pid_tab, list_word, exec);
-	free(pid_tab);
 }
