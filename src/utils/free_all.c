@@ -11,6 +11,7 @@ void	free_exec_struct(t_exec *exec)
 void	free_stuff_error(t_exec *exec, char *strperror, int error_value)
 {
 	perror(strperror);
+	rl_clear_history();
 	free_exec_struct(exec);
 	if (error_value >= 0)
 		exit(error_value);
