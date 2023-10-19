@@ -26,21 +26,21 @@ void	change_oldpwd(t_exec *exec, char *actual_pwd)
 	if (!arg)
 	{
 		free(actual_pwd);
-		free_stuff_error(exec, "malloc", -1);
+		free_stuff_error(exec, NULL, "malloc error\n", -1);
 	}
 	arg_pwd = ft_calloc(2, sizeof(char *));
 	if (!arg_pwd)
 	{
 		free(arg);
 		free(actual_pwd);
-		free_stuff_error(exec, "malloc", -1);
+		free_stuff_error(exec, NULL, "malloc error\n", -1);
 	}
 	tmp = getcwd(NULL, 0);
 	if (!tmp)
 	{
 		free(arg);
 		free(actual_pwd);
-		free_stuff_error(exec, "malloc", -1);
+		free_stuff_error(exec, NULL, "malloc error\n", -1);
 	}
 	arg_pwd[0] = ft_strjoin("PWD=", tmp);
 	if (!arg_pwd[0])
@@ -48,7 +48,7 @@ void	change_oldpwd(t_exec *exec, char *actual_pwd)
 		free(tmp);
 		free(arg);
 		free(actual_pwd);
-		free_stuff_error(exec, "malloc", -1);
+		free_stuff_error(exec, NULL, "malloc error\n", -1);
 	}
 	free(tmp);
 	arg[0] = fill_oldpwd(actual_pwd, exec);

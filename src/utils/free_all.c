@@ -20,9 +20,11 @@ void	free_exec_struct(t_exec *exec)
 	rl_clear_history();
 }
 
-void	free_stuff_error(t_exec *exec, char *strperror, int error_value)
+void	free_stuff_error(t_exec *exec,char *name, char *strperror, int error_value)
 {
-	perror(strperror);
+	if (name)
+		ft_putstr_fd(name, 2);
+	ft_putstr_fd(strperror, 2);
 	free_exec_struct(exec);
 	if (error_value >= 0)
 		exit(error_value);

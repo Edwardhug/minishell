@@ -154,7 +154,7 @@ t_env		*ft_lstnew_env(char *str, int nb);
 void		free_env(t_env *lst);
 void		free_exec_struct(t_exec *exec);
 void		free_exec_fork(t_exec *exec);
-void		free_stuff_error(t_exec *exec, char *strperror, int error_value);
+void		free_stuff_error(t_exec *exec, char *name, char *strperror, int error_value);
 int			ft_error_message(char *cmd_name, char *msg);
 int			ft_error_message_arg(char *cmd_name, char *arg, char *msg);
 //t_env		*ft_lstcpy(t_env *source);

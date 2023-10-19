@@ -24,7 +24,7 @@ char	*fill_oldpwd(char *actual_pwd, t_exec *exec)
 	{
 		free(arg);
 		free(actual_pwd);
-		free_stuff_error(exec, "malloc", -1);
+		free_stuff_error(exec, NULL, "malloc error\n", -1);
 	}
 	while (i < size - 1)
 	{
@@ -47,7 +47,7 @@ void	change_pwd(t_exec *exec)
 
 	arg_pwd = ft_calloc(2, sizeof(char *));
 	if (!arg_pwd)
-		free_stuff_error(exec, "malloc", -1);
+		free_stuff_error(exec, NULL, "malloc error\n", -1);
 	join_arg_pwd = getcwd(NULL, 0);
 	arg_pwd[0] = ft_strjoin("PWD=", join_arg_pwd);
 	free(join_arg_pwd);
