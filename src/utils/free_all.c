@@ -3,17 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-<<<<<<< HEAD
-/*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/20 22:09:56 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/20 22:11:45 by lgabet           ###   ########.fr       */
-=======
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 21:58:52 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/20 21:59:05 by jrenault         ###   ########lyon.fr   */
->>>>>>> normejrenault3
+/*   Updated: 2023/10/20 22:15:26 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
