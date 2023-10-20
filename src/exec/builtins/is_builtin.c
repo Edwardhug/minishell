@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   is_builtin.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/20 18:16:26 by jrenault          #+#    #+#             */
+/*   Updated: 2023/10/20 18:16:48 by jrenault         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../../include/minishell.h"
 
 void	show_env_var2(t_exec *exec, char *arg)
@@ -60,7 +72,6 @@ int	special_builtin(char **cmd, t_exec *exec)
 	if (cmd[0][1] == '?')
 	{
 		free_exec_struct(exec);
-		// free_tab(cmd);
 		print_return_value();
 		exit(127);
 	}
@@ -71,28 +82,24 @@ int	special_builtin(char **cmd, t_exec *exec)
 
 int	is_builtin_alone(char **cmd, t_exec *exec)
 {
-	if (!cmd[0])		// a garder !!
+	if (!cmd[0])
 		return (0);
 	if (ft_strcmp(cmd[0], "cd") == 0)
 		return (ft_cd(cmd, exec), 1);
 	else if (ft_strcmp(cmd[0], "pwd") == 0)
 		return (ft_pwd(exec), 1);
-	// else if (ft_strcmp(cmd[0], "echo") == 0)
-	// 	return (ft_echo(cmd, exec), 1);
 	else if (ft_strcmp(cmd[0], "exit") == 0)
 		return (ft_exit(cmd, exec, 0), 1);
 	else if (ft_strcmp(cmd[0], "export") == 0)
 		return (ft_export(cmd, exec), 1);
 	else if (ft_strcmp(cmd[0], "unset") == 0)
 		return (ft_unset(cmd, exec), 1);
-	// else if (ft_strcmp(cmd[0], "env") == 0)
-	// 	return (ft_env(exec), 1); 
 	return (0);
 }
 
 int	is_builtin_fork(char **cmd, t_exec *exec)
 {
-	if (!cmd[0])	// a garder !!
+	if (!cmd[0])
 		return (0);
 	if (ft_strcmp(cmd[0], "cd") == 0)
 		return (ft_cd(cmd, exec), 1);
