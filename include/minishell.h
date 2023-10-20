@@ -67,7 +67,7 @@ typedef	struct s_fd
 
 int   	 	change_env_var(t_struct **list, t_exec *exec);
 int			have_strange_cmd(char *str);
-void   		change_std(t_struct *lst, int fd);
+void	change_std(t_struct *lst, int fd, t_exec *exec);
 char   		*get_node(char *word, int *i);
 char		**get_path(char **env);
 //void		free_tab(char **tab);
