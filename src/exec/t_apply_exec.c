@@ -85,12 +85,7 @@ char	*t_get_path_cmd(char **all_path, char **splited, struct stat info, t_exec *
 			free_stuff_error(exec, NULL, "malloc error\n", -1);
 		}
 		if (access(path_cmd, F_OK | X_OK) != -1)
-		{
-			// free_tab(all_path);
-			// free_tab(splited);
-	//		free_stuff_error(exec, 1);   
 			return (free(tmp), path_cmd);
-		}
 		free(path_cmd);
 		free(tmp);
 		i++;
