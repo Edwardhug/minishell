@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 11:07:53 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/20 19:58:58 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/20 20:35:23 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,11 @@ typedef struct s_fd
 	int	fd_out;
 }				t_fd;
 
+int			no_lst(t_struct **lst);
+int			redir_to_long(t_struct **lst);
+int			test_files(t_struct **lst);
+int 		no_permission(t_struct **lst);
+int			no_such_file(t_struct **lst);
 char		*dup_without_space(char *str);
 int			switch_loop(t_struct **list, t_exec exec);
 int			change_env_var(t_struct **list, t_exec *exec);
