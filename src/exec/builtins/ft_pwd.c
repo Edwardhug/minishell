@@ -6,7 +6,7 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 17:24:14 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/20 17:24:26 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/20 19:41:02 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,16 @@ int	ft_pwd(t_exec *exec)
 {
 	char	*cwd;
 
-	cwd = malloc(sizeof(char *) * (PATH_MAX + 1));
-	if (getcwd(cwd, PATH_MAX) != NULL)
+	cwd = getcwd(NULL, 0);
+	if (cwd != NULL)
 	{
 		ft_printf("%s\n", cwd);
 		free(cwd);
 	}
 	else
 	{
-		perror("Path error");
 		free(cwd);
+		perror("Path error");
 		g_error_value = -127;
 		return (1);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_start.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 18:08:24 by lezard            #+#    #+#             */
-/*   Updated: 2023/10/20 10:21:20 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/20 19:47:38 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,21 +58,15 @@ void	wait_all_process(int *pid, t_struct *list_word, t_exec *exec)
 	g_error_value = status;
 }
 
-void	begin_execution(t_exec *exec, t_struct *list_word)
+void	begin_execution(t_exec *exec, t_struct *list_word, int i)
 {
-	int			i;
 	t_struct	*temp_list;
 
 	change_underscore(list_word->str, exec);
 	exec->nb_cmds = number_of_cmd(list_word);
 	exec->pid_tab = malloc(sizeof(int) * exec->nb_cmds);
 	if (!exec->pid_tab)
-	{
-		free_exec_struct(exec);
-		perror("malloc");
-		exit(EXIT_FAILURE);
-	}
-	i = 0;
+		free_stuff_error(exec, NULL, "malloc error\n", -1);
 	temp_list = list_word;
 	exec->list_word = list_word;
 	while (temp_list)
@@ -85,7 +79,6 @@ void	begin_execution(t_exec *exec, t_struct *list_word)
 			g_error_value = 127 * 256;
 			return ;
 		}
-		
 		if (to_next_cmd(&temp_list))
 			break ;
 		i++;
