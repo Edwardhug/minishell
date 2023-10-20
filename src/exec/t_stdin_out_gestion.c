@@ -37,18 +37,3 @@ int	open_fd_in(t_struct **temp_list)
 	}
 	return (0);
 }
-
-int	change_stdin(t_struct *list_word, t_struct **temp_list, t_exec *exec)
-{
-	t_struct	*copy;
-
-	copy = (*temp_list);
-	while (copy && copy->type != PIPE)
-	{
-		if (ft_strcmp(copy->str, "<<") == 0)
-			return (here_doc(*temp_list, exec));
-		copy = copy->next;
-	}
-	return (1);
-	(void)list_word;
-}

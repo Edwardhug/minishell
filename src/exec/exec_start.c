@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 18:08:24 by lezard            #+#    #+#             */
-/*   Updated: 2023/10/19 18:06:37 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/20 10:21:20 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,6 @@ void	begin_execution(t_exec *exec, t_struct *list_word)
 	exec->list_word = list_word;
 	while (temp_list)
 	{
-		if (!change_stdin(list_word, &temp_list, exec))
-		{
-			free(exec->pid_tab);
-			return ;
-		}
 		exec->pid_tab[i] = t_exec_cmd(temp_list, exec);
 		if (ft_strcmp(list_word->str, "$?") == 0)
 		{

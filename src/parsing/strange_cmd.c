@@ -1,14 +1,29 @@
 #include "../../include/minishell.h"
 
+int	end_of_str(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] && str[i] == ' ')
+		i++;
+	if (!str[i])
+		return (1);
+	return (0);
+}
+
 int	last_char_redir(char *str)
 {
 	int	i;
 
 	i = 0;
-	while (str[i] && str[i + 1])
+	while (str[i])
+	{
+		if ((str[i] == '>' || str[i] == '<' || str[i] == '|')
+			&& end_of_str(str + i + 1))
+			return (1);
 		i++;
-	if (str[i] == '>' || str[i] == '<' || str[i] == '|')
-		return (1);
+	}
 	return (0);
 }
 

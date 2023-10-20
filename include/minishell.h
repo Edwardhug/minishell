@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 11:07:53 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/20 16:47:16 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/20 19:30:19 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # include <limits.h>
 # include <sys/stat.h>
 # include <errno.h>
+
+# define HERE_DOC	"/nfs/homes/lgabet/Documents/here_doc"
 
 extern int	g_error_value;
 
@@ -198,7 +200,9 @@ int			ft_error_message_arg(char *cmd_name, char *arg, char *msg);
 
 //	here doc
 
-int			here_doc(t_struct *temp_list, t_exec *exec);
+// int	here_doc(t_struct *temp_list, t_exec *exec, int fd_in);
+void	transform_here_doc(t_struct **list);
+void	here_doc(char *lim);
 
 //	signals
 
