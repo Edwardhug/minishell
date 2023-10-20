@@ -6,7 +6,7 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 13:55:54 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/20 15:24:46 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/20 16:41:25 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,18 @@ t_env	*find_env_for_export(t_env *tmp_env, t_env *args_tmp,
 	if (!tmp_env->value)
 		failure_tmp_value(exec, head, 0);
 	return (tmp_env);
+}
+
+int	check_char_name(char *name, int i, char *cmd_name)
+{
+	if (!(name[i] >= 'a' && name[i] <= 'z')
+		&& !(name[i] >= 'A' && name[i] <= 'Z')
+		&& !(name[i] >= '0' && name[i] <= '9')
+		&& (name[i] != '_'))
+	{
+		ft_error_message_arg(cmd_name, name,
+			": not a valid identifier\n");
+		return (1);
+	}
+	return (0);
 }

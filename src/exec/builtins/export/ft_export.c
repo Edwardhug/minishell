@@ -6,7 +6,7 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 13:42:25 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/20 16:15:54 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/20 16:41:14 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,34 +67,39 @@ void	export_existing_value(t_env *args_tmp, t_exec *exec,
 		tmp_env = deal_not_in_env(exec, tmp_env, head, args_tmp);
 }
 
+t_env	*create_new_exp(t_exec *exec, t_env *head, t_env *args_tmp)
+{
+	t_env	*new_exp;
+
+	new_exp = ft_lstnew_export(args_tmp);
+	if (!new_exp)
+	{
+		free_env(head);
+		free_exec_struct(exec);
+		exit(EXIT_FAILURE);
+	}
+	if (new_exp->value)
+		free(new_exp->value);
+	new_exp->value = NULL;
+	new_exp->next = exec->export;
+	exec->export = new_exp;
+	return (new_exp);
+}
+
 static void	create_var(t_env *args_tmp, t_exec *exec, t_env *head)
 {
 	t_env	*new_exp;
 	t_env	*new_env;
 
 	if (args_tmp->value == NULL || args_tmp->value[0] == '\0')
-	{
-		new_exp = ft_lstnew_export(args_tmp);
-		if (!new_exp)
-		{
-			free_env(head);
-			free_exec_struct(exec);
-			exit(EXIT_FAILURE);
-		}
-		if (new_exp->value)
-			free(new_exp->value);
-		new_exp->value = NULL;
-		new_exp->next = exec->export;
-		exec->export = new_exp;
-	}
+		new_exp = create_new_exp(exec, head, args_tmp);
 	else
 	{
 		new_exp = ft_lstnew_export(args_tmp);
 		if (!new_exp)
 		{
 			free_env(head);
-			free_exec_struct(exec);
-			exit(EXIT_FAILURE);
+			free_stuff_error(exec, NULL, "malloc error\n", -1);
 		}
 		new_exp->next = exec->export;
 		exec->export = new_exp;
@@ -102,8 +107,7 @@ static void	create_var(t_env *args_tmp, t_exec *exec, t_env *head)
 		if (!new_env)
 		{
 			free_env(head);
-			free_exec_struct(exec);
-			exit(EXIT_FAILURE);
+			free_stuff_error(exec, NULL, "malloc error\n", -1);
 		}
 		new_env->next = exec->env;
 		exec->env = new_env;
@@ -120,20 +124,15 @@ static	int	is_valid_name(char *cmd_name, t_env *args_tmp)
 	{
 		if (tmp->name[0] >= '0' && tmp->name[0] <= '9')
 		{
-			ft_error_message_arg(cmd_name, tmp->name, ": not a valid identifier\n");
+			ft_error_message_arg(cmd_name, tmp->name,
+				": not a valid identifier\n");
 			return (1);
 		}
 		i = 0;
 		while (tmp->name[i])
 		{
-			if (!(tmp->name[i] >= 'a' && tmp->name[i] <= 'z')
-					&& !(tmp->name[i] >= 'A' && tmp->name[i] <= 'Z')
-					&& !(tmp->name[i] >= '0' && tmp->name[i] <= '9')
-					&& (tmp->name[i] != '_'))
-			{
-				ft_error_message_arg(cmd_name, tmp->name, ": not a valid identifier\n");
+			if (check_char_name(tmp->name, i, cmd_name) == 1)
 				return (1);
-			}
 			i++;
 		}
 		tmp = tmp->next;
@@ -153,6 +152,7 @@ static int	what_to_do(char **cmd, t_exec *exec)
 	if (is_valid_name(cmd[0], lst_args))
 	{
 		g_error_value = -1;
+		free_env(lst_args);
 		return (1);
 	}
 	while (lst_args)

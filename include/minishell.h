@@ -6,7 +6,7 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 11:07:53 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/20 16:17:26 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/20 16:41:36 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,7 @@ t_env		*find_env_for_export(t_env *tmp_env, t_env *args_tmp,
 	t_exec *exec, t_env *head);
 t_env		*dup_existing_value(t_exec *exec, t_env *head,
 	t_env *tmp_exp, t_env *args_tmp);
+int			check_char_name(char *name, int i, char *cmd_name);
 void		failure_tmp_value(t_exec *exec, t_env *head, int what);
 void		ft_swap(t_env *node1, t_env *node2);
 void		sort_list(t_exec *exec);
