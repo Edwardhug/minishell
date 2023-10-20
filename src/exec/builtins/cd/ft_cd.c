@@ -6,7 +6,7 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 10:09:36 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/20 11:31:27 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/20 13:21:01 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	go_to_old_pwd(char *oldpwd, t_exec *exec)
 		if (exec->nb_cmds > 1)
 		{
 			free(oldpwd);
-			free_exec_struct(exec);
+			free_exec_fork(exec);
 			exit(0);
 		}
 		return ;
@@ -88,7 +88,8 @@ void	go_to_home(char *oldpwd, t_exec *exec)
 	return ;
 }
 
-static int	interprete_result(t_exec *exec, char *oldpwd, int result)
+static int	interprete_result(t_exec *exec, char *oldpwd,
+	int result, char **cmd)
 {
 	if (result == 0)
 	{
@@ -103,7 +104,7 @@ static int	interprete_result(t_exec *exec, char *oldpwd, int result)
 	}
 	if (result == -1)
 	{
-		ft_putstr_fd(" no such file or directory\n", 2);
+		ft_error_message_arg(cmd[0], cmd[1], " no such file or directory\n");
 		free(oldpwd);
 		if (exec->nb_cmds > 1)
 		{
@@ -124,7 +125,7 @@ int	ft_cd(char **cmd, t_exec *exec)
 
 	if (cmd[1] && cmd[2])
 	{
-		ft_putstr_fd(" too many arguments\n", 2);
+		ft_error_message(cmd[0], ": too many arguments\n");
 		return (g_error_value = -1, 0);
 	}
 	home = get_var_home(*exec);
@@ -141,6 +142,6 @@ int	ft_cd(char **cmd, t_exec *exec)
 	else if (ft_strcmp(cmd[1], "-") == 0)
 		return (go_to_old_pwd(oldpwd, exec), 0);
 	result = chdir(cmd[1]);
-	interprete_result(exec, oldpwd, result);
+	interprete_result(exec, oldpwd, result, cmd);
 	return (0);
 }
