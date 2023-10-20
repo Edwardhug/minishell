@@ -95,7 +95,7 @@ void	here_doc(char *lim)
 	to_ret = ft_calloc(1, sizeof(char));
 	if (!to_ret)
 		return ;
-	fd = open("/nfs/homes/lgabet/Documents/here_doc",O_RDWR | O_CREAT | O_TRUNC, 0644);
+	fd = open(HERE_DOC,O_RDWR | O_CREAT | O_TRUNC, 0644);
 	signal(SIGINT, sigint_handler_heredoc);
 	while (g_error_value != 130 * 256)
 	{
@@ -143,7 +143,7 @@ void	transform_here_doc(t_struct **list)
 			copy->type = REDIRECTION;
 			copy = copy->next;
 			free(copy->str);
-			copy->str = ft_strdup("/nfs/homes/lgabet/Documents/here_doc");
+			copy->str = ft_strdup(HERE_DOC);
 			copy->type = FILES;
 		}
 		copy = copy->next;

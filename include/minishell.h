@@ -16,6 +16,8 @@
 # include <sys/stat.h>
 # include <errno.h>
 
+# define HERE_DOC	"/nfs/homes/lgabet/Documents/here_doc"
+
 extern int	g_error_value;
 
 typedef enum s_enum
