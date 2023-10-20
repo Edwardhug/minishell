@@ -6,7 +6,7 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:50:18 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/20 19:47:29 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/20 22:10:22 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,5 @@ void	parsing_minishell(char *line, t_exec *exec)
 		begin_execution(exec, list_word, 0);
 	else
 		g_error_value = 130 * 256;
-	// print_list(list_word);
 	free_list(&list_word);
 }
