@@ -1,4 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_return_value.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/20 19:50:27 by jrenault          #+#    #+#             */
+/*   Updated: 2023/10/20 20:22:50 by jrenault         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
+
+static void	free_splited_and_exit(char **splited, int error_value)
+{
+	free_tab(splited);
+	exit(error_value);
+}
 
 void	get_right_return_value(char **splited, struct stat info, t_exec *exec)
 {
@@ -8,14 +26,10 @@ void	get_right_return_value(char **splited, struct stat info, t_exec *exec)
 	if (access(splited[0], F_OK) != -1)
 	{
 		if (splited[0][0] == '.' && splited[0][1] == '/')
-		{
-			free_tab(splited);
-			exit(126);
-		}
+			free_splited_and_exit(splited, 126);
 		else
 		{
-			free_tab(splited);
-			exit (127);
+			free_splited_and_exit(splited, 127);
 		}
 	}
 	if (exec->i_stat == 0)
