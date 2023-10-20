@@ -6,25 +6,11 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:50:18 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/21 00:07:59 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/21 00:14:41 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-void	print_list(t_struct *list)
-{
-	int	i;
-
-	i = 0;
-	while (list)
-	{
-		ft_printf("node n%d\n	-str = %s\n", i, list->str);
-		ft_printf("	-type = %d\n", list->type);
-		i++;
-		list = list->next;
-	}
-}
 
 void	fill_node(t_struct **list_word, char *word, t_exec *exec)
 {
