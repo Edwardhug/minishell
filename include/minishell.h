@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 11:07:53 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/20 19:30:19 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/20 19:58:58 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ typedef struct s_fd
 	int	fd_out;
 }				t_fd;
 
+char		*dup_without_space(char *str);
+int			switch_loop(t_struct **list, t_exec exec);
 int			change_env_var(t_struct **list, t_exec *exec);
 int			have_strange_cmd(char *str);
 void		change_std(t_struct *lst, int fd);
@@ -114,6 +116,7 @@ void		add_pipe(t_struct **list_word);
 void		clean_redir_out(t_struct **list);
 void		loop_parsing(t_struct **list_word, char *line, t_exec *exec);
 char		*find_second_quote(char *line, int *i, t_exec *exec);
+void 	clear_underscore(t_exec *exec);
 
 void		print_list(t_struct *list);
 
