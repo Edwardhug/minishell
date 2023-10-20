@@ -6,7 +6,7 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 11:07:53 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/20 11:31:50 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/20 12:58:38 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,8 @@ char		*get_var(t_exec *exec, char *var_name);
 void		malloc_oldpwd_var(t_exec *exec, char *actual_pwd);
 int			no_oldpwd(t_exec *exec, char *home);
 int			ft_echo(char **cmd, t_exec *exec);
+int			is_dash_n(char *arg);
+int			dash_n_handling(int *dash_n, int *newline, int *i, char **cmd);
 int			ft_env(t_exec *exec);
 int			ft_exit(char **cmd, t_exec *exec, int are_pipes);
 int			ft_export(char **cmd, t_exec *exec);
