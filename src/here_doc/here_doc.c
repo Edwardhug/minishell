@@ -97,10 +97,16 @@ void	here_doc(char *lim)
 		return ;
 	fd = open(HERE_DOC,O_RDWR | O_CREAT | O_TRUNC, 0644);
 	signal(SIGINT, sigint_handler_heredoc);
-	while (g_error_value != 130 * 256)
+	while (g_error_value != -89)
 	{
 		tmp = readline("> ");
-		if (!tmp)
+		if (g_error_value == 130) 
+		{
+			free(to_ret);
+			close(fd);
+			return ;
+		}
+		if (!tmp && g_error_value != 130)
 		{
 			ft_putstr_fd(to_ret, fd);
 			free(to_ret);
