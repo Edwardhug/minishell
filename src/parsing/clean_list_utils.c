@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 19:36:52 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/20 19:58:40 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/20 20:37:36 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	switch_loop(t_struct **list, t_exec exec)
 	return (0);
 }
 
-void clear_underscore(t_exec *exec)
+void	clear_underscore(t_exec *exec)
 {
 	exec->env->next = ft_lstnew_env("_=", 1);
 	exec->export->next = ft_lstnew_env("_=", 1);
