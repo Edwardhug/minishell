@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putunbr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 14:20:20 by jrenault          #+#    #+#             */
-/*   Updated: 2022/11/24 14:21:02 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/20 23:12:02 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	is_zero(unsigned int nb)
 }
 
 void	ft_putunbr(unsigned int nb)
-{	
+{
 	long int		divider;
 	unsigned int	temp_nb;
 

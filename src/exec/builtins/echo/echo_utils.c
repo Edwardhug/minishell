@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:57:36 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/20 12:58:09 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/20 23:10:56 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,6 @@ int	dash_n_handling(int *dash_n, int *newline, int *i, char **cmd)
 		}
 		else
 			break ;
-	}	
+	}
 	return (0);
 }

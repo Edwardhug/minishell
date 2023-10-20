@@ -66,7 +66,7 @@ char	**ft_split(const char *s, char c)
 	if (!split_tab)
 		return (NULL);
 	while (s[++i])
-	{	
+	{
 		while (s[i + 1] && s[i] == c)
 			i++;
 		start = i;

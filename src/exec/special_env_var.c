@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   special_env_var.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 19:53:49 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/20 21:34:14 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/20 23:11:09 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	change_underscore(char *cmd, t_exec *exec)
 				{
 					free(cmd);
 					free_stuff_error(exec, NULL, "malloc error\n", -1);
-				}	
+				}
 			}
 			return ;
 		}
