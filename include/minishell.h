@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/20 11:07:53 by jrenault          #+#    #+#             */
+/*   Updated: 2023/10/20 11:11:26 by jrenault         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -45,25 +56,29 @@ typedef struct s_struct
 
 typedef struct s_exec
 {
-	int		nb_cmds;
-	t_env	*env;
-	t_env	*export;
-	int		fd_stand;
-	char	quote;
-	int		i_stat;
+	int			nb_cmds;
+	t_env		*env;
+	t_env		*export;
+	int			fd_stand;
+	char		quote;
+	int			i_stat;
 	t_struct	*list_word;
-	char	*line;
-	int		*pid_tab;
-	char	**clean_cmd;
-	char	**char_env;
+	char		*line;
+	int			*pid_tab;
+	char		**clean_cmd;
+	char		**char_env;
+	char		**arg;
+	char		**arg_pwd;
+	char		*tmp;
+	t_env		*args_tmp_pwd;
+	t_env		*args_tmp;
 }				t_exec;
 
-typedef	struct s_fd
+typedef struct s_fd
 {
 	int	fd_in;
 	int	fd_out;
 }				t_fd;
-
 
 int   	 	change_env_var(t_struct **list, t_exec *exec);
 int			have_strange_cmd(char *str);
@@ -110,7 +125,6 @@ int			change_stdin(t_struct *list_word, t_struct **temp_list, t_exec *exec);
 int			is_end(t_struct *temp_list);
 void		find_correct_path(t_exec *exec);
 void		access_cmd(t_exec *exec, int i);
-
 int			t_open_fd_out(t_struct *temp_list);
 //int		t_change_stdout(t_struct *temp_list, int fd);
 int			t_exec_cmd(t_struct *temp_list, t_exec *exec);
@@ -129,6 +143,7 @@ void		change_underscore(char *cmd, t_exec *exec);
 int			is_builtin_alone(char **cmd, t_exec *exec);
 int			is_builtin_fork(char **cmd, t_exec *exec);
 int			ft_cd(char **cmd, t_exec *exec);
+char		*get_var(t_exec *exec, char *var_name);
 int			ft_echo(char **cmd, t_exec *exec);
 int			ft_env(t_exec *exec);
 int			ft_exit(char **cmd, t_exec *exec, int are_pipes);

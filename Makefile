@@ -29,8 +29,8 @@ SRCS =	parsing/minishell.c\
 		exec/t_stdin_out_gestion.c \
 		exec/builtins/is_builtin.c\
 		exec/builtins/ft_export.c\
-		exec/builtins/ft_cd.c\
-		exec/builtins/cd_utils.c\
+		exec/builtins/cd/ft_cd.c\
+		exec/builtins/cd/cd_utils.c\
 		exec/builtins/ft_pwd.c\
 		exec/builtins/ft_echo.c\
 		exec/builtins/ft_exit.c\
@@ -81,6 +81,7 @@ $(PATH_OBJS) :
 				mkdir -p $(PATH_OBJS)/parsing
 				mkdir -p $(PATH_OBJS)/exec
 				mkdir -p $(PATH_OBJS)/exec/builtins
+				mkdir -p $(PATH_OBJS)/exec/builtins/cd
 				mkdir -p $(PATH_OBJS)/utils
 				mkdir -p $(PATH_OBJS)/signals
 				mkdir -p $(PATH_OBJS)/here_doc
