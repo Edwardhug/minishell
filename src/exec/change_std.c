@@ -84,4 +84,5 @@ void	change_std(t_struct *lst, int fd)
 		dup2(cfd.fd_in, STDIN_FILENO);
 		close (cfd.fd_in);
 	}
+	// print_list(lst);
 }
