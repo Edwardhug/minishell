@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 11:07:53 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/20 22:07:26 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/20 22:13:31 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void		signal_main_loop(void);
 void		handle_sigint_main_loop(int signal);
 void		exit_and_write_it(t_exec *exec);
 void		clean_list(t_struct **list);
-//int		ft_isupper(int n);
+//int		ft_isupper(int n); 
 int			ft_isequal(int n);
 void		fill_var_node(t_struct **list_word, char *word, t_exec *exec);
 int			get_len_var(char *line, int *i, t_struct **list_word, t_exec *exec);
