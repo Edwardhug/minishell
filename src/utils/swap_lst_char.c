@@ -1,50 +1,34 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   swap_lst_char.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/20 22:08:31 by lgabet            #+#    #+#             */
+/*   Updated: 2023/10/20 22:08:32 by lgabet           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 char	**env_lst_into_double_char(t_env *env, t_exec *exec)
 {
-	int		i;
-	char	**char_env;
-	char	*tmp2;
-	t_env	*tmp;
+	t_env_lst	str;
 
-	i = 0;
-	tmp = env;
-	char_env = malloc(sizeof(char **) * (t_env_strlen(tmp) + 1));
-	if (!char_env)
+	str.i = 0;
+	str.tmp = env;
+	str.char_env = malloc(sizeof(char **) * (t_env_strlen(str.tmp) + 1));
+	if (!str.char_env)
 	{
 		free_exec_struct(exec);
 		perror("malloc lst into double char 1");
 		exit(EXIT_FAILURE);
 	}
-	while (tmp)
-	{
-		tmp2 = ft_strjoin(tmp->name, "=");
-		if (!tmp2)
-		{
-			while (i >= 0)
-			{
-				free(char_env[i]);
-				i--;
-			}
-			free(char_env);
-			free_exec_struct(exec);
-			perror("malloc error\n");
-			exit(EXIT_FAILURE);
-		}
-		char_env[i] = ft_strjoin(tmp2, tmp->value);
-		if (!char_env[i])
-		{
-			free_tab(char_env);
-			free_exec_struct(exec);
-			perror("malloc error\n");
-			exit(EXIT_FAILURE);
-		}
-		free(tmp2);
-		tmp = tmp->next;
-		i++;
-	}
-	char_env[i] = NULL;
-	return (char_env);
+	while (str.tmp)
+		env_double_char(exec, &str);
+	str.char_env[str.i] = NULL;
+	return (str.char_env);
 }
 
 t_env	*ft_lstnew_env(char *str, int nb)

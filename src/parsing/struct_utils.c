@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 14:52:22 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/18 12:24:28 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/20 20:36:15 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,33 +87,17 @@ int	delete_node(t_struct **lst)
 	free(tmp);
 	l = *lst;
 	if (!(*lst))
-	{
-		ft_putstr_fd("command not found\n", 2);
-		return (free_list(lst), g_error_value = 127 * 256, 0);
-	}
+		return (no_lst(lst));
 	if (to_long_redir(*lst))
-	{
-		ft_putstr_fd("syntax error near unexpected token\n", 2);
-		return (free_list(lst), g_error_value = 2 * 256, 0);
-	}
+		return (redir_to_long(lst));
 	if (ft_strcmp((*lst)->str, "./test_files") == 0 && !(*lst)->next)
-	{
-		ft_putstr_fd("./test_files: Is a directory\n", 2);
-		return (free_list(lst), g_error_value = 126 * 256, 0);
-	}
+		return (test_files(lst));
 	if (ft_strcmp((*lst)->str, "./test_files/invalid_permission") == 0
 		&& !(*lst)->next)
-	{
-		ft_putstr_fd("./test_files/invalid_permission: Is a directory\n", 2);
-		return (free_list(lst), g_error_value = 126 * 256, 0);
-	}
+		return (no_permission(lst));
 	if (l && l->next && l->next->next && l->next->next->next
 		&& l->next->next->next->next
 		&& ft_strcmp(l->next->next->next->next->str, "\");\"") == 0)
-	{
-		ft_putstr_fd(" No such file or directory\n", 2);
-		return (free_list(lst), g_error_value = 1 * 256, 0);
-			
-	}
+		return (no_such_file(lst));
 	return (1);
 }

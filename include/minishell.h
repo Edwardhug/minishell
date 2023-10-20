@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 11:07:53 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/20 19:30:19 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/20 22:07:26 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,27 @@ typedef struct s_exec
 	t_env		*args_tmp;
 }				t_exec;
 
+typedef	struct	s_env_lst
+{
+	int		i;
+	char	**char_env;
+	char	*tmp2;
+	t_env	*tmp;
+}			t_env_lst;
+
 typedef struct s_fd
 {
 	int	fd_in;
 	int	fd_out;
 }				t_fd;
 
+int			no_lst(t_struct **lst);
+int			redir_to_long(t_struct **lst);
+int			test_files(t_struct **lst);
+int 		no_permission(t_struct **lst);
+int			no_such_file(t_struct **lst);
+char		*dup_without_space(char *str);
+int			switch_loop(t_struct **list, t_exec exec);
 int			change_env_var(t_struct **list, t_exec *exec);
 int			have_strange_cmd(char *str);
 void		change_std(t_struct *lst, int fd);
@@ -114,6 +129,7 @@ void		add_pipe(t_struct **list_word);
 void		clean_redir_out(t_struct **list);
 void		loop_parsing(t_struct **list_word, char *line, t_exec *exec);
 char		*find_second_quote(char *line, int *i, t_exec *exec);
+void 	clear_underscore(t_exec *exec);
 
 void		print_list(t_struct *list);
 
@@ -196,6 +212,7 @@ void		free_exec_fork(t_exec *exec);
 void		free_stuff_error(t_exec *exec, char *name, char *strperror, int error_value);
 int			ft_error_message(char *cmd_name, char *msg);
 int			ft_error_message_arg(char *cmd_name, char *arg, char *msg);
+void 		env_double_char(t_exec *exec, t_env_lst *str);
 //t_env		*ft_lstcpy(t_env *source);
 
 //	here doc

@@ -15,10 +15,12 @@ SRCS =	parsing/minishell.c\
 		parsing/get_node.c\
 		parsing/clean_list.c\
 		parsing/add_pipe.c\
+		parsing/clean_list_utils.c\
 		parsing/check_quote_file.c\
 		parsing/fill_var_node.c\
 		parsing/fill_quote_node.c\
 		parsing/strange_cmd.c\
+		parsing/print_message.c\
 		exec/exec_start.c\
 		exec/t_exec_continue.c\
 		exec/t_apply_exec.c\
@@ -49,7 +51,6 @@ SRCS =	parsing/minishell.c\
 		utils/exit_fonctions.c\
 		utils/t_struct_utils.c\
 		utils/swap_lst_char.c\
-		utils/ft_lstcpy.c\
 		signals/signals.c\
 		signals/signals_here_doc.c\
 		here_doc/here_doc.c\

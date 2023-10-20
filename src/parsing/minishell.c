@@ -100,8 +100,7 @@ static void	if_env_i(t_exec *exec)
 		exit(EXIT_FAILURE);
 	}
 	shlvl(exec, 1, 1);
-	exec->env->next = ft_lstnew_env("_=", 1);
-	exec->export->next = ft_lstnew_env("_=", 1);
+	clear_underscore(exec);
 	if (getcwd(cwd, PATH_MAX) != NULL)
 	{
 		pwd = ft_strjoin("PWD=", cwd);
