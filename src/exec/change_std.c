@@ -36,7 +36,7 @@ int	open_fd_out(t_struct *lst)
 	return (fd_out);
 }
 
-void	change_std(t_struct *lst, int fd, t_exec *exec)
+void	change_std(t_struct *lst, int fd)
 {
 	t_fd	cfd;
 
@@ -72,6 +72,5 @@ void	change_std(t_struct *lst, int fd, t_exec *exec)
 		dup2(cfd.fd_in, STDIN_FILENO);
 		close (cfd.fd_in);
 	}
-	(void)exec;
 	// print_list(lst);
 }
