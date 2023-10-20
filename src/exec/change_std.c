@@ -6,13 +6,13 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 18:16:55 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/20 18:16:56 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/20 19:37:52 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	open_fd_in_(t_struct *lst)
+static int	open_fd_in_(t_struct *lst)
 {
 	int	fd_in;
 
@@ -25,7 +25,7 @@ int	open_fd_in_(t_struct *lst)
 	return (fd_in);
 }
 
-int	open_fd_out(t_struct *lst)
+static int	open_fd_out(t_struct *lst)
 {
 	int	fd_out;
 
@@ -46,6 +46,25 @@ int	open_fd_out(t_struct *lst)
 		exit(1);
 	}
 	return (fd_out);
+}
+
+static void	dup_function(t_struct *lst, int fd, t_fd cfd)
+{
+	if (lst && lst->type == PIPE)
+	{
+		dup2(fd, STDOUT_FILENO);
+		close (fd);
+	}
+	if (cfd.fd_out != 1)
+	{
+		dup2(cfd.fd_out, STDOUT_FILENO);
+		close (cfd.fd_out);
+	}
+	if (cfd.fd_in != 0)
+	{
+		dup2(cfd.fd_in, STDIN_FILENO);
+		close (cfd.fd_in);
+	}
 }
 
 void	change_std(t_struct *lst, int fd)
@@ -69,20 +88,5 @@ void	change_std(t_struct *lst, int fd)
 		}
 		lst = lst->next;
 	}
-	if (lst && lst->type == PIPE)
-	{
-		dup2(fd, STDOUT_FILENO);
-		close (fd);
-	}
-	if (cfd.fd_out != 1)
-	{
-		dup2(cfd.fd_out, STDOUT_FILENO);
-		close (cfd.fd_out);
-	}
-	if (cfd.fd_in != 0)
-	{
-		dup2(cfd.fd_in, STDIN_FILENO);
-		close (cfd.fd_in);
-	}
-	// print_list(lst);
+	dup_function(lst, fd, cfd);
 }
