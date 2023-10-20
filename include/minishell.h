@@ -6,7 +6,7 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 11:07:53 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/20 11:11:26 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/20 11:31:50 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,10 @@ typedef struct s_fd
 	int	fd_out;
 }				t_fd;
 
-int   	 	change_env_var(t_struct **list, t_exec *exec);
+int			change_env_var(t_struct **list, t_exec *exec);
 int			have_strange_cmd(char *str);
-void   		change_std(t_struct *lst, int fd);
-char   		*get_node(char *word, int *i);
+void		change_std(t_struct *lst, int fd);
+char		*get_node(char *word, int *i);
 char		**get_path(char **env);
 //void		free_tab(char **tab);
 void		parsing_minishell(char *line, t_exec *exec);
@@ -100,7 +100,7 @@ void		exit_and_write_it(t_exec *exec);
 void		clean_list(t_struct **list);
 //int		ft_isupper(int n);
 int			ft_isequal(int n);
-void 		fill_var_node(t_struct **list_word, char *word, t_exec *exec);
+void		fill_var_node(t_struct **list_word, char *word, t_exec *exec);
 int			get_len_var(char *line, int *i, t_struct **list_word, t_exec *exec);
 char		*find_end_var(char *line, int *i, t_struct **list_word, t_exec *exec);
 void 		fill_node(t_struct **list_word, char *word, t_exec *exec);
@@ -144,6 +144,8 @@ int			is_builtin_alone(char **cmd, t_exec *exec);
 int			is_builtin_fork(char **cmd, t_exec *exec);
 int			ft_cd(char **cmd, t_exec *exec);
 char		*get_var(t_exec *exec, char *var_name);
+void		malloc_oldpwd_var(t_exec *exec, char *actual_pwd);
+int			no_oldpwd(t_exec *exec, char *home);
 int			ft_echo(char **cmd, t_exec *exec);
 int			ft_env(t_exec *exec);
 int			ft_exit(char **cmd, t_exec *exec, int are_pipes);

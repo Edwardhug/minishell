@@ -6,35 +6,11 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 10:09:36 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/20 11:19:28 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/20 11:31:27 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../include/minishell.h"
-
-void	malloc_oldpwd_var(t_exec *exec, char *actual_pwd)
-{
-	exec->arg = ft_calloc(2, sizeof(char *));
-	if (!exec->arg)
-	{
-		free(actual_pwd);
-		free_stuff_error(exec, NULL, "malloc error\n", -1);
-	}
-	exec->arg_pwd = ft_calloc(2, sizeof(char *));
-	if (!exec->arg_pwd)
-	{
-		free(exec->arg);
-		free(actual_pwd);
-		free_stuff_error(exec, NULL, "malloc error\n", -1);
-	}
-	exec->tmp = getcwd(NULL, 0);
-	if (!exec->tmp)
-	{
-		free(exec->arg);
-		free(actual_pwd);
-		free_stuff_error(exec, NULL, "malloc error\n", -1);
-	}
-}
 
 void	change_oldpwd(t_exec *exec, char *actual_pwd)
 {
@@ -82,7 +58,7 @@ void	go_to_old_pwd(char *oldpwd, t_exec *exec)
 	free(oldpwd);
 	if (exec->nb_cmds > 1)
 	{
-		free_exec_struct(exec);
+		free_exec_fork(exec);
 		exit(0);
 	}
 	return ;
@@ -97,7 +73,7 @@ void	go_to_home(char *oldpwd, t_exec *exec)
 		if (exec->nb_cmds > 1)
 		{
 			free(oldpwd);
-			free_exec_struct(exec);
+			free_exec_fork(exec);
 			exit(0);
 		}
 		return ;
@@ -105,44 +81,15 @@ void	go_to_home(char *oldpwd, t_exec *exec)
 	change_oldpwd(exec, oldpwd);
 	if (exec->nb_cmds > 1)
 	{
-		free_exec_struct(exec);
+		free_exec_fork(exec);
 		free(oldpwd);
 		exit(0);
 	}
 	return ;
 }
 
-int	ft_cd(char **cmd, t_exec *exec)
+static int	interprete_result(t_exec *exec, char *oldpwd, int result)
 {
-	char	*oldpwd;
-	char	*home;
-	int		result;
-
-	if (cmd[1] && cmd[2])
-	{
-		ft_putstr_fd(" too many arguments\n", 2);
-		return (g_error_value = -1, 0);
-	}
-	home = get_var_home(*exec);
-	oldpwd = getcwd(NULL, 0);
-	if (!oldpwd)
-	{
-		ft_putstr_fd("Can't go to this dir, moved to home\n", 2);
-		chdir(home);
-		change_pwd(exec);
-		g_error_value = -1;
-		return (0);
-	}
-	if (!cmd[1] || ft_strcmp(cmd[1], "~") == 0)
-	{
-		chdir(home);
-		change_oldpwd(exec, oldpwd);
-		free(oldpwd);
-		return (0);
-	}
-	else if (ft_strcmp(cmd[1], "-") == 0)
-		return (go_to_old_pwd(oldpwd, exec), 0);
-	result = chdir(cmd[1]);
 	if (result == 0)
 	{
 		change_oldpwd(exec, oldpwd);
@@ -166,5 +113,34 @@ int	ft_cd(char **cmd, t_exec *exec)
 		g_error_value = -1;
 		return (0);
 	}
+	return (0);
+}
+
+int	ft_cd(char **cmd, t_exec *exec)
+{
+	char	*oldpwd;
+	char	*home;
+	int		result;
+
+	if (cmd[1] && cmd[2])
+	{
+		ft_putstr_fd(" too many arguments\n", 2);
+		return (g_error_value = -1, 0);
+	}
+	home = get_var_home(*exec);
+	oldpwd = getcwd(NULL, 0);
+	if (!oldpwd)
+		no_oldpwd(exec, home);
+	if (!cmd[1] || ft_strcmp(cmd[1], "~") == 0)
+	{
+		chdir(home);
+		change_oldpwd(exec, oldpwd);
+		free(oldpwd);
+		return (0);
+	}
+	else if (ft_strcmp(cmd[1], "-") == 0)
+		return (go_to_old_pwd(oldpwd, exec), 0);
+	result = chdir(cmd[1]);
+	interprete_result(exec, oldpwd, result);
 	return (0);
 }

@@ -31,6 +31,7 @@ SRCS =	parsing/minishell.c\
 		exec/builtins/ft_export.c\
 		exec/builtins/cd/ft_cd.c\
 		exec/builtins/cd/cd_utils.c\
+		exec/builtins/cd/cd_oldpwd_utils.c\
 		exec/builtins/ft_pwd.c\
 		exec/builtins/ft_echo.c\
 		exec/builtins/ft_exit.c\
