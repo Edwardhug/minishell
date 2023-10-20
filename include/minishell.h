@@ -6,7 +6,7 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 11:07:53 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/20 13:57:02 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/20 16:17:26 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,8 +150,19 @@ int			ft_exit(char **cmd, t_exec *exec, int are_pipes);
 int			ft_pwd(t_exec *exec);
 int			ft_unset(char **cmd, t_exec *exec);
 int			ft_export(char **cmd, t_exec *exec);
-void		export_existing_value(t_env *args_tmp, t_exec *exec, t_env *head);
+t_env		*deal_not_in_env(t_exec *exec, t_env *tmp_env,
+	t_env *head, t_env *args_tmp);
+void		export_existing_value(t_env *args_tmp, t_exec *exec,
+	t_env *head, int not_in_env);
+t_env		*ft_lstnew_export(t_env *args_tmp);
+t_env		*find_env_for_export(t_env *tmp_env, t_env *args_tmp,
+	t_exec *exec, t_env *head);
+t_env		*dup_existing_value(t_exec *exec, t_env *head,
+	t_env *tmp_exp, t_env *args_tmp);
 void		failure_tmp_value(t_exec *exec, t_env *head, int what);
+void		ft_swap(t_env *node1, t_env *node2);
+void		sort_list(t_exec *exec);
+void		show_export(t_exec *exec);
 int			ft_cd(char **cmd, t_exec *exec);
 char		*get_var(t_exec *exec, char *var_name);
 void		malloc_oldpwd_var(t_exec *exec, char *actual_pwd);

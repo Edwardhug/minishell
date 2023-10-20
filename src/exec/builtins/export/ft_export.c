@@ -6,75 +6,13 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 13:42:25 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/20 13:56:21 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/20 16:15:54 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../include/minishell.h"
 
-static void	ft_swap(t_env *node1, t_env *node2)
-{
-	char	*tmp_name;
-	char	*tmp_value;
-
-	if (node1 == NULL || node1->next == NULL)
-		return ;
-	if (node2 == NULL || node2->next == NULL)
-		return ;
-	tmp_name = node1->name;
-	tmp_value = node1->value;
-	node1->name = node2->name;
-	node1->value = node2->value;
-	node2->name = tmp_name;
-	node2->value = tmp_value;
-}
-
-static void	sort_list(t_exec *exec)
-{
-	int		swapped;
-	t_env	*head;
-	t_env	*last_ptr;
-
-	last_ptr = NULL;
-	swapped = 1;
-	while (swapped)
-	{
-		swapped = 0;
-		head = exec->export;
-		while (head && head->next && head->next != last_ptr)
-		{
-			if (ft_strcmp(head->name, head->next->name) > 0)
-			{
-				ft_swap(head, head->next);
-				swapped = 1;
-			}
-			head = head->next;
-		}
-		last_ptr = head;
-	}
-}
-
-void	show_export(t_exec *exec)
-{
-	t_env	*tmp;
-
-	sort_list(exec);
-	tmp = exec->export;
-	while (tmp)
-	{
-		ft_printf("declare -x ");
-		ft_printf("%s", tmp->name);
-		if (tmp->value != NULL)
-		{
-			ft_printf("=");
-			ft_printf("\"%s\"", tmp->value);
-		}
-		ft_printf("\n");
-		tmp = tmp->next;
-	}
-}
-
-static t_env	*ft_lstnew_export(t_env *args_tmp)
+t_env	*ft_lstnew_export(t_env *args_tmp)
 {
 	t_env	*new;
 
@@ -99,15 +37,14 @@ static t_env	*ft_lstnew_export(t_env *args_tmp)
 	return (new);
 }
 
-void	export_existing_value(t_env *args_tmp, t_exec *exec, t_env *head)
+void	export_existing_value(t_env *args_tmp, t_exec *exec,
+	t_env *head, int not_in_env)
 {
 	t_env	*tmp_exp;
 	t_env	*tmp_env;
-	int		not_in_env;
 
 	tmp_exp = exec->export;
 	tmp_env = exec->env;
-	not_in_env = 0;
 	while (tmp_exp)
 	{
 		if (ft_strcmp(args_tmp->name, tmp_exp->name) == 0)
@@ -116,38 +53,19 @@ void	export_existing_value(t_env *args_tmp, t_exec *exec, t_env *head)
 			{
 				if (ft_strcmp(args_tmp->name, tmp_env->name) == 0)
 				{
-					if (tmp_env->value)
-						free(tmp_env->value);
-					tmp_env->value = ft_strdup(args_tmp->value);
-					if (!tmp_env->value)
-						failure_tmp_value(exec, head, 0);
+					tmp_env = find_env_for_export(tmp_env,
+							args_tmp, exec, head);
 					not_in_env = 1;
 				}
 				tmp_env = tmp_env->next;
 			}
-			if (tmp_exp->value)
-				free(tmp_exp->value);
-			tmp_exp->value = ft_strdup(args_tmp->value);
-			if (!tmp_exp->value)
-				failure_tmp_value(exec, head, 1);
+			tmp_exp = dup_existing_value(exec, head, tmp_exp, args_tmp);
 		}
 		tmp_exp = tmp_exp->next;
 	}
 	if (not_in_env == 0)
-	{
-		tmp_env = ft_lstnew_export(args_tmp);
-		if (!tmp_env)
-		{
-			if (head)
-				free_env(head);
-			free_exec_struct(exec);
-			exit(EXIT_FAILURE);
-		}
-		tmp_env->next = exec->env;
-		exec->env = tmp_env;
-	}
+		tmp_env = deal_not_in_env(exec, tmp_env, head, args_tmp);
 }
-
 
 static void	create_var(t_env *args_tmp, t_exec *exec, t_env *head)
 {
@@ -251,7 +169,7 @@ static int	what_to_do(char **cmd, t_exec *exec)
 				}
 				else
 				{
-					export_existing_value(args_tmp, exec, head);
+					export_existing_value(args_tmp, exec, head, 0);
 				}
 				break ;
 			}

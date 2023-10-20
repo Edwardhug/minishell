@@ -6,7 +6,7 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 10:09:12 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/20 11:28:40 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/20 15:32:53 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	change_pwd(t_exec *exec)
 	arg_pwd[0] = ft_strjoin("PWD=", join_arg_pwd);
 	free(join_arg_pwd);
 	args_tmp_pwd = env_double_char_into_lst(arg_pwd, exec);
-	export_existing_value(args_tmp_pwd, exec, NULL);
+	export_existing_value(args_tmp_pwd, exec, NULL, 0);
 	free_tab(arg_pwd);
 	free_env(args_tmp_pwd);
 }

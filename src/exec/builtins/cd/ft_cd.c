@@ -6,7 +6,7 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 10:09:36 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/20 13:21:01 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/20 15:33:02 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ void	change_oldpwd(t_exec *exec, char *actual_pwd)
 	exec->args_tmp = env_double_char_into_lst(exec->arg, exec);
 	free_tab(exec->arg);
 	exec->args_tmp_pwd = env_double_char_into_lst(exec->arg_pwd, exec);
-	export_existing_value(exec->args_tmp, exec, NULL);
+	export_existing_value(exec->args_tmp, exec, NULL, 0);
 	free_env(exec->args_tmp);
 	free_tab(exec->arg_pwd);
-	export_existing_value(exec->args_tmp_pwd, exec, NULL);
+	export_existing_value(exec->args_tmp_pwd, exec, NULL, 0);
 	free_env(exec->args_tmp_pwd);
 }
 
