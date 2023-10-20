@@ -68,8 +68,8 @@ int	ft_unset(char **cmd, t_exec *exec)
 	}
 	if (exec->nb_cmds > 1)
 	{
-		free_exec_struct(exec);
-		free_tab(cmd);	
+		free_tab(cmd);
+		free_exec_fork(exec);
 		exit(0);
 	}
 	g_error_value = -77;

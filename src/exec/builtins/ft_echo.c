@@ -116,6 +116,6 @@ int	ft_echo(char **cmd, t_exec *exec)
 	}
 	if (!newline)
 		ft_printf("\n");
-	free_exec_struct(exec);
+	free_exec_fork(exec);
 	exit(0);
 }

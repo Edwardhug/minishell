@@ -13,7 +13,7 @@ int	ft_env(t_exec *exec)
 		i++;
 	}
 	free_tab(char_env);
-	free_exec_struct(exec);
+	free_exec_fork(exec);
 	exit(0);
 	return (0);
 }

@@ -348,6 +348,9 @@ int	ft_export(char **cmd, t_exec *exec)
 		what_to_do(clean_cmd, exec);
 	free_tab(clean_cmd);
 	if (exec->nb_cmds > 1)
+	{
+		free_exec_fork(exec);
 		exit(0);
+	}
 	return (0);
 }

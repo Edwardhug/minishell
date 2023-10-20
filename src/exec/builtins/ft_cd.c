@@ -145,22 +145,30 @@ int	ft_cd(char **cmd, t_exec *exec)
 	}
 	else if (ft_strcmp(cmd[1], "-") == 0)
 		return (go_to_old_pwd(oldpwd, exec), 0);
+	if (cmd[1][0] != '$' || cmd[2])
+		g_error_value = -1;
 	result = chdir(cmd[1]);
 	if (result == 0)
 	{
+		change_oldpwd(exec, oldpwd);
 		free(oldpwd);
+		if (exec->nb_cmds > 1)
+		{
+			free_exec_fork(exec);
+			exit(0);
+		}
 		return (0);
 	}
 	if (result == -1)
-		ft_putstr_fd(" no such file or directory\n", 2);
-	if (cmd[1][0] != '$' || cmd[2])
-		g_error_value = -1;
-	change_oldpwd(exec, oldpwd);
-	free(oldpwd); 
-	if (exec->nb_cmds > 1)
 	{
-		free_exec_struct(exec);
-		exit(0);
+		ft_putstr_fd(" no such file or directory\n", 2);
+		free(oldpwd);
+		if (exec->nb_cmds > 1)
+		{
+			free_exec_fork(exec);
+			exit(0);
+		}
+		return (0);
 	}
 	return (0);
 }

@@ -18,6 +18,9 @@ int	ft_pwd(t_exec *exec)
 		return (1);
 	}
 	if (exec->nb_cmds > 1)
+	{
+		free_exec_fork(exec);
 		exit(0);
+	}
 	return (0);
 }
