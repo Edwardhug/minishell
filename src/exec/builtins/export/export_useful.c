@@ -6,7 +6,7 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 16:42:38 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/20 16:45:06 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/20 17:22:03 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,55 +29,56 @@ size_t	size_without_quotes(char *arg)
 	return (nb);
 }
 
+char	*fill_cmd_without_quotes(t_exec *exec, char **cmd,
+	char **clean_cmd, size_t i)
+{
+	size_t	j;
+	size_t	k;
+
+	clean_cmd[i] = malloc(sizeof(char) * (size_without_quotes(cmd[i]) + 1));
+	if (!clean_cmd[i])
+	{
+		while (--i >= 0)
+			free(clean_cmd[i]);
+		free(clean_cmd);
+		free_tab(cmd);
+		free_stuff_error(exec, NULL, "malloc error\n", -1);
+	}
+	j = 0;
+	k = 0;
+	while (cmd[i][k])
+	{
+		if (cmd[i][k] != '\"' && cmd[i][k] != '\'')
+		{
+			clean_cmd[i][j] = cmd[i][k];
+			j++;
+		}
+		k++;
+	}
+	clean_cmd[i][j] = '\0';
+	return (clean_cmd[i]);
+}
+
 char	**delete_quotation_mark(char **cmd, t_exec *exec, int nb_args)
 {
 	char	**clean_cmd;
 	size_t	i;
-	size_t	j;
-	size_t	k;
 
 	i = 0;
-	j = 0;
-	k = 0;
 	clean_cmd = malloc(sizeof(char *) * (nb_args + 1));
 	if (!clean_cmd)
 	{
 		free_tab(cmd);
-		free_exec_struct(exec);
-		perror("malloc");
-		exit(EXIT_FAILURE);
+		free_stuff_error(exec, NULL, "malloc error\n", -1);
 	}
 	while (cmd[i])
 	{
-		clean_cmd[i] = malloc(sizeof(char) * (size_without_quotes(cmd[i]) + 1));
-		if (!clean_cmd[i])
-		{
-			perror("malloc");
-			while (--i >= 0)
-				free(clean_cmd[i]);
-			free(clean_cmd);
-			free_tab(cmd);
-			free_exec_struct(exec);
-			exit(EXIT_FAILURE);
-		}
-		j = 0;
-		k = 0;
-		while (cmd[i][k])
-		{
-			if (cmd[i][k] != '\"' && cmd[i][k] != '\'')
-			{
-				clean_cmd[i][j] = cmd[i][k];
-				j++;
-			}
-			k++;
-		}
-		clean_cmd[i][j] = '\0';
+		clean_cmd[i] = fill_cmd_without_quotes(exec, cmd, clean_cmd, i);
 		i++;
 	}
 	clean_cmd[i] = NULL;
 	return (clean_cmd);
 }
-
 
 int	is_valid_name(char *cmd_name, t_env *args_tmp)
 {

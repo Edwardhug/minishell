@@ -6,7 +6,7 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 13:42:25 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/20 16:46:00 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/20 16:55:21 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,32 @@ void	export_existing_value(t_env *args_tmp, t_exec *exec,
 		tmp_env = deal_not_in_env(exec, tmp_env, head, args_tmp);
 }
 
-static int	what_to_do(char **cmd, t_exec *exec)
+void	existing_or_create_var(t_exec *exec, t_env *lst_args, t_env *head)
 {
 	t_env	*tmp;
-	t_env	*lst_args;
 	t_env	*args_tmp;
+
+	tmp = exec->export;
+	args_tmp = lst_args;
+	while (tmp)
+	{
+		if (ft_strcmp(tmp->name, args_tmp->name) == 0)
+		{
+			if (args_tmp->value == NULL || args_tmp->value[0] == '\0')
+				break ;
+			else
+				export_existing_value(args_tmp, exec, head, 0);
+			break ;
+		}
+		tmp = tmp->next;
+	}
+	if (!tmp)
+		create_var(args_tmp, exec, head);
+}
+
+static int	what_to_do(char **cmd, t_exec *exec)
+{
+	t_env	*lst_args;
 	t_env	*head;
 
 	lst_args = env_double_char_into_lst(cmd + 1, exec);
@@ -84,28 +105,7 @@ static int	what_to_do(char **cmd, t_exec *exec)
 	}
 	while (lst_args)
 	{
-		tmp = exec->export;
-		args_tmp = lst_args;
-		while (tmp)
-		{
-			if (ft_strcmp(tmp->name, args_tmp->name) == 0)
-			{
-				if (args_tmp->value == NULL || args_tmp->value[0] == '\0')
-				{
-					break ;
-				}
-				else
-				{
-					export_existing_value(args_tmp, exec, head, 0);
-				}
-				break ;
-			}
-			tmp = tmp->next;
-		}
-		if (!tmp)
-		{
-			create_var(args_tmp, exec, head);
-		}
+		existing_or_create_var(exec, lst_args, head);
 		lst_args = lst_args->next;
 	}
 	free_env(head);
@@ -114,7 +114,7 @@ static int	what_to_do(char **cmd, t_exec *exec)
 
 int	ft_export(char **cmd, t_exec *exec)
 {
-	int	nb_args;
+	int		nb_args;
 	char	**clean_cmd;
 
 	nb_args = 0;
