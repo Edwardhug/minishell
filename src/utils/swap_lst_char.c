@@ -2,49 +2,46 @@
 
 char	**env_lst_into_double_char(t_env *env, t_exec *exec)
 {
-	int		i;
-	char	**char_env;
-	char	*tmp2;
-	t_env	*tmp;
+	t_env_lst	str;
 
-	i = 0;
-	tmp = env;
-	char_env = malloc(sizeof(char **) * (t_env_strlen(tmp) + 1));
-	if (!char_env)
+	str.i = 0;
+	str.tmp = env;
+	str.char_env = malloc(sizeof(char **) * (t_env_strlen(str.tmp) + 1));
+	if (!str.char_env)
 	{
 		free_exec_struct(exec);
 		perror("malloc lst into double char 1");
 		exit(EXIT_FAILURE);
 	}
-	while (tmp)
+	while (str.tmp)
 	{
-		tmp2 = ft_strjoin(tmp->name, "=");
-		if (!tmp2)
+		str.tmp2 = ft_strjoin(str.tmp->name, "=");
+		if (!str.tmp2)
 		{
-			while (i >= 0)
+			while (str.i >= 0)
 			{
-				free(char_env[i]);
-				i--;
+				free(str.char_env[str.i]);
+				str.i--;
 			}
-			free(char_env);
+			free(str.char_env);
 			free_exec_struct(exec);
 			perror("malloc error\n");
 			exit(EXIT_FAILURE);
 		}
-		char_env[i] = ft_strjoin(tmp2, tmp->value);
-		if (!char_env[i])
+		str.char_env[str.i] = ft_strjoin(str.tmp2, str.tmp->value);
+		if (!str.char_env[str.i])
 		{
-			free_tab(char_env);
+			free_tab(str.char_env);
 			free_exec_struct(exec);
 			perror("malloc error\n");
 			exit(EXIT_FAILURE);
 		}
-		free(tmp2);
-		tmp = tmp->next;
-		i++;
+		free(str.tmp2);
+		str.tmp = str.tmp->next;
+		str.i++;
 	}
-	char_env[i] = NULL;
-	return (char_env);
+	str.char_env[str.i] = NULL;
+	return (str.char_env);
 }
 
 t_env	*ft_lstnew_env(char *str, int nb)
