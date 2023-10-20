@@ -20,13 +20,13 @@ SRCS =	parsing/minishell.c\
 		parsing/fill_quote_node.c\
 		parsing/strange_cmd.c\
 		exec/exec_start.c\
-		exec/t_exec_continue.c\
-		exec/t_apply_exec.c\
+		exec/exec_continue.c\
+		exec/apply_exec.c\
 		exec/change_std.c\
 		exec/utils_exec.c\
-		exec/t_exec_utils.c\
+		exec/exec_utils.c\
 		exec/print_return_value.c\
-		exec/t_stdin_out_gestion.c \
+		exec/stdin_out_gestion.c \
 		exec/shlvl.c\
 		exec/builtins/is_builtin.c\
 		exec/builtins/export/ft_export.c\
@@ -47,8 +47,9 @@ SRCS =	parsing/minishell.c\
 		utils/error_message.c\
 		utils/free_tab.c\
 		utils/free_all.c\
+		utils/exec_useful.c\
 		utils/exit_fonctions.c\
-		utils/t_struct_utils.c\
+		utils/struct_utils.c\
 		utils/swap_lst_char.c\
 		utils/ft_lstcpy.c\
 		signals/signals.c\

@@ -6,7 +6,7 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 11:07:53 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/20 19:46:37 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/20 22:04:35 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,13 +104,14 @@ void		clean_list(t_struct **list);
 int			ft_isequal(int n);
 void		fill_var_node(t_struct **list_word, char *word, t_exec *exec);
 int			get_len_var(char *line, int *i, t_struct **list_word, t_exec *exec);
-char		*find_end_var(char *line, int *i, t_struct **list_word, t_exec *exec);
-void 		fill_node(t_struct **list_word, char *word, t_exec *exec);
+char		*find_end_var(char *line, int *i,
+				t_struct **list_word, t_exec *exec);
+void		fill_node(t_struct **list_word, char *word, t_exec *exec);
 char		*find_end_of_the_word(char *line, int *i);
-char		*find_last_quote(char *line, int *i, t_struct **list_word, t_exec *exec);
+char		*find_last_quote(char *line, int *i,
+				t_struct **list_word, t_exec *exec);
 void		fill_quote_node(t_struct **list_word, char *word, t_exec *exec);
 void		add_pipe(t_struct **list_word);
-// 			void fill_move_quote(t_struct **list_word, char *word); 
 void		clean_redir_out(t_struct **list);
 void		loop_parsing(t_struct **list_word, char *line, t_exec *exec);
 char		*find_second_quote(char *line, int *i, t_exec *exec);
@@ -119,19 +120,22 @@ void		print_list(t_struct *list);
 
 //	exec
 
+char		*join_tmp_and_secure(char **all_path, int i, t_exec *exec);
+void		free_dup_str(char **str, t_exec *exec, int i);
+void		execute_execve(char **splited_cmd, t_exec *exec,
+				t_struct *temp_list, char *path_cmd);
+int			t_size_cmd(t_struct *temp_list);
 void		change_outfile(t_struct **temp_list, int *fd_out);
 void		change_value_builtin(t_struct *list_word, t_exec *exec, int *status);
 void		begin_execution(t_exec *exec, t_struct *list_word, int i);
-//int		open_fd_in(t_struct *temp_list);
 int			change_stdin(t_struct *list_word, t_struct **temp_list, t_exec *exec);
 int			is_end(t_struct *temp_list);
 void		find_correct_path(t_exec *exec);
 void		access_cmd(t_exec *exec, int i);
 int			t_open_fd_out(t_struct *temp_list);
-//int		t_change_stdout(t_struct *temp_list, int fd);
 int			t_exec_cmd(t_struct *temp_list, t_exec *exec);
 int			t_size_cmd(t_struct *temp_list);
-char		**t_get_clean_cmd(t_struct *temp_list, t_exec *exec);
+char		**t_get_clean_cmd(t_struct *temp_list, t_exec *exec, int i);
 char		*t_get_path_cmd(char **all_path, char **splited, struct stat info, t_exec *exec);
 char		*t_get_cmd(char **env, char **splited_cmd, t_exec *exec);
 void		t_apply_exec(t_struct *temp_list, t_exec *exec);

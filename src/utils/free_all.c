@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free_all.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/20 21:58:52 by jrenault          #+#    #+#             */
+/*   Updated: 2023/10/20 21:59:05 by jrenault         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 void	free_exec_fork(t_exec *exec)
@@ -12,7 +24,7 @@ void	free_exec_fork(t_exec *exec)
 	if (exec->list_word)
 		free_list(&exec->list_word);
 	if (exec->pid_tab)
-			free(exec->pid_tab);
+		free(exec->pid_tab);
 }
 
 void	free_exec_struct(t_exec *exec)
@@ -22,7 +34,8 @@ void	free_exec_struct(t_exec *exec)
 	rl_clear_history();
 }
 
-void	free_stuff_error(t_exec *exec,char *name, char *strperror, int error_value)
+void	free_stuff_error(t_exec *exec, char *name,
+	char *strperror, int error_value)
 {
 	if (name)
 		ft_putstr_fd(name, 2);
