@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 11:07:53 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/20 19:30:19 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/20 19:46:37 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ void		print_list(t_struct *list);
 
 void		change_outfile(t_struct **temp_list, int *fd_out);
 void		change_value_builtin(t_struct *list_word, t_exec *exec, int *status);
-void		begin_execution(t_exec *exec, t_struct *list_word);
+void		begin_execution(t_exec *exec, t_struct *list_word, int i);
 //int		open_fd_in(t_struct *temp_list);
 int			change_stdin(t_struct *list_word, t_struct **temp_list, t_exec *exec);
 int			is_end(t_struct *temp_list);

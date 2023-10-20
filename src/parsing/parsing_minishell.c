@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_minishell.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:50:18 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/20 16:39:06 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/20 19:47:29 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ void	parsing_minishell(char *line, t_exec *exec)
 		return ;
 	transform_here_doc(&list_word);
 	if (g_error_value != 130)
-		begin_execution(exec, list_word);
+		begin_execution(exec, list_word, 0);
 	else
 		g_error_value = 130 * 256;
 	// print_list(list_word);
