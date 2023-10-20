@@ -56,18 +56,9 @@ int	parent_here_doc(t_struct *temp_list, int *fd)
 	signals();
 	temp_list = temp_list->next;
 	return (fd[0]);
-	// if (temp_list->next && status == EXIT_SUCCESS)
-	// {
-	// 	puts("salut");
-	// 	return (1);
-	// }
-	// else if (status == 768)
-	// 	return (dup2(0, STDIN_FILENO), 1);
-	// else
-	// 	return (0);
 }
 
-int	here_doc(t_struct *temp_list, t_exec *exec)
+int	here_doc(t_struct *temp_list, t_exec *exec, int fd_in)
 {
 	int		fd[2];
 	int		pid;
@@ -90,6 +81,7 @@ int	here_doc(t_struct *temp_list, t_exec *exec)
 		return (0);
 	if (pid == 0)
 	{
+		close(fd_in);
 		ft_child_here_doc(lim, fd, exec);
 	}
 	else

@@ -51,7 +51,7 @@ void	change_std(t_struct *lst, int fd, t_exec *exec)
 		}
 		else if (ft_strcmp(lst->str, "<<") == 0)
 		{
-			cfd.fd_in = here_doc(lst, exec);
+			cfd.fd_in = here_doc(lst, exec, fd);
 			// cfd.fd_in = open(0, O_RDONLY);
 			lst = lst->next;
 		}

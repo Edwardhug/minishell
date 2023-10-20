@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 11:55:30 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/20 10:17:47 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/20 11:07:42 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ t_struct	*to_cmd(t_struct *lst)
 
 int	child_process(int *fd, t_struct *temp_list, t_exec *exec)
 {
+	ft_printf("fd[0] = %d\nfd[1] = %d\n", fd[0], fd[1]);
+	ft_printf("child pid = %d\n", getpid());
 	close(fd[0]);
 	close(exec->fd_stand);
 	change_std(temp_list, fd[1], exec);
