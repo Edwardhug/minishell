@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/20 17:24:14 by jrenault          #+#    #+#             */
+/*   Updated: 2023/10/20 17:24:26 by jrenault         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../../include/minishell.h"
 
 int	ft_pwd(t_exec *exec)
 {
 	char	*cwd;
-	
-	cwd = malloc(sizeof(char *) * (PATH_MAX + 1)); //prend la taille max d'un path en malloc
-	if (getcwd(cwd, PATH_MAX) != NULL) //stock le path dans cwd 
+
+	cwd = malloc(sizeof(char *) * (PATH_MAX + 1));
+	if (getcwd(cwd, PATH_MAX) != NULL)
 	{
 		ft_printf("%s\n", cwd);
 		free(cwd);

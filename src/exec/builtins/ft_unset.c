@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_unset.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/20 17:24:31 by jrenault          #+#    #+#             */
+/*   Updated: 2023/10/20 17:24:38 by jrenault         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../../include/minishell.h"
 
 void	ft_lstdelete_node(t_exec *exec, t_env *node_to_delete, int boolean)
 {
-	t_env *previous;
-	t_env *current;
+	t_env	*previous;
+	t_env	*current;
 
 	previous = NULL;
 	if (boolean == 1)
