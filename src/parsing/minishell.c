@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   minishell.c										:+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: lgabet <lgabet@student.42lyon.fr>		  +#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2023/06/14 14:28:48 by lgabet			#+#	#+#			 */
-/*   Updated: 2023/10/18 12:47:08 by lgabet		   ###   ########.fr	   */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/20 22:20:22 by jrenault          #+#    #+#             */
+/*   Updated: 2023/10/20 22:21:00 by jrenault         ###   ########lyon.fr   */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
@@ -93,7 +93,7 @@ static void	if_env_i(t_exec *exec)
 	char	*cwd;
 	char	*pwd;
 
-	cwd = malloc(sizeof(char *) * (PATH_MAX + 1));
+	cwd = getcwd(NULL, 0);
 	if (!cwd)
 	{
 		ft_putstr_fd("malloc error\n", 2);
@@ -101,7 +101,7 @@ static void	if_env_i(t_exec *exec)
 	}
 	shlvl(exec, 1, 1);
 	clear_underscore(exec);
-	if (getcwd(cwd, PATH_MAX) != NULL)
+	if (cwd != NULL)
 	{
 		pwd = ft_strjoin("PWD=", cwd);
 		if (!pwd)

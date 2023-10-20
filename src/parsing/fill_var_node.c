@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_var_node.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 19:52:42 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/20 19:52:43 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/20 22:20:06 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,19 +93,3 @@ char	*find_end_var(char *line, int *i, t_struct **list_word, t_exec *exec)
 	(*i) = (*i) + j;
 	return (word);
 }
-
-// void fill_move_quote(t_struct **list_word, char *word)
-// {
-// 	t_struct	*tmp;
-// 	t_enum		type;
-// 	int		i;
-
-// 	if (!word)
-// 		return ;
-// 	i = 0;
-// 	word = remove_quotes(word, exec);
-// 		add_pipe(list_word);
-// 		tmp = *list_word;
-// 		type = find_type_enum(tmp, word);		//currently working on this 
-// 		add_node_back(list_word, new_node(word, type));
-// }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_list_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 19:36:52 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/20 22:08:03 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/20 22:19:46 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	clear_underscore(t_exec *exec)
 	exec->export->next = ft_lstnew_env("_=", 1);
 }
 
-void env_double_char(t_exec *exec, t_env_lst *str)
+void	env_double_char(t_exec *exec, t_env_lst *str)
 {
 	str->tmp2 = ft_strjoin(str->tmp->name, "=");
 	if (!str->tmp2)
