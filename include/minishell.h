@@ -6,7 +6,7 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 11:07:53 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/20 12:58:38 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/20 13:57:02 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,19 +142,20 @@ void		change_underscore(char *cmd, t_exec *exec);
 
 int			is_builtin_alone(char **cmd, t_exec *exec);
 int			is_builtin_fork(char **cmd, t_exec *exec);
-int			ft_cd(char **cmd, t_exec *exec);
-char		*get_var(t_exec *exec, char *var_name);
-void		malloc_oldpwd_var(t_exec *exec, char *actual_pwd);
-int			no_oldpwd(t_exec *exec, char *home);
 int			ft_echo(char **cmd, t_exec *exec);
 int			is_dash_n(char *arg);
 int			dash_n_handling(int *dash_n, int *newline, int *i, char **cmd);
 int			ft_env(t_exec *exec);
 int			ft_exit(char **cmd, t_exec *exec, int are_pipes);
-int			ft_export(char **cmd, t_exec *exec);
 int			ft_pwd(t_exec *exec);
 int			ft_unset(char **cmd, t_exec *exec);
+int			ft_export(char **cmd, t_exec *exec);
 void		export_existing_value(t_env *args_tmp, t_exec *exec, t_env *head);
+void		failure_tmp_value(t_exec *exec, t_env *head, int what);
+int			ft_cd(char **cmd, t_exec *exec);
+char		*get_var(t_exec *exec, char *var_name);
+void		malloc_oldpwd_var(t_exec *exec, char *actual_pwd);
+int			no_oldpwd(t_exec *exec, char *home);
 void		put_old_pwd_in_char(char **arg);
 void		put_pwd_in_char(char **arg);
 char		*fill_oldpwd(char *actual_pwd, t_exec *exec);

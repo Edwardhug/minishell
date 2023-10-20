@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/20 13:40:58 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/20 13:41:06 by jrenault         ###   ########lyon.fr   */
+/*   Created: 2023/10/20 13:42:25 by jrenault          #+#    #+#             */
+/*   Updated: 2023/10/20 13:56:21 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ static void	ft_swap(t_env *node1, t_env *node2)
 	if (node2 == NULL || node2->next == NULL)
 		return ;
 	tmp_name = node1->name;
-    tmp_value = node1->value;
-    node1->name = node2->name;
-    node1->value = node2->value;
-    node2->name = tmp_name;
-    node2->value = tmp_value;
+	tmp_value = node1->value;
+	node1->name = node2->name;
+	node1->value = node2->value;
+	node2->name = tmp_name;
+	node2->value = tmp_value;
 }
 
 static void	sort_list(t_exec *exec)
@@ -83,7 +83,7 @@ static t_env	*ft_lstnew_export(t_env *args_tmp)
 		return (perror("malloc lstnew_export1"), NULL);
 	new->name = ft_strdup(args_tmp->name);
 	if (!new->name)
-		return(perror("lstnew_export dup 1"), NULL);
+		return (perror("lstnew_export dup 1"), NULL);
 	if (args_tmp->value == NULL || args_tmp->value[0] == '\0')
 	{
 		new->value = malloc(sizeof(char *) * 1);
@@ -116,17 +116,11 @@ void	export_existing_value(t_env *args_tmp, t_exec *exec, t_env *head)
 			{
 				if (ft_strcmp(args_tmp->name, tmp_env->name) == 0)
 				{
-					if (tmp_env->value) //à virer je pense lors du normage 
+					if (tmp_env->value)
 						free(tmp_env->value);
 					tmp_env->value = ft_strdup(args_tmp->value);
 					if (!tmp_env->value)
-					{
-						perror("tmp_env->value malloc\n");
-						free_exec_struct(exec);
-						if (head)
-							free_env(head);
-						exit(EXIT_FAILURE);
-					}
+						failure_tmp_value(exec, head, 0);
 					not_in_env = 1;
 				}
 				tmp_env = tmp_env->next;
@@ -135,13 +129,7 @@ void	export_existing_value(t_env *args_tmp, t_exec *exec, t_env *head)
 				free(tmp_exp->value);
 			tmp_exp->value = ft_strdup(args_tmp->value);
 			if (!tmp_exp->value)
-			{
-				perror("tmp_exp->value dup error\n");
-				free_exec_struct(exec);
-				if (head)
-					free_env(head);
-				exit(EXIT_FAILURE);
-			}
+				failure_tmp_value(exec, head, 1);
 		}
 		tmp_exp = tmp_exp->next;
 	}
