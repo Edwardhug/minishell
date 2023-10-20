@@ -6,7 +6,7 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 13:42:25 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/20 16:41:14 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/20 16:46:00 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,79 +67,6 @@ void	export_existing_value(t_env *args_tmp, t_exec *exec,
 		tmp_env = deal_not_in_env(exec, tmp_env, head, args_tmp);
 }
 
-t_env	*create_new_exp(t_exec *exec, t_env *head, t_env *args_tmp)
-{
-	t_env	*new_exp;
-
-	new_exp = ft_lstnew_export(args_tmp);
-	if (!new_exp)
-	{
-		free_env(head);
-		free_exec_struct(exec);
-		exit(EXIT_FAILURE);
-	}
-	if (new_exp->value)
-		free(new_exp->value);
-	new_exp->value = NULL;
-	new_exp->next = exec->export;
-	exec->export = new_exp;
-	return (new_exp);
-}
-
-static void	create_var(t_env *args_tmp, t_exec *exec, t_env *head)
-{
-	t_env	*new_exp;
-	t_env	*new_env;
-
-	if (args_tmp->value == NULL || args_tmp->value[0] == '\0')
-		new_exp = create_new_exp(exec, head, args_tmp);
-	else
-	{
-		new_exp = ft_lstnew_export(args_tmp);
-		if (!new_exp)
-		{
-			free_env(head);
-			free_stuff_error(exec, NULL, "malloc error\n", -1);
-		}
-		new_exp->next = exec->export;
-		exec->export = new_exp;
-		new_env = ft_lstnew_export(args_tmp);
-		if (!new_env)
-		{
-			free_env(head);
-			free_stuff_error(exec, NULL, "malloc error\n", -1);
-		}
-		new_env->next = exec->env;
-		exec->env = new_env;
-	}
-}
-
-static	int	is_valid_name(char *cmd_name, t_env *args_tmp)
-{
-	int		i;
-	t_env	*tmp;
-
-	tmp = args_tmp;
-	while (tmp)
-	{
-		if (tmp->name[0] >= '0' && tmp->name[0] <= '9')
-		{
-			ft_error_message_arg(cmd_name, tmp->name,
-				": not a valid identifier\n");
-			return (1);
-		}
-		i = 0;
-		while (tmp->name[i])
-		{
-			if (check_char_name(tmp->name, i, cmd_name) == 1)
-				return (1);
-			i++;
-		}
-		tmp = tmp->next;
-	}
-	return (0);
-}
-
 static int	what_to_do(char **cmd, t_exec *exec)
 {
 	t_env	*tmp;
@@ -183,72 +110,6 @@ static int	what_to_do(char **cmd, t_exec *exec)
 	}
 	free_env(head);
 	return (0);
-}
-
-static size_t	size_without_quotes(char *arg)
-{
-	size_t	i;
-	size_t	nb;
-
-	i = 0;
-	nb = 0;
-	while(arg[i])
-	{
-		if (arg[i] == '\"')
-			nb--;
-		nb++;
-		i++;
-	}
-	return (nb);
-}
-
-static char	**delete_quotation_mark(char **cmd, t_exec *exec, int nb_args)
-{
-	char	**clean_cmd;
-	size_t	i;
-	size_t	j;
-	size_t	k;
-
-	i = 0;
-	j = 0;
-	k = 0;
-	clean_cmd = malloc(sizeof(char *) * (nb_args + 1));
-	if (!clean_cmd)
-	{
-		free_tab(cmd);
-		free_exec_struct(exec);
-		perror("malloc");
-		exit(EXIT_FAILURE);
-	}
-	while (cmd[i])
-	{
-		clean_cmd[i] = malloc(sizeof(char) * (size_without_quotes(cmd[i]) + 1));
-		if (!clean_cmd[i])
-		{
-			perror("malloc");
-			while (--i >= 0)
-				free(clean_cmd[i]);
-			free(clean_cmd);
-			free_tab(cmd);
-			free_exec_struct(exec);
-			exit(EXIT_FAILURE);
-		}
-		j = 0;
-		k = 0;
-		while (cmd[i][k])
-		{
-			if (cmd[i][k] != '\"' && cmd[i][k] != '\'')
-			{
-				clean_cmd[i][j] = cmd[i][k];
-				j++;
-			}
-			k++;
-		}
-		clean_cmd[i][j] = '\0';
-		i++;
-	}
-	clean_cmd[i] = NULL;
-	return (clean_cmd);
 }
 
 int	ft_export(char **cmd, t_exec *exec)
