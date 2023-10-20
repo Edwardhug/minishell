@@ -49,12 +49,12 @@ void	change_std(t_struct *lst, int fd, t_exec *exec)
 			cfd.fd_in = open_fd_in_(lst->next);
 			lst = lst->next;
 		}
-		else if (ft_strcmp(lst->str, "<<") == 0)
-		{
-			cfd.fd_in = here_doc(lst, exec, fd);
-			// cfd.fd_in = open(0, O_RDONLY);
-			lst = lst->next;
-		}
+		// else if (ft_strcmp(lst->str, "<<") == 0)
+		// {
+		// 	cfd.fd_in = here_doc(lst, exec, fd);
+		// 	// cfd.fd_in = open(0, O_RDONLY);
+		// 	lst = lst->next;
+		// }
 		else if (ft_strcmp(lst->str, ">") == 0
 			|| ft_strcmp(lst->str, ">>") == 0)
 		{
@@ -78,5 +78,6 @@ void	change_std(t_struct *lst, int fd, t_exec *exec)
 		dup2(cfd.fd_in, STDIN_FILENO);
 		close (cfd.fd_in);
 	}
+	(void)exec;
 	// print_list(lst);
 }

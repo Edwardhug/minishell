@@ -161,7 +161,9 @@ int			ft_error_message_arg(char *cmd_name, char *arg, char *msg);
 
 //	here doc
 
-int	here_doc(t_struct *temp_list, t_exec *exec, int fd_in);
+// int	here_doc(t_struct *temp_list, t_exec *exec, int fd_in);
+void	transform_here_doc(t_struct **list);
+void	here_doc(char *lim);
 
 //	signals
 
