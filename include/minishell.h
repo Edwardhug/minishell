@@ -6,7 +6,7 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 11:07:53 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/20 22:18:13 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/21 00:00:36 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ char		*dup_without_space(char *str);
 int			switch_loop(t_struct **list, t_exec exec);
 int			change_env_var(t_struct **list, t_exec *exec);
 int			have_strange_cmd(char *str);
-void		change_std(t_struct *lst, int fd);
+void		change_std(t_struct *lst, int fd, t_exec *exec);
 char		*get_node(char *word, int *i);
 char		**get_path(char **env);
 void		parsing_minishell(char *line, t_exec *exec);

@@ -6,21 +6,21 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 18:16:55 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/20 19:37:52 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/21 00:03:27 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static int	open_fd_in_(t_struct *lst)
+static int	open_fd_in_(t_struct *lst, t_exec *exec, int fd)
 {
 	int	fd_in;
 
 	fd_in = open(lst->str, O_RDONLY);
 	if (fd_in < 0)
 	{
-		perror(lst->str);
-		exit(1);
+		close(fd);
+		free_stuff_error(exec, lst->str, ": No such file or directory\n", 1);
 	}
 	return (fd_in);
 }
@@ -67,7 +67,7 @@ static void	dup_function(t_struct *lst, int fd, t_fd cfd)
 	}
 }
 
-void	change_std(t_struct *lst, int fd)
+void	change_std(t_struct *lst, int fd, t_exec *exec)
 {
 	t_fd	cfd;
 
@@ -77,7 +77,7 @@ void	change_std(t_struct *lst, int fd)
 	{
 		if (ft_strcmp(lst->str, "<") == 0)
 		{
-			cfd.fd_in = open_fd_in_(lst->next);
+			cfd.fd_in = open_fd_in_(lst->next, exec, fd);
 			lst = lst->next;
 		}
 		else if (ft_strcmp(lst->str, ">") == 0
