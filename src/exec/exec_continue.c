@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   t_exec_continue.c                                  :+:      :+:    :+:   */
+/*   exec_continue.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 11:55:30 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/20 21:36:57 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/20 23:49:00 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int	t_change_stdout(t_struct *temp_list, int fd)
 t_struct	*to_cmd(t_struct *lst)
 {
 	t_struct	*cmd;
+	t_struct	*copy;
 
 	while (lst && lst->type != CMD)
 		lst = lst->next;
@@ -68,7 +69,14 @@ t_struct	*to_cmd(t_struct *lst)
 	while (lst && lst->next && lst->next->type != PIPE)
 	{
 		if (lst->next->type == REDIRECTION)
+		{
+			copy = lst->next;
 			lst->next = lst->next->next->next;
+			free(copy->next->str);
+			free(copy->next);
+			free(copy->str);
+			free(copy);
+		}
 		else
 			lst = lst->next;
 	}

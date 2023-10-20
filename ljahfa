@@ -1,0 +1,4 @@
+
+node n0
+	-str = echo
+	-type = 1
