@@ -51,7 +51,6 @@ SRCS =	parsing/minishell.c\
 		utils/exit_fonctions.c\
 		utils/t_struct_utils.c\
 		utils/swap_lst_char.c\
-		utils/ft_lstcpy.c\
 		signals/signals.c\
 		signals/signals_here_doc.c\
 		here_doc/here_doc.c\

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   swap_lst_char.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/20 22:08:31 by lgabet            #+#    #+#             */
+/*   Updated: 2023/10/20 22:08:32 by lgabet           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 char	**env_lst_into_double_char(t_env *env, t_exec *exec)
@@ -14,32 +26,7 @@ char	**env_lst_into_double_char(t_env *env, t_exec *exec)
 		exit(EXIT_FAILURE);
 	}
 	while (str.tmp)
-	{
-		str.tmp2 = ft_strjoin(str.tmp->name, "=");
-		if (!str.tmp2)
-		{
-			while (str.i >= 0)
-			{
-				free(str.char_env[str.i]);
-				str.i--;
-			}
-			free(str.char_env);
-			free_exec_struct(exec);
-			perror("malloc error\n");
-			exit(EXIT_FAILURE);
-		}
-		str.char_env[str.i] = ft_strjoin(str.tmp2, str.tmp->value);
-		if (!str.char_env[str.i])
-		{
-			free_tab(str.char_env);
-			free_exec_struct(exec);
-			perror("malloc error\n");
-			exit(EXIT_FAILURE);
-		}
-		free(str.tmp2);
-		str.tmp = str.tmp->next;
-		str.i++;
-	}
+		env_double_char(exec, &str);
 	str.char_env[str.i] = NULL;
 	return (str.char_env);
 }

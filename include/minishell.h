@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 11:07:53 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/20 20:35:23 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/20 22:07:26 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,14 @@ typedef struct s_exec
 	t_env		*args_tmp_pwd;
 	t_env		*args_tmp;
 }				t_exec;
+
+typedef	struct	s_env_lst
+{
+	int		i;
+	char	**char_env;
+	char	*tmp2;
+	t_env	*tmp;
+}			t_env_lst;
 
 typedef struct s_fd
 {
@@ -204,6 +212,7 @@ void		free_exec_fork(t_exec *exec);
 void		free_stuff_error(t_exec *exec, char *name, char *strperror, int error_value);
 int			ft_error_message(char *cmd_name, char *msg);
 int			ft_error_message_arg(char *cmd_name, char *arg, char *msg);
+void 		env_double_char(t_exec *exec, t_env_lst *str);
 //t_env		*ft_lstcpy(t_env *source);
 
 //	here doc
