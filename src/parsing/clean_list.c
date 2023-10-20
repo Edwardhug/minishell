@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   clean_list.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/20 19:35:32 by lgabet            #+#    #+#             */
+/*   Updated: 2023/10/20 19:49:16 by lgabet           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 void	swap_node(t_struct **redir, t_struct **cmd)
@@ -21,7 +33,7 @@ char	*dup_without_space(char *str)
 	copy = ft_calloc(ft_strlen(str) + 1, sizeof(char));
 	if (!copy)
 		return (NULL);
-	while(str[i])
+	while (str[i])
 	{
 		if (str[i] == ' ')
 		{
@@ -38,39 +50,19 @@ char	*dup_without_space(char *str)
 	return (copy);
 }
 
-void    switch_to_value(t_struct **list, t_exec exec)
+void	switch_to_value(t_struct **list, t_exec exec)
 {
-    char        *value;
 	t_struct	*copy;
 
-    while (exec.env)
-    {
-		if ((*list)->str && ft_strcmp((*list)->str, "echo") == 0
-			&& ft_strcmp((*list)->next->str + 1, exec.env->name) == 0)
-		{
-			value = dup_without_space(exec.env->value);
-			if (!value)
-				return ;
-            free((*list)->next->str);
-            (*list)->next->str = NULL;
-            (*list)->next->str = value;
-            return ;
-		}
-        else if (ft_strcmp((*list)->next->str + 1, exec.env->name) == 0)
-        {
-            value = ft_strdup(exec.env->value);
-			if (!value)
-				return ;
-            free((*list)->next->str);
-            (*list)->next->str = NULL;
-            (*list)->next->str = value;
-            return ;
-        }
-        exec.env = exec.env->next;
-    }
+	while (exec.env)
+	{
+		if (switch_loop(list, exec) == 1)
+			return ;
+		exec.env = exec.env->next;
+	}
 	if (ft_strncmp((*list)->next->str, "$?", 2)
 		&& (*list)->next->str[1])
-	{	
+	{
 		copy = (*list)->next;
 		(*list)->next = (*list)->next->next;
 		free(copy->str);
@@ -80,21 +72,21 @@ void    switch_to_value(t_struct **list, t_exec exec)
 		(*list) = (*list)->next;
 }
 
-int    change_env_var(t_struct **list, t_exec *exec)
+int	change_env_var(t_struct **list, t_exec *exec)
 {
-    t_struct    *lst;
-    t_struct    *start;
+	t_struct	*lst;
+	t_struct	*start;
 
-    lst = (*list);
-    start = lst;
-    while (lst && lst->next)
-    {
-        if (ft_strncmp(lst->next->str, "$", 1) == 0
-            && (!lst->str || lst->str[1]))
-                switch_to_value(&lst, *exec);
-        lst = lst->next;
-    }
-    (*list) = start;
+	lst = (*list);
+	start = lst;
+	while (lst && lst->next)
+	{
+		if (ft_strncmp(lst->next->str, "$", 1) == 0
+			&& (!lst->str || lst->str[1]))
+			switch_to_value(&lst, *exec);
+		lst = lst->next;
+	}
+	(*list) = start;
 	if (!(*list)->next)
 		return (0);
 	return (1);
