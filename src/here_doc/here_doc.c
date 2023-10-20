@@ -4,6 +4,8 @@ void	ft_child_here_doc(char *lim, int *fd, t_exec *exec)
 {
 	char	*tmp;
 	char	*to_ret;
+	char	*copy;
+	char	*tamp;
 
 	close(fd[0]);
 	to_ret = ft_calloc(1, sizeof(char));
@@ -32,8 +34,11 @@ void	ft_child_here_doc(char *lim, int *fd, t_exec *exec)
 			free_exec_struct(exec);
 			exit(EXIT_SUCCESS);
 		}
-		to_ret = ft_strjoin(to_ret, tmp);
-		to_ret = ft_strjoin(to_ret, "\n");
+		copy = ft_strjoin(tmp, "\n");
+		tamp = ft_strjoin(to_ret, copy);
+		free(to_ret);
+		to_ret = tamp;
+		free(copy);
 		free(tmp);
 	}
 }
