@@ -6,11 +6,24 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 09:01:27 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/21 09:01:28 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/21 09:14:40 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
+
+static	void	portable_free_exec(t_exec *exec)
+{
+	free_env(exec->env);
+	free_env(exec->export);
+	close(exec->fd_stand);
+	if (exec->line)
+		free(exec->line);
+	if (exec->list_word)
+		free_list(&exec->list_word);
+	if (exec->pid_tab)
+		free(exec->pid_tab);
+}
 
 static int	is_not_number(char *arg)
 {
@@ -32,7 +45,7 @@ static int	exit_not_number(char **cmd, t_exec *exec, int are_pipes)
 		": numeric argument required\n");
 	shlvl(exec, 0, 0);
 	if (are_pipes)
-		free_exec_fork(exec);
+		portable_free_exec(exec);
 	else
 		free_exec_struct(exec);
 	free_tab(cmd);
@@ -56,7 +69,7 @@ static int	if_one_command(char **cmd, t_exec *exec, int are_pipes)
 	if (is_not_number(cmd[1]) == 1 || overflow == 1)
 		exit_not_number(cmd, exec, are_pipes);
 	if (are_pipes)
-		free_exec_fork(exec);
+		portable_free_exec(exec);
 	else
 		free_exec_struct(exec);
 	free_tab(cmd);
@@ -73,7 +86,7 @@ int	ft_exit(char **cmd, t_exec *exec, int are_pipes)
 			return (1);
 	shlvl(exec, 0, 0);
 	if (are_pipes)
-		free_exec_fork(exec);
+		portable_free_exec(exec);
 	else
 		free_exec_struct(exec);
 	free_tab(cmd);
