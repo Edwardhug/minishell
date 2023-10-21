@@ -21,7 +21,6 @@ SRCS =	parsing/minishell.c\
 		parsing/fill_quote_node.c\
 		parsing/strange_cmd.c\
 		parsing/print_message.c\
-		parsing/expand.c\
 		exec/exec_start.c\
 		exec/exec_continue.c\
 		exec/apply_exec.c\

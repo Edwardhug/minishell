@@ -6,11 +6,21 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 22:07:59 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/21 08:39:51 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/21 09:14:37 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+void	change_value_utils(int *status)
+{
+	if (g_error_value == -77)
+		(*status) = 0;
+	else if (g_error_value == -130)
+		(*status) = 130 * 256;
+	else if (g_error_value == -131)
+		(*status) = 131 * 256;
+}
 
 void	change_value_builtin(t_struct *list_word, t_exec *exec, int *status)
 {
@@ -33,12 +43,7 @@ void	change_value_builtin(t_struct *list_word, t_exec *exec, int *status)
 			else
 				(*status) = 0;
 		}
-		else if (g_error_value == -77)
-			(*status) = 0;
-		else if (g_error_value == -130)
-			(*status) = 130 * 256;
-		else if (g_error_value == -131)
-			(*status) = 131 * 256;
+		change_value_utils(status);
 		list_word = list_word->next;
 	}
 }

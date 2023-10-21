@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 21:26:45 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/21 08:14:37 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/21 09:23:54 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,25 +101,13 @@ void	transform_here_doc(t_struct **list, t_exec exec)
 {
 	t_struct	*copy;
 	t_struct	*start;
-	char		*lim;
 
 	copy = (*list);
 	start = copy;
 	while (copy)
 	{
 		if (ft_strcmp(copy->str, "<<") == 0)
-		{
-			lim = get_lim(copy->next->str);
-			here_doc(lim, copy->next->str, exec);
-			free(copy->str);
-			copy->str = ft_strdup("<");
-			copy->type = REDIRECTION;
-			copy = copy->next;
-			free(copy->str);
-			copy->str = ft_strdup(HERE_DOC);
-			copy->type = FILES;
-			free(lim);
-		}
+			transform_utils(exec, &copy);
 		else
 			copy = copy->next;
 	}

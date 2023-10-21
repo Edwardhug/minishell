@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 11:07:53 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/21 08:45:00 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/21 09:22:49 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,7 +226,8 @@ void		here_doc(char *lim, char *lim_st, t_exec exec);
 void		free_loop_here_doc(int fd, char *to_ret, char **tmp, char *lim);
 char		*expand_heredoc(char *str, t_env *env);
 char		*find_lim(char *line, int *i, t_exec *exec);
-
+void		transform_utils(t_exec exec, t_struct **copy);
+char		*get_lim(char *str);
 
 //	signals
 
