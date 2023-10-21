@@ -6,7 +6,7 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 11:07:53 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/21 00:00:36 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/21 03:16:54 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,6 +193,7 @@ void		ft_swap(t_env *node1, t_env *node2);
 void		sort_list(t_exec *exec);
 void		show_export(t_exec *exec);
 int			ft_cd(char **cmd, t_exec *exec);
+void		free_arg_oldpwd(char *arg, char *actual_pwd, t_exec *exec);
 char		*get_var(t_exec *exec, char *var_name);
 void		malloc_oldpwd_var(t_exec *exec, char *actual_pwd);
 int			no_oldpwd(t_exec *exec, char *home);

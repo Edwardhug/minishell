@@ -1,0 +1,13 @@
+
+Minishell> mkdir -p a/b/c
+Minishell> cd a
+a/     a.out
+Minishell> cd a
+a/     a.out
+Minishell> cd a
+a/     a.out
+Minishell> cd a/b/c/
+Minishell> rm -rf ../../../a
+Minishell> unset HOME
+Minishell> cd ..
+Can't go to this dir, moved to home

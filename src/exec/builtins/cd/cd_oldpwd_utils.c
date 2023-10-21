@@ -6,7 +6,7 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 11:28:19 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/20 11:31:35 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/21 03:16:23 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,18 @@ void	malloc_oldpwd_var(t_exec *exec, char *actual_pwd)
 int	no_oldpwd(t_exec *exec, char *home)
 {
 	ft_putstr_fd("Can't go to this dir, moved to home\n", 2);
-	chdir(home);
+	if (home)
+		chdir(home);
+	else
+		free_stuff_error(exec, NULL, "Couldn't find home\nexit\n", -1);
 	change_pwd(exec);
 	g_error_value = -1;
 	return (0);
+}
+
+void	free_arg_oldpwd(char *arg, char *actual_pwd, t_exec *exec)
+{
+	free(arg);
+	free(actual_pwd);
+	free_stuff_error(exec, NULL, "malloc error\n", -1);
 }

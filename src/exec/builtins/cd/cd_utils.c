@@ -6,7 +6,7 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 10:09:12 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/20 15:32:53 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/21 03:16:17 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,13 @@ char	*fill_oldpwd(char *actual_pwd, t_exec *exec)
 	int		size;
 	char	*arg;
 
+	if (!actual_pwd)
+		free_stuff_error(exec, "NULL", "pwd empty\nexit\n", -1);
 	size = ft_strlen("OLDPWD=") + ft_strlen(actual_pwd) + 1;
 	i = 0;
 	arg = ft_calloc(size, sizeof(char));
 	if (!arg)
-	{
-		free(arg);
-		free(actual_pwd);
-		free_stuff_error(exec, NULL, "malloc error\n", -1);
-	}
+		free_arg_oldpwd(arg, actual_pwd, exec);
 	while (i < size - 1)
 	{
 		if (i == 0)
