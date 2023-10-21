@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 21:26:45 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/21 03:05:42 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/21 04:18:39 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	loop_here_doc(char **tmp, char *to_ret, char *lim, int fd)
 	if (g_error_value == 130)
 	{
 		free(to_ret);
+		free(lim);
 		close(fd);
 		return (1);
 	}
@@ -25,6 +26,7 @@ int	loop_here_doc(char **tmp, char *to_ret, char *lim, int fd)
 	{
 		ft_putstr_fd(to_ret, fd);
 		free(to_ret);
+		free(lim);
 		close(fd);
 		ft_printf("warning : wanted `%s'\n", lim);
 		g_error_value = 130 * 256;
@@ -35,6 +37,7 @@ int	loop_here_doc(char **tmp, char *to_ret, char *lim, int fd)
 		ft_putstr_fd(to_ret, fd);
 		free((*tmp));
 		free(to_ret);
+		free(lim);
 		close(fd);
 		return (1);
 	}
@@ -68,6 +71,29 @@ void	here_doc(char *lim)
 	}
 }
 
+char	*get_lim(char *str)
+{
+	char	*ret;
+	int		i;
+	int		j;
+
+	j = 0;
+	i = 0;
+	ret = ft_calloc(ft_strlen(str) + 1, sizeof(char));
+	if (!ret)
+		return (NULL);
+	while (str[i])
+	{
+		while (str[i] && (str[i] == '\'' || str[i] == '\"'))
+			i++;
+		ret[j] = str[i];
+		j++;
+		i++;
+	}
+	return (ret);
+}
+
+
 void	transform_here_doc(t_struct **list)
 {
 	t_struct	*copy;
@@ -79,7 +105,7 @@ void	transform_here_doc(t_struct **list)
 	{
 		if (ft_strcmp(copy->str, "<<") == 0)
 		{
-			here_doc(copy->next->str);
+			here_doc(get_lim(copy->next->str));
 			free(copy->str);
 			copy->str = ft_strdup("<");
 			copy->type = REDIRECTION;
