@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_utils.c                                       :+:      :+:    :+:   */
+/*   exec_useful.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 21:58:02 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/20 22:04:15 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/21 05:09:08 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,18 @@ void	execute_execve(char **splited_cmd, t_exec *exec,
 	free_tab(exec->char_env);
 	if (errno == 13)
 	{
-		if (temp_list->str[0] == '/')
+		if (temp_list->str[0] == '.' && temp_list->str[1] == '/')
+			free_stuff_error(exec, NULL, "no such file or directory\n", 126);
+		else if (temp_list->str[0] == '/')
 			free_stuff_error(exec, NULL, "no such file or directory\n", 126);
 		else
 			free_stuff_error(exec, NULL, "command not found\n", 126);
 	}
 	else
 	{
-		if (temp_list->str[0] == '/')
+		if (temp_list->str[0] == '.' && temp_list->str[1] == '/')
+			free_stuff_error(exec, NULL, "no such file or directory\n", 127);
+		else if (temp_list->str[0] == '/')
 			free_stuff_error(exec, NULL, "no such file or directory\n", 127);
 		else
 			free_stuff_error(exec, NULL, "command not found\n", 127);
