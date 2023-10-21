@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 14:45:53 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/21 03:17:26 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/19 18:51:55 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	sigquit_handler_in_process(int sig)
 void	sigint_handler_in_process(int sig)
 {
 	(void) sig;
-	g_error_value = -130;
 	ft_printf("\n");
 }
 

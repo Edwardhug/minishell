@@ -6,7 +6,7 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 15:09:59 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/21 03:41:09 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/06/11 03:23:24 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void			*free_tab(char **tab);
 void			*free_tab_void(void **tab);
 void			*free_tab_int(int **tab, int size);
 int				ft_atoi(const char *str);
-long long		ft_atoi_ll(const char *str, int *overflow);
 void			*ft_bzero(void *pointer, size_t n);
 void			*ft_calloc( size_t elCount, size_t elSize);
 int				ft_count(int n);

@@ -6,7 +6,7 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 21:58:52 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/21 03:12:39 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/20 22:15:26 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	free_exec_fork(t_exec *exec)
 
 void	free_exec_struct(t_exec *exec)
 {
+	(void)exec;
 	free_exec_fork(exec);
 	rl_clear_history();
 }

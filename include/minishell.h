@@ -6,7 +6,7 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 11:07:53 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/21 07:35:43 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/21 00:14:29 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,19 @@ typedef enum s_enum
 	FILES,
 }			t_enum;
 
-typedef struct s_struct
-{
-	char				*str;
-	t_enum				type;
-	struct s_struct		*next;
-}			t_struct;
-
 typedef struct s_env
 {
 	char			*name;
 	char			*value;
 	struct s_env	*next;
 }					t_env;
+
+typedef struct s_struct
+{
+	char				*str;
+	t_enum				type;
+	struct s_struct		*next;
+}			t_struct;
 
 typedef struct s_exec
 {
@@ -129,7 +129,6 @@ void		clean_redir_out(t_struct **list);
 void		loop_parsing(t_struct **list_word, char *line, t_exec *exec);
 char		*find_second_quote(char *line, int *i, t_exec *exec);
 void		clear_underscore(t_exec *exec);
-void		expand_pars(t_struct **list, t_env *env);
 
 //	exec
 
@@ -192,7 +191,6 @@ void		ft_swap(t_env *node1, t_env *node2);
 void		sort_list(t_exec *exec);
 void		show_export(t_exec *exec);
 int			ft_cd(char **cmd, t_exec *exec);
-void		free_arg_oldpwd(char *arg, char *actual_pwd, t_exec *exec);
 char		*get_var(t_exec *exec, char *var_name);
 void		malloc_oldpwd_var(t_exec *exec, char *actual_pwd);
 int			no_oldpwd(t_exec *exec, char *home);
@@ -202,7 +200,6 @@ char		*fill_oldpwd(char *actual_pwd, t_exec *exec);
 char		*fill_newpwd(char *actual_pwd);
 void		change_pwd(t_exec *exec);
 char		*get_var_home(t_exec exec);
-char		*find_lim(char *line, int *i, t_exec *exec);
 
 //	utils
 
@@ -220,14 +217,11 @@ void		free_stuff_error(t_exec *exec, char *name,
 int			ft_error_message(char *cmd_name, char *msg);
 int			ft_error_message_arg(char *cmd_name, char *arg, char *msg);
 void		env_double_char(t_exec *exec, t_env_lst *str);
-void		is_only_pipe(t_struct **temp_list);
 
 //	here doc
 
-void		transform_here_doc(t_struct **list, t_exec exec);
-void		here_doc(char *lim, char *lim_st, t_exec exec);
-char		*expand_heredoc(char *str, t_env *env);
-void		free_loop_here_doc(int fd, char *to_ret, char **tmp, char *lim);
+void		transform_here_doc(t_struct **list);
+void		here_doc(char *lim);
 
 //	signals
 

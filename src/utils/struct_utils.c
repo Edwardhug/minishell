@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   struct_utils.c                                     :+:      :+:    :+:   */
+/*   t_struct_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 13:20:41 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/21 04:41:37 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/09/29 09:48:08 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,28 +40,4 @@ size_t	t_env_strlen(t_env *env)
 		i++;
 	}
 	return (i);
-}
-
-void	is_only_pipe(t_struct **temp_list)
-{
-	t_struct	*current;
-	t_struct	*prev;
-
-	current = *temp_list;
-	prev = NULL;
-	while (current)
-	{
-		prev = current;
-		current = current->next;
-	}
-	while (prev)
-	{
-		if (prev->type == PIPE)
-		{
-			prev->type = ARG;
-			return ;
-		}
-		prev = prev->next;
-	}
-	return ;
 }
