@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_node_lim.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 03:47:03 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/21 09:15:43 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/21 10:37:36 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	get_s_expand(char *str, t_env *env)
 {
 	while (env)
 	{
-		if (ft_strcmp(str, env->name))
+		if (ft_strcmp(str, env->name) == 0)
 			return (ft_strlen(env->value));
 		env = env->next;
 	}
@@ -62,7 +62,7 @@ char	*fill_expand(char *str, int i, t_env *env)
 
 	j = 0;
 	k = 0;
-	to_ret = ft_calloc(get_s_expand(str + i, env) + ft_strlen(str) + 1,
+	to_ret = ft_calloc((get_s_expand(str + i + 1, env) + ft_strlen(str) + 1),
 			sizeof(char));
 	if (!to_ret)
 		return (NULL);
@@ -80,6 +80,7 @@ char	*fill_expand(char *str, int i, t_env *env)
 		to_ret[j + k] = env->value[k];
 		k++;
 	}
+	to_ret[j + k] = env->value[k];
 	return (to_ret);
 }
 
