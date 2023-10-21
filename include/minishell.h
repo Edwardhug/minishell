@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 11:07:53 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/21 04:41:51 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/21 05:50:42 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,6 +203,7 @@ char		*fill_oldpwd(char *actual_pwd, t_exec *exec);
 char		*fill_newpwd(char *actual_pwd);
 void		change_pwd(t_exec *exec);
 char		*get_var_home(t_exec exec);
+char		*find_lim(char *line, int *i, t_exec *exec);
 
 //	utils
 
@@ -224,8 +225,10 @@ void		is_only_pipe(t_struct **temp_list);
 
 //	here doc
 
-void		transform_here_doc(t_struct **list);
-void		here_doc(char *lim);
+void		transform_here_doc(t_struct **list, t_exec exec);
+void		here_doc(char *lim, char *lim_st, t_exec exec);
+char		*expand_heredoc(char *str, t_env *env);
+void		free_loop_here_doc(int fd, char *to_ret, char **tmp, char *lim);
 
 //	signals
 
