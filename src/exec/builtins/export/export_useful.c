@@ -6,7 +6,7 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 16:42:38 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/20 17:22:03 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/21 05:02:29 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ size_t	size_without_quotes(char *arg)
 	nb = 0;
 	while (arg[i])
 	{
-		if (arg[i] == '\"')
+		if (arg[i] == '\"' || arg[i] == '\'')
 			nb--;
 		nb++;
 		i++;
