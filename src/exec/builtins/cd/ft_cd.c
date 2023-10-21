@@ -6,7 +6,7 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 10:09:36 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/21 08:40:26 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/21 10:57:22 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,14 +137,22 @@ int	ft_cd(char **cmd, t_exec *exec)
 		no_oldpwd(exec, home, cmd);
 	if (!cmd[1] || ft_strcmp(cmd[1], "~") == 0)
 	{
-		chdir(home);
-		change_oldpwd(exec, oldpwd, cmd);
-		free(oldpwd);
+		cd_tilde(home, oldpwd, cmd, exec);
+		if (exec->nb_cmds > 1)
+		{
+			free_exec_fork(exec);
+			exit(0);
+		}
 		return (0);
 	}
 	else if (ft_strcmp(cmd[1], "-") == 0)
 		return (go_to_old_pwd(oldpwd, exec, cmd), 0);
 	result = chdir(cmd[1]);
 	interprete_result(exec, oldpwd, result, cmd);
+	if (exec->nb_cmds > 1)
+	{
+		free_exec_fork(exec);
+		exit(0);
+	}
 	return (0);
 }

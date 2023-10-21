@@ -6,7 +6,7 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 11:07:53 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/21 09:39:43 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/21 10:50:38 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,9 @@ t_env		*deal_not_in_env(t_exec *exec, t_env *tmp_env,
 void		export_existing_value(t_env *args_tmp, t_exec *exec,
 				t_env *head, int not_in_env);
 t_env		*ft_lstnew_export(t_env *args_tmp);
+void		cd_tilde(char *home, char *oldpwd, char **cmd, t_exec *exec);
 size_t		size_without_quotes(char *arg);
+void		change_oldpwd(t_exec *exec, char *actual_pwd, char **cmd);
 t_env		*create_new_exp(t_exec *exec, t_env *head, t_env *args_tmp);
 char		**delete_quotation_mark(char **cmd, t_exec *exec, int nb_args);
 t_env		*find_env_for_export(t_env *tmp_env, t_env *args_tmp,

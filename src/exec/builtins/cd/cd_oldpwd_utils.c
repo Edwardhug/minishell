@@ -6,7 +6,7 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 11:28:19 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/21 08:39:56 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/21 10:55:05 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,11 @@ void	no_actual_pwd(t_exec *exec, char **cmd)
 	free_tab(exec->arg_pwd);
 	free_tab(cmd);
 	free_stuff_error(exec, NULL, "no pwd\nexit\n", -1);
+}
+
+void	cd_tilde(char *home, char *oldpwd, char **cmd, t_exec *exec)
+{
+	chdir(home);
+	change_oldpwd(exec, oldpwd, cmd);
+	free(oldpwd);
 }
