@@ -6,7 +6,7 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 11:07:53 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/21 08:49:42 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/21 09:39:43 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # include <sys/stat.h>
 # include <errno.h>
 
-# define HERE_DOC	"/nfs/homes/lgabet/Documents/here_doc"
+# define HERE_DOC	"/nfs/homes/jrenault/Documents/here_doc"
 
 extern int	g_error_value;
 
@@ -227,7 +227,8 @@ void		here_doc(char *lim, char *lim_st, t_exec exec);
 void		free_loop_here_doc(int fd, char *to_ret, char **tmp, char *lim);
 char		*expand_heredoc(char *str, t_env *env);
 char		*find_lim(char *line, int *i, t_exec *exec);
-
+void		transform_utils(t_exec exec, t_struct **copy);
+char		*get_lim(char *str);
 
 //	signals
 

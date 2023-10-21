@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 03:47:03 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/21 08:15:22 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/21 09:15:43 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	free_loop_here_doc(int fd, char *to_ret, char **tmp, char *lim)
 	ft_putstr_fd(to_ret, fd);
 	free((*tmp));
 	free(to_ret);
-	// free(lim);
 	(void)lim;
 	close(fd);
 }
