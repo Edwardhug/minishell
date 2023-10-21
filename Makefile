@@ -56,6 +56,7 @@ SRCS =	parsing/minishell.c\
 		signals/signals.c\
 		signals/signals_here_doc.c\
 		here_doc/here_doc.c\
+		here_doc/fill_node_lim.c\
 
 INCLUDE = minishell.h
 

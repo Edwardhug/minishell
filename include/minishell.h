@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 11:07:53 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/21 00:00:36 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/21 03:57:32 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,6 +202,7 @@ char		*fill_oldpwd(char *actual_pwd, t_exec *exec);
 char		*fill_newpwd(char *actual_pwd);
 void		change_pwd(t_exec *exec);
 char		*get_var_home(t_exec exec);
+char		*find_lim(char *line, int *i, t_exec *exec);
 
 //	utils
 
