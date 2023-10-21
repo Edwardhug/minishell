@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 21:26:45 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/21 05:00:26 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/21 05:17:28 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,11 +86,14 @@ char	*get_lim(char *str)
 		return (NULL);
 	while (str[i])
 	{
-		while (str[i] && (str[i] == '\'' || str[i] == '\"'))
+		if (str[i] && (str[i] == '\'' || str[i] == '\"'))
 			i++;
-		ret[j] = str[i];
-		j++;
-		i++;
+		else
+		{
+			ret[j] = str[i];
+			j++;
+			i++;
+		}
 	}
 	return (ret);
 }
