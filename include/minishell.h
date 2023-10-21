@@ -6,7 +6,7 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 11:07:53 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/21 00:14:29 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/21 08:40:17 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,7 @@ int			dash_n_handling(int *dash_n, int *newline, int *i, char **cmd);
 int			ft_env(t_exec *exec);
 int			ft_exit(char **cmd, t_exec *exec, int are_pipes);
 int			ft_pwd(t_exec *exec);
+void		no_actual_pwd(t_exec *exec, char **cmd);
 int			ft_unset(char **cmd, t_exec *exec);
 int			ft_export(char **cmd, t_exec *exec);
 t_env		*deal_not_in_env(t_exec *exec, t_env *tmp_env,
@@ -193,10 +194,10 @@ void		show_export(t_exec *exec);
 int			ft_cd(char **cmd, t_exec *exec);
 char		*get_var(t_exec *exec, char *var_name);
 void		malloc_oldpwd_var(t_exec *exec, char *actual_pwd);
-int			no_oldpwd(t_exec *exec, char *home);
+int			no_oldpwd(t_exec *exec, char *home, char **cmd);
 void		put_old_pwd_in_char(char **arg);
 void		put_pwd_in_char(char **arg);
-char		*fill_oldpwd(char *actual_pwd, t_exec *exec);
+char		*fill_oldpwd(char *actual_pwd, t_exec *exec, int i);
 char		*fill_newpwd(char *actual_pwd);
 void		change_pwd(t_exec *exec);
 char		*get_var_home(t_exec exec);

@@ -6,7 +6,7 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 11:28:19 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/20 11:31:35 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/21 08:39:56 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,25 @@ void	malloc_oldpwd_var(t_exec *exec, char *actual_pwd)
 	}
 }
 
-int	no_oldpwd(t_exec *exec, char *home)
+int	no_oldpwd(t_exec *exec, char *home, char **cmd)
 {
-	ft_putstr_fd("Can't go to this dir, moved to home\n", 2);
-	chdir(home);
+	ft_putstr_fd("can't go to this dir, moved to home\n", 2);
+	if (home)
+		chdir(home);
+	else
+	{
+		free_tab(cmd);
+		free_stuff_error(exec, NULL, "didn't found home\nexit\n", -1);
+	}
 	change_pwd(exec);
 	g_error_value = -1;
 	return (0);
+}
+
+void	no_actual_pwd(t_exec *exec, char **cmd)
+{
+	free_tab(exec->arg);
+	free_tab(exec->arg_pwd);
+	free_tab(cmd);
+	free_stuff_error(exec, NULL, "no pwd\nexit\n", -1);
 }
