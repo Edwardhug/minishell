@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 22:07:59 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/20 22:08:00 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/21 08:39:51 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,10 @@ void	change_value_builtin(t_struct *list_word, t_exec *exec, int *status)
 		}
 		else if (g_error_value == -77)
 			(*status) = 0;
+		else if (g_error_value == -130)
+			(*status) = 130 * 256;
+		else if (g_error_value == -131)
+			(*status) = 131 * 256;
 		list_word = list_word->next;
 	}
 }
