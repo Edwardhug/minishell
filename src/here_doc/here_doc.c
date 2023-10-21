@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 21:26:45 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/21 05:17:28 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/21 05:29:00 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	loop_here_doc(char **tmp, char *to_ret, char *lim, int fd)
 	{
 		ft_putstr_fd(to_ret, fd);
 		free(to_ret);
-		free(lim);
+		// free(lim);
 		close(fd);
 		ft_printf("warning : wanted `%s'\n", lim);
 		g_error_value = 130 * 256;
@@ -103,6 +103,7 @@ void	transform_here_doc(t_struct **list, t_exec exec)
 {
 	t_struct	*copy;
 	t_struct	*start;
+	char		*lim;
 
 	copy = (*list);
 	start = copy;
@@ -110,7 +111,8 @@ void	transform_here_doc(t_struct **list, t_exec exec)
 	{
 		if (ft_strcmp(copy->str, "<<") == 0)
 		{
-			here_doc(get_lim(copy->next->str), copy->next->str, exec);
+			lim = get_lim(copy->next->str);
+			here_doc(lim, copy->next->str, exec);
 			free(copy->str);
 			copy->str = ft_strdup("<");
 			copy->type = REDIRECTION;
@@ -118,6 +120,7 @@ void	transform_here_doc(t_struct **list, t_exec exec)
 			free(copy->str);
 			copy->str = ft_strdup(HERE_DOC);
 			copy->type = FILES;
+			free(lim);
 		}
 		copy = copy->next;
 	}
