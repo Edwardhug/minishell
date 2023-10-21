@@ -6,7 +6,7 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 03:47:03 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/21 10:37:36 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/21 11:04:33 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,7 @@ char	*fill_expand(char *str, int i, t_env *env)
 		to_ret[j + k] = env->value[k];
 		k++;
 	}
-	to_ret[j + k] = env->value[k];
-	return (to_ret);
+	return (to_ret[j + k] = env->value[k], to_ret);
 }
 
 char	*expand_heredoc(char *str, t_env *env)

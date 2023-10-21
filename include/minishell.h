@@ -6,7 +6,7 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 11:07:53 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/21 10:50:38 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/21 11:03:12 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,6 +193,7 @@ int			is_valid_name(char *cmd_name, t_env *args_tmp);
 void		failure_tmp_value(t_exec *exec, t_env *head, int what);
 void		ft_swap(t_env *node1, t_env *node2);
 void		sort_list(t_exec *exec);
+void		exit_if_fork(t_exec *exec);
 void		show_export(t_exec *exec);
 int			ft_cd(char **cmd, t_exec *exec);
 char		*get_var(t_exec *exec, char *var_name);

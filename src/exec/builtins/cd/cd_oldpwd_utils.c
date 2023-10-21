@@ -6,7 +6,7 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 11:28:19 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/21 10:55:05 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/21 11:03:01 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,13 @@ void	cd_tilde(char *home, char *oldpwd, char **cmd, t_exec *exec)
 	chdir(home);
 	change_oldpwd(exec, oldpwd, cmd);
 	free(oldpwd);
+}
+
+void	exit_if_fork(t_exec *exec)
+{
+	if (exec->nb_cmds > 1)
+	{
+		free_exec_fork(exec);
+		exit(0);
+	}
 }
