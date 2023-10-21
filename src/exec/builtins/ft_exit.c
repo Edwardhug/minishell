@@ -6,7 +6,7 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 13:04:59 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/20 13:13:47 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/21 07:34:27 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ static int	if_one_command(char **cmd, t_exec *exec, int are_pipes)
 		free_exec_fork(exec);
 	else
 		free_exec_struct(exec);
-	free_tab(cmd);
+	if (cmd)
+		free_tab(cmd);
 	exit(status);
 	return (0);
 }
