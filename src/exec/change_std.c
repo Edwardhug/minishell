@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   change_std.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 18:16:55 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/21 00:03:27 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/21 06:23:01 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,12 @@ void	change_std(t_struct *lst, int fd, t_exec *exec)
 	cfd.fd_out = 1;
 	while (lst && lst->next && lst->type != PIPE)
 	{
+		if (lst->type == REDIRECTION
+			&& ft_strncmp(lst->next->str, "$", 1) == 0)
+		{
+			close(fd);				
+			free_stuff_error(exec, lst->next->str, ": ambiguous redirect\n", -1);
+		}
 		if (ft_strcmp(lst->str, "<") == 0)
 		{
 			cfd.fd_in = open_fd_in_(lst->next, exec, fd);

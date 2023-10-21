@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 11:07:53 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/21 05:50:42 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/21 06:11:00 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ void		clean_redir_out(t_struct **list);
 void		loop_parsing(t_struct **list_word, char *line, t_exec *exec);
 char		*find_second_quote(char *line, int *i, t_exec *exec);
 void		clear_underscore(t_exec *exec);
+void 		expand_pars(t_struct **list, t_env *env);
 
 void		print_list(t_struct *list);
 
