@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 21:26:45 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/21 04:18:39 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/21 05:00:26 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	loop_here_doc(char **tmp, char *to_ret, char *lim, int fd)
 	return (0);
 }
 
-void	here_doc(char *lim)
+void	here_doc(char *lim, char *lim_st, t_exec exec)
 {
 	int		fd;
 	char	*tmp;
@@ -62,6 +62,8 @@ void	here_doc(char *lim)
 	{
 		if (loop_here_doc(&tmp, to_ret, lim, fd))
 			return ;
+		if (ft_strcmp(lim, lim_st) == 0)
+			tmp = expand_heredoc(tmp, exec.env);
 		copy = ft_strjoin(tmp, "\n");
 		tamp = ft_strjoin(to_ret, copy);
 		free(to_ret);
@@ -94,7 +96,7 @@ char	*get_lim(char *str)
 }
 
 
-void	transform_here_doc(t_struct **list)
+void	transform_here_doc(t_struct **list, t_exec exec)
 {
 	t_struct	*copy;
 	t_struct	*start;
@@ -105,7 +107,7 @@ void	transform_here_doc(t_struct **list)
 	{
 		if (ft_strcmp(copy->str, "<<") == 0)
 		{
-			here_doc(get_lim(copy->next->str));
+			here_doc(get_lim(copy->next->str), copy->next->str, exec);
 			free(copy->str);
 			copy->str = ft_strdup("<");
 			copy->type = REDIRECTION;

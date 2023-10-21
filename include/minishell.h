@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 11:07:53 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/21 03:57:32 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/21 05:00:09 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,8 +223,9 @@ void		env_double_char(t_exec *exec, t_env_lst *str);
 
 //	here doc
 
-void		transform_here_doc(t_struct **list);
-void		here_doc(char *lim);
+void		transform_here_doc(t_struct **list, t_exec exec);
+void		here_doc(char *lim, char *lim_st, t_exec exec);
+char		*expand_heredoc(char *str, t_env *env);
 
 //	signals
 
