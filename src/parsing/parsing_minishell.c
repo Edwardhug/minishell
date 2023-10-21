@@ -3,28 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_minishell.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/21 04:35:48 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/21 06:12:07 by lgabet           ###   ########.fr       */
+/*   Created: 2023/06/14 15:50:18 by lgabet            #+#    #+#             */
+/*   Updated: 2023/10/21 07:35:56 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-void	print_list(t_struct *list)
-{
-	int	i;
-
-	i = 0;
-	while (list)
-	{
-		ft_printf("node n%d\n	-str = %s\n", i, list->str);
-		ft_printf("	-type = %d\n", list->type);
-		i++;
-		list = list->next;
-	}
-}
 
 void	fill_node(t_struct **list_word, char *word, t_exec *exec)
 {
