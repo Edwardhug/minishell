@@ -6,22 +6,22 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 21:26:45 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/20 21:31:50 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/21 03:05:42 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	loop_here_doc(char *tmp, char *to_ret, char *lim, int fd)
+int	loop_here_doc(char **tmp, char *to_ret, char *lim, int fd)
 {
-	tmp = readline("> ");
+	(*tmp) = readline("> ");
 	if (g_error_value == 130)
 	{
 		free(to_ret);
 		close(fd);
 		return (1);
 	}
-	if (!tmp && g_error_value != 130)
+	if (!(*tmp) && g_error_value != 130)
 	{
 		ft_putstr_fd(to_ret, fd);
 		free(to_ret);
@@ -30,10 +30,10 @@ int	loop_here_doc(char *tmp, char *to_ret, char *lim, int fd)
 		g_error_value = 130 * 256;
 		return (1);
 	}
-	if (ft_strcmp(tmp, lim) == 0)
+	if (ft_strcmp((*tmp), lim) == 0)
 	{
 		ft_putstr_fd(to_ret, fd);
-		free(tmp);
+		free((*tmp));
 		free(to_ret);
 		close(fd);
 		return (1);
@@ -57,7 +57,7 @@ void	here_doc(char *lim)
 	signal(SIGINT, sigint_handler_heredoc);
 	while (g_error_value != -89)
 	{
-		if (loop_here_doc(tmp, to_ret, lim, fd))
+		if (loop_here_doc(&tmp, to_ret, lim, fd))
 			return ;
 		copy = ft_strjoin(tmp, "\n");
 		tamp = ft_strjoin(to_ret, copy);
