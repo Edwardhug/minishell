@@ -21,6 +21,7 @@ SRCS =	parsing/minishell.c\
 		parsing/fill_quote_node.c\
 		parsing/strange_cmd.c\
 		parsing/print_message.c\
+		parsing/expand.c\
 		exec/exec_start.c\
 		exec/exec_continue.c\
 		exec/apply_exec.c\
@@ -56,6 +57,7 @@ SRCS =	parsing/minishell.c\
 		signals/signals.c\
 		signals/signals_here_doc.c\
 		here_doc/here_doc.c\
+		here_doc/fill_node_lim.c\
 
 INCLUDE = minishell.h
 
@@ -102,6 +104,34 @@ $(PATH_OBJS) :
 
 $(LIBFT_A)	:	FORCE
 				make all -C $(PATH_LIBFT)
+
+
+# --------------------------------Removing readline leaks---------------------
+
+leaks            :    all
+				echo "{" > valgrind_ignore_leaks.txt
+				echo "leak readline" >> valgrind_ignore_leaks.txt
+				echo "    Memcheck:Leak" >> valgrind_ignore_leaks.txt
+				echo "    ..." >> valgrind_ignore_leaks.txt
+				echo "    fun:readline" >> valgrind_ignore_leaks.txt
+				echo "}" >> valgrind_ignore_leaks.txt
+				echo "{" >> valgrind_ignore_leaks.txt
+				echo "    leak add_history" >> valgrind_ignore_leaks.txt
+				echo "    Memcheck:Leak" >> valgrind_ignore_leaks.txt
+				echo "    ..." >> valgrind_ignore_leaks.txt
+				echo "    fun:add_history" >> valgrind_ignore_leaks.txt
+				echo "}" >> valgrind_ignore_leaks.txt
+				valgrind --suppressions=valgrind_ignore_leaks.txt --leak-check=full \
+					--show-leak-kinds=all --track-fds=yes \
+					--show-mismatched-frees=yes --read-var-info=yes \
+					-s ./${NAME}
+					#--log-file=valgrind.txt \
+
+envleaks            :    all
+				env -i valgrind --suppressions=valgrind_ignore_leaks.txt --leak-check=full \
+					--show-leak-kinds=all --track-fds=yes \
+					--show-mismatched-frees=yes --read-var-info=yes \
+					-s ./${NAME}
 
 # ----------------------------------commands---------------------------------
 
