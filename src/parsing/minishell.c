@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 22:20:22 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/20 22:21:00 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/21 08:03:21 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ void	loop_parsing(t_struct **list_word, char *line, t_exec *exec)
 		if (i != 0 && ft_strcmp(get_last_node(*list_word)->str, "export") == 0)
 			fill_var_node(list_word, find_end_var(line, &i, list_word, exec),
 				exec);
+		else if (i != 0 && ft_strcmp(get_last_node(*list_word)->str, "<<") == 0)
+			fill_quote_node(list_word, find_lim(line, &i, exec), exec);
 		else if (i != 0
 			&& ft_strcmp(get_last_node(*list_word)->str, "echo") == 0
 			&& (line[i] == '\'' || line[i] == '\"'))
