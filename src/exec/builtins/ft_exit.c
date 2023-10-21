@@ -6,7 +6,7 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 09:01:27 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/21 09:14:40 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/21 11:50:35 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,20 @@ static int	exit_not_number(char **cmd, t_exec *exec, int are_pipes)
 	exit(2);
 }
 
-static int	if_one_command(char **cmd, t_exec *exec, int are_pipes)
+static int	if_one_command(char **cmd, t_exec *exec,
+	int are_pipes, int overflow)
 {
 	long long	status;
-	int			overflow;
 
-	overflow = 0;
 	status = 0;
 	if (cmd[2])
 	{
 		ft_error_message(cmd[0], ": too many arguments\n");
+		if (exec->nb_cmds > 1)
+		{
+			free_exec_fork(exec);
+			exit(1);
+		}
 		g_error_value = -1;
 		return (1);
 	}
@@ -82,7 +86,7 @@ int	ft_exit(char **cmd, t_exec *exec, int are_pipes)
 	if (!are_pipes)
 		ft_putstr_fd("exit\n", 1);
 	if (cmd[1])
-		if (if_one_command(cmd, exec, are_pipes) == 1)
+		if (if_one_command(cmd, exec, are_pipes, 0) == 1)
 			return (1);
 	shlvl(exec, 0, 0);
 	if (are_pipes)
