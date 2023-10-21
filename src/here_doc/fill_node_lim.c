@@ -6,11 +6,20 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 03:47:03 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/21 05:05:32 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/21 05:38:56 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+void	free_loop_here_doc(int fd, char *to_ret, char **tmp, char *lim)
+{
+	ft_putstr_fd(to_ret, fd);
+	free((*tmp));
+	free(to_ret);
+	free(lim);
+	close(fd);
+}
 
 char	*find_lim(char *line, int *i, t_exec *exec)
 {
@@ -54,7 +63,7 @@ char	*fill_expand(char *str, int i, t_env *env)
 	j = 0;
 	k = 0;
 	to_ret = ft_calloc(get_s_expand(str + i, env) + ft_strlen(str) + 1,
-	sizeof(char));
+			sizeof(char));
 	if (!to_ret)
 		return (NULL);
 	while (str[j] != '$')

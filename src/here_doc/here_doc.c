@@ -6,7 +6,7 @@
 /*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 21:26:45 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/21 05:29:00 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/21 05:38:52 by lgabet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int	loop_here_doc(char **tmp, char *to_ret, char *lim, int fd)
 	{
 		ft_putstr_fd(to_ret, fd);
 		free(to_ret);
-		// free(lim);
 		close(fd);
 		ft_printf("warning : wanted `%s'\n", lim);
 		g_error_value = 130 * 256;
@@ -34,14 +33,16 @@ int	loop_here_doc(char **tmp, char *to_ret, char *lim, int fd)
 	}
 	if (ft_strcmp((*tmp), lim) == 0)
 	{
-		ft_putstr_fd(to_ret, fd);
-		free((*tmp));
-		free(to_ret);
-		free(lim);
-		close(fd);
+		free_loop_here_doc(fd, to_ret, tmp, lim);
 		return (1);
 	}
 	return (0);
+}
+
+static void	free_some_here_doc(char *copy, char *tmp)
+{
+	free(copy);
+	free(tmp);
 }
 
 void	here_doc(char *lim, char *lim_st, t_exec exec)
@@ -68,8 +69,7 @@ void	here_doc(char *lim, char *lim_st, t_exec exec)
 		tamp = ft_strjoin(to_ret, copy);
 		free(to_ret);
 		to_ret = tamp;
-		free(copy);
-		free(tmp);
+		free_some_here_doc(copy, tmp);
 	}
 }
 
@@ -97,7 +97,6 @@ char	*get_lim(char *str)
 	}
 	return (ret);
 }
-
 
 void	transform_here_doc(t_struct **list, t_exec exec)
 {
