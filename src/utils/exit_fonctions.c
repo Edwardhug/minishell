@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_fonctions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 17:13:13 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/17 11:31:30 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/21 11:17:24 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,5 @@ void	exit_and_write_it(t_exec *exec)
 	close(exec->fd_stand);
 	free_env(exec->env);
 	free_env(exec->export);
-	exit(EXIT_SUCCESS);
+	exit(g_error_value / 256);
 }
