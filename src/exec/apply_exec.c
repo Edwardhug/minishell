@@ -6,7 +6,7 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 21:35:12 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/20 23:55:23 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/21 03:53:23 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,9 @@ char	*t_get_cmd(char **env, char **splited_cmd, t_exec *exec)
 
 	i = 0;
 	path = NULL;
+	if (ft_strncmp(splited_cmd[0], "./", 2) == 0
+		|| ft_strncmp(splited_cmd[0], "/", 1) == 0)
+		return (ft_strdup(splited_cmd[0]));
 	while (env[i])
 	{
 		if (ft_strncmp(env[i], "PATH=", 5) == 0)
@@ -107,9 +110,6 @@ char	*t_get_cmd(char **env, char **splited_cmd, t_exec *exec)
 	if (!path)
 		return (free_tab(splited_cmd), free_tab(env), NULL);
 	path = path + 5;
-	if (ft_strncmp(splited_cmd[0], "./", 2) == 0
-		|| ft_strncmp(splited_cmd[0], "/", 1) == 0)
-		return (ft_strdup(splited_cmd[0]));
 	all_path = ft_split(path, ':');
 	if (!all_path)
 		return (free_tab(splited_cmd), free_tab(env), NULL);

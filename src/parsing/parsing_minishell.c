@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/14 15:50:18 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/21 00:07:59 by jrenault         ###   ########lyon.fr   */
+/*   Created: 2023/10/21 04:35:48 by jrenault          #+#    #+#             */
+/*   Updated: 2023/10/21 04:41:26 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ void	parsing_minishell(char *line, t_exec *exec)
 	}
 	if (!delete_node(&list_word))
 		return ;
+	is_only_pipe(&list_word);
 	transform_here_doc(&list_word);
 	if (g_error_value != 130)
 		begin_execution(exec, list_word, 0);

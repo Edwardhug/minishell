@@ -6,7 +6,7 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 11:07:53 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/21 03:16:54 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/21 04:41:51 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,19 @@ typedef enum s_enum
 	FILES,
 }			t_enum;
 
-typedef struct s_env
-{
-	char			*name;
-	char			*value;
-	struct s_env	*next;
-}					t_env;
-
 typedef struct s_struct
 {
 	char				*str;
 	t_enum				type;
 	struct s_struct		*next;
 }			t_struct;
+
+typedef struct s_env
+{
+	char			*name;
+	char			*value;
+	struct s_env	*next;
+}					t_env;
 
 typedef struct s_exec
 {
@@ -220,6 +220,7 @@ void		free_stuff_error(t_exec *exec, char *name,
 int			ft_error_message(char *cmd_name, char *msg);
 int			ft_error_message_arg(char *cmd_name, char *arg, char *msg);
 void		env_double_char(t_exec *exec, t_env_lst *str);
+void		is_only_pipe(t_struct **temp_list);
 
 //	here doc
 
