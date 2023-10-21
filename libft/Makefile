@@ -6,7 +6,7 @@
 #    By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/09 15:15:05 by jrenault          #+#    #+#              #
-#    Updated: 2023/10/21 03:29:06 by jrenault         ###   ########lyon.fr    #
+#    Updated: 2023/06/11 23:33:52 by jrenault         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 
 NAME = libft.a
 
-SRCS = 	ft_atoi_ll.c ft_strcmp.c free_tab_int.c ft_strlen_doublechar.c ft_swap_int.c free_tab_void.c free_tab.c \
+SRCS = 	ft_strcmp.c free_tab_int.c ft_strlen_doublechar.c ft_swap_int.c free_tab_void.c free_tab.c \
 		ft_count.c ft_count_ul.c ft_count_unsigned.c ft_count_long.c \
 		ft_putnbr_base_ul.c ft_putunbr.c ft_strncpy.c ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c ft_itoa.c \
 		ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c ft_putchar_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_putstr_fd.c ft_split.c ft_strchr.c ft_strdup.c ft_striteri.c \

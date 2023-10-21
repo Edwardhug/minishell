@@ -6,7 +6,7 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 13:04:59 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/21 07:35:52 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/21 07:34:27 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ static int	exit_not_number(char **cmd, t_exec *exec, int are_pipes)
 static int	if_one_command(char **cmd, t_exec *exec, int are_pipes)
 {
 	long long	status;
-	int			overflow;
 
 	status = 0;
 	if (cmd[2])
@@ -51,9 +50,9 @@ static int	if_one_command(char **cmd, t_exec *exec, int are_pipes)
 		g_error_value = -1;
 		return (1);
 	}
-	status = ft_atoi_ll(cmd[1], &overflow) % 256;
-	if (is_not_number(cmd[1]) == 1 || overflow == 1)
+	if (is_not_number(cmd[1]) == 1)
 		exit_not_number(cmd, exec, are_pipes);
+	status = ft_atoi(cmd[1]) % 256;
 	if (are_pipes)
 		free_exec_fork(exec);
 	else
