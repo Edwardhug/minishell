@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 11:07:53 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/21 06:11:00 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/21 06:35:52 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ char		*dup_without_space(char *str);
 int			switch_loop(t_struct **list, t_exec exec);
 int			change_env_var(t_struct **list, t_exec *exec);
 int			have_strange_cmd(char *str);
-void		change_std(t_struct *lst, int fd, t_exec *exec);
+void		change_std(t_struct *lst, int fd, t_exec *exec, t_fd cfd);
 char		*get_node(char *word, int *i);
 char		**get_path(char **env);
 void		parsing_minishell(char *line, t_exec *exec);
@@ -129,7 +129,7 @@ void		clean_redir_out(t_struct **list);
 void		loop_parsing(t_struct **list_word, char *line, t_exec *exec);
 char		*find_second_quote(char *line, int *i, t_exec *exec);
 void		clear_underscore(t_exec *exec);
-void 		expand_pars(t_struct **list, t_env *env);
+void		expand_pars(t_struct **list, t_env *env);
 
 void		print_list(t_struct *list);
 

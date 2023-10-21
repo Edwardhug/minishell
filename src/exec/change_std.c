@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   change_std.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgabet <lgabet@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 18:16:55 by jrenault          #+#    #+#             */
-/*   Updated: 2023/10/21 06:23:01 by lgabet           ###   ########.fr       */
+/*   Updated: 2023/10/21 06:34:53 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,18 +67,14 @@ static void	dup_function(t_struct *lst, int fd, t_fd cfd)
 	}
 }
 
-void	change_std(t_struct *lst, int fd, t_exec *exec)
+void	change_std(t_struct *lst, int fd, t_exec *exec, t_fd cfd)
 {
-	t_fd	cfd;
-
-	cfd.fd_in = 0;
-	cfd.fd_out = 1;
 	while (lst && lst->next && lst->type != PIPE)
 	{
 		if (lst->type == REDIRECTION
 			&& ft_strncmp(lst->next->str, "$", 1) == 0)
 		{
-			close(fd);				
+			close(fd);
 			free_stuff_error(exec, lst->next->str, ": ambiguous redirect\n", -1);
 		}
 		if (ft_strcmp(lst->str, "<") == 0)

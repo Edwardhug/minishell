@@ -6,7 +6,7 @@
 /*   By: jrenault <jrenault@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 11:55:30 by lgabet            #+#    #+#             */
-/*   Updated: 2023/10/21 04:40:04 by jrenault         ###   ########lyon.fr   */
+/*   Updated: 2023/10/21 06:39:52 by jrenault         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ t_struct	*to_cmd(t_struct *lst)
 	while (lst && lst->type != CMD)
 		lst = lst->next;
 	cmd = lst;
-	while (lst && lst->next && lst->next->type != PIPE)
+	while (lst && lst->next && lst->next->next
+		&& lst->next->type != PIPE)
 	{
 		if (lst->next->type == REDIRECTION)
 		{
@@ -85,9 +86,13 @@ t_struct	*to_cmd(t_struct *lst)
 
 int	child_process(int *fd, t_struct *temp_list, t_exec *exec)
 {
+	t_fd	cfd;
+
+	cfd.fd_in = 0;
+	cfd.fd_out = 1;
 	close(fd[0]);
 	close(exec->fd_stand);
-	change_std(temp_list, fd[1], exec);
+	change_std(temp_list, fd[1], exec, cfd);
 	close(fd[1]);
 	exec->clean_cmd = t_get_clean_cmd(to_cmd(temp_list), exec, -1);
 	is_builtin_fork(exec->clean_cmd, exec);
