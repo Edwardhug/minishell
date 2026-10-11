@@ -125,11 +125,11 @@ void	t_apply_exec(t_struct *temp_list, t_exec *exec)
 	splited_cmd = t_get_clean_cmd(temp_list, exec, -1);
 	if (!splited_cmd)
 		return ;
+	if (ft_strcmp("./minishell", splited_cmd[0]) == 0)
+		shlvl(exec, 0, 1);
 	exec->char_env = env_lst_into_double_char(exec->env, exec);
 	path_cmd = t_get_cmd(exec->char_env, splited_cmd, exec);
 	if (!path_cmd)
 		free_stuff_error(exec, temp_list->str, ": no path found\n", 127);
-	if (ft_strcmp("./minishell", path_cmd) == 0)
-		shlvl(exec, 0, 1);
 	execute_execve(splited_cmd, exec, temp_list, path_cmd);
 }
