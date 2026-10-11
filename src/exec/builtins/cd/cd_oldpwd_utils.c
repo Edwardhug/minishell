@@ -38,7 +38,7 @@ void	malloc_oldpwd_var(t_exec *exec, char *actual_pwd)
 
 int	no_oldpwd(t_exec *exec, char *home, char **cmd)
 {
-	ft_putstr_fd("can't go to this dir, moved to home\n", 2);
+	ft_putstr_err("can't go to this dir, moved to home\n");
 	if (home)
 		chdir(home);
 	else

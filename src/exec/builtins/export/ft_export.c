@@ -18,10 +18,10 @@ t_env	*ft_lstnew_export(t_env *args_tmp)
 
 	new = malloc(sizeof(t_env));
 	if (!new)
-		return (perror("malloc lstnew_export1"), NULL);
+		return (ft_perror_err("malloc lstnew_export1"), NULL);
 	new->name = ft_strdup(args_tmp->name);
 	if (!new->name)
-		return (perror("lstnew_export dup 1"), NULL);
+		return (ft_perror_err("lstnew_export dup 1"), NULL);
 	if (args_tmp->value == NULL || args_tmp->value[0] == '\0')
 	{
 		new->value = malloc(sizeof(char *) * 1);
@@ -31,7 +31,7 @@ t_env	*ft_lstnew_export(t_env *args_tmp)
 	{
 		new->value = ft_strdup(args_tmp->value);
 		if (!new->value)
-			return (perror("lstnew_export dup 2"), NULL);
+			return (ft_perror_err("lstnew_export dup 2"), NULL);
 	}
 	new->next = NULL;
 	return (new);

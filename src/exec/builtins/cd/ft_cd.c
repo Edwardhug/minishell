@@ -44,7 +44,7 @@ void	go_to_old_pwd(char *oldpwd, t_exec *exec, char **cmd)
 
 	if (chdir(get_var(exec, "OLDPWD")))
 	{
-		perror("OLDPWD");
+		ft_perror_err("OLDPWD");
 		g_error_value = -1;
 		if (exec->nb_cmds > 1)
 		{
@@ -71,7 +71,7 @@ void	go_to_home(char *oldpwd, t_exec *exec, char **cmd)
 {
 	if (chdir(get_var(exec, "HOME")))
 	{
-		perror("HOME");
+		ft_perror_err("HOME");
 		g_error_value = -1;
 		if (exec->nb_cmds > 1)
 		{

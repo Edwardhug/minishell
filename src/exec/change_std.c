@@ -42,7 +42,7 @@ static int	open_fd_out(t_struct *lst)
 	}
 	if (fd_out < 0)
 	{
-		perror(lst->str);
+		ft_perror_err(lst->str);
 		exit(1);
 	}
 	return (fd_out);

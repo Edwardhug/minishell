@@ -20,7 +20,7 @@ int	t_open_fd_out(t_struct *temp_list)
 	{
 		change_outfile(&temp_list, &fd_out);
 		if (fd_out < 0)
-			perror(temp_list->str);
+			ft_perror_err(temp_list->str);
 		if (!temp_list->next || temp_list->next->type == PIPE)
 		{
 			dup2(fd_out, STDOUT_FILENO);

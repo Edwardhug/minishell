@@ -14,7 +14,7 @@
 
 int	open_beak(t_struct *tmp, int fd_in, t_struct **temp_list)
 {
-	perror(tmp->str);
+	ft_perror_err(tmp->str);
 	dup2(fd_in, STDIN_FILENO);
 	close (fd_in);
 	(*temp_list) = (*temp_list)->next;

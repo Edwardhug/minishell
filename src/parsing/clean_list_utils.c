@@ -58,7 +58,7 @@ void	env_double_char(t_exec *exec, t_env_lst *str)
 		}
 		free(str->char_env);
 		free_exec_struct(exec);
-		perror("malloc error\n");
+		ft_perror_err("malloc error\n");
 		exit(EXIT_FAILURE);
 	}
 	str->char_env[str->i] = ft_strjoin(str->tmp2, str->tmp->value);
@@ -66,7 +66,7 @@ void	env_double_char(t_exec *exec, t_env_lst *str)
 	{
 		free_tab(str->char_env);
 		free_exec_struct(exec);
-		perror("malloc error\n");
+		ft_perror_err("malloc error\n");
 		exit(EXIT_FAILURE);
 	}
 	free(str->tmp2);

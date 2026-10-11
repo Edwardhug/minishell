@@ -60,13 +60,13 @@ int	special_builtin(char **cmd, t_exec *exec)
 	if (is_env_var2(exec, cmd[0]))
 	{
 		show_env_var2(exec, cmd[0]);
-		ft_putstr_fd(" : Is a directory\n", 2);
+		ft_putstr_err(" : Is a directory\n");
 		exit(126);
 	}
 	if (!cmd[0][1])
 	{
 		free_exec_fork(exec);
-		ft_putstr_fd("command not found\n", 2);
+		ft_putstr_err("command not found\n");
 		exit(127);
 	}
 	if (cmd[0][1] == '?')

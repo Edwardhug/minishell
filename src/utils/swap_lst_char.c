@@ -22,7 +22,7 @@ char	**env_lst_into_double_char(t_env *env, t_exec *exec)
 	if (!str.char_env)
 	{
 		free_exec_struct(exec);
-		perror("malloc lst into double char 1");
+		ft_perror_err("malloc lst into double char 1");
 		exit(EXIT_FAILURE);
 	}
 	while (str.tmp)
@@ -39,10 +39,10 @@ t_env	*ft_lstnew_env(char *str, int nb)
 	i = 0;
 	new = malloc(sizeof(t_env));
 	if (!new)
-		return (perror("malloc lstnew_env 1"), NULL);
+		return (ft_perror_err("malloc lstnew_env 1"), NULL);
 	new->name = malloc(sizeof(char) * (nb + 1));
 	if (!new->name)
-		return (perror("malloc lstnew_env 2"), free(new), NULL);
+		return (ft_perror_err("malloc lstnew_env 2"), free(new), NULL);
 	change_name(&new, str, &i, nb);
 	if (str[nb] != '\0')
 	{
@@ -96,7 +96,7 @@ t_env	*env_double_char_into_lst(char **c_env, t_exec *exec)
 		new_env = ft_lstnew_env(c_env[i], search_equal_sign(c_env[i]));
 		if (!new_env)
 		{
-			perror("lst error");
+			ft_perror_err("lst error");
 			free_tab(c_env);
 			free_exec_struct(exec);
 			exit(EXIT_FAILURE);

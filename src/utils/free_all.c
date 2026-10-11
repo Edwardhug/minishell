@@ -37,8 +37,8 @@ void	free_stuff_error(t_exec *exec, char *name,
 	char *strperror, int error_value)
 {
 	if (name)
-		ft_putstr_fd(name, 2);
-	ft_putstr_fd(strperror, 2);
+		ft_putstr_err(name);
+	ft_putstr_err(strperror);
 	free_exec_struct(exec);
 	if (error_value >= 0)
 		exit(error_value);

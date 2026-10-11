@@ -29,6 +29,13 @@
 
 # define HERE_DOC	"/tmp/.minishell_here_doc"
 
+# define PROMPT_PLAIN	"Minishell> "
+# define PROMPT_NAME	"\001\033[1;36m\002minishell\001\033[0;34m\002 "
+# define PROMPT_OK		"\001\033[1;32m\002 > \001\033[0m\002"
+# define PROMPT_KO		"\001\033[1;31m\002 > \001\033[0m\002"
+# define ERR_COLOR		"\033[31m"
+# define ERR_RESET		"\033[0m"
+
 extern int	g_error_value;
 
 typedef enum s_enum
@@ -221,6 +228,9 @@ void		free_stuff_error(t_exec *exec, char *name,
 				char *strperror, int error_value);
 int			ft_error_message(char *cmd_name, char *msg);
 int			ft_error_message_arg(char *cmd_name, char *arg, char *msg);
+void		ft_putstr_err(char *s);
+void		ft_perror_err(char *s);
+char		*build_prompt(t_exec *exec);
 void		env_double_char(t_exec *exec, t_env_lst *str);
 
 //	here doc

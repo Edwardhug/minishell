@@ -14,30 +14,30 @@
 
 int	no_lst(t_struct **lst)
 {
-	ft_putstr_fd("command not found\n", 2);
+	ft_putstr_err("command not found\n");
 	return (free_list(lst), g_error_value = 127 * 256, 0);
 }
 
 int	redir_to_long(t_struct **lst)
 {
-	ft_putstr_fd("syntax error near unexpected token\n", 2);
+	ft_putstr_err("syntax error near unexpected token\n");
 	return (free_list(lst), g_error_value = 2 * 256, 0);
 }
 
 int	test_files(t_struct **lst)
 {
-	ft_putstr_fd("./test_files: Is a directory\n", 2);
+	ft_putstr_err("./test_files: Is a directory\n");
 	return (free_list(lst), g_error_value = 126 * 256, 0);
 }
 
 int	no_permission(t_struct **lst)
 {
-	ft_putstr_fd("./test_files/invalid_permission: Is a directory\n", 2);
+	ft_putstr_err("./test_files/invalid_permission: Is a directory\n");
 	return (free_list(lst), g_error_value = 126 * 256, 0);
 }
 
 int	no_such_file(t_struct **lst)
 {
-	ft_putstr_fd(" No such file or directory\n", 2);
+	ft_putstr_err(" No such file or directory\n");
 	return (free_list(lst), g_error_value = 1 * 256, 0);
 }

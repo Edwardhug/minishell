@@ -46,8 +46,12 @@ void	get_right_return_value(char **splited, struct stat info, t_exec *exec)
 
 void	print_return_value(void)
 {
-	ft_putnbr_fd(g_error_value / 256, 2);
-	ft_putstr_fd(": command not found\n", 2);
+	char	*nb;
+
+	nb = ft_itoa(g_error_value / 256);
+	ft_putstr_err(nb);
+	free(nb);
+	ft_putstr_err(": command not found\n");
 	exit(127);
 }
 

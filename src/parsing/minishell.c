@@ -46,9 +46,15 @@ char	*remove_new_line(char *str)
 void	loop_main(t_exec *exec)
 {
 	char	*line;
+	char	*prompt;
 
 	exec->fd_stand = dup(STDIN_FILENO);
-	line = readline("Minishell> ");
+	prompt = build_prompt(exec);
+	if (prompt)
+		line = readline(prompt);
+	else
+		line = readline(PROMPT_PLAIN);
+	free(prompt);
 	if (line == NULL)
 		exit_and_write_it(exec);
 	if (line[0])
@@ -98,7 +104,7 @@ static void	if_env_i(t_exec *exec)
 	cwd = getcwd(NULL, 0);
 	if (!cwd)
 	{
-		ft_putstr_fd("malloc error\n", 2);
+		ft_putstr_err("malloc error\n");
 		exit(EXIT_FAILURE);
 	}
 	shlvl(exec, 1, 1);
@@ -108,7 +114,7 @@ static void	if_env_i(t_exec *exec)
 		pwd = ft_strjoin("PWD=", cwd);
 		if (!pwd)
 		{
-			ft_putstr_fd("malloc error\n", 2);
+			ft_putstr_err("malloc error\n");
 			free(cwd);
 			exit(EXIT_FAILURE);
 		}

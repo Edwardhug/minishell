@@ -31,7 +31,7 @@ char	**get_path(char **env)
 	splited_path = ft_split(path, ':');
 	if (!splited_path)
 	{
-		ft_putstr_fd("Malloc error while splitting path\n", 2);
+		ft_putstr_err("Malloc error while splitting path\n");
 		exit(EXIT_FAILURE);
 	}
 	return (splited_path);

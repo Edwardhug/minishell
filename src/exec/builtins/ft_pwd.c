@@ -25,7 +25,7 @@ int	ft_pwd(t_exec *exec)
 	else
 	{
 		free(cwd);
-		perror("Path error");
+		ft_perror_err("Path error");
 		g_error_value = -127;
 		return (1);
 	}

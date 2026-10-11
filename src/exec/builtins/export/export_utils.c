@@ -26,9 +26,9 @@ t_env	*dup_existing_value(t_exec *exec, t_env *head,
 void	failure_tmp_value(t_exec *exec, t_env *head, int what)
 {
 	if (what == 0)
-		perror("tmp_env->value malloc\n");
+		ft_perror_err("tmp_env->value malloc\n");
 	else
-		perror("tmp_exp->value dup error\n");
+		ft_perror_err("tmp_exp->value dup error\n");
 	free_exec_struct(exec);
 	if (head)
 		free_env(head);
