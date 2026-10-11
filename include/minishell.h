@@ -27,7 +27,7 @@
 # include <sys/stat.h>
 # include <errno.h>
 
-# define HERE_DOC	"/nfs/homes/jrenault/Documents/here_doc"
+# define HERE_DOC	"/tmp/.minishell_here_doc"
 
 extern int	g_error_value;
 

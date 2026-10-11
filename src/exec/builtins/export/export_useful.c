@@ -38,8 +38,8 @@ char	*fill_cmd_without_quotes(t_exec *exec, char **cmd,
 	clean_cmd[i] = malloc(sizeof(char) * (size_without_quotes(cmd[i]) + 1));
 	if (!clean_cmd[i])
 	{
-		while (--i >= 0)
-			free(clean_cmd[i]);
+		while (i > 0)
+			free(clean_cmd[--i]);
 		free(clean_cmd);
 		free_tab(cmd);
 		free_stuff_error(exec, NULL, "malloc error\n", -1);
